@@ -1,0 +1,16 @@
+<?php
+
+foreach ($serviciosLocal as $linea) {
+    echo "<servicioLocal>";
+    echo "<idTipoServicioLocal>";
+    echo html_entity_decode($linea->id_tipo_servicio_local);
+    echo "</idTipoServicioLocal>";
+    echo "<idServicioLocal>";
+    echo html_entity_decode($linea->id_servicio_local);
+    echo "</idServicioLocal>";
+    echo "<servicio>";
+    echo html_entity_decode($linea->servicio);
+    echo "</servicio>";
+    echo "</servicioLocal>";
+}
+?>
