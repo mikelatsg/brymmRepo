@@ -27,6 +27,7 @@ require_once APPPATH . '/libraries/menus/menu.php';
 require_once APPPATH . '/libraries/menus/menuDia.php';
 require_once APPPATH . '/libraries/reservas/reservaLocal.php';
 require_once APPPATH . '/libraries/reservas/diaCierreReserva.php';
+require_once APPPATH . '/libraries/comandas/tipoComanda.php';
 
 class Locales extends REST_Controller {
 
@@ -57,6 +58,7 @@ class Locales extends REST_Controller {
 	const JSON_PEDIDOS_TERMINADOS = "pedidosTerminados";
 	const JSON_SERVICIOS_LOCAL = "serviciosLocal";
 	const JSON_TIPOS_SERVICIO = "tiposServicio";
+	
 
 	//Constantes
 	const CONST_SERVICIOS = "servicios";
@@ -198,6 +200,11 @@ class Locales extends REST_Controller {
 		$platos = $this->Menus_model->obtenerPlatosLocalObject($idLocal);
 		$menus = $this->Menus_model->obtenerTiposMenuLocalObject($idLocal);
 		$menusDia = $this->Menus_model->obtenerMenusDiaLocalObject();
+		
+		//Se carga el modelo de comandas
+		$this->load->model('menus/Comandas_model');
+		
+		$tiposComanda = $this->Comandas_model->obtenerTiposComandaObject();
 			
 		$datosLocal = array(
 				Locales::JSON_INGREDIENTES => $ingredientes,
@@ -221,13 +228,15 @@ class Locales extends REST_Controller {
 				TipoPlato::FIELD_TIPOS_PLATO => $tiposPlato,
 				Plato::FIELD_PLATOS => $platos,
 				Menu::FIELD_MENUS => $menus,
-				MenuDia::FIELD_MENUS_DIA => $menusDia
+				MenuDia::FIELD_MENUS_DIA => $menusDia,
+				TipoComanda::FIELD_TIPOS_COMANDA => $tiposComanda
 		);
 
 		$this->response($datosLocal, Locales::CODE_OK); // 200 being the HTTP response code
 	}
 
 	function loginLocal_get() {
+		
 		if (!$this->get('nombreLocal') || !$this->get('password')) {
 			$this->response(NULL, Locales::CODE_KO);
 		}

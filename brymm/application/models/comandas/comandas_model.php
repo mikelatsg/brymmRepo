@@ -150,13 +150,29 @@ class Comandas_model extends CI_Model {
         $this->my_cart->insert($data);
     }
 
-    private function obtenerTipoComanda($idTipoComanda) {
+    public function obtenerTipoComanda($idTipoComanda) {
         $sql = "SELECT * FROM tipos_comanda 
             WHERE id_tipo_comanda = ?";
 
         $result = $this->db->query($sql, array($idTipoComanda));
 
         return $result;
+    }
+    
+    function obtenerTiposComandaObject() {
+    	//Se obtienen los tipos de menu
+    	$sql = "SELECT * FROM tipos_comanda tc
+				ORDER BY id_tipo_comanda";
+    
+    	$result = $this->db->query($sql)->result();
+    		
+    	$tiposComanda = array();
+    		
+    	foreach($result as $row){
+    		$tiposComanda[] = new TipoComanda($row->id_tipo_comanda,$row->descripcion);
+    	}
+    
+    	return $tiposComanda;
     }
 
     public function insertarComandaLocal($datosComanda, $idMesaLocal

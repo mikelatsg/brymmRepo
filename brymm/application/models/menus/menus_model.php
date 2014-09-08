@@ -252,6 +252,20 @@ class Menus_model extends CI_Model {
 				WHERE id_tipo_menu_local = ?";
 		$this->db->query($sql, array($idTipoMenuLocal));
 	}
+	
+	function borrarMenuLocalDia($idMenuDia) {
+	
+		// Borrar los detalles de los menus creados con este tipo
+		$sql = "DELETE FROM detalle_menu_local
+				WHERE id_menu_local = ?";
+		$this->db->query($sql, array($idMenuDia));
+	
+		// Borrar los menus creados con este tipo
+		$sql = "DELETE FROM menu_local
+				WHERE id_menu_local = ?";
+		$this->db->query($sql, array($idMenuDia));
+	 
+	}
 
 	/*
 	 * Funcion que modifica un plato de un local
@@ -942,6 +956,21 @@ class Menus_model extends CI_Model {
 		$calendario = $this->usermenucalendar->generate($ano, $mes, $data);
 
 		return $calendario;
+	}
+	
+	function comprobarMenuEnDia($idLocal, $idMenu, $fecha) {
+		$sql = "SELECT ml.*,tm.descripcion, tml.*
+				FROM menu_local ml, tipo_menu tm, tipo_menu_local tml
+				WHERE tml.id_tipo_menu = tm.id_tipo_menu
+				AND ml.id_tipo_menu_local = tml.id_tipo_menu_local
+				AND ml.id_local = ?
+				AND ml.fecha_menu = ?
+				AND tml.id_tipo_menu_local = ?
+				ORDER BY es_carta";
+	
+		$result = $this->db->query($sql, array($idLocal, $fecha,$idMenu));
+	
+		return $result;
 	}
 
 }

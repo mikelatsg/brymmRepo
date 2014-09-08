@@ -74,7 +74,7 @@ class Menus extends REST_Controller {
 		$this->response($datosRespuesta, Code::CODE_OK);
 	}
 
-	function asignarPlatoMenu_post(){		
+	function asignarPlatoMenu_post(){
 		//Se recogen los datos recibidos en formato json
 		$datosPlato = $this->post();
 
@@ -85,30 +85,30 @@ class Menus extends REST_Controller {
 					, Code::JSON_MENSAJE => $msg);
 			$this->response($datosRespuesta, Code::CODE_OK);
 		}
-		
+
 		//Se recogen los parametros enviados por el formulario
 		$idMenuDia = $datosPlato[MenuDia::FIELD_ID_MENU_DIA];
-		$idPlato = $datosPlato[Plato::FIELD_ID_PLATO];		
-		
+		$idPlato = $datosPlato[Plato::FIELD_ID_PLATO];
+
 		$hayError = false;
 		$msg = "Plato aÃ±adido correctamente";
-		
+
 		//Se comprueba si ya existe el plato en el menu
 		$existePlatoMenu = $this->Menus_model->comprobarPlatoMenu($idMenuDia
 				, $idPlato)->num_rows();
-		
+
 		if (!$existePlatoMenu > 0) {
 			//Se inserta el plato en el menu
 			$this->Menus_model->insertPlatoMenu($idMenuDia, $idPlato
 					, "S");
-			
+
 			$menuDia = MenuDia::withID($idMenuDia);
-			
+
 		} else {
 			$msg = "El plato ya existe en el menu";
 			$hayError = true;
-		}		
-		
+		}
+
 		if ($hayError){
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO,
 					Code::JSON_MENSAJE => $msg);
@@ -124,7 +124,7 @@ class Menus extends REST_Controller {
 	function desasignarPlatoMenu_post(){
 		//Se recogen los datos recibidos en formato json
 		$datosPlato = $this->post();
-	
+
 		if (!isset($datosPlato[MenuDia::FIELD_ID_MENU_DIA]) ||
 		!isset($datosPlato[Plato::FIELD_ID_PLATO])) {
 			$msg = "Error aÃ±adiendo plato a menu";
@@ -132,23 +132,23 @@ class Menus extends REST_Controller {
 					, Code::JSON_MENSAJE => $msg);
 			$this->response($datosRespuesta, Code::CODE_OK);
 		}
-	
+
 		//Se recogen los parametros enviados por el formulario
 		$idMenuDia = $datosPlato[MenuDia::FIELD_ID_MENU_DIA];
 		$idPlato = $datosPlato[Plato::FIELD_ID_PLATO];
-	
+
 		$hayError = false;
 		$msg = "Plato borrado correctamente";
-	
+
 		//Se borra el plato del menu ( si es el ultimo plato se borra el menu del dia)
 		$menuDiaBorrado = $this->Menus_model->borrarPlatoMenu2($idMenuDia,$idPlato);
-		
+
 		if (!$menuDiaBorrado){
 			$menuDia = MenuDia::withID($idMenuDia);
 		}else{
 			$menuDia = null;
 		}
-	
+
 		if ($hayError){
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO,
 					Code::JSON_MENSAJE => $msg);
@@ -157,10 +157,10 @@ class Menus extends REST_Controller {
 					Code::JSON_MENSAJE => $msg,
 					MenuDia::FIELD_MENU_DIA=> $menuDia);
 		}
-	
+
 		$this->response($datosRespuesta, Code::CODE_OK);
 	}
-	
+
 	function modificarPlato_post() {
 		//Se recogen los datos recibidos en formato json
 		$datosPlato = $this->post();
@@ -216,7 +216,7 @@ class Menus extends REST_Controller {
 					Code::JSON_MENSAJE => $msg);
 		}else{
 			$plato = Plato::withID($idPlatoLocal);
-				
+
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 					Code::JSON_MENSAJE => $msg,
 					Plato::FIELD_PLATO => $plato);
@@ -300,21 +300,21 @@ class Menus extends REST_Controller {
 			$msg = "El nombre del menu no puede estar vacio";
 			$hayError = true;
 		}
-		
+
 		if ($hayError){
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO,
 					Code::JSON_MENSAJE => $msg);
 		}else{
 			$menu = Menu::withID($idMenu);
-		
+
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 					Code::JSON_MENSAJE => $msg,
 					Menu::FIELD_MENU => $menu);
 		}
-		
+
 		$this->response($datosRespuesta, Code::CODE_OK);
 	}
-	
+
 	public function modificarMenu_post() {
 		//Se recogen los datos recibidos en formato json
 		$datosMenu = $this->post();
@@ -344,10 +344,10 @@ class Menus extends REST_Controller {
 						$msg = "Existe otro menu con el mismo nombre";
 						$hayError = true;
 					} else {
-	
+
 						$this->Menus_model->modificarTipoMenuLocal($idMenu, $idTipoMenu
 								, $nombreMenu, $precioMenu, $esCarta);
-	
+
 						$msg = "Menu modificado correctamente";
 					}
 				} else {
@@ -362,47 +362,123 @@ class Menus extends REST_Controller {
 			$msg = "El nombre del menu no puede estar vacio";
 			$hayError = true;
 		}
-		
+
 		if ($hayError){
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO,
 					Code::JSON_MENSAJE => $msg);
 		}else{
 			$menu = Menu::withID($idMenu);
-		
+
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 					Code::JSON_MENSAJE => $msg,
 					Menu::FIELD_MENU => $menu);
 		}
-		
+
 		$this->response($datosRespuesta, Code::CODE_OK);
-	
+
 	}
-	
+
 	public function borrarMenu_post() {
-		
+
 		//Se recogen los datos recibidos en formato json
 		$datosMenu = $this->post();
-		
+
 		if (!isset($datosMenu[Menu::FIELD_ID_MENU]) ) {
 			$msg = "Error borrando menu";
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
 			$this->response($datosRespuesta, Code::CODE_OK);
 		}
-		
+
 		//Se recogen los parametros enviados por el formulario
 		$idMenu = $datosMenu[Menu::FIELD_ID_MENU];
-		$idLocal = $datosMenu[Code::FIELD_ID_LOCAL];	
-	
+		$idLocal = $datosMenu[Code::FIELD_ID_LOCAL];
+
 		//Se borra el plato del menu
 		$this->Menus_model->borrarTipoMenuLocal($idMenu);
-	
+
 		$msg = "Menu borrado correctamente";
-		
+
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg);
-		
+
 		$this->response($datosRespuesta, Code::CODE_OK);
 	}
 
+	function anadirMenuDia_post(){
+		//Se recogen los datos recibidos en formato json		
+		$datosMenu = $this->post();					
+		
+		if (!isset($datosMenu[Menu::FIELD_ID_MENU]) ||
+		!isset($datosMenu[MenuDia::FIELD_FECHA]) || !isset($datosMenu[Code::FIELD_ID_LOCAL])) {			
+			$msg = "Error añadiendo el menu al dia";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}	
+		
+		//Se recogen los parametros enviados
+		$idMenu = $datosMenu[Menu::FIELD_ID_MENU];
+		$fechaMenu = $datosMenu[MenuDia::FIELD_FECHA];
+		$idLocal = $datosMenu[Code::FIELD_ID_LOCAL];			
+
+		$hayError = false;
+		$msg = "Menu añadido correctamente";
+
+		//Se comprueba si ya existe el menu en el dia
+		$existeMenuEnDia = $this->Menus_model->comprobarMenuEnDia($idLocal, $idMenu, 
+				 $fechaMenu)->num_rows();
+
+		if (!$existeMenuEnDia > 0) {
+			//Se inserta el plato en el menu
+			$idMenuDia = $this->Menus_model->insertMenu($idLocal, DateTime::createFromFormat('Y-m-d', $fechaMenu)
+					, "S", $idMenu);
+
+			$menuDia = MenuDia::withID($idMenuDia);
+
+		} else {
+			$msg = "El menu ya existe el dia indicado";
+			$hayError = true;
+		}
+
+		if ($hayError){
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO,
+					Code::JSON_MENSAJE => $msg);
+		}else{
+			$msg = "Menu anadido correctamente";
+			
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
+					Code::JSON_MENSAJE => $msg,
+					MenuDia::FIELD_MENU_DIA=> $menuDia);
+		}
+
+		$this->response($datosRespuesta, Code::CODE_OK);
+	}
+
+	public function borrarMenuDia_post() {
+	
+		//Se recogen los datos recibidos en formato json
+		$datosMenu = $this->post();
+	
+		if (!isset($datosMenu[MenuDia::FIELD_ID_MENU_DIA]) ) {
+			$msg = "Error borrando menu del dia";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+	
+		//Se recogen los parametros 
+		$idMenuDia = $datosMenu[MenuDia::FIELD_ID_MENU_DIA];
+		$idLocal = $datosMenu[Code::FIELD_ID_LOCAL];
+	
+		//Se borra el menu del dia indicado
+		$this->Menus_model->borrarMenuLocalDia($idMenuDia);
+	
+		$msg = "Menu borrado del dia correctamente";
+	
+		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
+				Code::JSON_MENSAJE => $msg);
+	
+		$this->response($datosRespuesta, Code::CODE_OK);
+	}
 }
