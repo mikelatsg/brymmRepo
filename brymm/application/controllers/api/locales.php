@@ -28,6 +28,7 @@ require_once APPPATH . '/libraries/menus/menuDia.php';
 require_once APPPATH . '/libraries/reservas/reservaLocal.php';
 require_once APPPATH . '/libraries/reservas/diaCierreReserva.php';
 require_once APPPATH . '/libraries/comandas/tipoComanda.php';
+require_once APPPATH . '/libraries/comandas/camarero.php';
 
 class Locales extends REST_Controller {
 
@@ -205,6 +206,11 @@ class Locales extends REST_Controller {
 		$this->load->model('menus/Comandas_model');
 		
 		$tiposComanda = $this->Comandas_model->obtenerTiposComandaObject();
+		
+		//Se carga el model de camareros
+		$this->load->model('menus/Camareros_model');
+		
+		$camareros = $this->Camareros_model->obtenerCamarerosLocalObject($idLocal,1);
 			
 		$datosLocal = array(
 				Locales::JSON_INGREDIENTES => $ingredientes,
@@ -229,7 +235,8 @@ class Locales extends REST_Controller {
 				Plato::FIELD_PLATOS => $platos,
 				Menu::FIELD_MENUS => $menus,
 				MenuDia::FIELD_MENUS_DIA => $menusDia,
-				TipoComanda::FIELD_TIPOS_COMANDA => $tiposComanda
+				TipoComanda::FIELD_TIPOS_COMANDA => $tiposComanda,
+				Camarero::FIELD_CAMAREROS => $camareros
 		);
 
 		$this->response($datosLocal, Locales::CODE_OK); // 200 being the HTTP response code
