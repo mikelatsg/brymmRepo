@@ -824,6 +824,85 @@ class Comandas_model extends CI_Model {
 
         $this->db->query($sql, array($estado, $idDetalleComanda));
     }
+    
+    function obtenerPlatoComanda($idComandaMenu) {
+    	$sql = "SELECT cm.*
+                FROM comanda_menu cm
+                WHERE cm.id_comanda_menu = ?";
+    
+    	$row = $this->db->query($sql, array($idComandaMenu));
+    	    	    
+    	return $row;
+    }
+    
+    function obtenerPlatosComandaObject($idDetalleComanda) {
+    	$sql = "SELECT cm.*
+                FROM comanda_menu cm
+                WHERE cm.id_detalle_comanda = ?";
+    
+    	$result = $this->db->query($sql, array($idDetalleComanda))->result();
+    	
+    	$platosComanda = array();
+    	
+    	foreach ($result as $row){
+    		$platosComanda[] = PlatoComanda::withID($row->id_comanda_menu);
+    	}
+    
+    	return $platosComanda;
+    }
+    
+    function obtenerMenuComanda($idDetalleComanda) {
+    	$sql = "SELECT cm.*
+                FROM comanda_menu cm
+                WHERE cm.id_detalle_comanda = ?";
+    
+    	$result = $this->db->query($sql, array($idDetalleComanda));
+    
+    	return $result;
+    }
+    
+    function obtenerListaIngredientesComandaPerObject($idDetalleComanda) {
+    	$sql = "SELECT cap.*
+                FROM comanda_articulo_per cap
+                WHERE cap.id_detalle_comanda = ?";
+    
+    	$result = $this->db->query($sql, array($idDetalleComanda))->result();
+    	
+    	$ingredientes = array();
+    	
+    	foreach ($result as $row){
+    		$ingredientes[] = Ingrediente::withID($row->id_ingrediente);
+    	}    	    
+    
+    	return $ingredientes;
+    }
+    
+    function obtenerDetallesComandaObject($idComanda) {
+    	$sql = "SELECT dc.*
+                FROM detalle_comanda dc
+                WHERE dc.id_comanda = ?";
+    
+    	$result = $this->db->query($sql, array($idDetalleComanda))->result();
+    	 
+    	$detallesComanda = array();
+    	 
+    	foreach ($result as $row){
+    		$detallesComanda[] = DetalleComanda::withID($row->id_detalle_comanda);
+    	}
+    
+    	return $detallesComanda;
+    }
+    
+    function obtenerDatosComanda($idComanda) {
+    	$sql = "SELECT cm.*
+                FROM comanda cm
+                WHERE cm.id_comanda = ?";
+    
+    	$result = $this->db->query($sql, array($idComanda));
+    
+    	return $result;
+    }
+
 
 }
 

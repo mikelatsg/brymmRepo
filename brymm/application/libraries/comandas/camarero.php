@@ -26,8 +26,8 @@ class Camarero{
 	public static function withID($idCamarero) {
 		$CI;
 		$CI = & get_instance();
-		$CI->load->model('menus/Camareros_model');
-		$datosCamarero = $CI->Menus_model->obtenerDatosCamarero2($idCamarero)->row();
+		$CI->load->model('camareros/Camareros_model');
+		$datosCamarero = $CI->Camareros_model->obtenerDatosCamarero2($idCamarero)->row();
 
 		$instance = new self( $datosCamarero->id_camarero
 				,$datosCamarero->nombre

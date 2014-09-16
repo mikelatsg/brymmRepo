@@ -20,8 +20,8 @@ class TipoComanda{
 	public static function withID($idTipoComanda) {
 		$CI;
 		$CI = & get_instance();
-		$CI->load->model('menus/Comandas_model');
-		$datosTipoComanda = $CI->Menus_model->obtenerTipoComanda($idTipoComanda)->row();
+		$CI->load->model('comandas/Comandas_model');
+		$datosTipoComanda = $CI->Comandas_model->obtenerTipoComanda($idTipoComanda)->row();
 
 		$instance = new self( $datosTipoComanda->id_tipo_comanda
 				,$datosTipoComanda->descripcion);

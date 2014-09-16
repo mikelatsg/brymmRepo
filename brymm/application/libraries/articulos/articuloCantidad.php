@@ -6,6 +6,9 @@ if (!defined('BASEPATH'))
 require_once APPPATH . '/libraries/articulos/articulo.php';
 
 class ArticuloCantidad extends Articulo{
+	
+	const FIELD_ARTICULO_CANTIDAD = "articuloCantidad";
+	
 	public $cantidad;
 
 	public function __construct( $idArticulo,
