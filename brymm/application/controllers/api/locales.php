@@ -29,6 +29,10 @@ require_once APPPATH . '/libraries/reservas/reservaLocal.php';
 require_once APPPATH . '/libraries/reservas/diaCierreReserva.php';
 require_once APPPATH . '/libraries/comandas/tipoComanda.php';
 require_once APPPATH . '/libraries/comandas/camarero.php';
+require_once APPPATH . '/libraries/comandas/comanda.php';
+require_once APPPATH . '/libraries/comandas/detalleComanda.php';
+require_once APPPATH . '/libraries/comandas/menuComanda.php';
+require_once APPPATH . '/libraries/comandas/platoComanda.php';
 
 class Locales extends REST_Controller {
 
@@ -59,7 +63,7 @@ class Locales extends REST_Controller {
 	const JSON_PEDIDOS_TERMINADOS = "pedidosTerminados";
 	const JSON_SERVICIOS_LOCAL = "serviciosLocal";
 	const JSON_TIPOS_SERVICIO = "tiposServicio";
-	
+
 
 	//Constantes
 	const CONST_SERVICIOS = "servicios";
@@ -201,17 +205,20 @@ class Locales extends REST_Controller {
 		$platos = $this->Menus_model->obtenerPlatosLocalObject($idLocal);
 		$menus = $this->Menus_model->obtenerTiposMenuLocalObject($idLocal);
 		$menusDia = $this->Menus_model->obtenerMenusDiaLocalObject();
-		
+
 		//Se carga el modelo de comandas
-		$this->load->model('menus/Comandas_model');
-		
+		$this->load->model('comandas/Comandas_model');
+
 		$tiposComanda = $this->Comandas_model->obtenerTiposComandaObject();
-		
+
 		//Se carga el model de camareros
-		$this->load->model('menus/Camareros_model');
-		
+		$this->load->model('camareros/Camareros_model');
+
 		$camareros = $this->Camareros_model->obtenerCamarerosLocalObject($idLocal,1);
-			
+		$comandasActivas =
+		$this->Comandas_model->obtenerComandasActivasObject($idLocal);
+		$comandasCerradas =
+		$this->Comandas_model->obtenerComandasCerradasObject($idLocal);
 		$datosLocal = array(
 				Locales::JSON_INGREDIENTES => $ingredientes,
 				Locales::JSON_ARTICULOS => $articulos,
@@ -236,14 +243,16 @@ class Locales extends REST_Controller {
 				Menu::FIELD_MENUS => $menus,
 				MenuDia::FIELD_MENUS_DIA => $menusDia,
 				TipoComanda::FIELD_TIPOS_COMANDA => $tiposComanda,
-				Camarero::FIELD_CAMAREROS => $camareros
+				Camarero::FIELD_CAMAREROS => $camareros,
+				Comanda::FIELD_COMANDAS_ACTIVAS => $comandasActivas,
+				Comanda::FIELD_COMANDAS_CERRADAS => $comandasCerradas
 		);
 
 		$this->response($datosLocal, Locales::CODE_OK); // 200 being the HTTP response code
 	}
 
 	function loginLocal_get() {
-		
+
 		if (!$this->get('nombreLocal') || !$this->get('password')) {
 			$this->response(NULL, Locales::CODE_KO);
 		}

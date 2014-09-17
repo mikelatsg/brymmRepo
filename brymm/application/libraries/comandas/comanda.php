@@ -13,6 +13,8 @@ class Comanda{
 	const FIELD_FECHA = "fecha";
 	const FIELD_COMANDA = "comanda";
 	const FIELD_COMANDAS = "comandas";
+	const FIELD_COMANDAS_ACTIVAS = "comandasActivas";
+	const FIELD_COMANDAS_CERRADAS = "comandasCerradas";
 
 	var $idComanda;
 	var $destino;
