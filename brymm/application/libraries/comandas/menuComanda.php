@@ -21,7 +21,7 @@ class MenuComanda{
 		$CI;
 		$CI = & get_instance();
 		$CI->load->model('comandas/Comandas_model');
-		$datosDetalleComanda = $CI->Comandas_model->obtenerMenuComanda($idDetalleComanda)->row();
+		$datosDetalleComanda = $CI->Comandas_model->obtenerDetalleComanda($idDetalleComanda)->row();
 
 		$menu = Menu::withID($datosDetalleComanda->id_articulo);
 

@@ -8,7 +8,7 @@ class Comandas_model extends CI_Model {
 		$this->load->database();
 	}
 
-	//Función que añade un articulo a la comanda
+	//Funcion que a�ade un articulo a la comanda
 	public function anadirArticuloComanda($idArticuloLocal, $cantidad, $precio, $articulo, $idTipoArticulo) {
 
 		//Se añade una aleatorio para no machacar los articulos ya insertados
@@ -169,7 +169,7 @@ class Comandas_model extends CI_Model {
 		$tiposComanda = array();
 
 		foreach($result as $row){
-			$tiposComanda[] = new TipoComanda($row->id_tipo_comanda,$row->descripcion);
+			$tiposComanda[] = new TipoComanda($row->id_tipo_comanda,$row->tipo_comanda);
 		}
 
 		return $tiposComanda;
@@ -882,7 +882,7 @@ class Comandas_model extends CI_Model {
 				FROM detalle_comanda dc
 				WHERE dc.id_comanda = ?";
 
-		$result = $this->db->query($sql, array($idDetalleComanda))->result();
+		$result = $this->db->query($sql, array($idComanda))->result();
 
 		$detallesComanda = array();
 
@@ -901,6 +901,22 @@ class Comandas_model extends CI_Model {
 		$result = $this->db->query($sql, array($idComanda));
 
 		return $result;
+	}
+	
+	function obtenerIdComanda($idComandaMenu) {
+		$sql = "SELECT *
+				FROM comanda_menu
+				WHERE id_comanda_menu = ?";
+	
+		$rowComandaMenu = $this->db->query($sql, array($idComandaMenu))->row();
+		
+		$sql = "SELECT *
+				FROM detalle_comanda
+				WHERE id_detalle_comanda = ?";
+		
+		$rowDetalleComanda = $this->db->query($sql, array($rowComandaMenu->id_detalle_comanda))->row();
+	
+		return $rowDetalleComanda->id_comanda;
 	}
 
 

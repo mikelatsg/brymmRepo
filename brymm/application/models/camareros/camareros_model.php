@@ -102,7 +102,7 @@ class Camareros_model extends CI_Model {
 	}
 
 	function obtenerDatosCamarero2($idCamarero) {
-		$sql = "SELECT id_camarero, id_local,nombre, fecha_alta, control_total
+		$sql = "SELECT *
 				FROM camareros
 				WHERE id_camarero = ?";
 

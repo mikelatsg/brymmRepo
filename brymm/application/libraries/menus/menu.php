@@ -28,8 +28,8 @@ class Menu{
 	public static function withID($idMenu) {
 		$CI;
 		$CI = & get_instance();
-		$CI->load->model('menus/menus_model');
-		$datosMenu = $CI->menus_model->obtenerTipoMenuLocal($idMenu)->row();
+		$CI->load->model('menus/menus_model');		
+		$datosMenu = $CI->Menus_model->obtenerTipoMenuLocal($idMenu)->row();
 
 		$tipoMenu = TipoMenu::withID($datosMenu->id_tipo_menu);
 

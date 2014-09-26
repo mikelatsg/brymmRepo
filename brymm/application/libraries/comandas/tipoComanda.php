@@ -24,7 +24,7 @@ class TipoComanda{
 		$datosTipoComanda = $CI->Comandas_model->obtenerTipoComanda($idTipoComanda)->row();
 
 		$instance = new self( $datosTipoComanda->id_tipo_comanda
-				,$datosTipoComanda->descripcion);
+				,$datosTipoComanda->tipo_comanda);
 
 		return $instance;
 	}
