@@ -216,7 +216,7 @@ class Locales extends REST_Controller {
 
 		$camareros = $this->Camareros_model->obtenerCamarerosLocalObject($idLocal,1);
 		$comandasActivas =
-		$this->Comandas_model->obtenerComandasActivasObject($idLocal);
+		$this->Comandas_model->obtenerComandasActivasObject($idLocal);		
 		$comandasCerradas =
 		$this->Comandas_model->obtenerComandasCerradasObject($idLocal);
 		$datosLocal = array(

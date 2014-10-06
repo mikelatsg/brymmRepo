@@ -25,7 +25,7 @@ class DetalleComanda{
 			$precio,
 			$estado,
 			$articuloCantidad,
-			MenuComanda $menuComanda ) {
+			MenuComanda $menuComanda = null ) {
 		$this->idDetalleComanda = $idDetalleComanda;
 		$this->tipoComanda = $tipoComanda;
 		$this->cantidad = $cantidad;
@@ -39,6 +39,7 @@ class DetalleComanda{
 		$CI;
 		$CI = & get_instance();
 		$CI->load->model('comandas/Comandas_model');
+		$CI->load->model('articulos/Articulos_model');
 		$datosDetalleComanda = $CI->Comandas_model->obtenerDetalleComanda($idDetalleComanda)->row();
 
 		$menuComanda = null;
@@ -49,17 +50,17 @@ class DetalleComanda{
 
 		switch ($tipoComanda->idTipoComanda){
 			case 1:
-				$articuloCantidad = $CI->Menus_modelobtenerArticuloLocalObject
+				$articuloCantidad = $CI->Articulos_model->obtenerArticuloLocalObject
 				($datosDetalleComanda->id_articulo);
 				break;
 			case 2:
 				$ingredientes =
-				$CI->Menus_model->obtenerListaIngredientesComandaPerObject
+				$CI->Comandas_model->obtenerListaIngredientesComandaPerObject
 				($datosDetalleComanda->id_detalle_comanda);
 
 				$tipoArticulo = TipoArticulo::withID($datosDetalleComanda->id_articulo);
 
-				$articuloCantidad = new ArticuloCantidad($idArticulo,
+				$articuloCantidad = new ArticuloCantidad(0,
 						$tipoArticulo,
 						'Articulo per',
 						'Articulo per',

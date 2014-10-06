@@ -18,7 +18,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require_once APPPATH . '/libraries/REST_Controller.php';
 require_once APPPATH . '/libraries/comandas/platoComanda.php';
 require_once APPPATH . '/libraries/comandas/detalleComanda.php';
+require_once APPPATH . '/libraries/articulos/articuloCantidad.php';
+require_once APPPATH . '/libraries/comandas/tipoComanda.php';
+require_once APPPATH . '/libraries/comandas/menuComanda.php';
+require_once APPPATH . '/libraries/menus/menu.php';
+require_once APPPATH . '/libraries/menus/plato.php';
+require_once APPPATH . '/libraries/reservas/mesa.php';
+require_once APPPATH . '/libraries/menus/tipoPlato.php';
 require_once APPPATH . '/libraries/comandas/comanda.php';
+require_once APPPATH . '/libraries/comandas/camarero.php';
 require_once APPPATH . '/libraries/constantes/Code.php';
 
 class Comandas extends REST_Controller {
@@ -36,7 +44,7 @@ class Comandas extends REST_Controller {
 		//Se recogen los datos recibidos en formato json
 		$datosComanda = $this->post();
 
-		if (!isset($datosPlato[PlatoComanda::FIELD_ID_COMANDA_MENU]) ) {
+		if (!isset($datosComanda[PlatoComanda::FIELD_ID_COMANDA_MENU]) ) {
 			$msg = "Error terminando plato";
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
@@ -45,7 +53,7 @@ class Comandas extends REST_Controller {
 
 		//Se recogen los parametros enviados
 		$idComandaMenu = $datosComanda[PlatoComanda::FIELD_ID_COMANDA_MENU];
-		$idLocal = $datosPlato[Code::FIELD_ID_LOCAL];
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
 
 		//Se borra el plato del local
 		$this->Comandas_model->cambiarEstadoPlatoMenu($idComandaMenu, 'TC');
@@ -58,7 +66,7 @@ class Comandas extends REST_Controller {
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg,
-				Comanda::JSON_FIELD_COMANDA => $comanda
+				Comanda::FIELD_COMANDA => $comanda
 		);
 
 		$this->response($datosRespuesta, Code::CODE_OK);
@@ -70,7 +78,7 @@ class Comandas extends REST_Controller {
 		//Se recogen los datos recibidos en formato json
 		$datosComanda = $this->post();
 
-		if (!isset($datosPlato[PlatoComanda::FIELD_ID_COMANDA]) ) {
+		if (!isset($datosComanda[Comanda::FIELD_ID_COMANDA]) ) {
 			$msg = "Error terminando plato";
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
@@ -78,19 +86,19 @@ class Comandas extends REST_Controller {
 		}
 
 		//Se recogen los parametros enviados
-		$idComanda = $datosComanda[PlatoComanda::FIELD_ID_COMANDA];
-		$idLocal = $datosPlato[Code::FIELD_ID_LOCAL];
+		$idComanda = $datosComanda[Comanda::FIELD_ID_COMANDA];
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
 
 		//Se cambia el estado el estado de la comanda a terminado cocina.
 		$this->Comandas_model->cambiarEstadoComanda($idComanda, 'TC');
 
-		$comanda = Comanda::withID($idComanda);
-
-		$msg = "Plato terminado correctamente";
+		$comanda = Comanda::withID($idComanda);	
+		
+		$msg = "Comanda terminada correctamente";
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg,
-				Comanda::JSON_FIELD_COMANDA => $comanda
+				Comanda::FIELD_COMANDA => $comanda
 		);
 
 		$this->response($datosRespuesta, Code::CODE_OK);
@@ -102,7 +110,7 @@ class Comandas extends REST_Controller {
 		//Se recogen los datos recibidos en formato json
 		$datosComanda = $this->post();
 
-		if (!isset($datosPlato[PlatoComanda::FIELD_ID_COMANDA]) ) {
+		if (!isset($datosComanda[Comanda::FIELD_ID_COMANDA]) ) {
 			$msg = "Error terminando plato";
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
@@ -110,19 +118,19 @@ class Comandas extends REST_Controller {
 		}
 
 		//Se recogen los parametros enviados
-		$idComanda = $datosComanda[PlatoComanda::FIELD_ID_COMANDA];
-		$idLocal = $datosPlato[Code::FIELD_ID_LOCAL];
+		$idComanda = $datosComanda[Comanda::FIELD_ID_COMANDA];
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
 
 		//Se cambia el estado el estado de la comanda a terminado cocina.
 		$this->Comandas_model->cambiarEstadoComanda($idComanda, 'CW');
 
 		$comanda = Comanda::withID($idComanda);
 
-		$msg = "Plato terminado correctamente";
+		$msg = "Comanda cancelada correctamente";
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg,
-				Comanda::JSON_FIELD_COMANDA => $comanda
+				Comanda::FIELD_COMANDA => $comanda
 		);
 
 		$this->response($datosRespuesta, Code::CODE_OK);
@@ -134,8 +142,8 @@ class Comandas extends REST_Controller {
 		//Se recogen los datos recibidos en formato json
 		$datosComanda = $this->post();
 
-		if (!isset($datosPlato[Comanda::FIELD_ID_COMANDA]) ) {
-			$msg = "Error terminando plato";
+		if (!isset($datosComanda[Comanda::FIELD_ID_COMANDA]) ) {
+			$msg = "Error cerrando comanda";
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
 			$this->response($datosRespuesta, Code::CODE_OK);
@@ -143,18 +151,18 @@ class Comandas extends REST_Controller {
 
 		//Se recogen los parametros enviados
 		$idComanda = $datosComanda[Comanda::FIELD_ID_COMANDA];
-		$idLocal = $datosPlato[Code::FIELD_ID_LOCAL];
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
 
 		//Se cambia el estado el estado de la comanda a terminado cocina.
 		$this->Comandas_model->cambiarEstadoComanda($idComanda, 'CC');
 
 		$comanda = Comanda::withID($idComanda);
 
-		$msg = "Plato terminado correctamente";
+		$msg = "Comanda cerrada correctamente";
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg,
-				Comanda::JSON_FIELD_COMANDA => $comanda
+				Comanda::FIELD_COMANDA => $comanda
 		);
 
 		$this->response($datosRespuesta, Code::CODE_OK);
