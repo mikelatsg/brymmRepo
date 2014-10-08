@@ -71,7 +71,7 @@ class Comandas extends REST_Controller {
 
 		$this->response($datosRespuesta, Code::CODE_OK);
 
-	}
+	}	
 
 	function terminarComandaCocina_post() {
 
@@ -174,7 +174,7 @@ class Comandas extends REST_Controller {
 		//Se recogen los datos recibidos en formato json
 		$datosComanda = $this->post();
 
-		if (!isset($datosPlato[DetalleComanda::FIELD_ID_DETALLE_COMANDA]) ) {
+		if (!isset($datosComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA]) ) {
 			$msg = "Error terminando detalle comanda";
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
@@ -183,7 +183,7 @@ class Comandas extends REST_Controller {
 
 		//Se recogen los parametros enviados
 		$idDetalleComanda = $datosComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA];
-		$idLocal = $datosPlato[Code::FIELD_ID_LOCAL];
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
 
 		//Se cambia el estado el estado de la comanda a terminado cocina.
 		$this->Comandas_model->cambiarEstadoDetalleComanda($idDetalleComanda, 'TC');
@@ -197,7 +197,7 @@ class Comandas extends REST_Controller {
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg,
-				Comanda::JSON_FIELD_COMANDA => $comanda
+				Comanda::FIELD_COMANDA => $comanda
 		);
 
 		$this->response($datosRespuesta, Code::CODE_OK);
