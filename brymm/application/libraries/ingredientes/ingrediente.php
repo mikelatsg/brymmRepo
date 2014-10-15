@@ -9,6 +9,7 @@ class Ingrediente{
 	const FIELD_NOMBRE = "nombre";
 	const FIELD_PRECIO = "precio";
 	const FIELD_INGREDIENTE = "ingrediente";
+	const FIELD_INGREDIENTES = "ingredientes";
 	
 	var $idIngrediente;
 	var $nombre;

@@ -71,7 +71,45 @@ class Comandas extends REST_Controller {
 
 		$this->response($datosRespuesta, Code::CODE_OK);
 
-	}	
+	}
+
+	function nuevaComanda_post() {
+
+		//Se recogen los datos recibidos en formato json
+		$datosComanda = $this->post();
+
+		if (!isset($datosComanda[Comanda::FIELD_COMANDA]) ) {
+			$msg = "Error creando comanda";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+
+		//Se recogen los parametros enviados
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
+
+		//Se borra el plato del local
+		$idComanda = $this->Comandas_model->insertarComandaLlevarApi($datosComanda, $idLocal);
+		
+		if ($idComanda > 0 ){
+			$msg = "Error insertando comanda";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+
+		$comanda = Comanda::withID($idComanda);
+
+		$msg = "Plato terminado correctamente";
+
+		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
+				Code::JSON_MENSAJE => $msg,
+				Comanda::FIELD_COMANDA => $comanda
+		);
+
+		$this->response($datosRespuesta, Code::CODE_OK);
+
+	}
 
 	function terminarComandaCocina_post() {
 
@@ -92,8 +130,8 @@ class Comandas extends REST_Controller {
 		//Se cambia el estado el estado de la comanda a terminado cocina.
 		$this->Comandas_model->cambiarEstadoComanda($idComanda, 'TC');
 
-		$comanda = Comanda::withID($idComanda);	
-		
+		$comanda = Comanda::withID($idComanda);
+
 		$msg = "Comanda terminada correctamente";
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
