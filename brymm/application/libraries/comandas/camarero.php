@@ -6,6 +6,7 @@ if (!defined('BASEPATH'))
 class Camarero{
 	const FIELD_ID_CAMARERO = "idCamarero";
 	const FIELD_NOMBRE = "nombre";
+	const FIELD_PASSWORD = "password";
 	const FIELD_ACTIVO = "activo";
 	const FIELD_CONTROL_TOTAL = "controlTotal";
 	const FIELD_CAMARERO = "camarero";

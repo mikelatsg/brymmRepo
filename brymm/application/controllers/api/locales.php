@@ -33,6 +33,7 @@ require_once APPPATH . '/libraries/comandas/comanda.php';
 require_once APPPATH . '/libraries/comandas/detalleComanda.php';
 require_once APPPATH . '/libraries/comandas/menuComanda.php';
 require_once APPPATH . '/libraries/comandas/platoComanda.php';
+require_once APPPATH . '/libraries/constantes/Code.php';
 
 class Locales extends REST_Controller {
 
@@ -216,7 +217,7 @@ class Locales extends REST_Controller {
 
 		$camareros = $this->Camareros_model->obtenerCamarerosLocalObject($idLocal,1);
 		$comandasActivas =
-		$this->Comandas_model->obtenerComandasActivasObject($idLocal);		
+		$this->Comandas_model->obtenerComandasActivasObject($idLocal);
 		$comandasCerradas =
 		$this->Comandas_model->obtenerComandasCerradasObject($idLocal);
 		$datosLocal = array(
@@ -251,6 +252,57 @@ class Locales extends REST_Controller {
 		$this->response($datosLocal, Locales::CODE_OK); // 200 being the HTTP response code
 	}
 
+	function loginCamarero_post() {
+
+		$datosCamarero = $this->post();
+
+		if (!isset($datosCamarero[Camarero::FIELD_NOMBRE]) ||
+		!isset($datosCamarero[Camarero::FIELD_PASSWORD]) ||
+		!isset($datosCamarero[Code::FIELD_NOMBRE_LOCAL]) ) {
+			$msg = "Error de login";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+
+		$nombreCamarero = $datosCamarero[Camarero::FIELD_NOMBRE];
+		$nombreLocal = $datosCamarero[Code::FIELD_NOMBRE_LOCAL];
+		$password = $datosCamarero[Camarero::FIELD_PASSWORD];
+
+		//Se carga el modelo de camareros
+		$this->load->model('camareros/Camareros_model');
+
+		//Se comprueba el camarero
+		$result = $this->Camareros_model->comprobarCamareroNombreLocal
+		($nombreCamarero
+				, md5($password)
+				, $nombreLocal
+				, 1);
+
+		$msg = 'Datos incorrectos';
+
+		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO,
+				Code::JSON_MENSAJE => $msg);
+			
+		//Se comprueba si existe el local
+		if ($result->num_rows() > 0) {
+
+			$msg = 'Login Ok';
+
+			$datosIdCamarero = array(Camarero::FIELD_ID_CAMARERO => $result->row()->id_camarero,
+					Code::FIELD_ID_LOCAL=> $result->row()->id_local
+			);
+
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
+					Code::JSON_MENSAJE => $msg,Camarero::FIELD_CAMARERO => $datosIdCamarero
+
+			);
+		}
+
+		$this->response($datosRespuesta, Code::CODE_OK);
+
+	}
+
 	function loginLocal_get() {
 
 		if (!$this->get('nombreLocal') || !$this->get('password')) {
@@ -274,7 +326,7 @@ class Locales extends REST_Controller {
 			$lineaLocal = $result->row();
 
 			$datosLocal = array('idLocal' => $lineaLocal->id_local
-					, 'msg' => 'Login OK');
+					, 'msg' => 'Login Ok');
 
 			$codigoRetorno = Locales::CODE_OK;
 		}

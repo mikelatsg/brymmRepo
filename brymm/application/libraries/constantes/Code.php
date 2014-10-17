@@ -41,5 +41,6 @@ class Code {
     const NO_DATA = "no_data";
     
     const FIELD_ID_LOCAL = "idLocal";
+    const FIELD_NOMBRE_LOCAL = "nombreLocal";
 
 }
