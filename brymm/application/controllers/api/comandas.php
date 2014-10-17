@@ -27,6 +27,7 @@ require_once APPPATH . '/libraries/reservas/mesa.php';
 require_once APPPATH . '/libraries/menus/tipoPlato.php';
 require_once APPPATH . '/libraries/comandas/comanda.php';
 require_once APPPATH . '/libraries/comandas/camarero.php';
+require_once APPPATH . '/libraries/ingredientes/ingrediente.php';
 require_once APPPATH . '/libraries/constantes/Code.php';
 
 class Comandas extends REST_Controller {
@@ -88,10 +89,18 @@ class Comandas extends REST_Controller {
 		//Se recogen los parametros enviados
 		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
 
-		//Se borra el plato del local
-		$idComanda = $this->Comandas_model->insertarComandaLlevarApi($datosComanda, $idLocal);
-		
-		if ($idComanda > 0 ){
+		//Compruebo si se trata de un pedido para llevar o de mesa
+		if (!isset($datosComanda[Comanda::FIELD_COMANDA][Mesa::FIELD_MESA])){
+			//Se borra el plato del local
+			$idComanda = $this->Comandas_model->insertarComandaLlevarApi
+			($datosComanda[Comanda::FIELD_COMANDA], $idLocal);
+		}else{
+			$idComanda = $this->Comandas_model->insertarComandaLocalApi
+			($datosComanda[Comanda::FIELD_COMANDA], $idLocal);
+		}
+
+
+		if ($idComanda < 0 ){
 			$msg = "Error insertando comanda";
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
@@ -100,7 +109,7 @@ class Comandas extends REST_Controller {
 
 		$comanda = Comanda::withID($idComanda);
 
-		$msg = "Plato terminado correctamente";
+		$msg = "Comanda creada correctamente";
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg,

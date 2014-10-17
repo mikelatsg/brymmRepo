@@ -31,7 +31,7 @@ class Comanda{
 			Camarero $camarero,
 			$estado,
 			$precio,
-			Mesa $mesa,
+			Mesa $mesa = null,
 			$fecha,
 			$observaciones,
 			$detallesComanda = array()) {

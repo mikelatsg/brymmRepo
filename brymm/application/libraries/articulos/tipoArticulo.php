@@ -4,6 +4,10 @@ if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
 class TipoArticulo{
+	
+	const FIELD_ID_TIPO_ARTICULO = "idTipoArticulo";
+	const FIELD_TIPO_ARTICULO = "tipoArticulo";
+	
 	public $idTipoArticulo;
 	public $tipoArticulo;
 	public $descripcion;	
