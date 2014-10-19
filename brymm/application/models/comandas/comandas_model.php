@@ -974,7 +974,8 @@ class Comandas_model extends CI_Model {
 
 			$this->db->query($sql, array($datosComanda[Comanda::FIELD_DESTINO],
 					$datosComanda[Comanda::FIELD_OBSERVACIONES], $idLocal
-					, 14, $datosComanda[Comanda::FIELD_PRECIO], 0, "EC",
+					, $datosComanda[Camarero::FIELD_CAMARERO][Camarero::FIELD_ID_CAMARERO]
+					, $datosComanda[Comanda::FIELD_PRECIO], 0, "EC",
 					date('Y-m-d H:i:s')));
 
 			$idComanda = $this->db->insert_id();
@@ -1127,7 +1128,8 @@ class Comandas_model extends CI_Model {
 
 			$this->db->query($sql, array("mesa", $datosComanda[Comanda::FIELD_OBSERVACIONES]
 					, $idLocal
-					, 14, $datosComanda[Comanda::FIELD_PRECIO]
+					, $datosComanda[Camarero::FIELD_CAMARERO][Camarero::FIELD_ID_CAMARERO]
+					, $datosComanda[Comanda::FIELD_PRECIO]
 					, $datosComanda[Mesa::FIELD_MESA][Mesa::FIELD_ID_MESA]
 					, "EC", date('Y-m-d H:i:s')));
 

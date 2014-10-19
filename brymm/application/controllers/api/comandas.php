@@ -77,7 +77,7 @@ class Comandas extends REST_Controller {
 	function nuevaComanda_post() {
 
 		//Se recogen los datos recibidos en formato json
-		$datosComanda = $this->post();
+		$datosComanda = $this->post();		
 
 		if (!isset($datosComanda[Comanda::FIELD_COMANDA]) ) {
 			$msg = "Error creando comanda";
