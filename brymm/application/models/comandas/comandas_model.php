@@ -491,10 +491,20 @@ class Comandas_model extends CI_Model {
 		 * Si el estado es TC (terminado cocina se inserta una alerta
 		 		* al camarero que ha insertado la comanda
 		 		*/
-		if ($estado == "TC") {
-			//Se carga el modelo de alertas
-			$this->load->model('alertas/Alertas_model');
 
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		if ($estado == "TC") {
+
+			//Se obtienen los datos de la comanda
+			$datosComanda = $this->obtenerLocalComanda($idComanda)->row();
+
+			//Se inserta la alerta
+			$this->Alertas_model->insertAlertaCamarero
+			(10, $datosComanda->id_local, $idComanda
+					, $datosComanda->id_camarero);
+		} elseif ($estado == "CW"){
 			//Se obtienen los datos de la comanda
 			$datosComanda = $this->obtenerLocalComanda($idComanda)->row();
 
@@ -519,6 +529,20 @@ class Comandas_model extends CI_Model {
 				WHERE id_comanda_menu = ?";
 
 		$this->db->query($sql, array($estado, $idComandaMenu));
+
+		$idComanda = $this->obtenerIdComanda($idComandaMenu);
+
+		//Se obtienen los datos de la comanda
+		$datosComanda =
+		$this->obtenerLocalComanda($idComanda)->row();
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaCamarero
+		(14, $datosComanda->id_local, $idComanda
+				, $datosComanda->id_camarero);
 	}
 
 	function obtenerLocalComanda($idComanda) {
@@ -798,7 +822,7 @@ class Comandas_model extends CI_Model {
 
 		if ($this->db->trans_status() === FALSE || !$transOk) {
 			$this->db->trans_rollback();
-			$msg = "Error aÃ±adiendo datos a la comanda";
+			$msg = "Error añadiendo datos a la comanda";
 			return array('noError' => false, 'mensaje' => $msg);
 		}
 		$this->db->trans_commit();
@@ -811,7 +835,7 @@ class Comandas_model extends CI_Model {
 
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
-		(5, $idLocal, $idComanda);
+		(12, $idLocal, $idComanda);
 
 		return array('noError' => true, 'mensaje' => $msg);
 	}
@@ -821,6 +845,24 @@ class Comandas_model extends CI_Model {
 		//Se cambia el estado de la comanda
 		$sql = "UPDATE detalle_comanda SET  estado = ?
 				WHERE id_detalle_comanda = ?";
+
+		if ($estado == "TC") {
+
+			//Se obtienen los datos del detalle de la comanda
+			$datosDetalleComanda = $this->obtenerDetalleComanda($idDetalleComanda)->row();
+
+			//Se obtienen los datos de la comanda
+			$datosComanda =
+			$this->obtenerLocalComanda($datosDetalleComanda->id_comanda)->row();
+
+			//Se carga el modelo de alertas
+			$this->load->model('alertas/Alertas_model');
+
+			//Se inserta la alerta
+			$this->Alertas_model->insertAlertaCamarero
+			(13, $datosComanda->id_local, $datosDetalleComanda->id_comanda
+					, $datosComanda->id_camarero);
+		}
 
 		$this->db->query($sql, array($estado, $idDetalleComanda));
 	}
@@ -1137,7 +1179,7 @@ class Comandas_model extends CI_Model {
 
 
 			foreach ($datosComanda[DetalleComanda::FIELD_DETALLES_COMANDA] as $lineaComanda) {
-				
+
 				switch ($lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
 						[TipoComanda::FIELD_ID_TIPO_COMANDA]) {
 							case 1:

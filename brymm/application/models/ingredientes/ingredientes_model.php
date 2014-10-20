@@ -17,6 +17,15 @@ class Ingredientes_model extends CI_Model {
 
 		$this->db->query($sql, array($idLocal, $datos['ingrediente'], $datos['descripcion']
 				, 1, $datos['precio'], date('Y-m-d')));
+		
+		$idIngrediente = $this->db->insert_id();
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(17, $idLocal,  $idIngrediente);
 	}
 	
 	function insertIngredienteObject(Ingrediente $ingrediente, $idLocal) {
@@ -27,7 +36,16 @@ class Ingredientes_model extends CI_Model {
 		$this->db->query($sql, array($idLocal, $ingrediente->nombre, $ingrediente->descripcion
 				, 1, $ingrediente->precio, date('Y-m-d')));
 		
-		return $this->db->insert_id();
+		$idIngrediente = $this->db->insert_id();
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(17, $idLocal,  $idIngrediente);
+		
+		return $idIngrediente;
 	}
 
 	function obtenerIngredientes($idLocal) {
@@ -73,6 +91,13 @@ class Ingredientes_model extends CI_Model {
 
 		$this->db->query($sql, array($datos['ingrediente'], $datos['descripcion']
 				, $datos['precio'], $datos['idIngrediente']));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(17, $idLocal,  $datos['idIngrediente']);
 	}
 	
 	function modificarIngredienteObject(Ingrediente $ingrediente) {
@@ -81,13 +106,30 @@ class Ingredientes_model extends CI_Model {
 						. " WHERE id_ingrediente = ?";
 	
 		$this->db->query($sql, array($ingrediente->nombre, $ingrediente->descripcion
-				, $ingrediente->precio, $ingrediente->idIngrediente));		
+				, $ingrediente->precio, $ingrediente->idIngrediente));	
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(17, $idLocal,  $ingrediente->idIngrediente);
 	}
 
 	function borrarIngrediente($idIngrediente) {
+		//Obtengo el local antes de borrar
+		$idLocal = $this->obtenerIngrediente($idIngrediente)->row()->id_local;
+		
 		$sql = "DELETE FROM ingredientes WHERE id_ingrediente = ?";
 
 		$this->db->query($sql, array($idIngrediente));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(18, $idLocal,  $idIngrediente);
 	}
 
 	function obtenerIngrediente($idIngrediente) {

@@ -69,6 +69,13 @@ class Articulos_model extends CI_Model {
 				$this->db->query($sql, array($idArticuloLocal, $ingrediente));
 			}
 		}
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(15, $idLocal, $idArticuloLocal);
 	}
 
 	//Funcion que inserta los articulos en la BBDD
@@ -97,6 +104,13 @@ class Articulos_model extends CI_Model {
 
 			$this->db->query($sql, array($idArticuloLocal, $ingrediente->idIngrediente));
 		}
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(15, $idLocal, $idArticuloLocal);
 
 		return $idArticuloLocal;
 
@@ -340,6 +354,15 @@ class Articulos_model extends CI_Model {
 				$this->db->query($sql, array($datos['idArticuloLocal'], $ingrediente));
 			}
 		}
+		
+		$idLocal = $this->obtenerArticuloLocal($datos['idArticuloLocal'])->row()->id_local;
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(15, $idLocal,  $datos['idArticuloLocal']);
 	}
 
 	function modificarArticuloLocalObject(Articulo $articulo) {
@@ -366,11 +389,24 @@ class Articulos_model extends CI_Model {
 
 			$this->db->query($sql, array($articulo->idArticulo, $ingrediente->idIngrediente));
 		}
+		
+		$idLocal = $this->obtenerArticuloLocal($articulo->idArticulo)->row()->id_local;
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(15, $idLocal,  $articulo->idArticulo);
 
 	}
 
 	//Funcion que borra un articulo de la BBDD
 	function borrarArticuloLocal($idArticuloLocal) {
+		
+		//Obtengo el local antes de borrar
+		$idLocal = $this->obtenerArticuloLocal($idArticuloLocal)->row()->id_local;
+		
 		//Se borra el articulo
 		$sql = "DELETE FROM articulos_local WHERE id_articulo_local = ?";
 
@@ -379,7 +415,14 @@ class Articulos_model extends CI_Model {
 		//Se borra el detalle del articulo
 		$sql = "DELETE FROM det_articulo WHERE id_articulo_local = ?";
 
-		$this->db->query($sql, array($idArticuloLocal));
+		$this->db->query($sql, array($idArticuloLocal));				
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(16, $idLocal,  $idArticuloLocal);
 	}
 
 	function obtenerIngedientesArticulo($idArticuloLocal) {
@@ -404,6 +447,15 @@ class Articulos_model extends CI_Model {
 				VALUES (?,?,?,?)";
 
 		$this->db->query($sql, array($idTipoArticulo, $idLocal, $personalizar, $precioBase));
+		
+		$idTipoArticuloLocal = $this->db->insert_id();
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(19, $idLocal,  $idTipoArticuloLocal);
 	}
 
 	function insertTipoArticuloLocalObject(TipoArticuloLocal $tipoArticuloLocal,$idLocal) {
@@ -415,8 +467,17 @@ class Articulos_model extends CI_Model {
 				, $idLocal
 				, $tipoArticuloLocal->personalizar
 				, $tipoArticuloLocal->precio));
+		
+		$idTipoArticuloLocal = $this->db->insert_id(); 
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(19, $idLocal,  $idTipoArticuloLocal);
 
-		return $this->db->insert_id();
+		return $idTipoArticuloLocal;
 	}
 
 	function modificarTipoArticuloLocal($idTipoArticuloLocal, $personalizar, $precioBase) {
@@ -425,6 +486,16 @@ class Articulos_model extends CI_Model {
 				WHERE id_tipo_articulo_local = ?";
 
 		$this->db->query($sql, array($personalizar, $precioBase, $idTipoArticuloLocal));
+		
+		//Obtengo el local 
+		$idLocal = $this->obtenerTipoArticuloLocal($idTipoArticuloLocal)->row()->id_local;
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(19, $idLocal,  $idTipoArticuloLocal);
 	}
 
 	function modificarTipoArticuloLocalObject(TipoArticuloLocal $tipoArticuloLocal) {
@@ -435,6 +506,16 @@ class Articulos_model extends CI_Model {
 		$this->db->query($sql, array($tipoArticuloLocal->personalizar
 				, $tipoArticuloLocal->precio
 				, $tipoArticuloLocal->idTipoArticuloLocal));
+		
+		//Obtengo el local
+		$idLocal = $this->obtenerTipoArticuloLocal($tipoArticuloLocal->idTipoArticuloLocal)->row()->id_local;
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(19, $idLocal,  $tipoArticuloLocal->idTipoArticuloLocal);
 	}
 
 	function obtenerTiposArticuloLocal($idLocal) {
@@ -493,10 +574,21 @@ class Articulos_model extends CI_Model {
 	}
 
 	function borrarTipoArticuloLocal($idTipoArticuloLocal) {
+		
+		//Obtengo el local antes de borrar
+		$idLocal = $this->obtenerTipoArticuloLocal($idTipoArticuloLocal)->row()->id_local;
+		
 		//Borra un tipo de articulo de un local
 		$sql = "DELETE FROM tipos_articulo_local WHERE id_tipo_articulo_local = ?";
 
 		$this->db->query($sql, array($idTipoArticuloLocal));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(20, $idLocal,  $idTipoArticuloLocal);
 	}
 
 	function comprobarTipoArticuloLocal($idTipoArticulo, $idLocal) {
