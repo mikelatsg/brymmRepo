@@ -1001,133 +1001,144 @@ class Comandas_model extends CI_Model {
 
 
 	public function insertarComandaLlevarApi($datosComanda
-			, $idLocal) {
+			, $idLocal,$esNuevaComanda = true) {
 
 		$transOk = true;
 		try {
 			//Se inicia la transaccion
 			$this->db->trans_begin();
 
-			//Se crea una nueva comanda
-			//Se insertan los datos en la tabla comanda
-			$sql = "INSERT INTO comanda (destino, observaciones, id_local
-					, id_camarero, precio, id_mesa, estado, fecha_alta)
-					VALUES (?,?,?,?,?,?,?,?)";
+			if ($esNuevaComanda){
+				//Se crea una nueva comanda
+				//Se insertan los datos en la tabla comanda
+				$sql = "INSERT INTO comanda (destino, observaciones, id_local
+						, id_camarero, precio, id_mesa, estado, fecha_alta)
+						VALUES (?,?,?,?,?,?,?,?)";
 
-			$this->db->query($sql, array($datosComanda[Comanda::FIELD_DESTINO],
-					$datosComanda[Comanda::FIELD_OBSERVACIONES], $idLocal
-					, $datosComanda[Camarero::FIELD_CAMARERO][Camarero::FIELD_ID_CAMARERO]
-					, $datosComanda[Comanda::FIELD_PRECIO], 0, "EC",
-					date('Y-m-d H:i:s')));
+				$this->db->query($sql, array($datosComanda[Comanda::FIELD_DESTINO],
+						$datosComanda[Comanda::FIELD_OBSERVACIONES], $idLocal
+						, $datosComanda[Camarero::FIELD_CAMARERO][Camarero::FIELD_ID_CAMARERO]
+						, $datosComanda[Comanda::FIELD_PRECIO], 0, "EC",
+						date('Y-m-d H:i:s')));
 
-			$idComanda = $this->db->insert_id();
+				$idComanda = $this->db->insert_id();
+			}else{
+				$idComanda = $datosComanda[Comanda::FIELD_ID_COMANDA];
+			}
 
 
 			foreach ($datosComanda[DetalleComanda::FIELD_DETALLES_COMANDA] as $lineaComanda) {
 
-				switch ($lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
-						[TipoComanda::FIELD_ID_TIPO_COMANDA]) {
-							case 1:
-								//Si articulo  se guarda el id en el campo id_articulo
-								$id = $lineaComanda[Articulo::FIELD_ARTICULO]
-								[Articulo::FIELD_ID_ARTICULO];
+				/*
+				 *Se añade el detalle si el id detalle comanda = 0 ,
+				*los otros detalles estan guardados
+				*/
+				if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0 ){
 
-								//Se inserta el detalle de la comanda
-								$idDetalleComanda =
-								$this->insertarDetalleComanda(1
-										, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-										$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-										, $id);
+					switch ($lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
+							[TipoComanda::FIELD_ID_TIPO_COMANDA]) {
+								case 1:
+									//Si articulo  se guarda el id en el campo id_articulo
+									$id = $lineaComanda[Articulo::FIELD_ARTICULO]
+									[Articulo::FIELD_ID_ARTICULO];
 
-								/*
-								 * Si el idDetalleComanda es menor que cero ha habido error
-								* rollback y se sale con false
-								*/
+									//Se inserta el detalle de la comanda
+									$idDetalleComanda =
+									$this->insertarDetalleComanda(1
+											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+											, $id);
 
-								if ($idDetalleComanda < 0) {
-									//Se finaliza la transaccion
-									$this->db->trans_complete();
-									$this->db->trans_rollback();
-									return -1;
-								}
-								break;
-							case 2:
-								//Si articulo personalizado se guarda el tipo de articulo en el campo id_articulo
-								$id = $lineaComanda[Articulo::FIELD_ARTICULO]
-								[TipoArticulo::FIELD_TIPO_ARTICULO][TipoArticulo::FIELD_ID_TIPO_ARTICULO];
+									/*
+									 * Si el idDetalleComanda es menor que cero ha habido error
+									* rollback y se sale con false
+									*/
 
-								//Se inserta el detalle de la comanda
-								$idDetalleComanda =
-								$this->insertarDetalleComanda(2
-										, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-										$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-										, $id);
-
-								/*
-								 * Si el idDetalleComanda es menor que cero ha habido error
-								* rollback y se sale con false
-								*/
-
-								if ($idDetalleComanda < 0) {
-									//Se finaliza la transaccion
-									$this->db->trans_complete();
-									$this->db->trans_rollback();
-									return -1;
-								}
-
-								$insertOk = true;
-								foreach ($lineaComanda[Articulo::FIELD_ARTICULO]
-										[Ingrediente::FIELD_INGREDIENTES] as $ingrediente) {
-									//Se inserta el detalle del articulo personalizado
-									$insertOk = $this->insertarComandaArticuloPer($idDetalleComanda
-											, $ingrediente[Ingrediente::FIELD_ID_INGREDIENTE]
-											, $ingrediente[Ingrediente::FIELD_PRECIO]);
-
-									if (!$insertOk) {
-										$transOk = false;
+									if ($idDetalleComanda < 0) {
+										//Se finaliza la transaccion
+										$this->db->trans_complete();
+										$this->db->trans_rollback();
+										return -1;
 									}
-								}
+									break;
+								case 2:
+									//Si articulo personalizado se guarda el tipo de articulo en el campo id_articulo
+									$id = $lineaComanda[Articulo::FIELD_ARTICULO]
+									[TipoArticulo::FIELD_TIPO_ARTICULO][TipoArticulo::FIELD_ID_TIPO_ARTICULO];
 
-								break;
-							case 3:
+									//Se inserta el detalle de la comanda
+									$idDetalleComanda =
+									$this->insertarDetalleComanda(2
+											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+											, $id);
 
-								//Si menu se guarda el tipo de articulo en el campo id_articulo
-								$id = $lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
-								[Menu::FIELD_MENU][Menu::FIELD_ID_MENU];
+									/*
+									 * Si el idDetalleComanda es menor que cero ha habido error
+									* rollback y se sale con false
+									*/
 
-								//Se inserta el detalle de la comanda
-								$idDetalleComanda =
-								$this->insertarDetalleComanda(3
-										, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-										$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-										, $id);
-
-								/*
-								 * Si el idDetalleComanda es menor que cero ha habido error
-								* rollback y se sale con false
-								*/
-
-								if ($idDetalleComanda < 0) {
-									//Se finaliza la transaccion
-									$this->db->trans_complete();
-									$this->db->trans_rollback();
-									return -1;
-								}
-
-								$insertOk = true;
-								foreach ($lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
-										[MenuComanda::FIELD_PLATOS_COMANDA] as $plato) {
-									//Se inserta el detalle del articulo personalizado
-									$insertOk = $this->insertarComandaMenu($idDetalleComanda
-											, $plato[Plato::FIELD_ID_PLATO]
-											, $plato[PlatoComanda::FIELD_CANTIDAD]);
-
-									if (!$insertOk) {
-										$transOk = false;
+									if ($idDetalleComanda < 0) {
+										//Se finaliza la transaccion
+										$this->db->trans_complete();
+										$this->db->trans_rollback();
+										return -1;
 									}
-								}
 
-								break;
+									$insertOk = true;
+									foreach ($lineaComanda[Articulo::FIELD_ARTICULO]
+											[Ingrediente::FIELD_INGREDIENTES] as $ingrediente) {
+										//Se inserta el detalle del articulo personalizado
+										$insertOk = $this->insertarComandaArticuloPer($idDetalleComanda
+												, $ingrediente[Ingrediente::FIELD_ID_INGREDIENTE]
+												, $ingrediente[Ingrediente::FIELD_PRECIO]);
+
+										if (!$insertOk) {
+											$transOk = false;
+										}
+									}
+
+									break;
+								case 3:
+
+									//Si menu se guarda el tipo de articulo en el campo id_articulo
+									$id = $lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
+									[Menu::FIELD_MENU][Menu::FIELD_ID_MENU];
+
+									//Se inserta el detalle de la comanda
+									$idDetalleComanda =
+									$this->insertarDetalleComanda(3
+											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+											, $id);
+
+									/*
+									 * Si el idDetalleComanda es menor que cero ha habido error
+									* rollback y se sale con false
+									*/
+
+									if ($idDetalleComanda < 0) {
+										//Se finaliza la transaccion
+										$this->db->trans_complete();
+										$this->db->trans_rollback();
+										return -1;
+									}
+
+									$insertOk = true;
+									foreach ($lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
+											[MenuComanda::FIELD_PLATOS_COMANDA] as $plato) {
+										//Se inserta el detalle del articulo personalizado
+										$insertOk = $this->insertarComandaMenu($idDetalleComanda
+												, $plato[Plato::FIELD_ID_PLATO]
+												, $plato[PlatoComanda::FIELD_CANTIDAD]);
+
+										if (!$insertOk) {
+											$transOk = false;
+										}
+									}
+
+									break;
+					}
 				}
 			}
 			//Se finaliza la transaccion
@@ -1154,7 +1165,7 @@ class Comandas_model extends CI_Model {
 	}
 
 	public function insertarComandaLocalApi($datosComanda
-			, $idLocal) {
+			, $idLocal, $esNuevaComanda = true) {
 
 		$transOk = true;
 
@@ -1162,127 +1173,137 @@ class Comandas_model extends CI_Model {
 			//Se inicia la transaccion
 			$this->db->trans_begin();
 
-			//Se crea una nueva comanda
-			//Se insertan los datos en la tabla comanda
-			$sql = "INSERT INTO comanda (destino, observaciones, id_local
-					, id_camarero, precio, id_mesa, estado, fecha_alta)
-					VALUES (?,?,?,?,?,?,?,?)";
+			if ($esNuevaComanda){
+				//Se crea una nueva comanda
+				//Se insertan los datos en la tabla comanda
+				$sql = "INSERT INTO comanda (destino, observaciones, id_local
+						, id_camarero, precio, id_mesa, estado, fecha_alta)
+						VALUES (?,?,?,?,?,?,?,?)";
 
-			$this->db->query($sql, array("mesa", $datosComanda[Comanda::FIELD_OBSERVACIONES]
-					, $idLocal
-					, $datosComanda[Camarero::FIELD_CAMARERO][Camarero::FIELD_ID_CAMARERO]
-					, $datosComanda[Comanda::FIELD_PRECIO]
-					, $datosComanda[Mesa::FIELD_MESA][Mesa::FIELD_ID_MESA]
-					, "EC", date('Y-m-d H:i:s')));
+				$this->db->query($sql, array("mesa", $datosComanda[Comanda::FIELD_OBSERVACIONES]
+						, $idLocal
+						, $datosComanda[Camarero::FIELD_CAMARERO][Camarero::FIELD_ID_CAMARERO]
+						, $datosComanda[Comanda::FIELD_PRECIO]
+						, $datosComanda[Mesa::FIELD_MESA][Mesa::FIELD_ID_MESA]
+						, "EC", date('Y-m-d H:i:s')));
 
-			$idComanda = $this->db->insert_id();
-
+				$idComanda = $this->db->insert_id();
+			}else{
+				$idComanda = $datosComanda[Comanda::FIELD_ID_COMANDA];
+			}
 
 			foreach ($datosComanda[DetalleComanda::FIELD_DETALLES_COMANDA] as $lineaComanda) {
 
-				switch ($lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
-						[TipoComanda::FIELD_ID_TIPO_COMANDA]) {
-							case 1:
-								//Si articulo  se guarda el id en el campo id_articulo
-								$id = $lineaComanda[Articulo::FIELD_ARTICULO]
-								[Articulo::FIELD_ID_ARTICULO];
-									
-								//Se inserta el detalle de la comanda
-								$idDetalleComanda =
-								$this->insertarDetalleComanda(1
-										, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-										$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-										, $id);
-									
-								/*
-								 * Si el idDetalleComanda es menor que cero ha habido error
-								* rollback y se sale con false
-								*/
-									
-								if ($idDetalleComanda < 0) {
-									//Se finaliza la transaccion
-									$this->db->trans_complete();
-									$this->db->trans_rollback();
-									return -1;
-								}
-								break;
-							case 2:
-								//Si articulo personalizado se guarda el tipo de articulo en el campo id_articulo
-								$id = $lineaComanda[Articulo::FIELD_ARTICULO]
-								[TipoArticulo::FIELD_TIPO_ARTICULO]
-								[TipoArticulo::FIELD_ID_TIPO_ARTICULO];
+				/*
+				 *Se añade el detalle si el id detalle comanda = 0 ,
+				*los otros detalles estan guardados
+				*/
+				if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0 ){
 
-								//Se inserta el detalle de la comanda
-								$idDetalleComanda =
-								$this->insertarDetalleComanda(2
-										, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-										$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-										, $id);
+					switch ($lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
+							[TipoComanda::FIELD_ID_TIPO_COMANDA]) {
+								case 1:
+									//Si articulo  se guarda el id en el campo id_articulo
+									$id = $lineaComanda[Articulo::FIELD_ARTICULO]
+									[Articulo::FIELD_ID_ARTICULO];
 
-								/*
-								 * Si el idDetalleComanda es menor que cero ha habido error
-								* rollback y se sale con false
-								*/
+									//Se inserta el detalle de la comanda
+									$idDetalleComanda =
+									$this->insertarDetalleComanda(1
+											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+											, $id);
 
-								if ($idDetalleComanda < 0) {
-									//Se finaliza la transaccion
-									$this->db->trans_complete();
-									$this->db->trans_rollback();
-									return -1;
-								}
+									/*
+									 * Si el idDetalleComanda es menor que cero ha habido error
+									* rollback y se sale con false
+									*/
 
-								$insertOk = true;
-								foreach ($lineaComanda[Articulo::FIELD_ARTICULO]
-										[Ingrediente::FIELD_INGREDIENTES] as $ingrediente) {
-									//Se inserta el detalle del articulo personalizado
-									$insertOk = $this->insertarComandaArticuloPer($idDetalleComanda
-											, $ingrediente[Ingrediente::FIELD_ID_INGREDIENTE]
-											, $ingrediente[Ingrediente::FIELD_PRECIO]);
-
-									if (!$insertOk) {
-										$transOk = false;
+									if ($idDetalleComanda < 0) {
+										//Se finaliza la transaccion
+										$this->db->trans_complete();
+										$this->db->trans_rollback();
+										return -1;
 									}
-								}
+									break;
+								case 2:
+									//Si articulo personalizado se guarda el tipo de articulo en el campo id_articulo
+									$id = $lineaComanda[Articulo::FIELD_ARTICULO]
+									[TipoArticulo::FIELD_TIPO_ARTICULO]
+									[TipoArticulo::FIELD_ID_TIPO_ARTICULO];
 
-								break;
-							case 3:
-								//Si menu se guarda el tipo de articulo en el campo id_articulo
-								$id = $lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
-								[Menu::FIELD_MENU][Menu::FIELD_ID_MENU];;
+									//Se inserta el detalle de la comanda
+									$idDetalleComanda =
+									$this->insertarDetalleComanda(2
+											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+											, $id);
 
-								//Se inserta el detalle de la comanda
-								$idDetalleComanda =
-								$this->insertarDetalleComanda(3
-										, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-										$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-										, $id);
+									/*
+									 * Si el idDetalleComanda es menor que cero ha habido error
+									* rollback y se sale con false
+									*/
 
-								/*
-								 * Si el idDetalleComanda es menor que cero ha habido error
-								* rollback y se sale con false
-								*/
-
-								if ($idDetalleComanda < 0) {
-									//Se finaliza la transaccion
-									$this->db->trans_complete();
-									$this->db->trans_rollback();
-									return -1;
-								}
-
-								$insertOk = true;
-								foreach ($lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
-										[MenuComanda::FIELD_PLATOS_COMANDA] as $plato) {
-									//Se inserta el detalle del articulo personalizado
-									$insertOk = $this->insertarComandaMenu($idDetalleComanda
-											, $plato[Plato::FIELD_ID_PLATO]
-											, $plato[PlatoComanda::FIELD_CANTIDAD]);
-
-									if (!$insertOk) {
-										$transOk = false;
+									if ($idDetalleComanda < 0) {
+										//Se finaliza la transaccion
+										$this->db->trans_complete();
+										$this->db->trans_rollback();
+										return -1;
 									}
-								}
 
-								break;
+									$insertOk = true;
+									foreach ($lineaComanda[Articulo::FIELD_ARTICULO]
+											[Ingrediente::FIELD_INGREDIENTES] as $ingrediente) {
+										//Se inserta el detalle del articulo personalizado
+										$insertOk = $this->insertarComandaArticuloPer($idDetalleComanda
+												, $ingrediente[Ingrediente::FIELD_ID_INGREDIENTE]
+												, $ingrediente[Ingrediente::FIELD_PRECIO]);
+
+										if (!$insertOk) {
+											$transOk = false;
+										}
+									}
+
+									break;
+								case 3:
+									//Si menu se guarda el tipo de articulo en el campo id_articulo
+									$id = $lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
+									[Menu::FIELD_MENU][Menu::FIELD_ID_MENU];;
+
+									//Se inserta el detalle de la comanda
+									$idDetalleComanda =
+									$this->insertarDetalleComanda(3
+											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+											, $id);
+
+									/*
+									 * Si el idDetalleComanda es menor que cero ha habido error
+									* rollback y se sale con false
+									*/
+
+									if ($idDetalleComanda < 0) {
+										//Se finaliza la transaccion
+										$this->db->trans_complete();
+										$this->db->trans_rollback();
+										return -1;
+									}
+
+									$insertOk = true;
+									foreach ($lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
+											[MenuComanda::FIELD_PLATOS_COMANDA] as $plato) {
+										//Se inserta el detalle del articulo personalizado
+										$insertOk = $this->insertarComandaMenu($idDetalleComanda
+												, $plato[Plato::FIELD_ID_PLATO]
+												, $plato[PlatoComanda::FIELD_CANTIDAD]);
+
+										if (!$insertOk) {
+											$transOk = false;
+										}
+									}
+
+									break;
+					}
 				}
 			}
 			//Se finaliza la transaccion

@@ -77,7 +77,7 @@ class Comandas extends REST_Controller {
 	function nuevaComanda_post() {
 
 		//Se recogen los datos recibidos en formato json
-		$datosComanda = $this->post();		
+		$datosComanda = $this->post();
 
 		if (!isset($datosComanda[Comanda::FIELD_COMANDA]) ) {
 			$msg = "Error creando comanda";
@@ -110,6 +110,52 @@ class Comandas extends REST_Controller {
 		$comanda = Comanda::withID($idComanda);
 
 		$msg = "Comanda creada correctamente";
+
+		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
+				Code::JSON_MENSAJE => $msg,
+				Comanda::FIELD_COMANDA => $comanda
+		);
+
+		$this->response($datosRespuesta, Code::CODE_OK);
+
+	}
+
+	function anadirAComanda_post() {
+
+		//Se recogen los datos recibidos en formato json
+		$datosComanda = $this->post();
+
+		if (!isset($datosComanda[Comanda::FIELD_COMANDA]) ) {
+			$msg = "Error añadiendo datos a la comanda";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+
+		//Se recogen los parametros enviados
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
+
+		//Compruebo si se trata de un pedido para llevar o de mesa
+		if (!isset($datosComanda[Comanda::FIELD_COMANDA][Mesa::FIELD_MESA])){
+			//Se borra el plato del local
+			$idComanda = $this->Comandas_model->insertarComandaLlevarApi
+			($datosComanda[Comanda::FIELD_COMANDA], $idLocal,false);
+		}else{
+			$idComanda = $this->Comandas_model->insertarComandaLocalApi
+			($datosComanda[Comanda::FIELD_COMANDA], $idLocal,false);
+		}
+
+
+		if ($idComanda < 0 ){
+			$msg = "Error actualizando comanda";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+
+		$comanda = Comanda::withID($idComanda);
+
+		$msg = "Datos anadidos correctamente a la comanda";
 
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 				Code::JSON_MENSAJE => $msg,
