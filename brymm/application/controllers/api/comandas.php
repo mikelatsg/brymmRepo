@@ -50,12 +50,12 @@ class Comandas extends REST_Controller {
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					, Code::JSON_MENSAJE => $msg);
 			$this->response($datosRespuesta, Code::CODE_OK);
-		}
+		}		
 
 		//Se recogen los parametros enviados
 		$idComandaMenu = $datosComanda[PlatoComanda::FIELD_ID_COMANDA_MENU];
-		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
-
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];		
+		
 		//Se borra el plato del local
 		$this->Comandas_model->cambiarEstadoPlatoMenu($idComandaMenu, 'TC');
 
@@ -133,7 +133,7 @@ class Comandas extends REST_Controller {
 		}
 
 		//Se recogen los parametros enviados
-		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];
+		$idLocal = $datosComanda[Code::FIELD_ID_LOCAL];			
 
 		//Compruebo si se trata de un pedido para llevar o de mesa
 		if (!isset($datosComanda[Comanda::FIELD_COMANDA][Mesa::FIELD_MESA])){

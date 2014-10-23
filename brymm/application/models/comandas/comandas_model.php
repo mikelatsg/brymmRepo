@@ -430,7 +430,7 @@ class Comandas_model extends CI_Model {
 	}
 
 	private function insertarComandaMenu($idDetalleComanda
-			, $idPlatoLocal, $cantidad) {
+			, $idPlatoLocal, $cantidad, $estado = "EC") {
 		//Se inicia la transaccion
 		$this->db->trans_begin();
 		$sql = "INSERT INTO comanda_menu (id_detalle_comanda,
@@ -438,7 +438,7 @@ class Comandas_model extends CI_Model {
 				VALUES (?,?,?,?)";
 
 		$this->db->query($sql, array($idDetalleComanda
-				, $idPlatoLocal, $cantidad, "EC"));
+				, $idPlatoLocal, $cantidad, $estado));
 
 		//Se finaliza la transaccion
 		$this->db->trans_complete();
@@ -526,11 +526,11 @@ class Comandas_model extends CI_Model {
 	function cambiarEstadoPlatoMenu($idComandaMenu, $estado) {
 		//Se cambia el estado de la comanda
 		$sql = "UPDATE comanda_menu SET  estado = ?
-				WHERE id_comanda_menu = ?";
-
+				WHERE id_comanda_menu = ?";		
+		
 		$this->db->query($sql, array($estado, $idComandaMenu));
 
-		$idComanda = $this->obtenerIdComanda($idComandaMenu);
+		$idComanda = $this->obtenerIdComanda($idComandaMenu);				
 
 		//Se obtienen los datos de la comanda
 		$datosComanda =
@@ -948,9 +948,9 @@ class Comandas_model extends CI_Model {
 	function obtenerIdComanda($idComandaMenu) {
 		$sql = "SELECT *
 				FROM comanda_menu
-				WHERE id_comanda_menu = ?";
-
-		$rowComandaMenu = $this->db->query($sql, array($idComandaMenu))->row();
+				WHERE id_comanda_menu = ?";		
+		
+		$rowComandaMenu = $this->db->query($sql, array($idComandaMenu))->row();		
 
 		$sql = "SELECT *
 				FROM detalle_comanda
@@ -1033,7 +1033,9 @@ class Comandas_model extends CI_Model {
 				 *Se añade el detalle si el id detalle comanda = 0 ,
 				*los otros detalles estan guardados
 				*/
-				if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0 ){
+				if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0 ||
+				$lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
+				[TipoComanda::FIELD_ID_TIPO_COMANDA] == 3 ){
 
 					switch ($lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
 							[TipoComanda::FIELD_ID_TIPO_COMANDA]) {
@@ -1101,27 +1103,40 @@ class Comandas_model extends CI_Model {
 									break;
 								case 3:
 
+
+
 									//Si menu se guarda el tipo de articulo en el campo id_articulo
 									$id = $lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
 									[Menu::FIELD_MENU][Menu::FIELD_ID_MENU];
 
-									//Se inserta el detalle de la comanda
-									$idDetalleComanda =
-									$this->insertarDetalleComanda(3
-											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-											, $id);
+									//Se inserta el detalle si el id_detalle es 0 (nuevo)
+									if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0){
+										//Se inserta el detalle de la comanda
+										$idDetalleComanda =
+										$this->insertarDetalleComanda(3
+												, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+												$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+												, $id);
 
-									/*
-									 * Si el idDetalleComanda es menor que cero ha habido error
-									* rollback y se sale con false
-									*/
+										/*
+										 * Si el idDetalleComanda es menor que cero ha habido error
+										* rollback y se sale con false
+										*/
 
-									if ($idDetalleComanda < 0) {
-										//Se finaliza la transaccion
-										$this->db->trans_complete();
-										$this->db->trans_rollback();
-										return -1;
+										if ($idDetalleComanda < 0) {
+											//Se finaliza la transaccion
+											$this->db->trans_complete();
+											$this->db->trans_rollback();
+											return -1;
+										}
+									}else{
+										$idDetalleComanda = $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA];
+									}
+										
+									//Si es detalle nuevo lo inserto, si no modifico los platos (borrar
+									// y luego crear) por si se trata de completar un menu.
+									if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0){
+										$this->borrarPlatosDetalle($lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA]);
 									}
 
 									$insertOk = true;
@@ -1130,12 +1145,14 @@ class Comandas_model extends CI_Model {
 										//Se inserta el detalle del articulo personalizado
 										$insertOk = $this->insertarComandaMenu($idDetalleComanda
 												, $plato[Plato::FIELD_ID_PLATO]
-												, $plato[PlatoComanda::FIELD_CANTIDAD]);
+												, $plato[PlatoComanda::FIELD_CANTIDAD]
+												, $plato[PlatoComanda::FIELD_ESTADO]);
 
 										if (!$insertOk) {
 											$transOk = false;
 										}
 									}
+
 
 									break;
 					}
@@ -1198,7 +1215,9 @@ class Comandas_model extends CI_Model {
 				 *Se añade el detalle si el id detalle comanda = 0 ,
 				*los otros detalles estan guardados
 				*/
-				if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0 ){
+				if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0 ||
+				$lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
+				[TipoComanda::FIELD_ID_TIPO_COMANDA] == 3){
 
 					switch ($lineaComanda[TipoComanda::FIELD_TIPO_COMANDA]
 							[TipoComanda::FIELD_ID_TIPO_COMANDA]) {
@@ -1270,32 +1289,45 @@ class Comandas_model extends CI_Model {
 									$id = $lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
 									[Menu::FIELD_MENU][Menu::FIELD_ID_MENU];;
 
-									//Se inserta el detalle de la comanda
-									$idDetalleComanda =
-									$this->insertarDetalleComanda(3
-											, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
-											$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
-											, $id);
+									//Se inserta el detalle si el id_detalle es 0 (nuevo)
+									if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] == 0){
+										//Se inserta el detalle de la comanda
+										$idDetalleComanda =
+										$this->insertarDetalleComanda(3
+												, $lineaComanda[DetalleComanda::FIELD_CANTIDAD],
+												$lineaComanda[DetalleComanda::FIELD_PRECIO], $idComanda
+												, $id);
 
-									/*
-									 * Si el idDetalleComanda es menor que cero ha habido error
-									* rollback y se sale con false
-									*/
+										/*
+										 * Si el idDetalleComanda es menor que cero ha habido error
+										* rollback y se sale con false
+										*/
 
-									if ($idDetalleComanda < 0) {
-										//Se finaliza la transaccion
-										$this->db->trans_complete();
-										$this->db->trans_rollback();
-										return -1;
+										if ($idDetalleComanda < 0) {
+											//Se finaliza la transaccion
+											$this->db->trans_complete();
+											$this->db->trans_rollback();
+											return -1;
+										}
+									}else{
+										$idDetalleComanda = $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA];
+									}
+
+									//Si es detalle nuevo lo inserto, si no modifico los platos (borrar
+									// y luego crear) por si se trata de completar un menu.
+									if ( $lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA] > 0){
+										$this->borrarPlatosDetalle($lineaComanda[DetalleComanda::FIELD_ID_DETALLE_COMANDA]);
 									}
 
 									$insertOk = true;
+										
 									foreach ($lineaComanda[MenuComanda::FIELD_MENU_COMANDA]
 											[MenuComanda::FIELD_PLATOS_COMANDA] as $plato) {
 										//Se inserta el detalle del articulo personalizado
 										$insertOk = $this->insertarComandaMenu($idDetalleComanda
 												, $plato[Plato::FIELD_ID_PLATO]
-												, $plato[PlatoComanda::FIELD_CANTIDAD]);
+												, $plato[PlatoComanda::FIELD_CANTIDAD]
+												, $plato[PlatoComanda::FIELD_ESTADO]);
 
 										if (!$insertOk) {
 											$transOk = false;
@@ -1327,6 +1359,14 @@ class Comandas_model extends CI_Model {
 		(4, $idLocal, $idComanda);
 
 		return $idComanda;
+	}
+
+	function borrarPlatosDetalle($idDetalleComanda){
+		$sql = "DELETE FROM comanda_menu
+				WHERE id_detalle_comanda = ?";
+			
+		$this->db->query($sql, array($idDetalleComanda));
+			
 	}
 }
 
