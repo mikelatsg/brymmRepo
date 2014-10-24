@@ -19,7 +19,16 @@ class Reservas_model extends CI_Model {
 		$this->db->query($sql, array($nombreMesa, $capacidad
 				, $idLocal, date('Y-m-d H:i:s')));
 
-		return $this->db->insert_id();
+		$idMesa = $this->db->insert_id();
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(27, $idLocal, $idMesa);
+		
+		return $idMesa;
 	}
 
 	function modificarMesaLocal($idMesaLocal,$nombreMesa,$capacidad){
@@ -28,6 +37,13 @@ class Reservas_model extends CI_Model {
 			
 		$this->db->query($sql, array($nombreMesa, $capacidad
 				, $idMesaLocal));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(27, $idLocal, $idMesaLocal);
 	}
 
 	function obtenerMesasLocal($idLocal) {
@@ -64,6 +80,9 @@ class Reservas_model extends CI_Model {
 	}
 
 	function borrarMesaLocal($idMesaLocal) {
+		
+		//Obtengo el idLocal
+		$idLocal = $this->obtenerMesaLocal($idMesaLocal)->row()->id_local;
 
 		$sql = "DELETE FROM mesas_local WHERE id_mesa_local = ?";
 
@@ -72,6 +91,13 @@ class Reservas_model extends CI_Model {
 		$sql = "DELETE FROM reserva_mesa WHERE id_mesa_local = ?";
 
 		$this->db->query($sql, array($idMesaLocal));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(28, $idLocal, $idMesaLocal);
 	}
 
 	function comprobarNombreMesaLocal($idLocal, $nombreMesa) {

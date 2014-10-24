@@ -20,7 +20,16 @@ class Menus_model extends CI_Model {
 		$this->db->query($sql, array($idLocal, $nombre, $idTipoPlato,
 				$precio, date('Y-m-d H:i:s')));
 
-		return $this->db->insert_id();
+		$idPlato = $this->db->insert_id();
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(33, $idLocal, $idPlato);
+		
+		return $idPlato;
 	}
 
 	function obtenerPlatosLocal($idLocal) {
@@ -102,6 +111,13 @@ class Menus_model extends CI_Model {
 				AND id_plato_local = ?";
 
 		$this->db->query($sql, array($idLocal, $idPlatoLocal));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(34, $idLocal, $idPlatoLocal);
 	}
 
 	function insertMenu($idLocal, $fechaMenu, $disponible, $idTipoMenuLocal) {
@@ -114,16 +130,35 @@ class Menus_model extends CI_Model {
 				, $fechaMenu->format('Y-m-d'), $disponible, $idTipoMenuLocal
 				, date('Y-m-d')));
 
-		return $this->db->insert_id();
+		$idMenu = $this->db->insert_id();
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(31, $idLocal, $idMenu);
+
+		return $idMenu;
 	}
 
 	function insertPlatoMenu($idMenuLocal, $idPlatoLocal, $disponible) {
+
+		//Obtengo el local
+		$idLocal = $this->obtenerDatosMenuDia($idMenuLocal)->row()->id_local;
 
 		// Guardar usuario en BD -- $this->encrypt->encode()
 		$sql = "INSERT INTO detalle_menu_local (id_detalle_menu_local, id_menu_local,"
 				. "id_plato_local, disponible, fecha_alta)"
 						. "VALUES('',?,?,?,?)";
 		$this->db->query($sql, array($idMenuLocal, $idPlatoLocal, $disponible, date('Y-m-d')));
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(31, $idLocal, $idMenuLocal);
 	}
 
 	function borrarPlatoMenu($idDetalleMenuLocal) {
@@ -132,8 +167,11 @@ class Menus_model extends CI_Model {
 		$sql = "SELECT * FROM detalle_menu_local
 				WHERE id_detalle_menu_local = ?";
 
-		$idMenuLocal = $this->db->query($sql, array($idDetalleMenuLocal))
-		->row()->id_menu_local;
+		$datosMenu = $this->db->query($sql, array($idDetalleMenuLocal))
+		->row();
+
+		$idMenuLocal = $datosMenu->id_menu_local;
+		$idLocal = $this->obtenerDatosMenuDia($idMenuLocal)->row()->id_local;
 
 		// Borrar plato del menu
 		$sql = "DELETE FROM detalle_menu_local
@@ -156,37 +194,70 @@ class Menus_model extends CI_Model {
 			$sql = "DELETE FROM menu_local
 					WHERE id_menu_local = ?";
 			$this->db->query($sql, array($idMenuLocal));
+				
+			//Se carga el modelo de alertas
+			$this->load->model('alertas/Alertas_model');
+
+			//Se inserta la alerta de borrado
+			$this->Alertas_model->insertAlertaLocal
+			(32, $idLocal, $idMenuLocal);
+		}else{
+			//Se carga el modelo de alertas
+			$this->load->model('alertas/Alertas_model');
+
+			//Se inserta la alerta de modificado
+			$this->Alertas_model->insertAlertaLocal
+			(31, $idLocal, $idMenuLocal);
 		}
+
+
 	}
-	
+
 	function borrarPlatoMenu2($idMenuLocal, $idPlato) {
-		
+
+		//Obtengo el local
+		$idLocal = $this->obtenerDatosMenuDia($idMenuLocal)->row()->id_local;
+
 		// Borrar plato del menu
 		$sql = "DELETE FROM detalle_menu_local
-				WHERE id_menu_local = ? 
+				WHERE id_menu_local = ?
 				AND id_plato_local = ? ";
 		$this->db->query($sql, array($idMenuLocal, $idPlato));
-	
+
 		/*
 		 * Se comprueba si existen mas platos en este menu, si no hay mas
 		* se borra el menu
 		*/
-	
+
 		$sql = "SELECT * FROM detalle_menu_local
 				WHERE id_menu_local = ?";
-	
+
 		$borrarMenu = $this->db->query($sql, array($idMenuLocal))
 		->num_rows();
-	
+
 		if (!$borrarMenu > 0) {
 			// Borrar el menu
 			$sql = "DELETE FROM menu_local
 					WHERE id_menu_local = ?";
 			$this->db->query($sql, array($idMenuLocal));
-			
+				
+			//Se carga el modelo de alertas
+			$this->load->model('alertas/Alertas_model');
+				
+			//Se inserta la alerta de borrado
+			$this->Alertas_model->insertAlertaLocal
+			(32, $idLocal, $idMenuLocal);
+				
 			return true;
 		}
-		
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+			
+		//Se inserta la alerta de modificado
+		$this->Alertas_model->insertAlertaLocal
+		(31, $idLocal, $idMenuLocal);
+
 		return false;
 	}
 
@@ -200,7 +271,16 @@ class Menus_model extends CI_Model {
 		$this->db->query($sql, array($idLocal, $idTipoMenu, $nombreMenu
 				, $precioMenu, date('Y-m-d'), $esCarta));
 
-		return $this->db->insert_id();
+		$idTipoMenuLocal = $this->db->insert_id();
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(29, $idLocal, $idTipoMenuLocal);
+
+		return $idTipoMenuLocal ;
 	}
 
 	function obtenerTiposMenuLocal($idLocal) {
@@ -234,6 +314,9 @@ class Menus_model extends CI_Model {
 
 	function borrarTipoMenuLocal($idTipoMenuLocal) {
 
+		//Obtengo el local
+		$idLocal = $this->obtenerTipoMenuLocal($idTipoMenuLocal)->row()->id_local;
+
 		// Borrar los detalles de los menus creados con este tipo
 		$sql = "DELETE FROM detalle_menu_local
 				WHERE id_menu_local IN(
@@ -251,20 +334,37 @@ class Menus_model extends CI_Model {
 		$sql = "DELETE FROM tipo_menu_local
 				WHERE id_tipo_menu_local = ?";
 		$this->db->query($sql, array($idTipoMenuLocal));
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(30, $idLocal, $idTipoMenuLocal);
 	}
-	
+
 	function borrarMenuLocalDia($idMenuDia) {
-	
+
+		//Obtengo el local
+		$idLocal = $this->obtenerDatosMenuDia($idMenuDia)->row()->id_local;
+
 		// Borrar los detalles de los menus creados con este tipo
 		$sql = "DELETE FROM detalle_menu_local
 				WHERE id_menu_local = ?";
 		$this->db->query($sql, array($idMenuDia));
-	
+
 		// Borrar los menus creados con este tipo
 		$sql = "DELETE FROM menu_local
 				WHERE id_menu_local = ?";
 		$this->db->query($sql, array($idMenuDia));
-	 
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(32, $idLocal, $idMenuDia);
+
 	}
 
 	/*
@@ -272,12 +372,22 @@ class Menus_model extends CI_Model {
 	*/
 
 	function modificarPlatoLocal($nombre, $precio, $idTipoPlato, $idPlatoLocal) {
+		//Obtengo el local
+		$idLocal = $this->obtenerPlatoLocal($idPlatoLocal)->row()->id_local;
+		
 		$sql = "UPDATE platos_local
 				SET  nombre = ? , precio = ?, id_tipo_plato = ?
 				WHERE id_plato_local = ?";
 
 		$this->db->query($sql, array($nombre, $precio, $idTipoPlato,
 				$idPlatoLocal));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(33, $idLocal, $idPlatoLocal);
 	}
 
 	/*
@@ -292,6 +402,13 @@ class Menus_model extends CI_Model {
 
 		$this->db->query($sql, array($idTipoMenu, $nombreMenu, $precioMenu, $esCarta
 				, $idTipoMenuLocal));
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(29, $idLocal, $idTipoMenuLocal);
 	}
 
 	/*
@@ -388,6 +505,16 @@ class Menus_model extends CI_Model {
 		//Se obtienen los platos del local
 		$sql = "SELECT * FROM menu_local ml
 				WHERE id_menu_local = ?";
+
+		$result = $this->db->query($sql, array($idMenuLocal));
+
+		return $result;
+	}
+
+	function obtenerDatosDetalleMenu($idDetalleMenu) {
+		//Se obtienen los platos del local
+		$sql = "SELECT * FROM detalle_menu_local ml
+				WHERE id_detalle_menu_local = ?";
 
 		$result = $this->db->query($sql, array($idMenuLocal));
 
@@ -510,15 +637,15 @@ class Menus_model extends CI_Model {
 		//Se obtienen los menus diarios del local (desde hace una semana)
 		$sql ="SELECT * FROM menu_local
 				WHERE fecha_menu >= SYSDATE() - INTERVAL 7 DAY";
-		
+
 		$result = $this->db->query($sql)->result();
-		
+
 		$menusDia = array();
-		
+
 		foreach ($result as $row){
-			$menusDia[] = MenuDia::withID($row->id_menu_local);			
+			$menusDia[] = MenuDia::withID($row->id_menu_local);
 		}
-		
+
 		return $menusDia;
 	}
 
@@ -957,7 +1084,7 @@ class Menus_model extends CI_Model {
 
 		return $calendario;
 	}
-	
+
 	function comprobarMenuEnDia($idLocal, $idMenu, $fecha) {
 		$sql = "SELECT ml.*,tm.descripcion, tml.*
 				FROM menu_local ml, tipo_menu tm, tipo_menu_local tml
@@ -967,9 +1094,9 @@ class Menus_model extends CI_Model {
 				AND ml.fecha_menu = ?
 				AND tml.id_tipo_menu_local = ?
 				ORDER BY es_carta";
-	
+
 		$result = $this->db->query($sql, array($idLocal, $fecha,$idMenu));
-	
+
 		return $result;
 	}
 

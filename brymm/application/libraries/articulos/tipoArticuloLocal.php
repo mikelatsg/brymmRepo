@@ -6,6 +6,10 @@ if (!defined('BASEPATH'))
 require_once APPPATH . '/libraries/articulos/tipoArticulo.php';
 
 class TipoArticuloLocal extends TipoArticulo{
+	
+	const FIELD_TIPO_ARTICULO_LOCAL = "tipoArticuloLocal";
+	const FIELD_ID_TIPO_ARTICULO_LOCAL = "idTipoArticuloLocal";
+	
 	public $idTipoArticuloLocal;
 	public $precio;
 	public $personalizar;

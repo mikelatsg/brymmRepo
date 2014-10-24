@@ -16,16 +16,35 @@ class Camareros_model extends CI_Model {
 
 		$this->db->query($sql, array($idLocal, $nombreCamarero, date('Y-m-d H:i:s')
 				, $password, $controlTotal, $activo));
+		
+		$idCamarero = $this->db->insert_id();
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(35, $idLocal, $idCamarero);
 	}
 
 	function modificarCamarero($idCamarero, $nombreCamarero, $password
 			, $controlTotal) {
+		
+		$idLocal = $this->obtenerDatosCamarero2($idCamarero)->row()->id_local;
+		
 		$sql = "UPDATE camareros
 				SET nombre = ?, password = ?, control_total = ?
 				WHERE id_camarero = ?";
 
 		$this->db->query($sql, array($nombreCamarero, $password, $controlTotal
 				, $idCamarero));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(35, $idLocal, $idCamarero);
 	}
 
 	function obtenerCamarerosLocal($idLocal, $activo) {
@@ -83,11 +102,21 @@ class Camareros_model extends CI_Model {
 	}
 
 	function borrarCamareroLocal($idCamarero) {
+		
+		$idLocal = $this->obtenerDatosCamarero2($idCamarero)->row()->id_local;
+		
 		$sql = "UPDATE camareros
 				SET activo = ?
 				WHERE id_camarero = ?";
 
 		$this->db->query($sql, array(0, $idCamarero));
+		
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+		
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(36, $idLocal, $idCamarero);
 	}
 
 	function obtenerDatosCamarero($idCamarero, $activo) {

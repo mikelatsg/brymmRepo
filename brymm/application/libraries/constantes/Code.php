@@ -37,6 +37,7 @@ class Code {
     
     const RES_OPERACION_OK = 1;
     const RES_OPERACION_KO = 0;
+    const RES_OPERACION_NO_ALERTAS = 2;
     
     const NO_DATA = "no_data";
     

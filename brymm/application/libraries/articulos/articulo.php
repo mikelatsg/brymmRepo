@@ -39,4 +39,33 @@ class Articulo{
 		$this->validoPedidos = $validoPedidos;
 		$this->ingredientes = $ingredientes;
 	}
+	
+	public static function withID($idArticulo) {
+		$CI;
+		$CI = & get_instance();
+		$CI->load->model('articulos/Articulos_model');
+		$datosArticulo = $CI->Articulos_model->obtenerArticuloLocal($idArticulo);			
+		
+		$datosArticulo = $datosArticulo->row();
+		
+		$tipoArticulo = TipoArticuloLocal::withID($datosArticulo->id_tipo_articulo_local);
+		
+		$datosIngredientes = $CI->Articulos_model->obtenerIngedientesArticulo($idArticulo)->result();
+
+		$ingredientes = array();
+		
+		foreach ($datosIngredientes as $ingrediente){
+			$ingredientes [] = Ingrediente::withID($ingrediente->id_ingrediente);
+		}
+		
+		$articulo = new Articulo($datosArticulo->id_articulo_local,
+				$tipoArticulo,
+				$datosArticulo->articulo,
+				$datosArticulo->descripcion,
+				$datosArticulo->precio,
+				$datosArticulo->valido_pedidos,
+				$ingredientes);
+	
+		return $articulo;
+	}
 }

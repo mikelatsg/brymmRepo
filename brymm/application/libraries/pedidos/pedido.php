@@ -48,4 +48,13 @@ class Pedido{
 		$this->motivoRechazo = $motivoRechazo;
 		$this->articulos = $articulos;
 	}
+	
+	public static function withID($idPedido) {
+		$CI;
+		$CI = & get_instance();
+		$CI->load->model('pedidos/Pedidos_model');
+		$instance = $CI->Pedidos_model->obtenerPedidoObject($idPedido);		
+	
+		return $instance;
+	}
 }
