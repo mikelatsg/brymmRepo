@@ -7,6 +7,7 @@ class Alerta{
 	
 	const FIELD_ALERTA = "alerta";
 	const FIELD_ALERTAS = "alertas";
+	const FIELD_LOCAL = "local";
 	const ACTUALIZAR = "ACT";
 	const BORRAR = "BOR";
 	

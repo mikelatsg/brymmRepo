@@ -49,13 +49,13 @@ class Alertas extends REST_Controller {
 		$this->load->model('alertas/Alertas_model');
 	}
 
-	function obtenerAlertas_post() {
-
+	function obtenerAlertasLocal_post() {		
+		
 		//Se recogen los datos recibidos en formato json
 		$datos = $this->post();
 
 		if (!isset($datos[Code::FIELD_ID_LOCAL]) ||
-				!isset($datos[FIELD_FECHA]) ) {
+				!isset($datos[Alertas::FIELD_FECHA]) ) {
 		$msg = "Error obteniendo alertas";
 		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 				, Code::JSON_MENSAJE => $msg);
@@ -63,7 +63,7 @@ class Alertas extends REST_Controller {
 		}
 
 		//Se recogen los parametros enviados
-		$fecha = $datos[FIELD_FECHA];
+		$fecha = $datos[Alertas::FIELD_FECHA];
 		$idLocal = $datos[Code::FIELD_ID_LOCAL];
 
 		/*$fecha = $this->get(Alertas::FIELD_FECHA);

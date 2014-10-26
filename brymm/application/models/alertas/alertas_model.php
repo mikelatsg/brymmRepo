@@ -42,11 +42,13 @@ class Alertas_model extends CI_Model {
 	function hayAlertasNuevas($idLocal, $fecha) {
 
 		// Consulta en la tabla de alertas
-		$sql = "SELECT * FROM alertas_local
-				WHERE id_local = ?
-				AND fecha >= ?";
+		$sql = "SELECT * FROM alertas_local al , motivo_alerta ma
+				WHERE al.id_motivo_alerta = ma.id_motivo_alerta 
+				AND id_local = ?
+				AND fecha >= ?
+				AND ma.aplicable = ?";
 
-		$result = $this->db->query($sql, array($idLocal, $fecha));
+		$result = $this->db->query($sql, array($idLocal, $fecha,Alerta::FIELD_LOCAL));
 			
 		if ($result->num_rows() > 0){
 			return true;
@@ -62,9 +64,10 @@ class Alertas_model extends CI_Model {
 				WHERE  al.id_motivo_alerta = ma.id_motivo_alerta
 				AND id_local = ?
 				AND fecha >= ?
+				AND ma.aplicable = ?
 				ORDER BY al.id_alerta_local";
 			
-		$result = $this->db->query($sql, array($idLocal, $fecha))->result();
+		$result = $this->db->query($sql, array($idLocal, $fecha, Alerta::FIELD_LOCAL))->result();
 			
 		$alertas = array();
 			
