@@ -183,7 +183,7 @@ class Usuarios extends CI_Controller {
 
         $header['javascript'] = array('miajaxlib', 'jquery/jquery'
             , 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
-            , 'usuarios');
+            , 'usuarios', 'js/bootstrap.min');
         
         $header['estilos'] = array('buscador.css');
 
