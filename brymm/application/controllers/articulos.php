@@ -34,7 +34,9 @@ class Articulos extends CI_Controller {
 
         $header['javascript'] = array('miajaxlib', '/jquery/jquery'
             , 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
-            , 'articulos' , 'mensajes');
+            , 'articulos' , 'mensajes','js/bootstrap.min');
+        
+        $header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css');
 
         $msg = "";
 
