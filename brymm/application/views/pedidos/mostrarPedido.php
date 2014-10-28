@@ -124,7 +124,7 @@
 							?></td>
 						</tr>
 						<tr>
-							<td>Precio envio <? echo $precioEnvioPedido->precio ?>
+							<td>Precio envio <?php echo $precioEnvioPedido->precio ?>
 							</td>
 						</tr>
 						<?php endif; ?>
