@@ -178,7 +178,7 @@ class Usuarios extends CI_Controller {
         $buscador['servicios'] = $this->Servicios_model->obtenerServicios()->result();
 
         //Se obtienen las direcciones de envio
-        $var2['direccionesEnvio'] =
+        $var['direccionesEnvio'] =
                 $this->Usuarios_model->obtenerDirecciones($_SESSION['idUsuario'])->result();
 
         $header['javascript'] = array('miajaxlib', 'jquery/jquery'
@@ -191,7 +191,7 @@ class Usuarios extends CI_Controller {
         $this->load->view('base/page_top');
         $this->load->view('locales/buscadorLocales', $buscador);
         $this->load->view('usuarios/home', $var);
-        $this->load->view('usuarios/gestionDireccionEnvio', $var2);
+       // $this->load->view('usuarios/gestionDireccionEnvio', $var2);
         $this->load->view('usuarios/formularioDireccionEnvio');
         $this->load->view('base/page_bottom');
     }
