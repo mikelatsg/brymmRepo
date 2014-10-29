@@ -411,14 +411,14 @@ class Locales extends CI_Controller {
 		($idLocal)->result();
 
 		//Se obtienen las reservas que tiene realizadas el usuario
-		$var4['reservasUsuario'] = $this->Reservas_model->obtenerActualesReservasUsuario
+		$var3['reservasUsuario'] = $this->Reservas_model->obtenerActualesReservasUsuario
 		($_SESSION['idUsuario'])->result();
 
 		//Se obtienen los tipos de menu
 		$var3['tiposMenu'] = $this->Menus_model->obtenerTiposMenu()->result();
 
 		$this->load->view('reservas/reservasUsuarioLocal', $var3);
-		$this->load->view('reservas/listaReservasUsuario', $var4);
+		//$this->load->view('reservas/listaReservasUsuario', $var4);
 	}
 
 	public function anadirDiaCierreLocal() {

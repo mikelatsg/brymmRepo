@@ -36,7 +36,7 @@ class Articulos extends CI_Controller {
             , 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
             , 'articulos' , 'mensajes','js/bootstrap.min');
         
-        $header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css');
+        $header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css');
 
         $msg = "";
 
