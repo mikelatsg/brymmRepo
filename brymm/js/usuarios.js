@@ -103,8 +103,8 @@ function mostrarReservaHomeUsuario(item) {
         contenido += "<br>Motivo rechazo : " + motivoRechazo;
     }
 
-    $("#muestraDetalle").empty();
-    $("#muestraDetalle").html(contenido);
+    $("#muestraDetalleReserva").empty();
+    $("#muestraDetalleReserva").html(contenido);
 }
 
 function eliminarLocalFavorito(item) {

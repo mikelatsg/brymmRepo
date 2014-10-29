@@ -44,25 +44,24 @@
 					echo "<a class=\"enlaceAnadirValoracionLocal\" data-toggle=\"modal\"> Valorar local </a>";
 					?>
 				</div>
-				<ul>
+				<div class="list-group">
 					<?php
 					if (count($valoraciones) > 0):
 					foreach ($valoraciones as $valoracion):
 					?>
-					<li><?php
+					<span class="list-group-item"><?php
 					echo "Usuario : " . $valoracion->nick
 					. " - Fecha : " . $valoracion->fecha
 					. " - Nota : " . $valoracion->nota
 					. "<br> Observaciones : " . $valoracion->observaciones;
-					?>
-					</li>
+					?> </span>
 					<?php
 					endforeach;
 					else:
 					echo "No se ha realizado ninguna valoracion";
 					endif;
 					?>
-				</ul>
+				</div>
 			</div>
 		</div>
 	</div>
