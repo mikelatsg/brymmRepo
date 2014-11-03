@@ -48,7 +48,7 @@ class Articulo{
 		
 		$datosArticulo = $datosArticulo->row();
 		
-		$tipoArticulo = TipoArticuloLocal::withID($datosArticulo->id_tipo_articulo_local);
+		$tipoArticulo = TipoArticulo::withID($datosArticulo->id_tipo_articulo);
 		
 		$datosIngredientes = $CI->Articulos_model->obtenerIngedientesArticulo($idArticulo)->result();
 
