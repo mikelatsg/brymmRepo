@@ -20,14 +20,14 @@ class Reservas_model extends CI_Model {
 				, $idLocal, date('Y-m-d H:i:s')));
 
 		$idMesa = $this->db->insert_id();
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(27, $idLocal, $idMesa);
-		
+
 		return $idMesa;
 	}
 
@@ -37,10 +37,10 @@ class Reservas_model extends CI_Model {
 			
 		$this->db->query($sql, array($nombreMesa, $capacidad
 				, $idMesaLocal));
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(27, $idLocal, $idMesaLocal);
@@ -80,7 +80,7 @@ class Reservas_model extends CI_Model {
 	}
 
 	function borrarMesaLocal($idMesaLocal) {
-		
+
 		//Obtengo el idLocal
 		$idLocal = $this->obtenerMesaLocal($idMesaLocal)->row()->id_local;
 
@@ -91,10 +91,10 @@ class Reservas_model extends CI_Model {
 		$sql = "DELETE FROM reserva_mesa WHERE id_mesa_local = ?";
 
 		$this->db->query($sql, array($idMesaLocal));
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(28, $idLocal, $idMesaLocal);
@@ -589,7 +589,16 @@ class Reservas_model extends CI_Model {
 
 		$result = $this->db->query($sql, array($idLocal, $fecha, $idTipoMenu, date('Y-m-d H:i:s')));
 
-		return $this->db->insert_id();
+		$idDiaCierre = $this->db->insert_id();
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(37, $idLocal, $idDiaCierre);
+
+		return $idDiaCierre;
 	}
 
 	function comprobarReservaCerrada($idLocal, $fecha, $idTipoMenu) {
@@ -604,12 +613,29 @@ class Reservas_model extends CI_Model {
 	}
 
 	function borrarReservaCerrada($idLocal, $fecha, $idTipoMenu) {
+
+		$sql = "SELECT * FROM reservas_dias_cerrados
+				WHERE id_local = ?
+				AND dia = ?
+				AND id_tipo_menu = ?";
+
+		$idDiaCerrado = $this->db->query($sql, array($idLocal, $fecha, $idTipoMenu))
+		->row()->id_reserva_dia_cerrado;
+
+
 		$sql = "DELETE FROM reservas_dias_cerrados
 				WHERE id_local = ?
 				AND dia = ?
 				AND id_tipo_menu = ?";
 
 		$this->db->query($sql, array($idLocal, $fecha, $idTipoMenu));
+
+		//Se carga el modelo de alertas
+		$this->load->model('alertas/Alertas_model');
+
+		//Se inserta la alerta
+		$this->Alertas_model->insertAlertaLocal
+		(38, $idLocal, $idDiaCerrado);
 	}
 
 	function obtenerReservaDiasCierreObject($idLocal){

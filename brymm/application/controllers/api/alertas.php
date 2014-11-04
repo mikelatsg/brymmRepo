@@ -31,6 +31,7 @@ require_once APPPATH . '/libraries/ingredientes/ingrediente.php';
 require_once APPPATH . '/libraries/constantes/Code.php';
 require_once APPPATH . '/libraries/alertas/alerta.php';
 require_once APPPATH . '/libraries/reservas/reservaLocal.php';
+require_once APPPATH . '/libraries/reservas/diaCierreReserva.php';
 require_once APPPATH . '/libraries/pedidos/pedido.php';
 require_once APPPATH . '/libraries/articulos/articulo.php';
 require_once APPPATH . '/libraries/horarios/horarioLocal.php';

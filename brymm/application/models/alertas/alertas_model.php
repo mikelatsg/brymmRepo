@@ -229,6 +229,19 @@ class Alertas_model extends CI_Model {
 						}
 					}
 					break;
+				case DiaCierreReserva::FIELD_DIA_CIERRE_RESERVA:
+					//Diferencio si es un borrado de dia cierre
+					if ($row->accion == Alerta::BORRAR){
+						$objeto = array(DiaCierreReserva::FIELD_ID_DIA_CIERRE_RESERVA => $row->id_objeto);
+					}else{
+						//Compruebo si hay un borrado del mismo objeto posterior
+						if (!$this->hayAlertaFutura($row->tipo_objeto,
+								$row->fecha,$row->id_objeto,
+								$idLocal,Alerta::BORRAR)){
+							$objeto = DiaCierreReserva::withID($row->id_objeto);
+						}
+					}
+					break;
 			}
 
 
