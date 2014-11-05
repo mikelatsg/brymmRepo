@@ -8,7 +8,7 @@
 			</li>
 			<li><?php
 			if ($_SESSION['controlTotal']) {
-			echo anchor('/articulos/gestionArticulos', 'Alta articulos');
+			echo anchor('/articulos/gestionArticulos', 'Articulos');
 		} else {
                 echo 'Alta articulos';
             }

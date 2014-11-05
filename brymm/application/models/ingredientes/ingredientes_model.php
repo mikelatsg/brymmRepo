@@ -85,6 +85,8 @@ class Ingredientes_model extends CI_Model {
 	}
 
 	function modificarIngrediente($datos) {
+		$idLocal = $this->obtenerIngrediente($datos['idIngrediente'])->row()->id_local;
+		
 		$sql = "UPDATE ingredientes SET ingrediente = ?"
 				. ",descripcion = ?,precio = ?"
 						. " WHERE id_ingrediente = ?";
