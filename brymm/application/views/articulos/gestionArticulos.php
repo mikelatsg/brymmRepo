@@ -79,8 +79,8 @@
 			<h4 class="panel-title">Articulos</h4>
 		</div>
 		<div class="panel-body">
-			<div class="col-md-6">
-				<div id="nuevoArticulo" class="panel panel-default">
+			<div class="col-md-4">
+				<div id="nuevoArticulo" class="panel panel-default sub-panel">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaArticulo"
@@ -152,66 +152,110 @@
 					</div>
 				</div>
 			</div>
-			<!--  <div id="tituloModificarArticulo">
-					<h4>Modificar articulos</h4>
-				</div>-->
-			<div class="col-md-6">
-				<div id="listaArticulosCabecera" class="panel panel-default">
+			<div class="col-md-8">
+				<div id="listaArticulosCabecera" class="panel panel-default sub-panel">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaArticulos"
 								class="accordion-toggle collapsed"> Lista articulos </a>
 						</h4>
 					</div>
-					<div id="listaArticulos" class="panel-body collapse">
+					<div id="listaArticulos" class="panel-body collapse sub-panel">
 
 						<?php
 						$idTipoArticulo = 0;
 						?>
 						<?php
 						if (count($articulosLocal)):
-						echo "<ul>";
+						$contador = 0;
 						foreach ($articulosLocal as $linea):
 						?>
 						<?php
+						if ($linea['id_tipo_articulo'] <> $idTipoArticulo) :
+						$contador = 0;
+						?>
+						<div class="col-md-12">
+							<h3>
+								<span class="label label-default"> <?php 
+								echo $linea['tipo_articulo'];
+								?>
+								</span>
+							</h3>
+						</div>
+						<?php            
+						endif;
+						$contador++;
+						if ($contador%2 <> 0):?>
+						<div class="row">
+							<?php 
+							endif;
+							?>
+							<div class="well col-md-6">
+								<div class="span6">
+									<strong><?php echo $linea['articulo'];?> </strong><br>
+									<table
+										class="table table-condensed table-responsive table-user-information">
+										<tbody>
+											<tr>
+												<td>Descripcion</td>
+												<td><?php echo $linea['descripcion'];?></td>
+											</tr>
+											<tr>
+												<td>Precio</td>
+												<td><?php echo $linea['precio'];?></td>
+											</tr>
+											<tr>
+												<td>Ingredientes</td>
+												<td><?php
+												$primeraVuelta = true;
+												foreach ($linea['ingredientes'] as $ingrediente) {
+												if (!$primeraVuelta){
+													echo ",";
+												}
+												$primeraVuelta = false;
+												echo $ingrediente['ingrediente'];
+            								}
+            								?>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<span class="pull-right">
+									<button class="btn btn-warning" type="button"
+										data-toggle="tooltip" data-original-title="Edit this user"
+										onclick="mostrarVentanaModificarArticulo(
+											<?php echo trim($linea['id_articulo_local']); ?>,
+											'<?php echo trim($linea['articulo']); ?>',
+                   							'<?php echo trim($linea['descripcion']); ?>',
+                   							'<?php echo trim($linea['precio']); ?>',
+                   							'<?php echo trim($linea['id_tipo_articulo']); ?>',
+                   							'<?php echo trim($linea['validoPedidos']); ?>')">
+										<span class="glyphicon glyphicon-edit"></span>
+									</button>
+									<button class="btn btn-danger" type="button"
+										data-toggle="tooltip" data-original-title="Remove this user"
+										onclick="<?php
+                							echo "doAjax('" . site_url() . "/articulos/borrarArticulo','idArticuloLocal="
+                							. $linea['id_articulo_local'] . "','listaArticulos','post',1)";
+                							?>">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</span>
+							</div>
+							<?php 
+						if ($contador%2 == 0):?>
+						</div>
+						<?php 
+						endif;
 						if ($linea['id_tipo_articulo'] <> $idTipoArticulo) {
-                echo $linea['tipo_articulo'];
-            }
-            ?>
-						<li><?php echo $linea['articulo'] . "-" . $linea['descripcion'] . "-" . $linea['precio']; ?>
-							<a
-							onclick="mostrarVentanaModificarArticulo(
-								<?php echo trim($linea['id_articulo_local']); ?>,
-								'<?php echo trim($linea['articulo']); ?>',
-                   '<?php echo trim($linea['descripcion']); ?>',
-                   '<?php echo trim($linea['precio']); ?>',
-                   '<?php echo trim($linea['id_tipo_articulo']); ?>',
-                   '<?php echo trim($linea['validoPedidos']); ?>')"
-							data-toggle='modal'> M </a> <a
-							onclick="<?php
-                echo "doAjax('" . site_url() . "/articulos/borrarArticulo','idArticuloLocal="
-                . $linea['id_articulo_local'] . "','listaArticulos','post',1)";
-                ?>
-                   "> B </a>
-						</li>
-						<?php
-						echo "<ul>";
-						foreach ($linea['ingredientes'] as $ingrediente) {
-                echo "<li>";
-                echo $ingrediente['ingrediente'];
-                echo "</li>";
-            }
-            echo "</ul>";
-            if ($linea['id_tipo_articulo'] <> $idTipoArticulo) {
-                $idTipoArticulo = $linea['id_tipo_articulo'];
-            }
-            ?>
+						$idTipoArticulo = $linea['id_tipo_articulo'];
+						}
+						?>
 						<?php
 						endforeach;
-						echo "</ul>";
 						endif;
 						?>
-						</ul>
 					</div>
 				</div>
 			</div>
@@ -224,15 +268,15 @@
 			<h4 class="panel-title">Ingredientes</h4>
 		</div>
 		<div class="panel-body">
-			<div class="col-md-6">
-				<div id="nuevoIngrediente" class="panel panel-default">
+			<div class="col-md-4">
+				<div id="nuevoIngrediente" class="panel panel-default sub-panel">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaIngrediente"
 								class="accordion-toggle collapsed"> Nuevo Ingrediente </a>
 						</h4>
 					</div>
-					<div id="altaIngrediente" class="panel-body collapse">
+					<div id="altaIngrediente" class="panel-body collapse sub-panel">
 						<table>
 							<form id="formAltaIngrediente">
 								<tr>
@@ -269,15 +313,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<div id="ingredientes" class="panel panel-default">
+			<div class="col-md-8">
+				<div id="ingredientes" class="panel panel-default sub-panel">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaIngredientes"
 								class="accordion-toggle collapsed"> Lista ingredientes </a>
 						</h4>
 					</div>
-					<div id="listaIngredientes" class="panel-body collapse">
+					<div id="listaIngredientes" class="panel-body collapse sub-panel">
 						<ul>
 							<?php foreach ($ingredientes as $ingrediente): ?>
 

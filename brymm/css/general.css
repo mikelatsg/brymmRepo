@@ -1,0 +1,35 @@
+.panel-default>.panel-heading {
+	background-color: #DEDEDE;
+}
+
+.panel-title {
+	color: black;
+}
+
+.panel {
+	border-color: white;
+}
+
+.sub-panel>.panel-heading {
+	background-color: #C3D197;
+}
+
+.sub-panel>.panel-heading>.panel-title a{
+	color: black;
+}
+
+.nav {
+	background-color: #291E1E;
+}
+
+#panelControl a {
+	color: white;
+}
+
+#panelControl a:hover {
+	color: #291E1E;
+}
+
+body{
+	background-color : #FFF5F5;
+}

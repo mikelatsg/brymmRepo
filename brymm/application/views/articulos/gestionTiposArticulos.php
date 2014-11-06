@@ -41,15 +41,15 @@
 			<h4 class="panel-title">Tipos articulo</h4>
 		</div>
 		<div class="panel-body">
-			<div class="col-md-6">
-				<div id="nuevoTipoArticulo" class="panel panel-default">
+			<div class="col-md-4">
+				<div id="nuevoTipoArticulo" class="panel panel-default sub-panel">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaTipoArticulo"
 								class="accordion-toggle collapsed"> Nuevo tipo articulo </a>
 						</h4>
 					</div>
-					<div id="altaTipoArticulo" class="panel-body collapse">
+					<div id="altaTipoArticulo" class="panel-body collapse sub-panel">
 						<form id="formAltaTipoArticulo">
 							<table>
 								<tr>
@@ -92,15 +92,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<div id="nuevoTipoArticulo" class="panel panel-default">
+			<div class="col-md-8">
+				<div id="nuevoTipoArticulo" class="panel panel-default sub-panel">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaTipoArticulos"
 								class="accordion-toggle collapsed"> Lista tipos articulo </a>
 						</h4>
 					</div>
-					<div id="listaTipoArticulos" class="panel-body collapse">
+					<div id="listaTipoArticulos" class="panel-body collapse sub-panel">
 						<ul>
 							<?php foreach ($tiposArticuloLocal as $linea): ?>
 
