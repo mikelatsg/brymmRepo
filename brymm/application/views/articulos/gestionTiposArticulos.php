@@ -37,13 +37,13 @@
 </div>
 <div>
 	<div id="tiposArticulo" class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading panel-azul">
 			<h4 class="panel-title">Tipos articulo</h4>
 		</div>
 		<div class="panel-body">
 			<div class="col-md-4">
 				<div id="nuevoTipoArticulo" class="panel panel-default sub-panel">
-					<div class="panel-heading">
+					<div class="panel-heading panel-azul">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaTipoArticulo"
 								class="accordion-toggle collapsed"> Nuevo tipo articulo </a>
@@ -94,34 +94,66 @@
 			</div>
 			<div class="col-md-8">
 				<div id="nuevoTipoArticulo" class="panel panel-default sub-panel">
-					<div class="panel-heading">
+					<div class="panel-heading panel-azul">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaTipoArticulos"
 								class="accordion-toggle collapsed"> Lista tipos articulo </a>
 						</h4>
 					</div>
 					<div id="listaTipoArticulos" class="panel-body collapse sub-panel">
-						<ul>
-							<?php foreach ($tiposArticuloLocal as $linea): ?>
-
-							<li><?php echo $linea->tipo_articulo . "-" . $linea->personalizar . "-" . $linea->precio; ?>
-								<a
-								onclick="<?php
-                echo "doAjax('" . site_url() . "/articulos/borrarTipoArticuloLocal','idTipoArticuloLocal="
-                . $linea->id_tipo_articulo_local . "','listaTiposArticulo','post',1)";
-                ?>
-                   "> B </a> <!--Enlace modificar tipo articulo--> <a
-								onclick="mostrarVentanaModificarTipoArticulo(
-								'<?php echo trim($linea->id_tipo_articulo_local); ?>',
-                   '<?php echo trim($linea->id_tipo_articulo); ?>',
-                   '<?php echo trim($linea->personalizar); ?>',
-                   '<?php echo trim($linea->precio); ?>')"
-								data-toggle='modal'> M </a>
-							</li>
-							<?php
-							endforeach;
+						<?php 
+						$contador = 0;
+						foreach ($tiposArticuloLocal as $linea):
+						$contador++;
+						if ($contador%2 <> 0):?>
+						<div class="col-md-12">
+							<?php 
+							endif;
 							?>
-						</ul>
+							<div class="well col-md-6">
+								<div class="span6">
+									<strong><?php echo $linea->tipo_articulo;?> </strong><br>
+									<table
+										class="table table-condensed table-responsive table-user-information">
+										<tbody>
+											<tr>
+												<td>Personalizable</td>
+												<td><?php echo $linea->personalizar;?></td>
+											</tr>
+											<tr>
+												<td>Precio</td>
+												<td><?php echo $linea->precio;?></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<span class="pull-right">
+									<button class="btn btn-warning" type="button"
+										data-toggle="tooltip" data-original-title="Edit this user"
+										onclick="mostrarVentanaModificarTipoArticulo(
+										'<?php echo trim($linea->id_tipo_articulo_local); ?>',
+					                   '<?php echo trim($linea->id_tipo_articulo); ?>',
+					                   '<?php echo trim($linea->personalizar); ?>',
+					                   '<?php echo trim($linea->precio); ?>')">
+										<span class="glyphicon glyphicon-edit"></span>
+									</button>
+									<button class="btn btn-danger" type="button"
+										data-toggle="tooltip" data-original-title="Remove this user"
+										onclick="<?php
+                						echo "doAjax('" . site_url() . "/articulos/borrarTipoArticuloLocal','idTipoArticuloLocal="
+                						. $linea->id_tipo_articulo_local . "','listaTiposArticulo','post',1)";
+                							?>">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</span>
+							</div>
+							<?php 									
+								if ($contador%2 == 0):?>
+						</div>
+						<?php
+						endif;
+						endforeach;
+						?>
 					</div>
 				</div>
 			</div>

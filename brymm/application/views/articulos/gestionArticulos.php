@@ -75,13 +75,13 @@
 
 <div>
 	<div id="articulos" class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading panel-rojo">
 			<h4 class="panel-title">Articulos</h4>
 		</div>
 		<div class="panel-body">
 			<div class="col-md-4">
 				<div id="nuevoArticulo" class="panel panel-default sub-panel">
-					<div class="panel-heading">
+					<div class="panel-heading panel-rojo">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaArticulo"
 								class="accordion-toggle collapsed"> Nuevo articulo </a>
@@ -153,8 +153,9 @@
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div id="listaArticulosCabecera" class="panel panel-default sub-panel">
-					<div class="panel-heading">
+				<div id="listaArticulosCabecera"
+					class="panel panel-default sub-panel">
+					<div class="panel-heading panel-rojo">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaArticulos"
 								class="accordion-toggle collapsed"> Lista articulos </a>
@@ -186,7 +187,7 @@
 						endif;
 						$contador++;
 						if ($contador%2 <> 0):?>
-						<div class="row">
+						<div class="col-md-12">
 							<?php 
 							endif;
 							?>
@@ -264,13 +265,13 @@
 </div>
 <div>
 	<div id="inigredientes" class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">Ingredientes</h4>
 		</div>
 		<div class="panel-body">
 			<div class="col-md-4">
 				<div id="nuevoIngrediente" class="panel panel-default sub-panel">
-					<div class="panel-heading">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaIngrediente"
 								class="accordion-toggle collapsed"> Nuevo Ingrediente </a>
@@ -315,39 +316,67 @@
 			</div>
 			<div class="col-md-8">
 				<div id="ingredientes" class="panel panel-default sub-panel">
-					<div class="panel-heading">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaIngredientes"
 								class="accordion-toggle collapsed"> Lista ingredientes </a>
 						</h4>
 					</div>
-					<div id="listaIngredientes" class="panel-body collapse sub-panel">
-						<ul>
-							<?php foreach ($ingredientes as $ingrediente): ?>
+					<div id="listaIngredientes" class="panel-body collapse sub-panel">						
+							<?php
+							$contador =0;
+							foreach ($ingredientes as $ingrediente):
+							$contador++;
+						if ($contador%2 <> 0):?>
+							<div class="col-md-12">
+								<?php 
+								endif;
+								?>
+								<div class="well col-md-6">
+									<div class="span6">
+										<strong><?php echo $ingrediente->ingrediente;?> </strong><br>
+										<table
+											class="table table-condensed table-responsive table-user-information">
+											<tbody>
+												<tr>
+													<td>Descripcion</td>
+													<td><?php echo $ingrediente->descripcion;?></td>
+												</tr>
+												<tr>
+													<td>Precio</td>
+													<td><?php echo $ingrediente->precio;?></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<span class="pull-right">
+										<button class="btn btn-warning" type="button"
+											data-toggle="tooltip" data-original-title="Edit this user"
+											onclick="mostrarVentanaModificarIngrediente(
+										'<?php echo trim($ingrediente->ingrediente); ?>',
+                   						'<?php echo trim($ingrediente->descripcion); ?>',
+                   						'<?php echo trim($ingrediente->precio); ?>',
+                   						'<?php echo trim($ingrediente->id_ingrediente); ?>')">
+											<span class="glyphicon glyphicon-edit"></span>
+										</button>
+										<button class="btn btn-danger" type="button"
+											data-toggle="tooltip" data-original-title="Remove this user"
+											onclick="<?php
+                						echo "doAjax('" . site_url() . "/ingredientes/borrarIngrediente','idIngrediente="
+                						. $ingrediente->id_ingrediente . "','listaIngredientes','post',1)";
+                							?>">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button>
+									</span>
+								</div>
 
-							<li><?php
-							echo $ingrediente->ingrediente . "-"
-		. $ingrediente->descripcion .
-		"-"
-		. $ingrediente->precio
-		?> <a
-								onclick="mostrarVentanaModificarIngrediente(
-								'<?php echo trim($ingrediente->ingrediente); ?>',
-                   '<?php echo trim($ingrediente->descripcion); ?>',
-                   '<?php echo trim($ingrediente->precio); ?>',
-                   '<?php echo trim($ingrediente->id_ingrediente); ?>')"
-								data-toggle='modal'> M </a> <a
-								onclick="<?php
-                echo "doAjax('" . site_url() . "/ingredientes/borrarIngrediente','idIngrediente="
-                . $ingrediente->id_ingrediente . "','listaIngredientes','post',1)";
-                ?>
-                   "> B </a>
-							</li>
-
-
-
-							<?php endforeach; ?>
-						</ul>
+								<?php 									
+								if ($contador%2 == 0):?>
+							</div>
+							<?php 
+							endif;
+						endforeach; ?>
+					
 					</div>
 				</div>
 			</div>
