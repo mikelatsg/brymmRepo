@@ -43,5 +43,6 @@ class Code {
     
     const FIELD_ID_LOCAL = "idLocal";
     const FIELD_NOMBRE_LOCAL = "nombreLocal";
+    const FIELD_ID_USUARIO = "idUsuario";
 
 }

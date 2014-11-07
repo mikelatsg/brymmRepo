@@ -8,6 +8,8 @@ class Alerta{
 	const FIELD_ALERTA = "alerta";
 	const FIELD_ALERTAS = "alertas";
 	const FIELD_LOCAL = "local";
+	const FIELD_USUARIO = "usuario";
+	const FIELD_CAMARERO = "camarero";
 	const ACTUALIZAR = "ACT";
 	const BORRAR = "BOR";
 	

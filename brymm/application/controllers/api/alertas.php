@@ -50,17 +50,17 @@ class Alertas extends REST_Controller {
 		$this->load->model('alertas/Alertas_model');
 	}
 
-	function obtenerAlertasLocal_post() {		
-		
+	function obtenerAlertasLocal_post() {
+
 		//Se recogen los datos recibidos en formato json
 		$datos = $this->post();
 
 		if (!isset($datos[Code::FIELD_ID_LOCAL]) ||
-				!isset($datos[Alertas::FIELD_FECHA]) ) {
-		$msg = "Error obteniendo alertas";
-		$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
-				, Code::JSON_MENSAJE => $msg);
-		$this->response($datosRespuesta, Code::CODE_OK);
+		!isset($datos[Alertas::FIELD_FECHA]) ) {
+			$msg = "Error obteniendo alertas";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
 		}
 
 		//Se recogen los parametros enviados
@@ -68,19 +68,102 @@ class Alertas extends REST_Controller {
 		$idLocal = $datos[Code::FIELD_ID_LOCAL];
 
 		/*$fecha = $this->get(Alertas::FIELD_FECHA);
-		$idLocal = $this->get(Code::FIELD_ID_LOCAL);*/
+		 $idLocal = $this->get(Code::FIELD_ID_LOCAL);*/
 
 		//Se comprueba si hay alertas para el local
-		if ($this->Alertas_model->hayAlertasNuevas($idLocal, $fecha)){
-			$alertas = $this->Alertas_model->obtenerAlertas($idLocal, $fecha);
-				
+		if ($this->Alertas_model->hayAlertasNuevasLocal($idLocal, $fecha)){
+			$alertas = $this->Alertas_model->obtenerAlertasLocal($idLocal, $fecha);
+
 			$msg="Alertas enviadas";
-				
+
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
 					Code::JSON_MENSAJE => $msg,
 					Alerta::FIELD_ALERTAS => $alertas
 			);
-			
+				
+		}else{
+			$msg = "No hay alertas";
+
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_NO_ALERTAS,
+					Code::JSON_MENSAJE => $msg
+			);
+		}
+
+		$this->response($datosRespuesta, Code::CODE_OK);
+
+	}
+
+	function obtenerAlertasCamarero_post() {
+
+		//Se recogen los datos recibidos en formato json
+		$datos = $this->post();
+
+		if (!isset($datos[Code::FIELD_ID_LOCAL]) ||
+		!isset($datos[Alertas::FIELD_FECHA]) ) {
+			$msg = "Error obteniendo alertas";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+
+		//Se recogen los parametros enviados
+		$fecha = $datos[Alertas::FIELD_FECHA];
+		$idLocal = $datos[Code::FIELD_ID_LOCAL];
+
+		/*$fecha = $this->get(Alertas::FIELD_FECHA);
+			$idLocal = $this->get(Code::FIELD_ID_LOCAL);*/
+
+		//Se comprueba si hay alertas para el local
+		if ($this->Alertas_model->hayAlertasNuevasCamarero($idLocal, $fecha)){
+			$alertas = $this->Alertas_model->obtenerAlertasLocal($idLocal, $fecha,true);
+
+			$msg="Alertas enviadas";
+
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
+					Code::JSON_MENSAJE => $msg,
+					Alerta::FIELD_ALERTAS => $alertas
+			);
+
+		}else{
+			$msg = "No hay alertas";
+
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_NO_ALERTAS,
+					Code::JSON_MENSAJE => $msg
+			);
+		}
+
+		$this->response($datosRespuesta, Code::CODE_OK);
+
+	}
+
+	function obtenerAlertasUsuario_post() {
+
+		//Se recogen los datos recibidos en formato json
+		$datos = $this->post();
+
+		if (!isset($datos[Code::FIELD_ID_USUARIO]) ||
+		!isset($datos[Alertas::FIELD_FECHA]) ) {
+			$msg = "Error obteniendo alertas";
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
+					, Code::JSON_MENSAJE => $msg);
+			$this->response($datosRespuesta, Code::CODE_OK);
+		}
+
+		//Se recogen los parametros enviados
+		$fecha = $datos[Alertas::FIELD_FECHA];
+		$idUsuario = $datos[Code::FIELD_ID_USUARIO];
+
+		//Se comprueba si hay alertas para el usuario
+		if ($this->Alertas_model->hayAlertasNuevasUsuario($idUsuario, $fecha)){
+			$alertas = $this->Alertas_model->obtenerAlertasUsuario($idUsuario, $fecha);
+
+			$msg="Alertas enviadas";
+
+			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK,
+					Code::JSON_MENSAJE => $msg,
+					Alerta::FIELD_ALERTAS => $alertas
+			);
+
 		}else{
 			$msg = "No hay alertas";
 

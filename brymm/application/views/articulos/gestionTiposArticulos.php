@@ -40,7 +40,7 @@
 		<div class="panel-heading panel-azul">
 			<h4 class="panel-title">Tipos articulo</h4>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body panel-azul">
 			<div class="col-md-4">
 				<div id="nuevoTipoArticulo" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-azul">
@@ -50,6 +50,7 @@
 						</h4>
 					</div>
 					<div id="altaTipoArticulo" class="panel-body collapse sub-panel">
+					<div class="well">
 						<form id="formAltaTipoArticulo">
 							<table>
 								<tr>
@@ -88,7 +89,7 @@
 								</tr>
 							</table>
 						</form>
-
+</div>
 					</div>
 				</div>
 			</div>

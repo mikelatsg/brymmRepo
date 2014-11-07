@@ -39,11 +39,11 @@ class Alertas_model extends CI_Model {
 				, $idObjeto, date('Y-m-d H:i:s')));
 	}
 
-	function hayAlertasNuevas($idLocal, $fecha) {
+	function hayAlertasNuevasLocal($idLocal, $fecha) {
 
 		// Consulta en la tabla de alertas
 		$sql = "SELECT * FROM alertas_local al , motivo_alerta ma
-				WHERE al.id_motivo_alerta = ma.id_motivo_alerta 
+				WHERE al.id_motivo_alerta = ma.id_motivo_alerta
 				AND id_local = ?
 				AND fecha >= ?
 				AND ma.aplicable = ?";
@@ -57,17 +57,69 @@ class Alertas_model extends CI_Model {
 		return false;
 	}
 
-	function obtenerAlertas($idLocal, $fecha){
-			
+	function hayAlertasNuevasUsuario($idUsuario, $fecha) {
+
 		// Consulta en la tabla de alertas
-		$sql = "SELECT * FROM alertas_local al, motivo_alerta ma
-				WHERE  al.id_motivo_alerta = ma.id_motivo_alerta
+		$sql = "SELECT * FROM alertas_usuario au , motivo_alerta ma
+				WHERE au.id_motivo_alerta = ma.id_motivo_alerta
+				AND id_usuario = ?
+				AND fecha >= ?
+				AND ma.aplicable = ?";
+
+		$result = $this->db->query($sql, array($idUsuario, $fecha,Alerta::FIELD_USUARIO));
+			
+		if ($result->num_rows() > 0){
+			return true;
+		}
+			
+		return false;
+	}
+
+	function hayAlertasNuevasCamarero($idLocal, $fecha) {
+
+		// Consulta en la tabla de alertas
+		$sql = "SELECT * FROM alertas_local al , motivo_alerta ma
+				WHERE al.id_motivo_alerta = ma.id_motivo_alerta
 				AND id_local = ?
 				AND fecha >= ?
-				AND ma.aplicable = ?
-				ORDER BY al.id_alerta_local";
+				AND ma.aplicable in ( ?,?)";
+
+		$result = $this->db->query($sql, array($idLocal, $fecha,Alerta::FIELD_LOCAL,Alerta::FIELD_CAMARERO));
 			
-		$result = $this->db->query($sql, array($idLocal, $fecha, Alerta::FIELD_LOCAL))->result();
+		if ($result->num_rows() > 0){
+			return true;
+		}
+			
+		return false;
+	}
+
+	function obtenerAlertasLocal($idLocal, $fecha, $soyCamarero = false){
+			
+		if ($soyCamarero){
+			// Consulta en la tabla de alertas
+			$sql = "SELECT * FROM alertas_local al, motivo_alerta ma
+					WHERE  al.id_motivo_alerta = ma.id_motivo_alerta
+					AND id_local = ?
+					AND fecha >= ?
+					AND ma.aplicable in ( ?,?)
+					ORDER BY al.id_alerta_local";
+
+			$result = $this->db->query($sql, array($idLocal, $fecha, Alerta::FIELD_LOCAL
+					,Alerta::FIELD_CAMARERO ))->result();
+		}else{
+			// Consulta en la tabla de alertas
+			$sql = "SELECT * FROM alertas_local al, motivo_alerta ma
+					WHERE  al.id_motivo_alerta = ma.id_motivo_alerta
+					AND id_local = ?
+					AND fecha >= ?
+					AND ma.aplicable = ?
+					ORDER BY al.id_alerta_local";
+
+			$result = $this->db->query($sql, array($idLocal, $fecha, Alerta::FIELD_LOCAL))->result();
+		}
+
+			
+
 			
 		$alertas = array();
 			
@@ -244,6 +296,42 @@ class Alertas_model extends CI_Model {
 					break;
 			}
 
+
+			if ($objeto!=null){
+				$alertas[] = new Alerta($row->notificacion,$row->tipo_objeto,$objeto, $row->accion);
+			}
+		}
+
+		return $alertas;
+	}
+
+	function obtenerAlertasUsuario($idUsuario, $fecha){
+			
+		// Consulta en la tabla de alertas
+		$sql = "SELECT * FROM alertas_usuario au, motivo_alerta ma
+				WHERE  al.id_motivo_alerta = ma.id_motivo_alerta
+				AND id_usuario = ?
+				AND fecha >= ?
+				AND ma.aplicable = ?
+				ORDER BY al.id_alerta_usuario";
+			
+		$result = $this->db->query($sql, array($idLocal, $fecha, Alerta::FIELD_LOCAL))->result();
+			
+		$alertas = array();
+			
+		$this->load->model('pedidos/Pedidos_model');
+		$this->load->model('reservas/Reservas_model');
+
+		foreach ($result as $row){
+			$objeto = null;
+			switch ($row->tipo_objeto){
+				case ReservaLocal::FIELD_RESERVA:
+					$objeto = $this->Reservas_model->obtenerReservaUsuario($row->id_objeto);
+					break;
+				case Pedido::FIELD_PEDIDO:
+					$objeto =  $this->Pedidos_model->obtenerPedido($row->id_objeto);
+					break;
+			}
 
 			if ($objeto!=null){
 				$alertas[] = new Alerta($row->notificacion,$row->tipo_objeto,$objeto, $row->accion);

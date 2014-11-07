@@ -1,6 +1,6 @@
 
 <div id="panelControl" class="masthead">
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-default">
 		<ul class="nav nav-tabs">
 			<li><?php
 			echo anchor('/home', 'Inicio');

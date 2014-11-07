@@ -2,6 +2,11 @@
 	background-color: white;
 	border-color: #B87272;
 	border-width: medium;
+	text-aling: left;
+}
+
+.panel-body.panel-rojo {
+	background-color: #FFE8E8;
 }
 
 .panel-default>.panel-verde {
@@ -10,10 +15,18 @@
 	border-width: medium;
 }
 
+.panel-body.panel-verde {
+	background-color: #EBF7E9;
+}
+
 .panel-default>.panel-azul {
 	background-color: white;
 	border-color: #7290B8;
 	border-width: medium;
+}
+
+.panel-body.panel-azul {
+	background-color: #DDE2EF;
 }
 
 .panel-default>.panel-heading>.panel-title {
@@ -25,7 +38,8 @@
 }
 
 .panel-title {
-	color: black;
+	color: grey;
+	text-align: left;
 }
 
 .panel {
@@ -33,43 +47,41 @@
 }
 
 .sub-panel>.panel-rojo {
-	background-color: #B87272;
-	border-color: #B87272;
+	background-color: #EBC5C5;
+	border-color: #EBC5C5;
 	border-width: thin;
 }
 
 .sub-panel>.panel-verde {
-	background-color: #72B883;
+	background-color: #BCF1B3;
 	border-color: #72B883;
 	border-width: thin;
 }
 
 .sub-panel>.panel-azul {
-	background-color: #7290B8;
+	background-color: #A4B5EF;
 	border-color: #7290B8;
 	border-width: thin;
 }
 
 .sub-panel>.panel-heading>.panel-title a {
-	color: black;
+	color: grey;
+	font-weight: bold;
 }
 
 .sub-panel>.panel-body {
-	background-color: #E0E0E0;
+	background-color: white;
 }
 
-.nav {
-	background-color: #291E1E;
+.sub-panel{
+	color:grey;
 }
 
 #panelControl a {
-	color: white;
-}
-
-#panelControl a:hover {
-	color: #291E1E;
+	color: grey;
+	font-weight: bold;
 }
 
 body {
-	background-color: #FFF5F5;
+	background-color: white;
 }

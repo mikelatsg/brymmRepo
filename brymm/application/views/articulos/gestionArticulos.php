@@ -78,7 +78,7 @@
 		<div class="panel-heading panel-rojo">
 			<h4 class="panel-title">Articulos</h4>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body panel-rojo">
 			<div class="col-md-4">
 				<div id="nuevoArticulo" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-rojo">
@@ -88,67 +88,68 @@
 						</h4>
 					</div>
 					<div id="altaArticulo" class="panel-body collapse">
-
-						<form id="formAltaArticulo">
-							<table id="idTabla">
-								<tr>
-									<td></td>
-									<td width="46"><select name="tipoArticulo"
-										id="listaTiposArticulosArticulo">
-											<?php foreach ($tiposArticuloLocal as $linea): ?>
-											<option value="<?php echo $linea->id_tipo_articulo; ?>">
-												<?php echo $linea->tipo_articulo; ?>
-											</option>
-											<?php endforeach; ?>
-									</select>
-									</td>
-								</tr>
-								<tr>
-									<td>Nombre articulo</td>
-									<td width="46"><input type="text" name="articulo" /></td>
-								</tr>
-								<tr>
-									<td>Descripcion</td>
-									<td><input type="text" name="descripcion" />
-									</td>
-								</tr>
-								<tr>
-									<td>Precio</td>
-									<td><input type="text" name="precio" />
-									</td>
-								</tr>
-								<tr>
-									<td>Se puede enviar en pedidos</td>
-									<td><input type="checkbox" name="validoPedidos" value="1" />
-									</td>
-								</tr>
-								<tr id="tituloIngredientesArticulo">
-									<td>Ingredientes</td>
-								</tr>
-								<?php foreach ($ingredientes as $linea): ?>
-								<tr class="listaIngredientesArticulo">
-									<td></td>
-									<td><input type="checkbox" name="ingrediente[]"
-										value="<?php echo $linea->id_ingrediente; ?>" /> <?php echo $linea->ingrediente; ?>
-									</td>
-								</tr>
-								<?php endforeach; ?>
-								<tr>
-									<td width="51" colspan="2" align="center"><input type="button"
-										onclick="<?php
+						<div class="well">
+							<form id="formAltaArticulo">
+								<table id="idTabla">
+									<tr>
+										<td></td>
+										<td width="46"><select name="tipoArticulo"
+											id="listaTiposArticulosArticulo">
+												<?php foreach ($tiposArticuloLocal as $linea): ?>
+												<option value="<?php echo $linea->id_tipo_articulo; ?>">
+													<?php echo $linea->tipo_articulo; ?>
+												</option>
+												<?php endforeach; ?>
+										</select>
+										</td>
+									</tr>
+									<tr>
+										<td>Nombre articulo</td>
+										<td width="46"><input type="text" name="articulo" /></td>
+									</tr>
+									<tr>
+										<td>Descripcion</td>
+										<td><input type="text" name="descripcion" />
+										</td>
+									</tr>
+									<tr>
+										<td>Precio</td>
+										<td><input type="text" name="precio" />
+										</td>
+									</tr>
+									<tr>
+										<td>Se puede enviar en pedidos</td>
+										<td><input type="checkbox" name="validoPedidos" value="1" />
+										</td>
+									</tr>
+									<tr id="tituloIngredientesArticulo">
+										<td>Ingredientes</td>
+									</tr>
+									<?php foreach ($ingredientes as $linea): ?>
+									<tr class="listaIngredientesArticulo">
+										<td></td>
+										<td><input type="checkbox" name="ingrediente[]"
+											value="<?php echo $linea->id_ingrediente; ?>" /> <?php echo $linea->ingrediente; ?>
+										</td>
+									</tr>
+									<?php endforeach; ?>
+									<tr>
+										<td width="51" colspan="2" align="center"><input type="button"
+											onclick="<?php
                            echo "enviarFormulario('" . site_url() .
                            "/articulos/anadirArticulo','formAltaArticulo','listaArticulos',1)"
                            ?>"
-										<?php
-										if (!count($tiposArticuloLocal)) {
+											<?php
+											if (!count($tiposArticuloLocal)) {
                                echo "disabled";
                            }
                            ?>
-										value="Añadir articulo" />
-									</td>
-								</tr>
-							</table>
-						</form>
+											value="Añadir articulo" />
+										</td>
+									</tr>
+								</table>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -268,7 +269,7 @@
 		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">Ingredientes</h4>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body panel-verde">
 			<div class="col-md-4">
 				<div id="nuevoIngrediente" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-verde">
@@ -278,39 +279,42 @@
 						</h4>
 					</div>
 					<div id="altaIngrediente" class="panel-body collapse sub-panel">
-						<table>
-							<form id="formAltaIngrediente">
-								<tr>
-								
-								
-								<tr>
-									<td>Nombre ingrediente</td>
-									<td width="46"><input type="text" name="ingrediente" />
-									</td>
-								</tr>
-								<tr>
-									<td>Descripción</td>
-									<td><input type="text" name="descripcion" />
-									</td>
-								</tr>
-								<tr>
-									<td>Precio</td>
-									<td><input type="text" name="precio" />
-									</td>
-								</tr>
+						<div class="well">
 
-								</tr>
-								<tr>
-									<td width="51" colspan="2" align="center"><input type="button"
-										onclick="<?php
+							<table>
+								<form id="formAltaIngrediente">
+									<tr>
+									
+									
+									<tr>
+										<td>Nombre ingrediente</td>
+										<td width="46"><input type="text" name="ingrediente" />
+										</td>
+									</tr>
+									<tr>
+										<td>Descripción</td>
+										<td><input type="text" name="descripcion" />
+										</td>
+									</tr>
+									<tr>
+										<td>Precio</td>
+										<td><input type="text" name="precio" />
+										</td>
+									</tr>
+
+									</tr>
+									<tr>
+										<td width="51" colspan="2" align="center"><input type="button"
+											onclick="<?php
                            echo "enviarFormulario('" . site_url()
                            . "/ingredientes/anadirIngrediente','formAltaIngrediente','listaIngredientes',1)"
                            ?>"
-										value="Añadir ingrediente" />
-									</td>
-								</tr>
-							</form>
-						</table>
+											value="Añadir ingrediente" />
+										</td>
+									</tr>
+								</form>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -322,61 +326,61 @@
 								class="accordion-toggle collapsed"> Lista ingredientes </a>
 						</h4>
 					</div>
-					<div id="listaIngredientes" class="panel-body collapse sub-panel">						
-							<?php
-							$contador =0;
-							foreach ($ingredientes as $ingrediente):
-							$contador++;
+					<div id="listaIngredientes" class="panel-body collapse sub-panel">
+						<?php
+						$contador =0;
+						foreach ($ingredientes as $ingrediente):
+						$contador++;
 						if ($contador%2 <> 0):?>
-							<div class="col-md-12">
-								<?php 
-								endif;
-								?>
-								<div class="well col-md-6">
-									<div class="span6">
-										<strong><?php echo $ingrediente->ingrediente;?> </strong><br>
-										<table
-											class="table table-condensed table-responsive table-user-information">
-											<tbody>
-												<tr>
-													<td>Descripcion</td>
-													<td><?php echo $ingrediente->descripcion;?></td>
-												</tr>
-												<tr>
-													<td>Precio</td>
-													<td><?php echo $ingrediente->precio;?></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<span class="pull-right">
-										<button class="btn btn-warning" type="button"
-											data-toggle="tooltip" data-original-title="Edit this user"
-											onclick="mostrarVentanaModificarIngrediente(
+						<div class="col-md-12">
+							<?php 
+							endif;
+							?>
+							<div class="well col-md-6">
+								<div class="span6">
+									<strong><?php echo $ingrediente->ingrediente;?> </strong><br>
+									<table
+										class="table table-condensed table-responsive table-user-information">
+										<tbody>
+											<tr>
+												<td>Descripcion</td>
+												<td><?php echo $ingrediente->descripcion;?></td>
+											</tr>
+											<tr>
+												<td>Precio</td>
+												<td><?php echo $ingrediente->precio;?></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<span class="pull-right">
+									<button class="btn btn-warning" type="button"
+										data-toggle="tooltip" data-original-title="Edit this user"
+										onclick="mostrarVentanaModificarIngrediente(
 										'<?php echo trim($ingrediente->ingrediente); ?>',
                    						'<?php echo trim($ingrediente->descripcion); ?>',
                    						'<?php echo trim($ingrediente->precio); ?>',
                    						'<?php echo trim($ingrediente->id_ingrediente); ?>')">
-											<span class="glyphicon glyphicon-edit"></span>
-										</button>
-										<button class="btn btn-danger" type="button"
-											data-toggle="tooltip" data-original-title="Remove this user"
-											onclick="<?php
+										<span class="glyphicon glyphicon-edit"></span>
+									</button>
+									<button class="btn btn-danger" type="button"
+										data-toggle="tooltip" data-original-title="Remove this user"
+										onclick="<?php
                 						echo "doAjax('" . site_url() . "/ingredientes/borrarIngrediente','idIngrediente="
                 						. $ingrediente->id_ingrediente . "','listaIngredientes','post',1)";
                 							?>">
-											<span class="glyphicon glyphicon-remove"></span>
-										</button>
-									</span>
-								</div>
-
-								<?php 									
-								if ($contador%2 == 0):?>
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</span>
 							</div>
-							<?php 
-							endif;
+
+							<?php 									
+								if ($contador%2 == 0):?>
+						</div>
+						<?php 
+						endif;
 						endforeach; ?>
-					
+
 					</div>
 				</div>
 			</div>

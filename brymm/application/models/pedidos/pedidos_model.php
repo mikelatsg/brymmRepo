@@ -171,8 +171,6 @@ class Pedidos_model extends CI_Model {
 
 		$direccion = "";
 
-
-
 		//Si se trata de un pedido con envio se obtiene la dirección
 		if ($pedidoResult->envio == 1) {
 
@@ -472,14 +470,11 @@ class Pedidos_model extends CI_Model {
 
 		$sqlPedidos = $this->db->query($sql, array($idUsuario))->result();
 
-		$i = 0;
-
 		$pedidosUsuario = array();
 
 		foreach ($sqlPedidos as $pedido) {
 			//Se obtiene el detalle de los pedidos del local
-			$pedidosUsuario [$i] = $this->obtenerPedido($pedido->id_pedido);
-			$i++;
+			$pedidosUsuario [] = $this->obtenerPedido($pedido->id_pedido);
 		}
 
 		return $pedidosUsuario;

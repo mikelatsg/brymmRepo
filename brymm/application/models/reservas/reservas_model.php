@@ -148,7 +148,7 @@ class Reservas_model extends CI_Model {
 		$result = $this->db->query($sql, array($idUsuario, $numeroReservas));
 
 		return $result;
-	}
+	}	
 
 	function insertarReservaUsuario($idUsuario, $idLocal, $numeroPersonas
 			, $fecha, $idTipoMenu, $horaInicio, $horaFin
@@ -662,4 +662,18 @@ class Reservas_model extends CI_Model {
 		return $result;
 	}
 
+	function obtenerReservaUsuario($idReserva) {
+	
+		$sql = "SELECT r.*, l.nombre nombreLocal, tm.descripcion tipoMenu
+		FROM reservas r, locales l,tipo_menu tm
+		WHERE r.id_local = l.id_local
+		AND r.id_tipo_menu = tm.id_tipo_menu
+		AND id_reserva = ?
+		ORDER BY r.fecha DESC";
+	
+		$result = $this->db->query($sql, array($idReserva));
+	
+		return $result;
+	}
+	
 }
