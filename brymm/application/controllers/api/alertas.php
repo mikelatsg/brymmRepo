@@ -137,7 +137,7 @@ class Alertas extends REST_Controller {
 	}
 
 	function obtenerAlertasUsuario_post() {
-
+		
 		//Se recogen los datos recibidos en formato json
 		$datos = $this->post();
 

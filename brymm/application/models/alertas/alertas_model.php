@@ -307,13 +307,15 @@ class Alertas_model extends CI_Model {
 
 	function obtenerAlertasUsuario($idUsuario, $fecha){
 			
+		
+		
 		// Consulta en la tabla de alertas
 		$sql = "SELECT * FROM alertas_usuario au, motivo_alerta ma
-				WHERE  al.id_motivo_alerta = ma.id_motivo_alerta
+				WHERE  au.id_motivo_alerta = ma.id_motivo_alerta
 				AND id_usuario = ?
 				AND fecha >= ?
 				AND ma.aplicable = ?
-				ORDER BY al.id_alerta_usuario";
+				ORDER BY au.id_alerta_usuario";			
 			
 		$result = $this->db->query($sql, array($idLocal, $fecha, Alerta::FIELD_LOCAL))->result();
 			
