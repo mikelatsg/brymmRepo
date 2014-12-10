@@ -50,12 +50,11 @@
 						</h4>
 					</div>
 					<div id="altaTipoArticulo" class="panel-body collapse sub-panel">
-					<div class="well">
 						<form id="formAltaTipoArticulo">
 							<table>
 								<tr>
-									<td>Tipo articulo</td>
-									<td width="46"><select name="tipoArticulo">
+
+									<td>Tipo articulo<select name="tipoArticulo">
 											<?php foreach ($tiposArticulo as $linea): ?>
 											<option value="<?php echo $linea->id_tipo_articulo; ?>">
 												<?php echo $linea->tipo_articulo; ?>
@@ -65,31 +64,30 @@
 									</td>
 								</tr>
 								<tr>
-									<td>Personalizar</td>
-									<td width="46"><select name="personalizar">
+									<td>Personalizar<select name="personalizar">
 											<option value="1">Si</option>
 											<option value="0">No</option>
 									</select>
 									</td>
 								</tr>
 								<tr>
-									<td>Precio base</td>
-									<td width="46"><input type="text" size="2" maxlength="5"
-										value="1" name="precioBase">
-									</td>
-								</tr>
-								<tr>
-									<td width="51" colspan="2" align="center"><input type="button"
-										onclick="<?php
-                           echo "enviarFormulario('" . site_url() .
-                           "/articulos/anadirTipoArticulo','formAltaTipoArticulo','listaTiposArticulo',1)"
-                           ?>"
-										value="Añadir tipo articulo" />
+									<td><input type="text" name="precioBase"
+										placeHolder="Precio base">
 									</td>
 								</tr>
 							</table>
 						</form>
-</div>
+						<span class="pull-right">
+							<button class="btn btn-success" type="button"
+								data-toggle="tooltip" data-original-title="Edit this user"
+								onclick="<?php
+                           echo "enviarFormulario('" . site_url() .
+                           "/articulos/anadirTipoArticulo','formAltaTipoArticulo','listaTiposArticulo',1)"
+                           ?>">
+								<span class="glyphicon glyphicon-plus">
+							
+							</button>
+						</span>
 					</div>
 				</div>
 			</div>

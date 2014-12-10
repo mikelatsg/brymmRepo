@@ -4,7 +4,7 @@
 			<h4 class="panel-title">Horarios local</h4>
 		</div>
 		<div class="panel-body">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div id="altaHorariosLocal" class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -115,20 +115,20 @@
 											<option value="55">55</option>
 									</select>
 									</td>
-								</tr>
-								</tr>
-								<tr>
-									<td width="51" colspan="2" align="center"><input type="button"
-										onclick="<?php echo "enviarFormulario('" . site_url() . "/locales/anadirHorarioLocal','formAltaHorarioLocal','listaHorarioLocal',1)" ?>"
-										value="Añadir horario local" /> <!--<input type="submit" value="Crear horarios" />-->
-									</td>
-								</tr>
+								</tr>													
 							</table>
 						</form>
+						<span class="pull-right">
+							<button class="btn btn-success" type="button"
+								data-toggle="tooltip" data-original-title="Edit this user"
+								onclick="<?php echo "enviarFormulario('" . site_url() . "/locales/anadirHorarioLocal','formAltaHorarioLocal','listaHorarioLocal',1)" ?>">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						</span>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div id="listahorariosLocal" class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -160,7 +160,7 @@
 			<h4 class="panel-title">Dias cierre local</h4>
 		</div>
 		<div class="panel-body">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div id="altaDiasCierre" class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -172,31 +172,27 @@
 						<form id="formDiasCierreLocal">
 							<table>
 								<tr>
-									<td>Dia</td>
-									<td><input type="text" name="fecha" id="datepickerDiasCierre" />
-									</td>
-								
-								
-								<tr>
-								
-								
-								<tr>
-									<td width="51" colspan="2" align="center"><input type="button"
-										onclick="<?php
-                           echo "enviarFormulario('" . site_url()
-                           . "/locales/anadirDiaCierreLocal','formDiasCierreLocal','listaDiasCierreLocal',1)"
-                           ?>"
-										value="Añadir dia cierre" /> <!--<input type="submit" value="Crear horarios" />-->
-									</td>
-								</tr>
+									<td><input type="text" name="fecha" id="datepickerDiasCierre"
+										placeholder="Selecciona dia" />
+									</td>								
+								</tr>							
 							</table>
 						</form>
-
+						<span class="pull-right">
+							<button class="btn btn-success" type="button"
+								data-toggle="tooltip" data-original-title="Edit this user"
+								onclick="<?php
+                           echo "enviarFormulario('" . site_url()
+                           . "/locales/anadirDiaCierreLocal','formDiasCierreLocal','listaDiasCierreLocal',1)"
+                           ?>">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						</span>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div id="listaDiasCierre" class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">

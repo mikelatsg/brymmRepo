@@ -184,7 +184,7 @@ class Locales extends CI_Controller {
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'horarios', 'mensajes', 'js/bootstrap.min');
 		
-		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css');
+		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css','general.css');
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top');

@@ -77,7 +77,17 @@
 	color:grey;
 }
 
+.navbar-inverse{
+	background-color:grey;
+	border-color:grey;
+}
+
 #panelControl a {
+	color: white;
+	font-weight: bold;
+}
+
+#panelControl a:hover {
 	color: grey;
 	font-weight: bold;
 }

@@ -87,13 +87,11 @@
 								class="accordion-toggle collapsed"> Nuevo articulo </a>
 						</h4>
 					</div>
-					<div id="altaArticulo" class="panel-body collapse">
-						<div class="well">
+					<div id="altaArticulo" class="panel-body collapse">						
 							<form id="formAltaArticulo">
 								<table id="idTabla">
 									<tr>
-										<td></td>
-										<td width="46"><select name="tipoArticulo"
+										<td>Tipo articulo <select name="tipoArticulo"
 											id="listaTiposArticulosArticulo">
 												<?php foreach ($tiposArticuloLocal as $linea): ?>
 												<option value="<?php echo $linea->id_tipo_articulo; ?>">
@@ -104,52 +102,45 @@
 										</td>
 									</tr>
 									<tr>
-										<td>Nombre articulo</td>
-										<td width="46"><input type="text" name="articulo" /></td>
+										<td<input type="text" name="articulo"
+											placeholder="Nombre articulo" /></td>
 									</tr>
 									<tr>
-										<td>Descripcion</td>
-										<td><input type="text" name="descripcion" />
+										<td><input type="text" name="descripcion"
+											placeholder="Descripcion" />
 										</td>
 									</tr>
 									<tr>
-										<td>Precio</td>
-										<td><input type="text" name="precio" />
+										<td><input type="text" name="precio" placeholder="Precio" />
 										</td>
 									</tr>
 									<tr>
-										<td>Se puede enviar en pedidos</td>
-										<td><input type="checkbox" name="validoPedidos" value="1" />
+										<td>Se puede enviar en pedidos <input type="checkbox"
+											name="validoPedidos" value="1" />
 										</td>
 									</tr>
 									<tr id="tituloIngredientesArticulo">
-										<td>Ingredientes</td>
+										<td><strong>Ingredientes :</strong></td>
 									</tr>
 									<?php foreach ($ingredientes as $linea): ?>
 									<tr class="listaIngredientesArticulo">
-										<td></td>
 										<td><input type="checkbox" name="ingrediente[]"
 											value="<?php echo $linea->id_ingrediente; ?>" /> <?php echo $linea->ingrediente; ?>
 										</td>
 									</tr>
 									<?php endforeach; ?>
-									<tr>
-										<td width="51" colspan="2" align="center"><input type="button"
-											onclick="<?php
-                           echo "enviarFormulario('" . site_url() .
-                           "/articulos/anadirArticulo','formAltaArticulo','listaArticulos',1)"
-                           ?>"
-											<?php
-											if (!count($tiposArticuloLocal)) {
-                               echo "disabled";
-                           }
-                           ?>
-											value="Añadir articulo" />
-										</td>
-									</tr>
 								</table>
 							</form>
-						</div>
+							<span class="pull-right">
+								<button class="btn btn-success" type="button"
+									data-toggle="tooltip" data-original-title="Edit this user"
+									onclick="<?php
+					                           echo "enviarFormulario('" . site_url() .
+					                           "/articulos/anadirArticulo','formAltaArticulo','listaArticulos',1)"
+					                           ?>">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+							</span>
 					</div>
 				</div>
 			</div>
@@ -279,42 +270,40 @@
 						</h4>
 					</div>
 					<div id="altaIngrediente" class="panel-body collapse sub-panel">
-						<div class="well">
-
 							<table>
 								<form id="formAltaIngrediente">
 									<tr>
 									
 									
 									<tr>
-										<td>Nombre ingrediente</td>
-										<td width="46"><input type="text" name="ingrediente" />
+										<td><input type="text" name="ingrediente"
+											placeholder="Nombre ingrediente" />
 										</td>
 									</tr>
 									<tr>
-										<td>Descripción</td>
-										<td><input type="text" name="descripcion" />
+										<td><input type="text" name="descripcion"
+											placeholder="Descripcion" />
 										</td>
 									</tr>
 									<tr>
-										<td>Precio</td>
-										<td><input type="text" name="precio" />
+										<td><input type="text" name="precio" placeholder="Precio" />
 										</td>
 									</tr>
 
 									</tr>
-									<tr>
-										<td width="51" colspan="2" align="center"><input type="button"
-											onclick="<?php
-                           echo "enviarFormulario('" . site_url()
-                           . "/ingredientes/anadirIngrediente','formAltaIngrediente','listaIngredientes',1)"
-                           ?>"
-											value="Añadir ingrediente" />
-										</td>
-									</tr>
 								</form>
 							</table>
-						</div>
+							<span class="pull-right">
+								<button class="btn btn-success" type="button"
+									data-toggle="tooltip" data-original-title="Edit this user"
+									onclick="<?php
+                           echo "enviarFormulario('" . site_url()
+                           . "/ingredientes/anadirIngrediente','formAltaIngrediente','listaIngredientes',1)"
+                           ?>">
+									<span class="glyphicon glyphicon-plus">
+								
+								</button>
+							</span>						
 					</div>
 				</div>
 			</div>

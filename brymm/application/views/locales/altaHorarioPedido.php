@@ -4,7 +4,7 @@
 			<h4 class="panel-title">Horarios pedido</h4>
 		</div>
 		<div class="panel-body">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div id="altaHorariosLocal" class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -23,7 +23,8 @@
 												<?php echo $dia->dia; ?>
 											</option>
 											<?php endforeach; ?>
-									</select></td>
+									</select>
+									</td>
 								</tr>
 
 								<tr>
@@ -115,22 +116,23 @@
 											<option value="55">55</option>
 									</select>
 									</td>
-								</tr>
-								<tr>
-									<td width="51" colspan="2" align="center"><input type="button"
-										onclick="<?php
-                           echo "enviarFormulario('" . site_url()
-                           . "/locales/anadirHorarioPedido','formAltaHorarioPedido','listaHorarioPedido',1)"
-                           ?>"
-										value="Añadir horario pedido" /></td>
-								</tr>
+								</tr>								
 							</table>
 						</form>
-
+						<span class="pull-right">
+							<button class="btn btn-success" type="button"
+								data-toggle="tooltip" data-original-title="Edit this user"
+								onclick="<?php
+                           echo "enviarFormulario('" . site_url()
+                           . "/locales/anadirHorarioPedido','formAltaHorarioPedido','listaHorarioPedido',1)"
+                           ?>">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						</span>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div id="listaHorariosLocal" class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -139,16 +141,55 @@
 						</h4>
 					</div>
 					<div id="listaHorarioPedidos" class="panel-body collapse">
-						<ul>
-							<?php foreach ($horarioPedido as $linea): ?>
-							<li><?php echo $linea->dia . "-" . $linea->hora_inicio . "-" . $linea->hora_fin ?>
-								<a
-								onclick="<?php
+						<?php
+						$contador = 0;
+						foreach ($horarioPedido as $linea):
+						$contador++;
+						if ($contador%2 <> 0):?>
+						<div class="col-md-12">
+							<?php 
+							endif;
+							?>
+							<div class="well col-md-6">
+								<div class="span6">
+									<table
+										class="table table-condensed table-responsive table-user-information">
+										<tbody>
+											<tr>
+												<td>Dia</td>
+												<td><?php echo $linea->dia;?>
+												</td>
+											</tr>
+											<tr>
+												<td>Hora inicio</td>
+												<td><?php echo $linea->hora_inicio;?>
+												</td>
+											</tr>
+											<tr>
+												<td>Hora fin</td>
+												<td><?php echo $linea->hora_fin;?>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<span class="pull-right">
+										<button class="btn btn-danger" type="button"
+											data-toggle="tooltip" data-original-title="Remove this user"
+											onclick="<?php
                 echo "doAjax('" . site_url() . "/locales/borrarHorarioPedido','idHorarioPedido="
                 . $linea->id_horario_pedido . "','listaHorarioPedido','post',1)";
-                ?>"> B </a></li>
-							<?php endforeach; ?>
-						</ul>
+                ?>">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button>
+									</span>
+								</div>
+							</div>
+							<?php 
+						if ($contador%2 == 0):?>
+						</div>
+						<?php 
+						endif;
+							endforeach; ?>
 					</div>
 				</div>
 			</div>
