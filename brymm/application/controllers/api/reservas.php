@@ -67,11 +67,25 @@ class Reservas extends REST_Controller {
 		}
 
 		list( $fecha,$hora) = explode(' ', $datosReserva[Reservas::FIELD_FECHA]);
+		
+		//Cambio las barras por guiones 
+		$fecha = str_replace("/","-",$fecha);		
 		list($ano, $mes, $dia ) = explode('-', $fecha);
+		
+		
+		if ($dia < 10){
+			$dia = '0'.$dia;
+		}
+		
+		
+		if ($mes < 10){
+			$mes = '0'.$mes;
+		}
+		
 		$fechaReserva = $ano . '-'
 				. $mes . '-' . $dia;
 
-		if (DateTime::createFromFormat('Y-m-d', $fecha) && !$hayError) {
+		if (!DateTime::createFromFormat('Y-m-d', $fechaReserva) && !$hayError) {
 			$msg = 'El formato de la fecha es incorrecto';
 			$hayError = true;
 		}
@@ -113,7 +127,7 @@ class Reservas extends REST_Controller {
 					$msg = 'Petición realizada correctamente';
 				}
 			} else {
-				$msg = 'El local está cerrado el día indicado';
+				$msg = 'El local esta� cerrado el dia indicado';
 				$hayError = true;
 			}
 		}
@@ -123,14 +137,10 @@ class Reservas extends REST_Controller {
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_KO
 					,Code::JSON_MENSAJE => $msg
 			);
-		} else {
-			$datosRespuesta = array(Reservas::JSON_OPERACION_OK => '1',
-					Reservas::JSON_MENSAJE => $msg,
-					Reservas::JSON_RESERVA => $reserva);
-
+		} else {			
 			$datosRespuesta = array(Code::JSON_OPERACION_OK => Code::RES_OPERACION_OK
 					,Code::JSON_MENSAJE => $msg
-					,Reserva::FIELD_RESERVA => $reserva
+					,Reservas::JSON_RESERVA => $reserva
 			);
 		}
 
