@@ -76,7 +76,7 @@ class Locales extends CI_Controller {
 		}
 
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
-		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css');
+		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','general.css');
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $msg);

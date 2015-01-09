@@ -87,60 +87,70 @@
 								class="accordion-toggle collapsed"> Nuevo articulo </a>
 						</h4>
 					</div>
-					<div id="altaArticulo" class="panel-body collapse">						
-							<form id="formAltaArticulo">
-								<table id="idTabla">
-									<tr>
-										<td>Tipo articulo <select name="tipoArticulo"
-											id="listaTiposArticulosArticulo">
-												<?php foreach ($tiposArticuloLocal as $linea): ?>
-												<option value="<?php echo $linea->id_tipo_articulo; ?>">
-													<?php echo $linea->tipo_articulo; ?>
-												</option>
-												<?php endforeach; ?>
-										</select>
-										</td>
-									</tr>
-									<tr>
-										<td<input type="text" name="articulo"
-											placeholder="Nombre articulo" /></td>
-									</tr>
-									<tr>
-										<td><input type="text" name="descripcion"
-											placeholder="Descripcion" />
-										</td>
-									</tr>
-									<tr>
-										<td><input type="text" name="precio" placeholder="Precio" />
-										</td>
-									</tr>
-									<tr>
-										<td>Se puede enviar en pedidos <input type="checkbox"
-											name="validoPedidos" value="1" />
-										</td>
-									</tr>
-									<tr id="tituloIngredientesArticulo">
-										<td><strong>Ingredientes :</strong></td>
-									</tr>
-									<?php foreach ($ingredientes as $linea): ?>
-									<tr class="listaIngredientesArticulo">
-										<td><input type="checkbox" name="ingrediente[]"
-											value="<?php echo $linea->id_ingrediente; ?>" /> <?php echo $linea->ingrediente; ?>
-										</td>
-									</tr>
-									<?php endforeach; ?>
-								</table>
-							</form>
-							<span class="pull-right">
-								<button class="btn btn-success" type="button"
-									data-toggle="tooltip" data-original-title="Edit this user"
-									onclick="<?php
+					<div id="altaArticulo" class="panel-body collapse panel-rojo">
+						<form id="formAltaArticulo" class="form-horizontal">
+							<div class="form-group">
+								<label for="listaTiposArticulosArticulo"
+									class="col-sm-4 control-label">Tipo articulo</label>
+								<div class="col-sm-8">
+									<select name="tipoArticulo" id="listaTiposArticulosArticulo">
+										<?php foreach ($tiposArticuloLocal as $linea): ?>
+										<option class="form-control" value="<?php echo $linea->id_tipo_articulo; ?>">
+											<?php echo $linea->tipo_articulo; ?>
+										</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<table id="idTabla">
+								<div class="form-group">
+									<label for="nombreArticulo" class="col-sm-4 control-label">Nombre</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="nombreArticulo"
+											placeholder="Nombre articulo" name="articulo">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="descripcionArticulo" class="col-sm-4 control-label">Descripcion</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="descripcionArticulo"
+											placeholder="Descripcion" name="descripcion">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="precioArticulo" class="col-sm-4 control-label">Precio</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="precioArticulo"
+											placeholder="Precio" name="precio">
+									</div>
+								</div>
+								<tr>
+									<td>Se puede enviar en pedidos <input type="checkbox"
+										name="validoPedidos" value="1" />
+									</td>
+								</tr>
+								<tr id="tituloIngredientesArticulo">
+									<td><strong>Ingredientes :</strong></td>
+								</tr>
+								<?php foreach ($ingredientes as $linea): ?>
+								<tr class="listaIngredientesArticulo">
+									<td><input type="checkbox" name="ingrediente[]"
+										value="<?php echo $linea->id_ingrediente; ?>" /> <?php echo $linea->ingrediente; ?>
+									</td>
+								</tr>
+								<?php endforeach; ?>
+							</table>
+						</form>
+						<span class="pull-right">
+							<button class="btn btn-success" type="button"
+								data-toggle="tooltip" data-original-title="Edit this user"
+								onclick="<?php
 					                           echo "enviarFormulario('" . site_url() .
 					                           "/articulos/anadirArticulo','formAltaArticulo','listaArticulos',1)"
 					                           ?>">
-									<span class="glyphicon glyphicon-plus"></span>
-								</button>
-							</span>
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -270,40 +280,40 @@
 						</h4>
 					</div>
 					<div id="altaIngrediente" class="panel-body collapse sub-panel">
-							<table>
-								<form id="formAltaIngrediente">
-									<tr>
-									
-									
-									<tr>
-										<td><input type="text" name="ingrediente"
-											placeholder="Nombre ingrediente" />
-										</td>
-									</tr>
-									<tr>
-										<td><input type="text" name="descripcion"
-											placeholder="Descripcion" />
-										</td>
-									</tr>
-									<tr>
-										<td><input type="text" name="precio" placeholder="Precio" />
-										</td>
-									</tr>
+						<table>
+							<form id="formAltaIngrediente">
+								<tr>
+								
+								
+								<tr>
+									<td><input type="text" name="ingrediente"
+										placeholder="Nombre ingrediente" />
+									</td>
+								</tr>
+								<tr>
+									<td><input type="text" name="descripcion"
+										placeholder="Descripcion" />
+									</td>
+								</tr>
+								<tr>
+									<td><input type="text" name="precio" placeholder="Precio" />
+									</td>
+								</tr>
 
-									</tr>
-								</form>
-							</table>
-							<span class="pull-right">
-								<button class="btn btn-success" type="button"
-									data-toggle="tooltip" data-original-title="Edit this user"
-									onclick="<?php
+								</tr>
+							</form>
+						</table>
+						<span class="pull-right">
+							<button class="btn btn-success" type="button"
+								data-toggle="tooltip" data-original-title="Edit this user"
+								onclick="<?php
                            echo "enviarFormulario('" . site_url()
                            . "/ingredientes/anadirIngrediente','formAltaIngrediente','listaIngredientes',1)"
                            ?>">
-									<span class="glyphicon glyphicon-plus">
-								
-								</button>
-							</span>						
+								<span class="glyphicon glyphicon-plus">
+							
+							</button>
+						</span>
 					</div>
 				</div>
 			</div>

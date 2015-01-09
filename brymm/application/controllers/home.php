@@ -27,7 +27,8 @@ class Home extends CI_Controller {
         //Se obtienen los servicios del local
         $var['servicios'] = $this->Servicios_model->obtenerServicios()->result();        
         $header['javascript'] = array('miajaxlib', 'jquery/jquery','js/bootstrap.min');
-        $header['estilos'] = array('buscador.css','general.css');        
+        $header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css',
+        		'buscador.css','general.css');        
 
         $this->load->view('base/cabecera', $header);
         $this->load->view('base/page_top');

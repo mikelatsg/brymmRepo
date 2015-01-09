@@ -79,11 +79,13 @@ class Usuarios extends CI_Controller {
         $this->Sesiones_model->destruirSesion();
 
         $msg = "Session cerrada!";
+        
+        redirect('home', 'location');
 
-        $this->load->view('base/cabecera');
+        /*$this->load->view('base/cabecera');
         $this->load->view('base/page_top', $msg);
         $this->load->view('home');
-        $this->load->view('base/page_bottom');
+        $this->load->view('base/page_bottom');*/
     }
 
     public function gestionDireccionEnvio() {
