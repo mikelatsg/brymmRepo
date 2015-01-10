@@ -95,51 +95,76 @@
 								<div class="col-sm-8">
 									<select name="tipoArticulo" id="listaTiposArticulosArticulo">
 										<?php foreach ($tiposArticuloLocal as $linea): ?>
-										<option class="form-control" value="<?php echo $linea->id_tipo_articulo; ?>">
+										<option class="form-control"
+											value="<?php echo $linea->id_tipo_articulo; ?>">
 											<?php echo $linea->tipo_articulo; ?>
 										</option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
-							<table id="idTabla">
-								<div class="form-group">
-									<label for="nombreArticulo" class="col-sm-4 control-label">Nombre</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="nombreArticulo"
-											placeholder="Nombre articulo" name="articulo">
+							<div class="form-group">
+								<label for="nombreArticulo" class="col-sm-4 control-label">Nombre</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="nombreArticulo"
+										placeholder="Nombre articulo" name="articulo">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="descripcionArticulo" class="col-sm-4 control-label">Descripcion</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"
+										id="descripcionArticulo" placeholder="Descripcion"
+										name="descripcion">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="precioArticulo" class="col-sm-4 control-label">Precio</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="precioArticulo"
+										placeholder="Precio" name="precio">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-4 col-sm-8">
+									<div class="checkbox">
+										<label class="pull-left"><input name="validoPedidos"
+											type="checkbox"> Se puede enviar en pedidos</label>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="descripcionArticulo" class="col-sm-4 control-label">Descripcion</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="descripcionArticulo"
-											placeholder="Descripcion" name="descripcion">
+							</div>
+							<?php $inicio = true; 
+							foreach ($ingredientes as $linea):
+							if ($inicio):
+							?>
+							<div class="form-group">
+								<label for="precioArticulo" class="col-sm-4 control-label">Ingredientes</label>
+								<div class="col-sm-8">
+									<div class="checkbox">
+										<label class="pull-left"><input name="ingrediente[]"
+											type="checkbox" value="<?php echo $linea->id_ingrediente; ?>">
+											<?php echo $linea->ingrediente; ?> </label>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="precioArticulo" class="col-sm-4 control-label">Precio</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="precioArticulo"
-											placeholder="Precio" name="precio">
+							</div>
+							<?php
+							else:
+							?>
+							<div class="form-group listaIngredientesArticulo">
+								<div class="col-sm-offset-4 col-sm-8">
+									<div class="checkbox">
+										<label class="pull-left"><input name="ingrediente[]"
+											type="checkbox" value="<?php echo $linea->id_ingrediente; ?>">
+											<?php echo $linea->ingrediente; ?> </label>
 									</div>
 								</div>
-								<tr>
-									<td>Se puede enviar en pedidos <input type="checkbox"
-										name="validoPedidos" value="1" />
-									</td>
-								</tr>
-								<tr id="tituloIngredientesArticulo">
-									<td><strong>Ingredientes :</strong></td>
-								</tr>
-								<?php foreach ($ingredientes as $linea): ?>
-								<tr class="listaIngredientesArticulo">
-									<td><input type="checkbox" name="ingrediente[]"
-										value="<?php echo $linea->id_ingrediente; ?>" /> <?php echo $linea->ingrediente; ?>
-									</td>
-								</tr>
-								<?php endforeach; ?>
-							</table>
+							</div>
+							<?php 
+							endif;
+							$inicio = false;
+							?>
+
+							<?php endforeach; ?>
 						</form>
 						<span class="pull-right">
 							<button class="btn btn-success" type="button"
@@ -280,29 +305,31 @@
 						</h4>
 					</div>
 					<div id="altaIngrediente" class="panel-body collapse sub-panel">
-						<table>
-							<form id="formAltaIngrediente">
-								<tr>
-								
-								
-								<tr>
-									<td><input type="text" name="ingrediente"
-										placeholder="Nombre ingrediente" />
-									</td>
-								</tr>
-								<tr>
-									<td><input type="text" name="descripcion"
-										placeholder="Descripcion" />
-									</td>
-								</tr>
-								<tr>
-									<td><input type="text" name="precio" placeholder="Precio" />
-									</td>
-								</tr>
-
-								</tr>
-							</form>
-						</table>
+						<form id="formAltaIngrediente" class="form-horizontal">
+							<div class="form-group">
+								<label for="nombreIngrediente" class="col-sm-4 control-label">Nombre</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="nombreIngrediente"
+										placeholder="Nombre ingrediente" name="ingrediente">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="descripcionIngrediente"
+									class="col-sm-4 control-label">Descripcion</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"
+										id="descripcionIngrediente" placeholder="Descripcion"
+										name="descripcion">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="precioIngrediente" class="col-sm-4 control-label">Precio</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="precioIngrediente"
+										placeholder="Precio" name="precio">
+								</div>
+							</div>
+						</form>
 						<span class="pull-right">
 							<button class="btn btn-success" type="button"
 								data-toggle="tooltip" data-original-title="Edit this user"

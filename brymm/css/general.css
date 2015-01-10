@@ -131,29 +131,21 @@
 	border-color: grey;
 }
 
-/*input,button{
-	margin-top:2px;
-	margin-bottom:2px;
-	margin-left:4px;
-	margin-right:4px;
-}*/
-
-
-
 ::-webkit-input-placeholder { /* WebKit browsers */    
     font-style:italic;
+    font-size:12px;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    font-style:italic;
-   color:black;
+   font-size:12px;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-   font-style:italic;
-   color:red;
+   font-style:italic;   
    font-size:12px;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
    font-style:italic;
+   font-size:12px;
 }
 
 body {
