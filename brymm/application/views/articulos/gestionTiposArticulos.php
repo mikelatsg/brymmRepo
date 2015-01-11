@@ -1,6 +1,38 @@
 <div id="dialogModificarTipoArticulo" style="display: none">
 	<form id="formModificarTipoArticulo">
 		<input type="hidden" name="idTipoArticuloLocal">
+		<div class="form-group">
+			<label for="listaTiposArticulos" class="col-sm-4 control-label">Tipo
+				articulo</label>
+			<div class="col-sm-8">
+				<select name="tipoArticulo" id="listaTiposArticulos">
+					<?php foreach ($tiposArticulo as $linea): ?>
+					<option class="form-control"
+						value="<?php echo $linea->id_tipo_articulo; ?>">
+						<?php echo $linea->tipo_articulo; ?>
+					</option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="personalizarTipoArticulo" class="col-sm-4 control-label">Personalizar</label>
+			<div class="col-sm-8">
+				<select name="personalizar" id="personalizarTipoArticulo">
+					<option class="form-control" value="1">Si</option>
+					<option class="form-control" value="0">No</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="precioBaseTipoArticulo" class="col-sm-4 control-label">Precio
+				base</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="precioBaseTipoArticulo"
+					placeholder="Precio base" name="precioBase">
+			</div>
+		</div>
+		<!-- 
 		<table>
 			<tr>
 				<td>Tipo articulo</td>
@@ -10,18 +42,21 @@
 							<?php echo $linea->tipo_articulo; ?>
 						</option>
 						<?php endforeach; ?>
-				</select></td>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Personalizar</td>
 				<td width="46"><select name="personalizar">
 						<option value="1">Si</option>
 						<option value="0">No</option>
-				</select></td>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Precio base</td>
-				<td width="46"><input type="text" name="precioBase"></td>
+				<td width="46"><input type="text" name="precioBase">
+				</td>
 			</tr>
 			<!--  <tr>
 				<td width="51" colspan="2" align="center"><input type="button"
@@ -31,8 +66,9 @@
                            ?>"
 					value="Modificar tipo articulo" /></td>
 			</tr>
-			-->
+			
 		</table>
+		 -->
 	</form>
 </div>
 <div>
@@ -51,6 +87,40 @@
 					</div>
 					<div id="altaTipoArticulo" class="panel-body collapse sub-panel">
 						<form id="formAltaTipoArticulo">
+							<div class="form-group">
+								<label for="listaTiposArticulos" class="col-sm-4 control-label">Tipo
+									articulo</label>
+								<div class="col-sm-8">
+									<select name="tipoArticulo" id="listaTiposArticulos">
+										<?php foreach ($tiposArticulo as $linea): ?>
+										<option class="form-control"
+											value="<?php echo $linea->id_tipo_articulo; ?>">
+											<?php echo $linea->tipo_articulo; ?>
+										</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="personalizarTipoArticulo"
+									class="col-sm-4 control-label">Personalizar</label>
+								<div class="col-sm-8">
+									<select name="personalizar" id="personalizarTipoArticulo">
+										<option class="form-control" value="1">Si</option>
+										<option class="form-control" value="0">No</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="precioBaseTipoArticulo"
+									class="col-sm-4 control-label">Precio base</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control"
+										id="precioBaseTipoArticulo" placeholder="Precio base"
+										name="precioBase">
+								</div>
+							</div>
+							<!-- 
 							<table>
 								<tr>
 
@@ -75,7 +145,7 @@
 										placeHolder="Precio base">
 									</td>
 								</tr>
-							</table>
+							</table> -->
 						</form>
 						<span class="pull-right">
 							<button class="btn btn-success" type="button"

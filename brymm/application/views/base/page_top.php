@@ -48,18 +48,32 @@
 										class="dropdown-toggle" href="#" data-toggle="dropdown"
 										id="navLoginUsuario">Usuario</a>
 										<div class="dropdown-menu">
-											<div class="col-md-12">
-												<form method="post" id="formLoginUsuario"
-													action="<?php echo site_url() ?>/usuarios/login">
-													<input type="text" name="nick" placeholder="Nick" /> <input
-														type="password" placeholder="Password" name="password" />
+											<!--  <div class="col-md-12">-->
+											<form method="post" id="formLoginUsuario"
+												action="<?php echo site_url() ?>/usuarios/login">
+												<div class="form-group">
+													<label for="nick" class="col-md-4 control-label">Nick</label>
+													<div class="col-md-8">
+														<input type="text" class="form-control" id="nick"
+															placeholder="Nick" name="nick">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="password" class="col-md-4 control-label">Password</label>
+													<div class="col-md-8">
+														<input type="password" class="form-control" id="password"
+															placeholder="Password" name="password">
+													</div>
+												</div>
+												<div class="col-md-12">
 													<button class="btn btn-success pull-right" type="submit"
 														data-toggle="tooltip"
 														data-original-title="Remove this user">
 														<span class="glyphicon glyphicon-log-in"></span>
 													</button>
-												</form>
-											</div>
+												</div>
+											</form>
+											<!--  </div> -->
 											<div class="col-md-12">
 												<a href="<?php echo site_url();?>/usuarios/alta">Nuevo
 													usuario</a>
@@ -72,8 +86,20 @@
 											<div class="col-md-12">
 												<form method="post" id="formLoginLocal"
 													action="<?= site_url() ?>/locales/login">
-													<input type="text" name="nombre" placeholder="Local" /> <input
-														type="password" name="password" placeholder="Password" />
+													<div class="form-group">
+														<label for="nombre" class="col-md-4 control-label">Local</label>
+														<div class="col-md-8">
+															<input type="text" class="form-control" id="nombre"
+																placeholder="Local" name="nombre">
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="password" class="col-md-4 control-label">Password</label>
+														<div class="col-md-8">
+															<input type="password" class="form-control" id="password"
+																placeholder="Password" name="password">
+														</div>
+													</div>
 													<button class="btn btn-success pull-right" type="submit"
 														data-toggle="tooltip"
 														data-original-title="Remove this user">
@@ -93,10 +119,27 @@
 											<div class="col-md-12">
 												<form method="post" id="formLoginLocal"
 													action="<?= site_url() ?>/camareros/login">
-													<input type="text" name="nombreLocal" placeholder="Local" />
-													<input type="text" name="nombreCamarero"
-														placeholder="Camarero" /> <input type="password"
-														name="password" placeholder="Password" />
+													<div class="form-group">
+														<label for="nombreLocal" class="col-md-4 control-label">Local</label>
+														<div class="col-md-8">
+															<input type="text" class="form-control" id="nombreLocal"
+																placeholder="Local" name="nombreLocal">
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="nombreCamarero" class="col-md-4 control-label">Camarero</label>
+														<div class="col-md-8">
+															<input type="text" class="form-control" id="nombreCamarero"
+																placeholder="Camarero" name="nombreCamarero">
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="password" class="col-md-4 control-label">Password</label>
+														<div class="col-md-8">
+															<input type="password" class="form-control" id="password"
+																placeholder="Password" name="password">
+														</div>
+													</div>
 													<button class="btn btn-success pull-right" type="submit"
 														data-toggle="tooltip"
 														data-original-title="Remove this user">

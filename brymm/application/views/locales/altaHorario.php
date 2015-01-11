@@ -1,18 +1,18 @@
 <div>
 	<div id="horariosLocal" class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">Horarios local</h4>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body panel-verde">
 			<div class="col-md-4">
-				<div id="altaHorariosLocal" class="panel panel-default">
-					<div class="panel-heading">
+				<div id="altaHorariosLocal" class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaHorarioLocal"
 								class="accordion-toggle collapsed"> Nuevo horario local </a>
 						</h4>
 					</div>
-					<div id="altaHorarioLocal" class="panel-body collapse">
+					<div id="altaHorarioLocal" class="panel-body collapse sub-panel">
 
 						<form id="formAltaHorarioLocal">
 							<table>
@@ -24,8 +24,7 @@
 												<?php echo $dia->dia; ?>
 											</option>
 											<?php endforeach; ?>
-									</select>
-									</td>
+									</select></td>
 								
 								
 								<tr>
@@ -68,8 +67,7 @@
 											<option value="45">45</option>
 											<option value="50">50</option>
 											<option value="55">55</option>
-									</select> <!--<input type="text" name="horaInicio" />-->
-									</td>
+									</select> <!--<input type="text" name="horaInicio" />--></td>
 								</tr>
 								<tr>
 									<td>Hora cierre</td>
@@ -115,7 +113,7 @@
 											<option value="55">55</option>
 									</select>
 									</td>
-								</tr>													
+								</tr>
 							</table>
 						</form>
 						<span class="pull-right">
@@ -129,14 +127,14 @@
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div id="listahorariosLocal" class="panel panel-default">
-					<div class="panel-heading">
+				<div id="listahorariosLocal" class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaHorarioLocal"
 								class="accordion-toggle collapsed"> Lista horarios local </a>
 						</h4>
 					</div>
-					<div id="listaHorarioLocal" class="panel-body collapse">
+					<div id="listaHorarioLocal" class="panel-body collapse sub-panel">
 						<ul>
 							<?php foreach ($horarioLocal as $linea): ?>
 							<li><?php echo $linea->dia . "-" . $linea->hora_inicio . "-" . $linea->hora_fin ?>
@@ -144,8 +142,7 @@
 								onclick="<?php
                 echo "doAjax('" . site_url() . "/locales/borrarHorarioLocal','idHorarioLocal="
                 . $linea->id_horario_local . "','listaHorarioLocal','post',1)";
-                ?>"> B </a>
-							</li>
+                ?>"> B </a></li>
 							<?php endforeach; ?>
 						</ul>
 					</div>
@@ -155,27 +152,27 @@
 	</div>
 </div>
 <div>
-	<div id="horariosLocal" class="panel panel-default">
-		<div class="panel-heading">
+	<div id="diasCierreLocal" class="panel panel-default">
+		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">Dias cierre local</h4>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body panel-verde">
 			<div class="col-md-4">
-				<div id="altaDiasCierre" class="panel panel-default">
-					<div class="panel-heading">
+				<div id="altaDiasCierre" class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaDiasCierreLocal"
 								class="accordion-toggle collapsed"> Nuevo dia cierre </a>
 						</h4>
 					</div>
-					<div id="altaDiasCierreLocal" class="panel-body collapse">
+					<div id="altaDiasCierreLocal" class="panel-body collapse sub-panel">
 						<form id="formDiasCierreLocal">
 							<table>
 								<tr>
 									<td><input type="text" name="fecha" id="datepickerDiasCierre"
 										placeholder="Selecciona dia" />
-									</td>								
-								</tr>							
+									</td>
+								</tr>
 							</table>
 						</form>
 						<span class="pull-right">
@@ -191,16 +188,15 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-md-8">
-				<div id="listaDiasCierre" class="panel panel-default">
-					<div class="panel-heading">
+				<div id="listaDiasCierre" class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaDiasCierreLocal"
 								class="accordion-toggle collapsed"> Lista dia cierre </a>
 						</h4>
 					</div>
-					<div id="listaDiasCierreLocal" class="panel-body collapse">
+					<div id="listaDiasCierreLocal" class="panel-body collapse sub-panel">
 						<ul>
 							<?php foreach ($diasCierreLocal as $linea): ?>
 							<li><?php echo $linea->fecha . " - " ?> <a

@@ -1,75 +1,111 @@
 <!-- Formulario modal modificar articulo -->
 <div id="dialogModificarArticulo" style="display: none">
 	<form id="formModificarArticulo">
-		<table>
-			<tr>
-			
-			
-			<tr>
-				<td></td>
-				<td width="46"><select name="tipoArticulo"
-					id="listaTiposArticulosArticuloMod">
-						<?php foreach ($tiposArticuloLocal as $linea): ?>
-						<option value="<?php echo $linea->id_tipo_articulo; ?>">
-							<?php echo $linea->tipo_articulo; ?>
-						</option>
-						<?php endforeach; ?>
-				</select></td>
-			</tr>
-			<tr>
-				<td>Nombre articulo</td>
-				<td width="46"><input type="text" name="articulo" /></td>
-			</tr>
-			<tr>
-				<td>Descripción</td>
-				<td><input type="text" name="descripcion" /></td>
-			</tr>
-			<tr>
-				<td>Precio</td>
-				<td><input type="text" name="precio" /> <input type="hidden"
-					name="idArticuloLocal" value="0"></td>
-			</tr>
-			<tr>
-				<td>Se puede enviar en pedidos</td>
-				<td><input type="checkbox" name="validoPedidos" value="1" /></td>
-			</tr>
-			</tr>
-			<tr id="tituloIngredientesArticuloMod">
-				<td>Ingredientes</td>
-			</tr>
-			<?php foreach ($ingredientes as $linea): ?>
-			<tr class="listaIngredientesArticulo">
-				<td></td>
-				<td><input type="checkbox" name="ingrediente[]"
-					value="<?php echo $linea->id_ingrediente; ?>" /> <?php echo $linea->ingrediente; ?>
-				</td>
-			</tr>
-			<?php endforeach; ?>
-		</table>
+		<input type="hidden" name="idArticuloLocal" value="0">
+		<div class="form-group">
+			<label for="listaTiposArticulosArticuloMod"
+				class="col-sm-4 control-label">Tipo articulo</label>
+			<div class="col-sm-8">
+				<select name="tipoArticulo" id="listaTiposArticulosArticuloMod">
+					<?php foreach ($tiposArticuloLocal as $linea): ?>
+					<option class="form-control"
+						value="<?php echo $linea->id_tipo_articulo; ?>">
+						<?php echo $linea->tipo_articulo; ?>
+					</option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="nombreArticuloMod" class="col-sm-4 control-label">Nombre</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="nombreArticuloMod"
+					placeholder="Nombre articulo" name="articulo">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="descripcionArticuloMod" class="col-sm-4 control-label">Descripcion</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="descripcionArticuloMod"
+					placeholder="Descripcion" name="descripcion">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="precioArticuloMod" class="col-sm-4 control-label">Precio</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="precioArticuloMod"
+					placeholder="Precio" name="precio">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-4 col-sm-8">
+				<div class="checkbox">
+					<label class="pull-left"><input name="validoPedidos"
+						type="checkbox"> Se puede enviar en pedidos</label>
+				</div>
+			</div>
+		</div>
+		<?php $inicio = true; 
+		foreach ($ingredientes as $linea):
+		if ($inicio):
+		?>
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Ingredientes</label>
+			<div class="col-sm-8">
+				<div class="checkbox">
+					<label class="pull-left"><input name="ingrediente[]"
+						type="checkbox" value="<?php echo $linea->id_ingrediente; ?>"> <?php echo $linea->ingrediente; ?>
+					</label>
+				</div>
+			</div>
+		</div>
+		<?php
+		else:
+		?>
+		<div class="form-group listaIngredientesArticuloMod">
+			<div class="col-sm-offset-4 col-sm-8">
+				<div class="checkbox">
+					<label class="pull-left"><input name="ingrediente[]"
+						type="checkbox" value="<?php echo $linea->id_ingrediente; ?>"> <?php echo $linea->ingrediente; ?>
+					</label>
+				</div>
+			</div>
+		</div>
+		<?php 
+		endif;
+		$inicio = false;
+		?>
+
+		<?php endforeach; ?>		
 	</form>
 </div>
 
 <!-- Formulario modal modificar ingrediente -->
 <div id="dialogModificarIngrediente" style="display: none">
 	<form id="formModificarIngrediente">
-		<table>
-			<tr>
-				<td>Nombre ingrediente</td>
-				<td width="46"><input type="text" name="ingrediente" />
-				</td>
-			</tr>
-			<tr>
-				<td>Descripción</td>
-				<td><input type="text" name="descripcion" />
-				</td>
-			</tr>
-			<tr>
-				<td>Precio</td>
-				<td><input type="text" name="precio" /> <input type="hidden"
-					name="idIngrediente" value="0">
-				</td>
-			</tr>
-		</table>
+		<div class="form-group">
+			<label for="nombreIngredienteMod" class="col-sm-4 control-label">Nombre</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="nombreIngredienteMod"
+					placeholder="Nombre ingrediente" name="ingrediente">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="descripcionIngredienteMod" class="col-sm-4 control-label">Descripcion</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control"
+					id="descripcionIngredienteMod" placeholder="Descripcion"
+					name="descripcion">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="precioIngredienteMod" class="col-sm-4 control-label">Precio</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="precioIngredienteMod"
+					placeholder="Precio" name="precio">
+			</div>
+		</div>
+		<input type="hidden" name="idIngrediente" value="0">
 	</form>
 </div>
 

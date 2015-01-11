@@ -120,6 +120,10 @@
 }
 
 /*Barra menu usuario*/
+#usuarios .dropdown-menu {
+	min-width:300px;	
+}
+
 #usuarios .dropdown-menu a{
 	color:red;
 	font-weight: normal;	
