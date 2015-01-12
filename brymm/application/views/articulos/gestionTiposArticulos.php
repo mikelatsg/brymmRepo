@@ -31,44 +31,7 @@
 				<input type="text" class="form-control" id="precioBaseTipoArticulo"
 					placeholder="Precio base" name="precioBase">
 			</div>
-		</div>
-		<!-- 
-		<table>
-			<tr>
-				<td>Tipo articulo</td>
-				<td width="46"><select name="tipoArticulo" disabled>
-						<?php foreach ($tiposArticulo as $linea): ?>
-						<option value="<?php echo $linea->id_tipo_articulo; ?>">
-							<?php echo $linea->tipo_articulo; ?>
-						</option>
-						<?php endforeach; ?>
-				</select>
-				</td>
-			</tr>
-			<tr>
-				<td>Personalizar</td>
-				<td width="46"><select name="personalizar">
-						<option value="1">Si</option>
-						<option value="0">No</option>
-				</select>
-				</td>
-			</tr>
-			<tr>
-				<td>Precio base</td>
-				<td width="46"><input type="text" name="precioBase">
-				</td>
-			</tr>
-			<!--  <tr>
-				<td width="51" colspan="2" align="center"><input type="button"
-					onclick="<?php
-                           echo "enviarFormulario('" . site_url() .
-                           "/articulos/modificarTipoArticulo','formModificarTipoArticulo','listaTiposArticulo',1)"
-                           ?>"
-					value="Modificar tipo articulo" /></td>
-			</tr>
-			
-		</table>
-		 -->
+		</div>		
 	</form>
 </div>
 <div>
@@ -86,7 +49,7 @@
 						</h4>
 					</div>
 					<div id="altaTipoArticulo" class="panel-body collapse sub-panel">
-						<form id="formAltaTipoArticulo">
+						<form id="formAltaTipoArticulo" class="form-horizontal">
 							<div class="form-group">
 								<label for="listaTiposArticulos" class="col-sm-4 control-label">Tipo
 									articulo</label>

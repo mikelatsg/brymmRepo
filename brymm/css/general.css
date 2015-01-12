@@ -3,7 +3,7 @@
 	border-color: #B87272;
 	border-width: medium;
 	text-aling: left;
-	border-radius:10px;
+	border-radius:5px;
 }
 
 .panel-body.panel-rojo {
@@ -24,7 +24,7 @@
 	background-color: white;
 	border-color: #72B883;
 	border-width: medium;
-	border-radius:10px;
+	border-radius:5px;
 }
 
 .panel-body.panel-verde {
@@ -77,7 +77,7 @@
 
 .sub-panel>.panel-body {
 	background-color: #E6E6E6;/*#D8D8D8;*/
-	border-radius:10px;
+	border-radius:5px;
 }
 
 .sub-panel{
