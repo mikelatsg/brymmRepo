@@ -1,123 +1,122 @@
 <div>
 	<div id="horariosLocal" class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">Horarios pedido</h4>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body panel-verde">
 			<div class="col-md-4">
-				<div id="altaHorariosLocal" class="panel panel-default">
-					<div class="panel-heading">
+				<div id="altaHorariosLocal" class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaHorarioPedido"
 								class="accordion-toggle collapsed"> Nuevo horario pedido </a>
 						</h4>
 					</div>
-					<div id="altaHorarioPedido" class="panel-body collapse">
-						<form id="formAltaHorarioPedido">
-							<table>
-								<tr>
-									<td>Dia</td>
-									<td><select name="dia">
-											<?php foreach ($dias as $dia): ?>
-											<option value="<?php echo $dia->id_dia; ?>">
-												<?php echo $dia->dia; ?>
-											</option>
-											<?php endforeach; ?>
+					<div id="altaHorarioPedido" class="panel-body collapse sub-panel">
+						<form id="formAltaHorarioPedido" class="form-horizontal">
+						<div class="form-group">
+								<label for="dia" class="col-sm-4 control-label">Dia</label>
+								<div class="col-sm-8">
+									<select name="dia" id="dia">
+										<?php foreach ($dias as $dia): ?>
+										<option class="form-control"
+											value="<?php echo $dia->id_dia; ?>">
+											<?php echo $dia->dia; ?>
+										</option>
+										<?php endforeach; ?>
 									</select>
-									</td>
-								</tr>
-
-								<tr>
-									<td>Hora inicio</td>
-									<td>
-										<!--<input type="text" name="horaInicio" />--> <select
-										name="horaInicio">
-											<option value="0">00</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-											<option value="5">05</option>
-											<option value="6">06</option>
-											<option value="7">07</option>
-											<option value="8">08</option>
-											<option value="9">09</option>
-											<option value="10">10</option>
-											<option value="11">11</option>
-											<option value="12">12</option>
-											<option value="13">13</option>
-											<option value="14">14</option>
-											<option value="15">15</option>
-											<option value="16">16</option>
-											<option value="17">17</option>
-											<option value="18">18</option>
-											<option value="19">19</option>
-											<option value="20">20</option>
-											<option value="21">21</option>
-											<option value="22">22</option>
-											<option value="23">23</option>
-									</select> : <select name="minutoInicio">
-											<option value="00">00</option>
-											<option value="05">05</option>
-											<option value="10">10</option>
-											<option value="15">15</option>
-											<option value="20">20</option>
-											<option value="25">25</option>
-											<option value="30">30</option>
-											<option value="35">35</option>
-											<option value="40">40</option>
-											<option value="45">45</option>
-											<option value="50">50</option>
-											<option value="55">55</option>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="horaInicio" class="col-sm-4 control-label">Hora
+									inicio</label>
+								<div class="col-sm-8">
+									<select name="horaInicio" id="horaInicio">
+										<option class="form-control" value="0">00</option>
+										<option class="form-control" value="1">01</option>
+										<option class="form-control" value="2">02</option>
+										<option class="form-control" value="3">03</option>
+										<option class="form-control" value="4">04</option>
+										<option class="form-control" value="5">05</option>
+										<option class="form-control" value="6">06</option>
+										<option class="form-control" value="7">07</option>
+										<option class="form-control" value="8">08</option>
+										<option class="form-control" value="9">09</option>
+										<option class="form-control" value="10">10</option>
+										<option class="form-control" value="11">11</option>
+										<option class="form-control" value="12">12</option>
+										<option class="form-control" value="13">13</option>
+										<option class="form-control" value="14">14</option>
+										<option class="form-control" value="15">15</option>
+										<option class="form-control" value="16">16</option>
+										<option class="form-control" value="17">17</option>
+										<option class="form-control" value="18">18</option>
+										<option class="form-control" value="19">19</option>
+										<option class="form-control" value="20">20</option>
+										<option class="form-control" value="21">21</option>
+										<option class="form-control" value="22">22</option>
+										<option class="form-control" value="23">23</option>
+									</select>: <select name="minutoInicio">
+										<option class="form-control" value="00">00</option>
+										<option class="form-control" value="05">05</option>
+										<option class="form-control" value="10">10</option>
+										<option class="form-control" value="15">15</option>
+										<option class="form-control" value="20">20</option>
+										<option class="form-control" value="25">25</option>
+										<option class="form-control" value="30">30</option>
+										<option class="form-control" value="35">35</option>
+										<option class="form-control" value="40">40</option>
+										<option class="form-control" value="45">45</option>
+										<option class="form-control" value="50">50</option>
+										<option class="form-control" value="55">55</option>
 									</select>
-									</td>
-								</tr>
-								<tr>
-									<td>Hora fin</td>
-									<td>
-										<!--<input type="text" name="horaFin" />--> <select
-										name="horaFin">
-											<option value="0">00</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-											<option value="5">05</option>
-											<option value="6">06</option>
-											<option value="7">07</option>
-											<option value="8">08</option>
-											<option value="9">09</option>
-											<option value="10">10</option>
-											<option value="11">11</option>
-											<option value="12">12</option>
-											<option value="13">13</option>
-											<option value="14">14</option>
-											<option value="15">15</option>
-											<option value="16">16</option>
-											<option value="17">17</option>
-											<option value="18">18</option>
-											<option value="19">19</option>
-											<option value="20">20</option>
-											<option value="21">21</option>
-											<option value="22">22</option>
-											<option value="23">23</option>
-									</select> : <select name="minutoFin">
-											<option value="00">00</option>
-											<option value="05">05</option>
-											<option value="10">10</option>
-											<option value="15">15</option>
-											<option value="20">20</option>
-											<option value="25">25</option>
-											<option value="30">30</option>
-											<option value="35">35</option>
-											<option value="40">40</option>
-											<option value="45">45</option>
-											<option value="50">50</option>
-											<option value="55">55</option>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="horaFin" class="col-sm-4 control-label">Hora
+									fin</label>
+								<div class="col-sm-8">
+									<select name="horaFin" id="horaFin">
+										<option class="form-control" value="0">00</option>
+										<option class="form-control" value="1">01</option>
+										<option class="form-control" value="2">02</option>
+										<option class="form-control" value="3">03</option>
+										<option class="form-control" value="4">04</option>
+										<option class="form-control" value="5">05</option>
+										<option class="form-control" value="6">06</option>
+										<option class="form-control" value="7">07</option>
+										<option class="form-control" value="8">08</option>
+										<option class="form-control" value="9">09</option>
+										<option class="form-control" value="10">10</option>
+										<option class="form-control" value="11">11</option>
+										<option class="form-control" value="12">12</option>
+										<option class="form-control" value="13">13</option>
+										<option class="form-control" value="14">14</option>
+										<option class="form-control" value="15">15</option>
+										<option class="form-control" value="16">16</option>
+										<option class="form-control" value="17">17</option>
+										<option class="form-control" value="18">18</option>
+										<option class="form-control" value="19">19</option>
+										<option class="form-control" value="20">20</option>
+										<option class="form-control" value="21">21</option>
+										<option class="form-control" value="22">22</option>
+										<option class="form-control" value="23">23</option>
+									</select>: <select name="minutoFin">
+										<option class="form-control" value="00">00</option>
+										<option class="form-control" value="05">05</option>
+										<option class="form-control" value="10">10</option>
+										<option class="form-control" value="15">15</option>
+										<option class="form-control" value="20">20</option>
+										<option class="form-control" value="25">25</option>
+										<option class="form-control" value="30">30</option>
+										<option class="form-control" value="35">35</option>
+										<option class="form-control" value="40">40</option>
+										<option class="form-control" value="45">45</option>
+										<option class="form-control" value="50">50</option>
+										<option class="form-control" value="55">55</option>
 									</select>
-									</td>
-								</tr>								
-							</table>
+								</div>
+							</div>							
 						</form>
 						<span class="pull-right">
 							<button class="btn btn-success" type="button"
@@ -133,14 +132,14 @@
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div id="listaHorariosLocal" class="panel panel-default">
-					<div class="panel-heading">
+				<div id="listaHorariosLocal" class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaHorarioPedidos"
 								class="accordion-toggle collapsed"> Lista horarios pedido </a>
 						</h4>
 					</div>
-					<div id="listaHorarioPedidos" class="panel-body collapse">
+					<div id="listaHorarioPedidos" class="panel-body collapse sub-panel">
 						<?php
 						$contador = 0;
 						foreach ($horarioPedido as $linea):
