@@ -223,10 +223,16 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-8">
+				<div id="detallePedidoCab" class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
+						<h4 class="panel-title">Detalle pedido</h4>
+					</div>
+					<!-- <div id="tituloMostrarPedido">						
+					</div> -->
+					<div id="mostrarPedido" class="panel-body sub-panel"></div>
+				</div>
+			</div>
 		</div>
-		<div id="tituloMostrarPedido">
-			<h2>Pedido</h2>
-		</div>
-		<div id="mostrarPedido"></div>
 	</div>
 </div>

@@ -177,7 +177,7 @@ class Pedidos extends CI_Controller {
 				, $fechaPedido);
 
 		if (!$localAbierto) {
-			$mensaje = 'El local está cerrado el día indicado';
+			$mensaje = 'El local esta cerrado el dia indicado';
 			redirect('/locales/mostrarLocal/' . $_POST['idLocal'] . '/1/' . $mensaje);
 		}
 
@@ -301,7 +301,7 @@ class Pedidos extends CI_Controller {
 				'pedidos', 'comandas', 'mensajes','js/bootstrap.min');
 
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
-				, 'general.css'
+				, 'general.css','pedidosLocal.css'
 		);
 
 		$this->load->view('base/cabecera', $header);
