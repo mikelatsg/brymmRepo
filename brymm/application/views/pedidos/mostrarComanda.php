@@ -21,7 +21,8 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="3"><?php echo $comanda->id_comanda;?>
+										<td colspan="3">Comanda <?php echo $comanda->id_comanda;										
+										if ($comanda->estado == "EC"):?>
 											<button class="btn btn-success pull-right" type="button"
 												data-toggle="tooltip" data-original-title="Remove this user"
 												onclick="<?php
@@ -29,7 +30,7 @@
                     . $comanda->id_comanda . "','listaComandasCocina','post',1)";
                 ?>">
 												<span class="glyphicon glyphicon-ok"></span>
-											</button>
+											</button> <?php endif;?>
 											<button class="btn btn-default pull-right" type="button"
 												data-toggle="tooltip" data-original-title="Remove this user"
 												onclick="<?php
@@ -37,52 +38,26 @@
                 . $comanda->id_comanda . "','mostrarComandaRealizadaCocina','post',1)";
                 ?>">
 												<span class="glyphicon glyphicon-eye-open"></span>
-											</button></td>
+											</button>
+										</td>
 									</tr>
 									<tr>
 										<td><?php echo $comanda->nombreCamarero;?>
+										<i class="fa fa-user"></i>																			
 										</td>
-										<td><?php echo $comanda->precio;?>
+										<td><?php echo $comanda->precio." ";?><span
+											class="glyphicon glyphicon-euro"></span>
 										</td>
 										<td><?php if ($comanda->id_mesa == 0) {
 											echo $comanda->destino;
 										} else {
-                    echo $comanda->nombreMesa;
-                }?></td>
+                    echo $comanda->nombreMesa." ";
+                }?><i class="fa fa-flag"></i></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 						<?php endforeach;?>
-
-						<ul>
-							<?php foreach ($comandasActivas as $comanda): ?>
-							<li><?php
-							echo $comanda->id_comanda . " - ";
-							if ($comanda->id_mesa == 0) {
-					echo $comanda->destino;
-				} else {
-                    echo $comanda->nombreMesa;
-                }
-                echo " - " . $comanda->nombreCamarero
-                . " - " . $comanda->precio . " - " . $comanda->estado . " - "
-							. $comanda->fecha_alta;
-                if ($comanda->estado == "EC"):
-                ?> <a
-								onclick="<?php
-                    echo "doAjax('" . site_url() . "/comandas/terminarComandaCocina','idComanda="
-                    . $comanda->id_comanda . "','listaComandasCocina','post',1)";
-                    ?>
-                       "> Terminar </a> <?php endif; ?> <a
-								onclick="<?php
-                echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
-                . $comanda->id_comanda . "','mostrarComandaRealizadaCocina','post',1)";
-                ?>
-                   "> Ver </a></li>
-							<?php
-							endforeach;
-							?>
-						</ul>
 					</div>
 				</div>
 				<div id="comandasCerradasCab" class="panel panel-default sub-panel">
@@ -133,3 +108,6 @@
 			</div>
 		</div>
 	</div>
+	
+	
+		
