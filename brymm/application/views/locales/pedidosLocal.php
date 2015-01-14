@@ -82,6 +82,46 @@
 						</h4>
 					</div>
 					<div id="pedidosPendientes" class="panel-body collapse sub-panel">
+						<?php
+						if ($pedidosPendientesLocal) :
+						foreach ($pedidosPendientesLocal as $pedido):
+						echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
+						?>
+						<div class="col-md-12 list-div">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td colspan="2"><?php
+										echo "Pedido " . $pedido->id_pedido;
+										?>
+											<button class="btn btn-default pull-right" type="button"
+												data-toggle="tooltip" data-original-title="Remove this user"
+												onclick="<?php
+                    echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
+							"&estado=A','verPedido','post',1)";
+                ?>">
+												<span class="glyphicon glyphicon-eye-open"></span>
+											</button>											
+										</td>
+									</tr>
+									<tr>
+										<td><?php 
+										echo  $pedido->precio;
+										?><i class="fa fa-euro"></i>
+										</td>
+										<td><?php 
+										echo  $pedido->fecha;
+										?> <i class="fa fa-calendar"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<?php
+						echo "</div>";
+						endforeach;
+						endif;
+						?>
 						<ul>
 							<?php
 							if ($pedidosPendientesLocal) {
