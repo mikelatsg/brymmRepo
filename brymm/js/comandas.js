@@ -384,16 +384,23 @@ function mostrarComandaRealizadaCocina(item) {
 	contenido += "</div>";
 	contenido += "</div>";
 	contenido += "</div>";
-	
+
+	/*
+	 * contenido += "<div class=\"col-md-6\">"; /*contenido += "<div
+	 * class=\"row\">"; contenido += "<span class=\"badge
+	 * progress-bar-danger\">" + tipoArticulo + "</span>"; contenido += "</div>";
+	 * contenido += "<div class=\"well col-md-12\">"; contenido += "<div
+	 * class=\"span6\">"; contenido += "<table class=\"table table-condensed
+	 * table-responsive table-user-information\">"; contenido += "<tbody>";
+	 */
+
 	contenido += "<div class=\"col-md-6\">";
-	/*contenido += "<div class=\"row\">";
-	contenido += "<span class=\"badge progress-bar-danger\">"
-			+ tipoArticulo + "</span>";
-	contenido += "</div>";*/
-	contenido += "<div class=\"well col-md-12\">";
-	contenido += "<div class=\"span6\">";
-	contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
-	contenido += "<tbody>";
+	contenidoArt += "<div class=\"well col-md-12\">";
+	contenidoArt += "<div class=\"span6\">";
+	contenidoArt += "<table class=\"table table-condensed table-responsive table-user-information\">";
+	contenidoArt += "<tbody>";
+
+	contenidoArtCab = "";
 
 	// Se obtienen el detalle de la comanda
 	$(item)
@@ -423,15 +430,30 @@ function mostrarComandaRealizadaCocina(item) {
 						// Si el estado es diferente de terminado se da la
 						// opcion de terminar
 						if (estadoDetalle !== "TC") {
-							// Se generan los enlaces
-							funcionTerminarDetalleComanda = "<a onclick=\"doAjax('"
+							funcionTerminarDetalleComanda += "<button class=\"btn btn-success pull-right\" type=\"button\"";
+							funcionTerminarDetalleComanda
+									+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+							funcionTerminarDetalleComanda += "onclick=";
+							funcionTerminarDetalleComanda += "doAjax('"
 									+ site_url
 									+ "/comandas/terminarDetalleComanda','idDetalleComanda="
 									+ idDetalleComanda
 									+ "&idComanda="
 									+ idComanda
-									+ "','mostrarComandaRealizadaCocina','post',1)\"> Realizado </a>";
-						}						
+									+ "','mostrarComandaRealizadaCocina','post',1)>";
+							funcionTerminarDetalleComanda += "<span class=\"glyphicon glyphicon-ok\"></span>";
+							funcionTerminarDetalleComanda += "</button>";
+
+							// Se generan los enlaces
+							/*
+							 * funcionTerminarDetalleComanda = "<a
+							 * onclick=\"doAjax('" + site_url +
+							 * "/comandas/terminarDetalleComanda','idDetalleComanda=" +
+							 * idDetalleComanda + "&idComanda=" + idComanda +
+							 * "','mostrarComandaRealizadaCocina','post',1)\">
+							 * Realizado </a>";
+							 */
+						}
 
 						switch (parseInt(idTipoComanda)) {
 						case 1:
@@ -440,14 +462,42 @@ function mostrarComandaRealizadaCocina(item) {
 
 							// En el primer detalle del tipo de comanda se
 							// añade cual es
-							if (contenidoArt == "") {
-								contenidoArt += tipoComanda;
+							if (contenidoArtCab == "") {
+								contenidoArtCab += "<div class=\"row\">";
+								contenidoArtCab += "<span class=\"badge progress-bar-danger\">"
+										+ tipoComanda + "</span>";
+								contenidoArtCab += "</div>";
+								// contenidoArt += tipoComanda;
 							}
-							contenidoArt += "<li>" + cantidadDetalleComanda
-									+ " - " + precioDetalleComanda + " - "
-									+ estadoDetalle
-									+ funcionTerminarDetalleComanda + "</li>"
-									+ datosEspecificos;
+
+							contenidoArt += "<tr>";
+							contenidoArt += "<td class=\"titulo\">Cantidad</td>";
+							contenidoArt += "<td>" + cantidadDetalleComanda
+							contenidoArt += funcionTerminarDetalleComanda;
+							+"</td>";
+							contenidoArt += "</tr>";
+
+							contenidoArt += "<tr>";
+							contenidoArt += "<td class=\"titulo\">Precio</td>";
+							contenidoArt += "<td>" + precioDetalleComanda
+									+ "</td>";
+							contenidoArt += "</tr>";
+
+							contenidoArt += "<tr>";
+							contenidoArt += "<td class=\"titulo\">Estado</td>";
+							contenidoArt += "<td>" + estadoDetalle + "</td>";
+							contenidoArt += "</tr>";
+
+							contenidoArt += datosEspecificos;
+
+							/*
+							 * contenidoArt += contenidoArt += "<li>" +
+							 * cantidadDetalleComanda + " - " +
+							 * precioDetalleComanda + " - " + estadoDetalle +
+							 * funcionTerminarDetalleComanda + "</li>" +
+							 * datosEspecificos;
+							 */
+
 							break;
 						case 2:
 							// Articulo personalizado
@@ -458,11 +508,29 @@ function mostrarComandaRealizadaCocina(item) {
 								contenidoArtPer += tipoComanda;
 							}
 
-							contenidoArtPer += "<li>" + cantidadDetalleComanda
-									+ " - " + precioDetalleComanda + " - "
-									+ estadoDetalle
-									+ funcionTerminarDetalleComanda + "</li>"
-									+ datosEspecificos;
+							contenidoArtPer += "<tr>";
+							contenidoArtPer += "<td class=\"titulo\">Cantidad</td>";
+							contenidoArtPer += "<td>" + cantidadDetalleComanda
+									+ "</td>";
+							contenidoArtPer += "</tr>";
+
+							contenidoArtPer += "<tr>";
+							contenidoArtPer += "<td class=\"titulo\">Precio</td>";
+							contenidoArtPer += "<td>" + precioDetalleComanda
+									+ "</td>";
+							contenidoArtPer += "</tr>";
+
+							contenidoArtPer += "<tr>";
+							contenidoArtPer += "<td class=\"titulo\">Estado</td>";
+							contenidoArtPer += "<td>" + estadoDetalle + "</td>";
+							contenidoArtPer += "</tr>";
+							/*
+							 * contenidoArtPer += "<li>" +
+							 * cantidadDetalleComanda + " - " +
+							 * precioDetalleComanda + " - " + estadoDetalle +
+							 * funcionTerminarDetalleComanda + "</li>" +
+							 * datosEspecificos;
+							 */
 							break;
 						case 3:
 							// Menu
@@ -498,11 +566,20 @@ function mostrarComandaRealizadaCocina(item) {
 						}
 
 					});
-	
-	contenido += "</tbody>";
-	contenido += "</table>";
-	contenido += "</div>";
-	contenido += "</div>";
+
+	contenidoArt += "</tbody>";
+	contenidoArt += "</table>";
+	contenidoArt += "</div>";
+	contenidoArt += "</div>";
+	// contenidoArt += "</div>";
+
+	contenido += contenidoArtCab + contenidoArt + contenidoArtPer
+			+ contenidoMenu + contenidoCarta;
+
+	/*
+	 * contenido += "</tbody>"; contenido += "</table>"; contenido += "</div>";
+	 * contenido += "</div>";
+	 */
 	contenido += "</div>";
 
 	/*
@@ -565,8 +642,10 @@ function mostrarComandaRealizadaCocina(item) {
 	 * }); contenidoCarta += "<ul>";
 	 */
 
-	contenido += contenidoArt + contenidoArtPer + contenidoMenu
-			+ contenidoCarta;
+	/*
+	 * contenido += contenidoArt + contenidoArtPer + contenidoMenu +
+	 * contenidoCarta;
+	 */
 	// Se desabilita el boton de aceptar comanda
 	$("#butAceptarComanda").attr("disabled", "disabled");
 	$("#butAnadirComanda").attr("disabled", "disabled");
@@ -686,7 +765,21 @@ function obtenerDetalleArticuloComandaRealizada(item) {
 	// var contenidoArt = "<ul>";
 	var contenidoArt = "";
 	var contador = 0;
-	$(item).find('datosArticulo')
+	ingredientes = "";
+
+	$(item).find('detalleArticulo').each(function() {
+		if ($(this).find('ingrediente').length > 0) {
+			if (contador != 0) {
+				ingredientes += ", ";
+			}
+			var ingrediente = $.trim($(this).find('ingrediente').text());
+			ingredientes += ingrediente;
+			contador++;
+		}
+	});
+
+	$(item)
+			.find('datosArticulo')
 			.each(
 					function() {
 						var articulo = $.trim($(this).find('articulo').text());
@@ -694,22 +787,40 @@ function obtenerDetalleArticuloComandaRealizada(item) {
 								.text());
 						var tipoArticulo = $.trim($(this).find('tipo_articulo')
 								.text());
-						contenidoArt += tipoArticulo + " - " + articulo + " - "
-								+ precioArticulo + " €";
+						/*
+						 * contenidoArt += tipoArticulo + " - " + articulo + " - " +
+						 * precioArticulo + " €";
+						 */
+
+						contenidoArt += "<tr>";
+						contenidoArt += "<td class=\"titulo\">Articulo</td>";
+						contenidoArt += "<td>" + articulo + "</td>";
+						contenidoArt += "</tr>";
+
+						contenidoArt += "<tr>";
+						contenidoArt += "<td class=\"titulo\">Precio</td>";
+						contenidoArt += "<td>" + precioArticulo + "</td>";
+						contenidoArt += "</tr>";
+
+						contenidoArt += "<tr>";
+						if (contador == 0) {
+							contenidoArt += "<td class=\"titulo separadorArticulo\">Tipo articulo</td>";
+							contenidoArt += "<td class=\"separadorArticulo\">" + tipoArticulo + "</td>";
+						} else {
+							contenidoArt += "<td class=\"titulo\">Tipo articulo</td>";
+							contenidoArt += "<td>" + tipoArticulo + "</td>";
+						}
+						
+						contenidoArt += "</tr>";
 					});
 
-	$(item).find('detalleArticulo').each(function() {
-		if ($(this).find('ingrediente').length > 0) {
-			if (contador == 0) {
-				contenidoArt += "<ul>";
-			}
-			var ingrediente = $.trim($(this).find('ingrediente').text());
-			contenidoArt += "<li>" + ingrediente + "</li>";
-			contador++;
-		}
-	});
 	if (contador > 0) {
-		contenidoArt += "</ul>";
+		// contenidoArt += "</ul>";
+		contenidoArt += "<tr>";
+		contenidoArt += "<td class=\"titulo separadorArticulo\">Ingredientes</td>";
+		contenidoArt += "<td class=\"separadorArticulo\">" + ingredientes
+				+ "</td>";
+		contenidoArt += "</tr>";
 	}
 
 	// contenidoArt += "</ul>";
