@@ -93,7 +93,24 @@
 									<tr>
 										<td colspan="2"><?php
 										echo "Pedido " . $pedido->id_pedido;
-										?>
+										?> <span id="modificarEstado"> <span class="rechazarPedido">
+													<button
+														class="btn btn-danger pull-right enlaceRechazarPedido"
+														type="button" data-toggle="tooltip"
+														data-original-title="Remove this user"
+														data-id="<?php echo $pedido->id_pedido;?>">
+														<span class="glyphicon glyphicon-remove"></span>
+													</button>
+											</span> <span class="aceptarPedido">
+													<button
+														class="btn btn-success pull-right enlaceAceptarPedido"
+														type="button" data-toggle="tooltip"
+														data-original-title="Remove this user"
+														data-id="<?php echo $pedido->id_pedido;?>">
+														<span class="glyphicon glyphicon-ok"></span>
+													</button>
+											</span>
+										</span>
 											<button class="btn btn-default pull-right" type="button"
 												data-toggle="tooltip" data-original-title="Remove this user"
 												onclick="<?php
@@ -101,7 +118,7 @@
 							"&estado=A','verPedido','post',1)";
                 ?>">
 												<span class="glyphicon glyphicon-eye-open"></span>
-											</button>											
+											</button>
 										</td>
 									</tr>
 									<tr>
@@ -122,41 +139,6 @@
 						endforeach;
 						endif;
 						?>
-						<ul>
-							<?php
-							if ($pedidosPendientesLocal) {
-                foreach ($pedidosPendientesLocal as $pedido):
-                echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
-                ?>
-							<li><?php
-							echo "Pedido : " . $pedido->id_pedido;
-							echo " - Precio : " . $pedido->precio;
-							echo " - Fecha : " . $pedido->fecha; //<span id=\"estadoPedido\">" . $pedido->estado  . "</span>";
-							echo "<br>";
-							echo "<a onclick=";
-							echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
-							"&estado=A','verPedido','post',1)> Ver </a>";
-							echo "<div id=\"modificarEstado\">";
-							echo "<span id=\"aceptarPedido\">";
-							echo "<a class=\"enlaceAceptarPedido\" data-toggle=\"modal\" data-id=\""
-						. $pedido->id_pedido . "\" > Aceptar </a>";
-							echo "</span>";
-							echo "<span id=\"rechazarPedido\">";
-							/* echo "<a onclick=";
-							 echo "doAjax('" . site_url() . "/pedidos/actualizarEstadoPedido','idPedido=" . $pedido->id_pedido .
-							 		"&estado=R','moverPedidoEstado','post',1)> Rechazar </a>"; */
-							echo "<a class=\"enlaceRechazarPedido\" data-toggle=\"modal\" data-id=\""
-						. $pedido->id_pedido . "\" > Rechazar </a>";
-							echo "</span>";
-							echo "</div>";
-							?>
-							</li>
-							<?php
-							echo "</div>";
-							endforeach;
-            }
-            ?>
-						</ul>
 					</div>
 				</div>
 				<div id="pedidosAceptadosCab" class="panel panel-default sub-panel">
@@ -167,35 +149,65 @@
 						</h4>
 					</div>
 					<div id="pedidosAceptados" class="panel-body collapse sub-panel">
-						<ul>
-							<?php
-							if ($pedidosAceptadosLocal) {
-                foreach ($pedidosAceptadosLocal as $pedido):
-                echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
-                ?>
-							<li><?php
-							echo "Pedido : " . $pedido->id_pedido;
-							echo " - Precio : " . $pedido->precio;
-							echo " - Fecha : " . $pedido->fecha;
-							echo "<br>";
-							echo "<a onclick=";
-							echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
-							"&estado=A','verPedido','post',1)> Ver </a>";
-							echo "<div id=\"modificarEstado\">";
-							echo "<a onclick=";
-							echo "doAjax('" . site_url() . "/pedidos/actualizarEstadoPedido','idPedido=" . $pedido->id_pedido .
-							"&estado=T','moverPedidoEstado','post',1)> Terminar </a>";
-							echo "<a class=\"enlaceRechazarPedido\" data-toggle=\"modal\" data-id=\""
-						. $pedido->id_pedido . "\" > Rechazar </a>";
-							echo "</div>";
-							?>
-							</li>
-							<?php
-							echo "</div>";
-							endforeach;
-            }
-            ?>
-						</ul>
+						<?php
+						if ($pedidosAceptadosLocal) :
+						foreach ($pedidosAceptadosLocal as $pedido):
+						echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
+						?>
+						<div class="col-md-12 list-div">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td colspan="2"><?php
+										echo "Pedido " . $pedido->id_pedido;
+										?> <span id="modificarEstado"> <span class="rechazarPedido">
+													<button
+														class="btn btn-danger pull-right enlaceRechazarPedido"
+														type="button" data-toggle="tooltip"
+														data-original-title="Remove this user"
+														data-id="<?php echo $pedido->id_pedido;?>">
+														<span class="glyphicon glyphicon-remove"></span>
+													</button>
+											</span> <span class="aceptarPedido">
+													<button class="btn btn-success pull-right" type="button"
+														data-toggle="tooltip"
+														data-original-title="Remove this user"
+														onclick="<?php 
+														echo "doAjax('" . site_url() . "/pedidos/actualizarEstadoPedido','idPedido=" . $pedido->id_pedido .
+							"&estado=T','moverPedidoEstado','post',1)";
+														?>">
+														<span class="glyphicon glyphicon-ok"></span>
+													</button>
+											</span>
+										</span>
+											<button class="btn btn-default pull-right" type="button"
+												data-toggle="tooltip" data-original-title="Remove this user"
+												onclick="<?php
+                    echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
+							"&estado=A','verPedido','post',1)";
+                ?>">
+												<span class="glyphicon glyphicon-eye-open"></span>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td><?php 
+										echo  $pedido->precio;
+										?><i class="fa fa-euro"></i>
+										</td>
+										<td><?php 
+										echo  $pedido->fecha;
+										?> <i class="fa fa-calendar"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<?php
+						echo "</div>";
+						endforeach;
+						endif;
+						?>
 					</div>
 				</div>
 				<div id="pedidosTerminadosCab" class="panel panel-default sub-panel">
@@ -206,28 +218,46 @@
 						</h4>
 					</div>
 					<div id="pedidosTerminados" class="panel-body collapse sub-panel">
-						<ul>
-							<?php
-							if ($pedidosTerminadosLocal) {
-                foreach ($pedidosTerminadosLocal as $pedido):
-                echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
-                ?>
-							<li><?php
-							echo "Pedido : " . $pedido->id_pedido;
-							echo " - Precio : " . $pedido->precio;
-							echo " - Fecha : " . $pedido->fecha;
-							echo "<br>";
-							echo "<a onclick=";
-							echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
-							"&estado=A','verPedido','post',1)> Ver </a>";
-							?>
-							</li>
-							<?php
-							echo "</div>";
-							endforeach;
-            }
-            ?>
-						</ul>
+						<?php
+						if ($pedidosTerminadosLocal) :
+						foreach ($pedidosTerminadosLocal as $pedido):
+						echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
+						?>
+						<div class="col-md-12 list-div">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td colspan="2"><?php
+										echo "Pedido " . $pedido->id_pedido;
+										?>
+											<button class="btn btn-default pull-right" type="button"
+												data-toggle="tooltip" data-original-title="Remove this user"
+												onclick="<?php
+                    echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
+							"&estado=A','verPedido','post',1)";
+                ?>">
+												<span class="glyphicon glyphicon-eye-open"></span>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td><?php 
+										echo  $pedido->precio;
+										?><i class="fa fa-euro"></i>
+										</td>
+										<td><?php 
+										echo  $pedido->fecha;
+										?> <i class="fa fa-calendar"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<?php
+						echo "</div>";
+						endforeach;
+						endif;
+						?>						
 					</div>
 				</div>
 				<div id="pedidosRechazadosCab" class="panel panel-default sub-panel">
@@ -238,28 +268,46 @@
 						</h4>
 					</div>
 					<div id="pedidosRechazados" class="panel-body collapse sub-panel">
-						<ul>
-							<?php
-							if ($pedidosRechazadosLocal) {
-                foreach ($pedidosRechazadosLocal as $pedido):
-                echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
-                ?>
-							<li><?php
-							echo "Pedido : " . $pedido->id_pedido;
-							echo " - Precio : " . $pedido->precio;
-							echo " - Fecha : " . $pedido->fecha;
-							echo "<br>";
-							echo "<a onclick=";
-							echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
-							"&estado=A','verPedido','post',1)> Ver </a>";
-							?>
-							</li>
-							<?php
-							echo "</div>";
-							endforeach;
-            }
-            ?>
-						</ul>
+					<?php
+						if ($pedidosRechazadosLocal) :
+						foreach ($pedidosRechazadosLocal as $pedido):
+						echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
+						?>
+						<div class="col-md-12 list-div">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td colspan="2"><?php
+										echo "Pedido " . $pedido->id_pedido;
+										?>
+											<button class="btn btn-default pull-right" type="button"
+												data-toggle="tooltip" data-original-title="Remove this user"
+												onclick="<?php
+                    echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
+							"&estado=A','verPedido','post',1)";
+                ?>">
+												<span class="glyphicon glyphicon-eye-open"></span>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td><?php 
+										echo  $pedido->precio;
+										?><i class="fa fa-euro"></i>
+										</td>
+										<td><?php 
+										echo  $pedido->fecha;
+										?> <i class="fa fa-calendar"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<?php
+						echo "</div>";
+						endforeach;
+						endif;
+						?>						
 					</div>
 				</div>
 			</div>

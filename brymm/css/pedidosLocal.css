@@ -4,3 +4,24 @@
     margin: 3px;
     border-radius: 5px;
 }
+
+#mostrarPedido .pedido{
+	margin: 0px;
+	font-size:100%;
+}
+
+#mostrarPedido .badge{
+	border-radius:5px;
+}
+
+#mostrarComanda .badge{
+	border-radius:5px;
+}
+
+.separadorArticulo{
+	border-bottom:2px solid #d9534f;
+}
+
+.titulo{
+	font-weight: bold;
+}
