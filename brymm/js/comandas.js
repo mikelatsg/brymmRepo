@@ -333,11 +333,11 @@ function mostrarComandaRealizadaCocina(item) {
 		estadoComanda = $.trim($(this).find('estado').text());
 	});
 
+	contenido += "<div class=\"col-md-6\">";
 	contenido += "<div class=\"pedido col-md-12\">";
 	contenido += "<span class=\"badge pull-left\">Comanda " + idComanda
 			+ "</span>";
 	contenido += "</div>";
-	contenido += "<div class=\"col-md-6\">";
 	contenido += "<div class=\"well col-md-12\">";
 	contenido += "<div class=\"span6\">";
 	contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
@@ -383,7 +383,7 @@ function mostrarComandaRealizadaCocina(item) {
 	contenido += "</table>";
 	contenido += "</div>";
 	contenido += "</div>";
-	contenido += "</div>";	
+	contenido += "</div>";
 
 	contenido += "<div class=\"col-md-6\">";
 	contenidoArt += "<div class=\"well col-md-12\">";
@@ -437,7 +437,7 @@ function mostrarComandaRealizadaCocina(item) {
 									+ idComanda
 									+ "','mostrarComandaRealizadaCocina','post',1)>";
 							funcionTerminarDetalleComanda += "<span class=\"glyphicon glyphicon-ok\"></span>";
-							funcionTerminarDetalleComanda += "</button>";														
+							funcionTerminarDetalleComanda += "</button>";
 						}
 
 						switch (parseInt(idTipoComanda)) {
@@ -460,7 +460,7 @@ function mostrarComandaRealizadaCocina(item) {
 							contenidoArt += "<tr>";
 							contenidoArt += "<td class=\"titulo\">Cantidad</td>";
 							contenidoArt += "<td>" + cantidadDetalleComanda
-							+ "</td>";
+									+ "</td>";
 							contenidoArt += "</tr>";
 
 							contenidoArt += "<tr>";
@@ -480,14 +480,14 @@ function mostrarComandaRealizadaCocina(item) {
 							// Articulo personalizado
 							datosEspecificos = obtenerDetalleArticuloPerComandaRealizada(
 									$(this), funcionTerminarDetalleComanda);
-							
+
 							// En el primer detalle del tipo de comanda se
 							// añade cual es
 							if (contenidoArtPerCab == "") {
 								contenidoArtPerCab += "<div class=\"row\">";
 								contenidoArtPerCab += "<span class=\"badge progress-bar-danger\">"
 										+ tipoComanda + "</span>";
-								contenidoArtPerCab += "</div>";								
+								contenidoArtPerCab += "</div>";
 							}
 
 							contenidoArtPer += datosEspecificos;
@@ -508,7 +508,7 @@ function mostrarComandaRealizadaCocina(item) {
 							contenidoArtPer += "<td class=\"titulo separadorArticulo\">Estado</td>";
 							contenidoArtPer += "<td class=\"separadorArticulo\">"
 									+ estadoDetalle + "</td>";
-							contenidoArtPer += "</tr>";							
+							contenidoArtPer += "</tr>";
 							break;
 						case 3:
 							// Menu
@@ -554,18 +554,18 @@ function mostrarComandaRealizadaCocina(item) {
 	contenidoArt += cerrarElementos;
 	contenidoArtPer += cerrarElementos;
 
-	//Articulos
+	// Articulos
 	if (contenidoArtCab != "") {
 		contenido += contenidoArtCab + contenidoArt;
 	}
 
-	//Articulos personalizados
+	// Articulos personalizados
 	if (contenidoArtPerCab != "") {
 		contenido += contenidoArtPerCab + contenidoArtPer;
 	}
 
 	contenido += contenidoMenu + contenidoCarta;
-	
+
 	contenido += "</div>";
 
 	/*

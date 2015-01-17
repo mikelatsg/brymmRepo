@@ -128,12 +128,12 @@ function verPedido(item) {
 	var ingrediente = "";
 	var contadorIngredientes;
 	// Vacio el div donde se muestra la comanda
-	$("#mostrarPedido").empty();
+	$("#mostrarPedido").empty();	
+	contenido += "<div class=\"col-md-6\">";
 	contenido += "<div class=\"pedido col-md-12\">";
 	contenido += "<span class=\"badge pull-left\">Pedido " + idPedido
 			+ "</span>";
 	contenido += "</div>";
-	contenido += "<div class=\"col-md-6\">";
 	contenido += "<div class=\"well col-md-12\">";
 	contenido += "<div class=\"span6\">";
 	contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
