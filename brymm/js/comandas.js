@@ -392,9 +392,13 @@ function mostrarComandaRealizadaCocina(item) {
 	contenidoArt += "<tbody>";
 
 	contenidoArtPer = contenidoArt;
+	contenidoMenu = contenidoArt;
+	contenidoCarta = contenidoArt;
 
 	contenidoArtCab = "";
 	contenidoArtPerCab = "";
+	contenidoMenuCab = "";
+	contenidoCartaCab = "";
 
 	// Se obtienen el detalle de la comanda
 	$(item)
@@ -466,7 +470,7 @@ function mostrarComandaRealizadaCocina(item) {
 							contenidoArt += "<tr>";
 							contenidoArt += "<td class=\"titulo\">Precio total</td>";
 							contenidoArt += "<td>" + precioDetalleComanda
-									+ "</td>";
+									+ " <i class=\"fa fa-euro\"></i></td>";
 							contenidoArt += "</tr>";
 
 							contenidoArt += "<tr>";
@@ -501,7 +505,7 @@ function mostrarComandaRealizadaCocina(item) {
 							contenidoArtPer += "<tr>";
 							contenidoArtPer += "<td class=\"titulo\">Precio</td>";
 							contenidoArtPer += "<td>" + precioDetalleComanda
-									+ "</td>";
+									+ " <i class=\"fa fa-euro\"></i></td>";
 							contenidoArtPer += "</tr>";
 
 							contenidoArtPer += "<tr>";
@@ -516,30 +520,82 @@ function mostrarComandaRealizadaCocina(item) {
 									$(this), idComanda);
 							// En el primer detalle del tipo de comanda se
 							// añade cual es
-							if (contenidoMenu == "") {
-								contenidoMenu += tipoComanda;
+							if (contenidoMenuCab == "") {
+								// contenidoMenu += tipoComanda;
+								contenidoMenuCab += "<div class=\"row\">";
+								contenidoMenuCab += "<span class=\"badge progress-bar-danger\">"
+										+ tipoComanda + "</span>";
+								contenidoMenuCab += "</div>";
 							}
 
-							contenidoMenu += "<li>" + cantidadDetalleComanda
-									+ " - " + precioDetalleComanda + " - "
-									+ estadoDetalle
-									+ funcionTerminarDetalleComanda + "</li>"
-									+ datosEspecificos;
+							contenidoMenu += "<tr>";
+							contenidoMenu += "<td class=\"titulo\">Precio</td>";
+							contenidoMenu += "<td>" + precioDetalleComanda
+									+ funcionTerminarDetalleComanda
+									+ " <i class=\"fa fa-euro\"></i></td>";
+							contenidoMenu += "</tr>";
+
+							contenidoMenu += "<tr>";
+							contenidoMenu += "<td class=\"titulo\">Cantidad</td>";
+							contenidoMenu += "<td>" + cantidadDetalleComanda
+									+ "</td>";
+							contenidoMenu += "</tr>";
+
+							contenidoMenu += "<tr>";
+							contenidoMenu += "<td class=\"titulo\">Estado</td>";
+							contenidoMenu += "<td>" + estadoDetalle + "</td>";
+							contenidoMenu += "</tr>";
+
+							contenidoMenu += datosEspecificos;
+
+							/*
+							 * contenidoMenu += "<li>" +
+							 * cantidadDetalleComanda + " - " +
+							 * precioDetalleComanda + " - " + estadoDetalle +
+							 * funcionTerminarDetalleComanda + "</li>" +
+							 * datosEspecificos;
+							 */
 							break;
 						case 4:
 							// Carta
-							datosEspecificos = obtenerDetalleCartaComandaRealizada($(this));
+							datosEspecificos = obtenerDetalleCartaComandaRealizada(
+									$(this), funcionTerminarDetalleComanda);
 							// En el primer detalle del tipo de comanda se
 							// añade cual es
-							if (contenidoCarta == "") {
-								contenidoCarta += tipoComanda;
+							if (contenidoCartaCab == "") {
+								// contenidoCarta += tipoComanda;
+								contenidoCartaCab += "<div class=\"row\">";
+								contenidoCartaCab += "<span class=\"badge progress-bar-danger\">"
+										+ tipoComanda + "</span>";
+								contenidoCartaCab += "</div>";
 							}
 
-							contenidoCarta += "<li>" + datosEspecificos + " - "
-									+ cantidadDetalleComanda + " - "
-									+ precioDetalleComanda + " - "
-									+ estadoDetalle
-									+ funcionTerminarDetalleComanda + "</li>";
+							contenidoCarta += datosEspecificos;
+
+							contenidoCarta += "<tr>";
+							contenidoCarta += "<td class=\"titulo\">Cantidad</td>";
+							contenidoCarta += "<td>" + cantidadDetalleComanda
+									+ "</td>";
+							contenidoCarta += "</tr>";
+
+							contenidoCarta += "<tr>";
+							contenidoCarta += "<td class=\"titulo\">Precio total</td>";
+							contenidoCarta += "<td>" + precioDetalleComanda
+									+ " <i class=\"fa fa-euro\"></i></td>";
+							contenidoCarta += "</tr>";
+
+							contenidoCarta += "<tr>";
+							contenidoCarta += "<td class=\"titulo separadorPlato\">Estado</td>";
+							contenidoCarta += "<td class=\"separadorPlato\">"
+									+ estadoDetalle + "</td>";
+							contenidoCarta += "</tr>";
+
+							/*
+							 * contenidoCarta += "<li>" + datosEspecificos + " - " +
+							 * cantidadDetalleComanda + " - " +
+							 * precioDetalleComanda + " - " + estadoDetalle +
+							 * funcionTerminarDetalleComanda + "</li>";
+							 */
 							break;
 						}
 
@@ -553,6 +609,8 @@ function mostrarComandaRealizadaCocina(item) {
 
 	contenidoArt += cerrarElementos;
 	contenidoArtPer += cerrarElementos;
+	contenidoMenu += cerrarElementos;
+	contenidoCarta += cerrarElementos;
 
 	// Articulos
 	if (contenidoArtCab != "") {
@@ -564,7 +622,17 @@ function mostrarComandaRealizadaCocina(item) {
 		contenido += contenidoArtPerCab + contenidoArtPer;
 	}
 
-	contenido += contenidoMenu + contenidoCarta;
+	// Menus
+	if (contenidoMenuCab != "") {
+		contenido += contenidoMenuCab + contenidoMenu;
+	}
+
+	// Menus
+	if (contenidoCartaCab != "") {
+		contenido += contenidoCartaCab + contenidoCarta;
+	}
+
+	// contenido += contenidoCarta;
 
 	contenido += "</div>";
 
@@ -650,13 +718,27 @@ function mostrarComandaRealizadaCocina(item) {
 
 }
 
-function obtenerDetalleCartaComandaRealizada(item) {
+function obtenerDetalleCartaComandaRealizada(item,
+		funcionTerminarDetalleComanda) {
 	var contenidoCarta = "";
-	$(item).find('datosPlato').each(function() {
-		var nombrePlato = $.trim($(this).find('nombre').text());
-		var precioPlato = $.trim($(this).find('precio').text());
-		contenidoCarta = nombrePlato + " - " + precioPlato + " €";
-	});
+	$(item).find('datosPlato').each(
+			function() {
+				var nombrePlato = $.trim($(this).find('nombre').text());
+				var precioPlato = $.trim($(this).find('precio').text());
+
+				contenidoCarta += "<tr>";
+				contenidoCarta += "<td class=\"titulo\">Plato</td>";
+				contenidoCarta += "<td>" + nombrePlato
+						+ funcionTerminarDetalleComanda + "</td>";
+				contenidoCarta += "</tr>";
+
+				contenidoCarta += "<tr>";
+				contenidoCarta += "<td class=\"titulo\">Precio plato</td>";
+				contenidoCarta += "<td>" + precioPlato + " <i class=\"fa fa-euro\"></i></td>";
+				contenidoCarta += "</tr>";
+
+				// contenidoCarta = nombrePlato + " - " + precioPlato + " €";
+			});
 	return contenidoCarta;
 }
 
@@ -708,23 +790,49 @@ function obtenerDetalleMenuComandaRealizadaCocina(item, idComanda) {
 						// opcion de terminar
 						if (estadoPlatoMenu !== "TC") {
 							// Se generan los enlaces
-							funcionTerminarPlatoMenu = "<a onclick=\"doAjax('"
+							funcionTerminarPlatoMenu += "<button class=\"btn btn-success pull-right\" type=\"button\"";
+							funcionTerminarPlatoMenu
+									+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+							funcionTerminarPlatoMenu += "onclick=";
+							funcionTerminarPlatoMenu += "doAjax('"
 									+ site_url
 									+ "/comandas/terminarPlatoMenu','idComandaMenu="
 									+ idComandaMenu
 									+ "&idComanda="
 									+ idComanda
-									+ "','mostrarComandaRealizadaCocina','post',1)\"> Realizado </a>"
+									+ "','mostrarComandaRealizadaCocina','post',1)>";
+							funcionTerminarPlatoMenu += "<span class=\"glyphicon glyphicon-ok\"></span>";
+							funcionTerminarPlatoMenu += "</button>";
+
 						}
 
 						// Si se cambio de tipo de plato se muestra el tipo de
 						// plato (1er plato ...)
 						if (idTipoPlatoAnterior != idTipoPlato) {
-							contenidoMenu += tipoPlato;
+							// contenidoMenu += tipoPlato;
+							contenidoMenu += "<tr>";
+							contenidoMenu += "<td colspan=2 class=\"titulo cabeceraPlato\">"
+									+ tipoPlato + "</td>";
+							contenidoMenu += "</tr>";
 						}
-						contenidoMenu += "<li>" + nombrePlato + " - "
-								+ cantidadPlato + " - " + estadoPlatoMenu
-								+ " - " + funcionTerminarPlatoMenu + "</li>";
+
+						contenidoMenu += "<tr>";
+						contenidoMenu += "<td class=\"titulo\">Plato</td>";
+						contenidoMenu += "<td>" + nombrePlato
+								+ funcionTerminarPlatoMenu + "</td>";
+						contenidoMenu += "</tr>";
+
+						contenidoMenu += "<tr>";
+						contenidoMenu += "<td class=\"titulo\">Cantidad</td>";
+						contenidoMenu += "<td>" + cantidadPlato + "</td>";
+						contenidoMenu += "</tr>";
+
+						contenidoMenu += "<tr>";
+						contenidoMenu += "<td class=\"titulo separadorPlato\">Estado</td>";
+						contenidoMenu += "<td class=\"separadorPlato\">"
+								+ estadoPlatoMenu + "</td>";
+						contenidoMenu += "</tr>";
+
 						idTipoPlatoAnterior = idTipoPlato;
 					});
 	contenidoMenu += "</ul>";
@@ -815,7 +923,7 @@ function obtenerDetalleArticuloComandaRealizada(item,
 
 		contenidoArt += "<tr>";
 		contenidoArt += "<td class=\"titulo\">Precio</td>";
-		contenidoArt += "<td>" + precioArticulo + "</td>";
+		contenidoArt += "<td>" + precioArticulo + " <i class=\"fa fa-euro\"></i></td>";
 		contenidoArt += "</tr>";
 
 	});
