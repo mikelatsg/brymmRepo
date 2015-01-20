@@ -42,17 +42,16 @@
 										</td>
 									</tr>
 									<tr>
-										<td><?php echo $comanda->nombreCamarero;?>
-										<i class="fa fa-user"></i>																			
-										</td>
+										<td><?php echo $comanda->nombreCamarero;?> <i
+											class="fa fa-user"></i></td>
 										<td><?php echo $comanda->precio." ";?><span
-											class="glyphicon glyphicon-euro"></span>
-										</td>
+											class="glyphicon glyphicon-euro"></span></td>
 										<td><?php if ($comanda->id_mesa == 0) {
 											echo $comanda->destino;
 										} else {
                     echo $comanda->nombreMesa." ";
-                }?><i class="fa fa-flag"></i></td>
+                }?><i class="fa fa-flag"></i>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -69,28 +68,40 @@
 					</div>
 					<div id="listaComandasCerradas"
 						class="panel-body collapse sub-panel">
-						<ul>
-							<?php foreach ($comandasCerradas as $comanda): ?>
-							<li><?php
-							echo $comanda->id_comanda . " - ";
-							if ($comanda->id_mesa == 0) {
-                    echo $comanda->destino;
-                } else {
-                    echo $comanda->nombreMesa;
-                }
-                echo "-" . $comanda->nombreCamarero
-                . "-" . $comanda->precio . "-" . $comanda->estado . "-"
-								. $comanda->fecha_alta;
-                ?> <a
-								onclick="<?php
+						<?php foreach ($comandasCerradas as $comanda): ?>
+						<div class="col-md-12 list-div">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td colspan="3">Comanda <?php echo $comanda->id_comanda;?>
+											<button class="btn btn-default pull-right" type="button"
+												data-toggle="tooltip" data-original-title="Remove this user"
+												onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
                 . $comanda->id_comanda . "','mostrarComandaRealizada','post',1)";
-                ?>
-                   "> Ver </a></li>
-							<?php
-							endforeach;
-							?>
-						</ul>
+                ?>">
+												<span class="glyphicon glyphicon-eye-open"></span>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td><?php echo $comanda->nombreCamarero;?> <i
+											class="fa fa-user"></i></td>
+										<td><?php echo $comanda->precio." ";?><span
+											class="glyphicon glyphicon-euro"></span></td>
+										<td><?php if ($comanda->id_mesa == 0) {
+											echo $comanda->destino;
+										} else {
+                    echo $comanda->nombreMesa." ";
+                }?><i class="fa fa-flag"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<?php
+						endforeach;
+						?>
 					</div>
 				</div>
 			</div>
@@ -108,6 +119,3 @@
 			</div>
 		</div>
 	</div>
-	
-	
-		

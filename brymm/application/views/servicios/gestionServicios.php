@@ -34,9 +34,9 @@
 
 </div>
 <div>
-	<div id="horariosLocal" class="panel panel-default">
+	<div id="serviciosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Horarios pedido</h4>
+			<h4 class="panel-title">Servicios</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">

@@ -402,6 +402,8 @@ class Menus_model extends CI_Model {
 
 		$this->db->query($sql, array($idTipoMenu, $nombreMenu, $precioMenu, $esCarta
 				, $idTipoMenuLocal));
+		
+		$idLocal = $this->obtenerTipoMenuLocal($idTipoMenuLocal)->row()->id_local; 
 
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
