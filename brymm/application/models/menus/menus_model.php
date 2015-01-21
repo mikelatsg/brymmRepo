@@ -836,26 +836,29 @@ class Menus_model extends CI_Model {
 				$mesAnterior . "&ano=" . $anoAnterior . "','actualizarCalendarioMenu','post',1)"
 		);
 
+		//{cal_cell_content}<a onclick="{content}">{day}</a><a onclick="{enlaceDesayuno}"><img src="{imagenDesayuno}"></a><a onclick="{enlaceComida}"><img src="{imagenComida}"></a><a onclick="{enlaceCena}"><img src="{imagenCena}"></a><a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a>{/cal_cell_content}
+		//<a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a>
+		
 		$prefs['template'] = '
 		{table_open}<table border="0" cellpadding="0" cellspacing="0">{/table_open}
 
 		{heading_row_start}<tr>{/heading_row_start}
 
 		{heading_previous_cell}<th><a onclick="{previous_url}">&lt;&lt;</a></th>{/heading_previous_cell}
-		{heading_title_cell}<th colspan="{colspan}">{heading}</th>{/heading_title_cell}
+		{heading_title_cell}<th colspan="{colspan}" class="mesAno">{heading}</th>{/heading_title_cell}
 		{heading_next_cell}<th><a onclick="{next_url}">&gt;&gt;</a></th>{/heading_next_cell}
 
 		{heading_row_end}</tr>{/heading_row_end}
 
 		{week_row_start}<tr>{/week_row_start}
-		{week_day_cell}<td>{week_day}</td>{/week_day_cell}
+		{week_day_cell}<td class="diaSemana">{week_day}</td>{/week_day_cell}
 		{week_row_end}</tr>{/week_row_end}
 
 		{cal_row_start}<tr>{/cal_row_start}
-		{cal_cell_start}<td>{/cal_cell_start}
+		{cal_cell_start}<td class="col-md-1 cuadroDia">{/cal_cell_start}
 
-		{cal_cell_content}<a onclick="{content}">{day}</a><a onclick="{enlaceDesayuno}"><img src="{imagenDesayuno}"></a><a onclick="{enlaceComida}"><img src="{imagenComida}"></a><a onclick="{enlaceCena}"><img src="{imagenCena}"></a><a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a>{/cal_cell_content}
-		{cal_cell_content_today}<div class="highlight"><a onclick="{content}">{day}</a><a onclick="{enlaceDesayuno}"><img src="{imagenDesayuno}"></a><a onclick="{enlaceComida}"><img src="{imagenComida}"></a><a onclick="{enlaceCena}"><img src="{imagenCena}"></a><a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a></div>{/cal_cell_content_today}
+		{cal_cell_content}<div class="row numeroDia">{day}</div><div class="row"><div class="col-md-4"><a onclick="{enlaceDesayuno}">{imagenDesayuno}</a></div><div class="col-md-4"><a onclick="{enlaceComida}">{imagenComida}</a></div><div class="col-md-4"><a onclick="{enlaceCena}">{imagenCena}</a></div></div>{/cal_cell_content}		 
+		{cal_cell_content_today}<div class="row numeroDia">{day}</div><div class="row"><div class="col-md-4"><a onclick="{enlaceDesayuno}">{imagenDesayuno}</a></div><div class="col-md-4"><a onclick="{enlaceComida}">{imagenComida}</a></div><div class="col-md-4"><a onclick="{enlaceCena}">{imagenCena}</a></div></div>{/cal_cell_content_today}
 
 		{cal_cell_no_content}{day}{/cal_cell_no_content}
 		{cal_cell_no_content_today}<div class="highlight">{day}</div>{/cal_cell_no_content_today}
@@ -913,20 +916,20 @@ class Menus_model extends CI_Model {
 					}
 				}
 			}
-			$imagenDesayuno[$i] = "img/dialogerror.png";
-			$imagenComida[$i] = "img/dialogerror.png";
-			$imagenCena[$i] = "img/dialogerror.png";
+			$imagenDesayuno[$i] =  "<i class=\"fa fa-coffee fa-fw colorDesactivo\"></i>";//"img/dialogerror.png";
+			$imagenComida[$i] = "<i class=\"fa fa-cutlery fa-fw colorDesactivo\"></i>";//"img/dialogerror.png";
+			$imagenCena[$i] = "<i class=\"fa fa-moon-o colorDesactivo\"></i>";
 			/*
 			 * En el caso de haber menu se asigna la imagen
 			*/
 			if ($hayMenuDesayuno) {
-				$imagenDesayuno[$i] = "img/dialogclean.png";
+				$imagenDesayuno[$i] = "<i class=\"fa fa-coffee fa-fw colorActivo\"></i>";
 			}
 			if ($hayMenuComida) {
-				$imagenComida[$i] = "img/dialogclean.png";
+				$imagenComida[$i] = "<i class=\"fa fa-cutlery fa-fw colorActivo\"></i>";
 			}
 			if ($hayMenuCena) {
-				$imagenCena[$i] = "img/dialogclean.png";
+				$imagenCena[$i] = "<i class=\"fa fa-moon-o fa-fw colorActivo\"></i>";
 			}
 		}
 

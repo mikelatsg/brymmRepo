@@ -38,7 +38,7 @@ class Menus extends CI_Controller {
             , 'menus', 'mensajes','js/bootstrap.min');
         
         $header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
-        		, 'general.css'
+        		, 'general.css','menus.css'
         );
 
         $this->load->view('base/cabecera', $header);
