@@ -246,7 +246,12 @@ function mostrarMenu(item) {
 						// El titulo (comida,cena, desayuno) solo se pone una
 						// vez
 						if (!hayTitulo) {
-							contenido = contenido + "<h2>" + tipoMenu + "</h2>";
+							contenido += "<h3>";
+							contenido += "<span class=\"label label-default\">"
+									+ tipoMenu + "</span>";
+							contenido += "</h3>";
+							// contenido = contenido + "<h2>" + tipoMenu +
+							// "</h2>";
 						}
 						hayTitulo = true;
 
@@ -257,7 +262,23 @@ function mostrarMenu(item) {
 						var tipoPlato = "";
 
 						// Se muestra el nombre del menu
-						contenido = contenido + "<h3>" + nombreMenu + "</h3>";
+						contenido += "<div class=\"well col-md-12\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+
+						contenido += "<tr id=\"nombreMenu\">";
+						contenido += "<td>";
+						contenido += "<h4>";
+						contenido += "<span class=\"label label-danger\">";
+						contenido += nombreMenu;
+						contenido += "</span>"
+						contenido += "</h4>";
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						// contenido = contenido + "<h3>" + nombreMenu +
+						// "</h3>";
 						$(this)
 								.find('detalleMenu')
 								.each(
@@ -272,7 +293,12 @@ function mostrarMenu(item) {
 											idDetalleMenuLocal = $.trim($(this)
 													.find('idDetalleMenuLocal')
 													.text());
-											enlaceBorrar = "<a onclick=\"doAjax('"
+
+											enlaceBorrar += "<button class=\"btn btn-danger pull-right btn-sm\" type=\"button\"";
+											enlaceBorrar
+													+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+											enlaceBorrar += "onclick=";
+											enlaceBorrar += "doAjax('"
 													+ site_url
 													+ "/menus/borrarPlatoMenu','idDetalleMenuLocal="
 													+ idDetalleMenuLocal
@@ -282,7 +308,9 @@ function mostrarMenu(item) {
 													+ idLocal
 													+ "&fechaMenu="
 													+ fechaMenu
-													+ "','mostrarMenu','post',1)\">B</a>"
+													+ "','mostrarMenu','post',1)>";
+											enlaceBorrar += "<span class=\"glyphicon glyphicon-remove\"></span>";
+											enlaceBorrar += "</button>";
 
 											/*
 											 * En la carta se muestran los
@@ -295,19 +323,27 @@ function mostrarMenu(item) {
 												tipoPlato = $.trim($(this)
 														.find('tipoPlato')
 														.text());
-												if (idTipoPlato != idTipoPlatoAnterior
-														& idTipoPlatoAnterior != 0) {
-													contenido = contenido
-															+ "</ul>";
-												}
+												/*
+												 * if (idTipoPlato !=
+												 * idTipoPlatoAnterior &
+												 * idTipoPlatoAnterior != 0) {
+												 * contenido = contenido + "</ul>"; }
+												 */
 
 												if (idTipoPlato != idTipoPlatoAnterior) {
-													contenido = contenido
-															+ "<h4>"
-															+ tipoPlato
-															+ "</h4>";
-													contenido = contenido
-															+ "<ul>";
+													/*
+													 * contenido = contenido + "<h4>" +
+													 * tipoPlato + "</h4>";
+													 * contenido = contenido + "<ul>";
+													 */
+													contenido += "<tr id=\"tipoPlato\">";
+													contenido += "<td>";
+													contenido += "<span class=\"label label-default\">";
+													contenido += tipoPlato;
+													contenido += "</span>"
+													contenido += "</td>";
+													contenido += "</tr>";
+
 												}
 												nombrePlato = $.trim($(this)
 														.find('nombrePlato')
@@ -316,12 +352,27 @@ function mostrarMenu(item) {
 														.find('precioPlato')
 														.text());
 												idTipoPlatoAnterior = idTipoPlato;
-												contenido = contenido + "<li>";
-												contenido = contenido
-														+ nombrePlato + " - "
-														+ precioPlato + "-"
-														+ enlaceBorrar;
-												contenido = contenido + "</li>";
+
+												contenido += "<tr>";
+												contenido += "<td>";
+												contenido += nombrePlato;
+												contenido += " ["
+														+ precioPlato
+														+ " <i class=\"fa fa-euro\"></i>]";
+												contenido += "</td>";
+												contenido += "<td>";
+												contenido += enlaceBorrar;
+												contenido += "</td>";
+												contenido += "</tr>";
+
+												/*
+												 * contenido = contenido + "<li>";
+												 * contenido = contenido +
+												 * nombrePlato + " - " +
+												 * precioPlato + "-" +
+												 * enlaceBorrar; contenido =
+												 * contenido + "</li>";
+												 */
 											} else {
 												/*
 												 * Desayunos, comidas y cenas
@@ -339,30 +390,65 @@ function mostrarMenu(item) {
 												}
 
 												if (idTipoPlato != idTipoPlatoAnterior) {
-													contenido = contenido
-															+ "<h4>"
-															+ tipoPlato
-															+ "</h4>";
-													contenido = contenido
-															+ "<ul>";
+
+													contenido += "<tr id=\"tipoPlato\">";
+													contenido += "<td>";
+													contenido += "<span class=\"label label-default\">";
+													contenido += tipoPlato;
+													contenido += "</span>"
+													contenido += "</td>";
+													contenido += "</tr>";
+
+													/*
+													 * contenido = contenido + "<h4>" +
+													 * tipoPlato + "</h4>";
+													 * contenido = contenido + "<ul>";
+													 */
 												}
 												nombrePlato = $.trim($(this)
 														.find('nombrePlato')
 														.text());
 												idTipoPlatoAnterior = idTipoPlato;
-												contenido = contenido + "<li>";
-												contenido = contenido
-														+ nombrePlato + "-"
-														+ enlaceBorrar;
-												contenido = contenido + "</li>";
+
+												contenido += "<tr>";
+												contenido += "<td>";
+												contenido += nombrePlato;
+												contenido += "</td>";
+												contenido += "<td>";
+												contenido += enlaceBorrar;
+												contenido += "</td>";
+												contenido += "</tr>";
+
+												/*
+												 * contenido = contenido + "<li>";
+												 * contenido = contenido +
+												 * nombrePlato + "-" +
+												 * enlaceBorrar; contenido =
+												 * contenido + "</li>";
+												 */
 											}
 
 										});
-						contenido = contenido + "</ul>";
+
+						// contenido = contenido + "</ul>";
 						if ((esCarta == "0") && existeMenu) {
-							contenido = contenido + "Precio menu : "
-									+ precioMenu;
+							contenido += "<tr>";
+							contenido += "<td>";
+							contenido += "Precio menu : " + precioMenu;
+							contenido += " <i class=\"fa fa-euro\"></i></td>";
+							contenido += "<td>";
+							contenido += "</td>";
+							contenido += "</tr>";
+							/*
+							 * contenido = contenido + "Precio menu : " +
+							 * precioMenu;
+							 */
 						}
+
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						contenido += "</div>";
 
 					});
 
@@ -590,7 +676,7 @@ function mostrarVentanaModificarTipoMenu(idTipoMenuLocal) {
 	/*
 	 * Ventana modal modificar ingrediente
 	 */
-	$("#dialogModificarTipoPlato").dialog(
+	$("#dialogModificarTipoMenu").dialog(
 			{
 				width : 600,
 				modal : true,

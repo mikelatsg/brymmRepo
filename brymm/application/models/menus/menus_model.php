@@ -844,9 +844,9 @@ class Menus_model extends CI_Model {
 
 		{heading_row_start}<tr>{/heading_row_start}
 
-		{heading_previous_cell}<th><a onclick="{previous_url}">&lt;&lt;</a></th>{/heading_previous_cell}
+		{heading_previous_cell}<th class="mesAno"><a onclick="{previous_url}"><span class="glyphicon glyphicon-arrow-left flechasMes"></span></a></th>{/heading_previous_cell}
 		{heading_title_cell}<th colspan="{colspan}" class="mesAno">{heading}</th>{/heading_title_cell}
-		{heading_next_cell}<th><a onclick="{next_url}">&gt;&gt;</a></th>{/heading_next_cell}
+		{heading_next_cell}<th class="mesAno"><a onclick="{next_url}"><span class="glyphicon glyphicon-arrow-right flechasMes"></span></a></th>{/heading_next_cell}
 
 		{heading_row_end}</tr>{/heading_row_end}
 
