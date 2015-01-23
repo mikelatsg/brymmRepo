@@ -267,7 +267,8 @@
 
 							<tr>
 								<td class="titulo">Precio</td>
-								<td><?php echo $plato->precio; ?>
+								<td><?php echo $plato->precio." "; ?> <i class="fa fa-euro">
+								
 								</td>
 							</tr>
 
@@ -421,7 +422,9 @@
 									</tr>
 									<tr>
 										<td class="titulo">Precio</td>
-										<td><?php echo  $tipoMenuLocal->precio_menu; ?>
+										<td><?php echo  $tipoMenuLocal->precio_menu." "; ?> <i
+											class="fa fa-euro">
+										
 										</td>
 									</tr>
 								</tbody>
@@ -443,29 +446,8 @@
 							</span>
 						</div>
 					</div>
-
-
-					<!-- echo "
-					<li>"; echo $tipoMenuLocal->nombre_menu . " - " .
-						$tipoMenuLocal->descripcion . " - " . $tipoMenuLocal->precio_menu;
-
-						//Borrar un tipo de menu echo " - <a onclick=";
-            echo "
-						doAjax('" . site_url() . "/menus/borrarTipoMenuLocal','idTipoMenuLocal="
-				. $tipoMenuLocal->id_tipo_menu_local . "','listaTipoMenuLocal','post',1)";
-            echo "> B </a>"; //Modificar un tipo de menu echo " - <a
-						onclick=";
-            echo "
-						mostrarVentanaModificarTipoMenu(".$tipoMenuLocal->id_tipo_menu_local.")";
-							/*echo "doAjax('" . site_url() .
-							"/menus/cargarTipoMenuLocal','idTipoMenuLocal=" .
-							$tipoMenuLocal->id_tipo_menu_local .
-							"','cargarTipoMenuLocal','post',1)";*/ echo "> M </a>"; echo "
-					</li>";
-					 -->
 					<?php
         }
-        echo "</ul>";
         ?>
 				</div>
 			</div>
