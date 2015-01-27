@@ -1,56 +1,7 @@
-.colorActivo{
-	color:#72B883;
-}
-
-.colorDesactivo{
-	color:#B87272;
-}
-
-.cuadroDia{
-	border:1px solid grey;	
-	padding-top:4px;
-	padding-bottom:4px;
-}
-
-.numeroDia{
-	text-align:right;
-	padding-right:8px;
-	color:black;
-	font-weight:bold;
-}
-
-.diaSemana{
-	text-align:right;
-	padding-right:8px;
-	font-weight: bold;
-}
-
-.mesAno{
-	text-align:center;	
-	padding-bottom:8px;
-	color: black;
-}
-
-.flechasMes{
-	color:red;
-}
-
-#calendarioMenu a:hover{
-	cursor:pointer;
-}
-
-.actualizarCalendario a{
-	color:red;
-}
-
 #nombreMenu td{
 	border:0px solid;
 }
 
 #tipoPlato td{
 	border:0px solid;
-}
-
-.titulo{
-	font-weight: bold;
 }

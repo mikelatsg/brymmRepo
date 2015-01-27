@@ -155,8 +155,8 @@ function datosReservaLocal(item) {
 	tipoMenu = $.trim($(item).find('tipoMenu').text());
 	observaciones = $.trim($(item).find('observaciones').text());
 	idUsuario = $.trim($(item).find('idUsuario').text());
-	
-	// Se genera el enlace para aceptar la reserva	
+
+	// Se genera el enlace para aceptar la reserva
 	enlaceAceptarReserva += "<button class=\"btn btn-success pull-right\" type=\"button\"";
 	enlaceAceptarReserva
 			+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
@@ -253,9 +253,9 @@ function datosReservaLocal(item) {
 						idMesaLocal = $
 								.trim($(this).find('idMesaLocal').text());
 
-						enlaceBorrarMesaAsignada="";
-						
-						enlaceBorrarMesaAsignada += "<button class=\"btn btn-danger pull-right\" type=\"button\"";
+						enlaceBorrarMesaAsignada = "";
+
+						enlaceBorrarMesaAsignada += "<button class=\"btn btn-danger pull-right btn-sm\" type=\"button\"";
 						enlaceBorrarMesaAsignada
 								+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
 						enlaceBorrarMesaAsignada += "onclick=";
@@ -275,8 +275,6 @@ function datosReservaLocal(item) {
 						// Se compruba que existen mesas asignadas para
 						// mostrarlas
 						if (idMesaLocal != "") {
-
-							contador++;
 
 							contenido = contenido + "<tr>";
 							contenido = contenido
@@ -303,7 +301,6 @@ function datosReservaLocal(item) {
 
 					});
 
-
 	// Se muestran las mesas libres
 
 	contenido += "<div class=\"row\">";
@@ -321,25 +318,22 @@ function datosReservaLocal(item) {
 								.text());
 						idMesaLocal = $
 								.trim($(this).find('idMesaLibre').text());
-						
-						
+
 						// Se crea el enlace para poder asignar las mesas a las
 						// reservas
-						
-						enlaceAsignarMesa ="";
-						
-						enlaceAsignarMesa += "<button class=\"btn btn-success pull-right\" type=\"button\"";
+
+						enlaceAsignarMesa = "";
+
+						enlaceAsignarMesa += "<button class=\"btn btn-success pull-right btn-sm\" type=\"button\"";
 						enlaceAsignarMesa
 								+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
 						enlaceAsignarMesa += "onclick=";
-						enlaceAsignarMesa += "doAjax('"
-								+ site_url
+						enlaceAsignarMesa += "doAjax('" + site_url
 								+ "/reservas/asignarMesaReserva','idMesaLocal="
 								+ idMesaLocal + "&idReserva=" + idReserva
 								+ "','datosReservaLocal','post',1)>";
 						enlaceAsignarMesa += "<span class=\"glyphicon glyphicon-plus\"></span>";
 						enlaceAsignarMesa += "</button>";
-						
 
 						contenido += "<div class=\"well col-md-12\">";
 						contenido += "<div class=\"span6\">";
@@ -354,14 +348,14 @@ function datosReservaLocal(item) {
 							contenido = contenido + "<td>" + nombreMesa
 									+ " </td>";
 							contenido = contenido + "<td>" + enlaceAsignarMesa
-							+ " </td>";
+									+ " </td>";
 							contenido = contenido + "</tr>";
 
 							contenido = contenido + "<tr>";
 							contenido = contenido
 									+ "<td class=\"titulo\">Capacidad</td>";
-							contenido = contenido + "<td colspan=\"2\">" + capacidad
-									+ " </td>";
+							contenido = contenido + "<td colspan=\"2\">"
+									+ capacidad + " </td>";
 							contenido = contenido + "</tr>";
 
 							contador++;
@@ -415,16 +409,60 @@ function datosReservaRechazadaLocal(item) {
 	nombreEmisor = $.trim($(item).find('nombreEmisor').text());
 	motivo = $.trim($(item).find('motivo').text());
 
-	contenido = contenido + fecha + " - " + horaInicio + " - " + numeroPersonas;
+	contenido += "<div class=\"col-md-8\">";
+	contenido += "<div class=\"pedido col-md-12\">";
+	contenido += "<span class=\"badge pull-left\">Reserva " + idReserva
+			+ "</span>";
+	contenido += "</div>";
+	contenido += "<div class=\"well col-md-12\">";
+	contenido += "<div class=\"span6\">";
+	contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+	contenido += "<tbody>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Fecha</td>";
+	contenido = contenido + "<td>" + fecha + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Hora</td>";
+	contenido = contenido + "<td>" + horaInicio + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Numero de personas</td>";
+	contenido = contenido + "<td>" + numeroPersonas + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">A nombre de</td>";
 	if (idUsuario == 0) {
-		contenido = contenido + " - " + nombreEmisor + " - " + tipoMenu;
+		contenido = contenido + "<td>" + nombreEmisor + " </td>";
 	} else {
-		contenido = contenido + " - " + nombreUsuario + " - " + nick + " - "
-				+ tipoMenu;
+		contenido = contenido + "<td>" + nombreUsuario + " </td>";
 	}
-	contenido = contenido + " - " + estado;
-	contenido += "<br>" + observaciones + "<br>";
-	contenido += "<br>" + motivo + "<br>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Tipo menu</td>";
+	contenido = contenido + "<td>" + tipoMenu + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Observaciones</td>";
+	contenido = contenido + "<td>" + observaciones + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Motivo rechazo</td>";
+	contenido = contenido + "<td>" + motivo + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido += "</tbody>";
+	contenido += "</table>";
+	contenido += "</div>";
+	contenido += "</div>";
+	contenido += "</div>";
 
 	$("#detalleReserva").empty();
 	$("#detalleReserva").html(contenido);
@@ -714,8 +752,36 @@ function listaReservasDia(item) {
 	idTipoMenu = $.trim($(item).find('idTipoMenu').text());
 	reservasAbiertas = $.trim($(item).find('reservasAbiertas').text());
 
+	enlaceCerrarReservas = "";
+	// Enlace cerrar
+	enlaceCerrarReservas += "<button class=\"btn btn-danger pull-right\" type=\"button\"";
+	enlaceCerrarReservas
+			+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+	enlaceCerrarReservas += "onclick=";
+	enlaceCerrarReservas += "doAjax('" + site_url
+			+ "/reservas/cerrarReservaDia','fecha=" + fecha + "&idTipoMenu="
+			+ idTipoMenu + "','actualizarReservasDiaLocal','post',1)>";
+	enlaceCerrarReservas += "<i class=\"fa fa-lock\"></i>";
+	enlaceCerrarReservas += "</button>";
+
+	enlaceAbrirReservas = "";
+	// Enlace abrir
+	enlaceAbrirReservas += "<button class=\"btn btn-success pull-right\" type=\"button\"";
+	enlaceAbrirReservas
+			+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+	enlaceAbrirReservas += "onclick=";
+	enlaceAbrirReservas += "doAjax('" + site_url
+			+ "/reservas/abrirReservaDia','fecha=" + fecha + "&idTipoMenu="
+			+ idTipoMenu + "','actualizarReservasDiaLocal','post',1)>";
+	enlaceAbrirReservas += "<i class=\"fa fa-unlock\"></i>";
+	enlaceAbrirReservas += "</button>";
+
 	// Se muestra la fecha y el tipo de comida
-	contenido = contenido + "<h4>" + fecha + " - " + tipoMenu + "</h4>";
+	// contenido = contenido + "<h4>" + fecha + " - " + tipoMenu + "</h4>";
+	contenido += "<h3>";
+	contenido += "<span class=\"label label-default\">" + fecha + " / "
+			+ tipoMenu + "</span>";
+	contenido += "</h3>";
 
 	var contador = 0;
 	$(item)
@@ -734,63 +800,59 @@ function listaReservasDia(item) {
 									.text());
 							idUsuario = $
 									.trim($(this).find('idUsuario').text());
+
+							enlaceVer = "";
+
 							// Se genera el enlace que permite ver la reserva
-							enlaceVer = "<a onclick=\"doAjax('"
+							enlaceVer += "<button class=\"btn btn-default pull-right btn-sm\" type=\"button\"";
+							enlaceVer
+									+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+							enlaceVer += "onclick=";
+							enlaceVer += "doAjax('"
 									+ site_url
 									+ "/reservas/mostrarReservaLocal','idReserva="
 									+ idReserva
-									+ "','datosReservaAceptadaLocal','post',1)\">Ver</a>";
+									+ "','datosReservaAceptadaLocal','post',1)>";
+							enlaceVer += "<span class=\"glyphicon glyphicon-eye-open\"></span>";
+							enlaceVer += "</button>";
 
-							if (contador == 0) {
-								contenido = contenido + "<ul>";
-							}
+							contenido += "<div class=\"col-md-12 list-div\">";
+							contenido += "<table class=\"table\">";
+							contenido += "<tbody>";
 
-							contenido = contenido + "<li>";
-							// Se comprueba el usuario para mostrar el nombre
-							// del emisor o el nombre.
+							contenido += "<tr>";
+							contenido += "<td>";
+							contenido += "Reserva " + idReserva;
+							contenido += "</td>";
+							contenido += "<td>";
+							contenido += enlaceVer;
+							contenido += "</td>";
+							contenido += "</tr>";
+
+							contenido += "<tr>";
+							contenido += "<td>";
 							if (idUsuario == 0) {
-								contenido = contenido + fecha + " - "
-										+ horaInicio + " - " + nombreEmisor
-										+ " - " + enlaceVer;
+								contenido += nombreEmisor;
 							} else {
-								contenido = contenido + fecha + " - "
-										+ horaInicio + " - " + nombreUsuario
-										+ " - " + nick + " - " + enlaceVer;
+								contenido += nombreUsuario;
 							}
-							contenido = contenido + "</li>";
-							contador++;
+							contenido += " <i class=\"fa fa-user\"></td>";
+							contenido += "<td>";
+							contenido += fecha;
+							contenido += " <i class=\"fa fa-calendar\"></td>";
+							contenido += "</tr>";
+
+							contenido += "</tbody>";
+							contenido += "</table>";
+							contenido += "</div>";
 						}
 					});
 
-	// Se genera el enlace que permite cerrar las reservas
-	var enlaceCerrarReservas = "";
-	enlaceCerrarReservas = "<a onclick=\"doAjax('"
-			+ site_url
-			+ "/reservas/cerrarReservaDia','fecha="
-			+ fecha
-			+ "&idTipoMenu="
-			+ idTipoMenu
-			+ "','actualizarReservasDiaLocal','post',1)\">Cerrar reservas para la "
-			+ tipoMenu + " del dia " + fecha + " </a>";
-
-	var enlaceAbrirReservas = "";
-	enlaceAbrirReservas = "<a onclick=\"doAjax('"
-			+ site_url
-			+ "/reservas/abrirReservaDia','fecha="
-			+ fecha
-			+ "&idTipoMenu="
-			+ idTipoMenu
-			+ "','actualizarReservasDiaLocal','post',1)\">Abrir reservas para la "
-			+ tipoMenu + " del dia " + fecha + " </a>";
-
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
-	// Se añade la opcion de cerrar o abrir las reservas para esta fecha
+	// Meto el enlace para abrir o cerrar las reservas del dia
 	if (reservasAbiertas == 1) {
-		contenido = contenido + enlaceCerrarReservas;
+		contenido += enlaceCerrarReservas;
 	} else {
-		contenido = contenido + enlaceAbrirReservas;
+		contenido += enlaceAbrirReservas;
 	}
 
 	$("#reservasDiaLocal").empty();
@@ -828,37 +890,83 @@ function datosReservaAceptadaLocal(item) {
 
 	// Se crea el enlace para poder anular la reserva
 	/*
-	 * enlaceAnularReserva = "<a onclick=\"doAjax('" + site_url +
-	 * "/reservas/anularReservaLocal','idReserva=" + idReserva +
-	 * "','vaciarDetalleReservas','post',1)\">Anular reserva</a>";
+	 * enlaceAnularReserva = "<a onclick='mostrarVentanaAnularReserva(" +
+	 * idReserva + ")' data-toggle='modal' >Anular reserva</a>";
 	 */
 
-	enlaceAnularReserva = "<a onclick='mostrarVentanaAnularReserva("
-			+ idReserva + ")' data-toggle='modal' >Anular reserva</a>";
-	// enlaceRechazarReserva = "<a onclick=\"mostrarVentanaRechazarReserva(" +
-	// idReserva + ")\" data-toggle='modal'> Rechazar reserva </a>";
+	enlaceAnularReserva += "<button class=\"btn btn-danger pull-right\" type=\"button\"";
+	enlaceAnularReserva
+			+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+	enlaceAnularReserva += "onclick=";
+	enlaceAnularReserva += "'mostrarVentanaAnularReserva(" + idReserva + ")'>"
+	enlaceAnularReserva += "<span class=\"glyphicon glyphicon-remove\"></span>";
+	enlaceAnularReserva += "</button>";
 
-	contenido = contenido + fecha + " - " + horaInicio + " - " + numeroPersonas;
+	contenido += "<div class=\"col-md-6\">";
+	contenido += "<div class=\"pedido col-md-12\">";
+	contenido += "<span class=\"badge pull-left\">Reserva " + idReserva
+			+ "</span>";
+	contenido += "</div>";
+	contenido += "<div class=\"well col-md-12\">";
+	contenido += "<div class=\"span6\">";
+	contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+	contenido += "<tbody>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Fecha</td>";
+	contenido = contenido + "<td>" + fecha + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Hora</td>";
+	contenido = contenido + "<td>" + horaInicio + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Numero de personas</td>";
+	contenido = contenido + "<td>" + numeroPersonas + " </td>";
+	contenido = contenido + "</tr>";
 
 	/*
 	 * Si el idUsuario es 0 se pone el nombre del emisor y no el nombre del
 	 * usuario
 	 */
 
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">A nombre de</td>";
 	if (idUsuario == 0) {
-		contenido = contenido + " - " + nombreEmisor + " - " + tipoMenu;
+		contenido = contenido + "<td>" + nombreEmisor + " </td>";
 	} else {
-		contenido = contenido + " - " + nombreUsuario + " - " + nick + " - "
-				+ tipoMenu;
+		contenido = contenido + "<td>" + nombreUsuario + " </td>";
 	}
+	contenido = contenido + "</tr>";
 
-	contenido = contenido + " - " + estado;
-	contenido += "<br>" + observaciones;
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Tipo menu</td>";
+	contenido = contenido + "<td>" + tipoMenu + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Observaciones</td>";
+	contenido = contenido + "<td>" + observaciones + " </td>";
+	contenido = contenido + "</tr>";
+
+	contenido += "</tbody>";
+	contenido += "</table>";
+	contenido += enlaceAnularReserva;
+	contenido += "</div>";
+	contenido += "</div>";
+	contenido += "</div>";
 
 	var nombreMesa = "";
 	var capacidad = "";
 	var idMesaLocal = "";
 	var idReservaMesa = "";
+
+	contenido += "<div class=\"col-md-6\">";
+	contenido += "<div class=\"row\">";
+	contenido += "<span class=\"badge progress-bar-danger\">Mesas asignadas</span>";
+	contenido += "</div>";
 
 	// Se muestran las mesas asignadas a la reserva.
 	var contador = 0;
@@ -876,34 +984,58 @@ function datosReservaAceptadaLocal(item) {
 						idMesaLocal = $
 								.trim($(this).find('idMesaLocal').text());
 
-						enlaceBorrarMesaAsignada = "<a onclick=\"doAjax('"
+						enlaceBorrarMesaAsignada = "";
+
+						enlaceBorrarMesaAsignada += "<button class=\"btn btn-danger pull-right btn-sm\" type=\"button\"";
+						enlaceBorrarMesaAsignada
+								+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						enlaceBorrarMesaAsignada += "onclick=";
+						enlaceBorrarMesaAsignada += "doAjax('"
 								+ site_url
 								+ "/reservas/borrarMesaReserva','idReservaMesa="
-								+ idReservaMesa
-								+ "&idReserva="
-								+ idReserva
-								+ "','datosReservaAceptadaLocal','post',1)\">Borrar mesa reserva</a>";
+								+ idReservaMesa + "&idReserva=" + idReserva
+								+ "','datosReservaLocal','post',1)>";
+						enlaceBorrarMesaAsignada += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						enlaceBorrarMesaAsignada += "</button>";
+
+						contenido += "<div class=\"well col-md-12\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
 
 						// Se compruba que existen mesas asignadas para
 						// mostrarlas
 						if (idMesaLocal != "") {
-							if (contador == 0) {
-								contenido = contenido + "<ul>";
-							}
-							contenido = contenido + "<li>";
-							contenido = contenido + nombreMesa + " - "
-									+ capacidad + " -"
-									+ enlaceBorrarMesaAsignada;
-							contenido = contenido + "</li>";
-							contador++;
+
+							contenido = contenido + "<tr>";
+							contenido = contenido
+									+ "<td class=\"titulo\">Mesa</td>";
+							contenido = contenido + "<td>" + nombreMesa
+									+ " </td>";
+							contenido = contenido + "<td>"
+									+ enlaceBorrarMesaAsignada + " </td>";
+							contenido = contenido + "</tr>";
+
+							contenido = contenido + "<tr>";
+							contenido = contenido
+									+ "<td class=\"titulo\">Capacidad</td>";
+							contenido = contenido + "<td colspan=\"2\">"
+									+ capacidad + " </td>";
+							contenido = contenido + "</tr>";
 						}
 
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						contenido += "</div>";
+
 					});
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
 
 	// Se muestran las mesas libres
+	contenido += "<div class=\"row\">";
+	contenido += "<span class=\"badge progress-bar-danger\">Mesas libres</span>";
+	contenido += "</div>";
+
 	contador = 0;
 	$(item)
 			.find('xml')
@@ -918,30 +1050,52 @@ function datosReservaAceptadaLocal(item) {
 								.trim($(this).find('idMesaLibre').text());
 						// Se crea el enlace para poder asignar las mesas a las
 						// reservas
-						enlaceAsignarMesa = "<a onclick=\"doAjax('"
-								+ site_url
-								+ "/reservas/asignarMesaReserva','idReserva="
-								+ idReserva
-								+ "&idMesaLocal="
-								+ idMesaLocal
-								+ "','datosReservaAceptadaLocal','post',1)\">Asignar mesa</a>";
+
+						enlaceAsignarMesa = "";
+
+						enlaceAsignarMesa += "<button class=\"btn btn-success pull-right btn-sm\" type=\"button\"";
+						enlaceAsignarMesa
+								+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						enlaceAsignarMesa += "onclick=";
+						enlaceAsignarMesa += "doAjax('" + site_url
+								+ "/reservas/asignarMesaReserva','idMesaLocal="
+								+ idMesaLocal + "&idReserva=" + idReserva
+								+ "','datosReservaLocal','post',1)>";
+						enlaceAsignarMesa += "<span class=\"glyphicon glyphicon-plus\"></span>";
+						enlaceAsignarMesa += "</button>";
+
+						contenido += "<div class=\"well col-md-12\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+
 						// Se compruba que existen mesas libres para mostrarlas
 						if (idMesaLocal != "") {
-							if (contador == 0) {
-								contenido = contenido + "<ul>";
-							}
-							contenido = contenido + "<li>";
-							contenido = contenido + nombreMesa + " - "
-									+ capacidad + " - " + enlaceAsignarMesa;
-							contenido = contenido + "</li>";
-							contador++;
-						}
-					});
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
 
-	contenido += "<br>" + enlaceAnularReserva;
+							contenido = contenido + "<tr>";
+							contenido = contenido
+									+ "<td class=\"titulo\">Mesa</td>";
+							contenido = contenido + "<td>" + nombreMesa
+									+ " </td>";
+							contenido = contenido + "<td>" + enlaceAsignarMesa
+									+ " </td>";
+							contenido = contenido + "</tr>";
+
+							contenido = contenido + "<tr>";
+							contenido = contenido
+									+ "<td class=\"titulo\">Capacidad</td>";
+							contenido = contenido + "<td colspan=\"2\">"
+									+ capacidad + " </td>";
+							contenido = contenido + "</tr>";
+
+						}
+
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						contenido += "</div>";
+					});
+	contenido += "</div>";
 
 	$("#detalleReserva").empty();
 	$("#detalleReserva").html(contenido);
@@ -984,18 +1138,23 @@ function listaMesasLibres(item) {
 		contenido = "(No hay mesas libres)";
 	}
 
+	var contenidoCheckbox = "";
+	contenidoCheckbox += "<div class=\"checkbox\">";
+	contenidoCheckbox += "</div>";
 	$(item).find("mesaLibre").each(function() {
-		var contenidoCheckbox = "";
 		nombreMesa = $.trim($(this).find('nombre_mesa').text());
 		idMesaLocal = $.trim($(this).find('id_mesa_local').text());
 		capacidad = $.trim($(this).find('capacidad').text());
+		contenidoCheckbox += "<div class=\"checkbox\">";
 		contenidoCheckbox += "<input type=\"checkbox\" name=\"mesas[]\" ";
 		contenidoCheckbox += "value=\"" + idMesaLocal + "\"/>";
-		contenido += contenidoCheckbox + nombreMesa + " - " + capacidad;
+		contenidoCheckbox += "Mesa " + nombreMesa; 
+		contenidoCheckbox += " [" + capacidad + " <i class=\"fa fa-users\"></i>]";
+		contenidoCheckbox += "</div>";
 	});
 
 	$("#listaMesasLibres").empty();
-	$("#listaMesasLibres").html(contenido);
+	$("#listaMesasLibres").html(contenidoCheckbox);
 }
 
 function mostrarVentanaRechazarReserva(idReserva) {

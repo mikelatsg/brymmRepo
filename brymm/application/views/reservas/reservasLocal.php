@@ -47,7 +47,7 @@
 									<td colspan="2"><?php
 									echo "Reserva " . $reserva->id_reserva;
 									?>
-										<button class="btn btn-default pull-right" type="button"
+										<button class="btn btn-default pull-right btn-sm" type="button"
 											data-toggle="tooltip" data-original-title="Remove this user"
 											onclick="<?php
                     echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva=" . $reserva->id_reserva 
@@ -70,17 +70,6 @@
 							</tbody>
 						</table>
 					</div>
-
-					<!-- 
-						<li><?php
-						echo $reserva->id_reserva . " - " . $reserva->fecha . " - " . $reserva->hora_inicio
-						. " - " . $reserva->nombreUsuario . " - " . $reserva->nick
-						?> <a
-							onclick="<?php
-                echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva="
-                . $reserva->id_reserva . "','datosReservaLocal','post',1)";
-                ?>"> Ver </a>
-						</li>-->
 					<?php endforeach; ?>
 				</div>
 			</div>
@@ -95,25 +84,44 @@
 				</div>
 				<div id="listaReservasAceptadasLocal"
 					class="panel-body collapse sub-panel">
-					<ul>
-						<?php foreach ($reservasAceptadasLocal as $reserva): ?>
-						<li><?php
-						echo $reserva->id_reserva . " - " . $reserva->fecha . " - " . $reserva->hora_inicio . " - ";
-						//Si el idUsuario es 0 se muestra el emisor, no el nombre
-						if ($reserva->id_usuario == 0) {
-                    echo $reserva->nombre_emisor;
+
+					<?php foreach ($reservasAceptadasLocal as $reserva): ?>
+					<div class="col-md-12 list-div">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td colspan="2"><?php
+									echo "Reserva " . $reserva->id_reserva;
+									?>
+										<button class="btn btn-default pull-right btn-sm" type="button"
+											data-toggle="tooltip" data-original-title="Remove this user"
+											onclick="<?php
+                    echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva=" . $reserva->id_reserva 
+							. "','datosReservaAceptadaLocal','post',1)";
+                ?>">
+											<span class="glyphicon glyphicon-eye-open"></span>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td><?php 
+									if ($reserva->id_usuario == 0) {
+                    echo $reserva->nombre_emisor." ";
                 } else {
-                    echo $reserva->nombreUsuario . " - " . $reserva->nick;
+                    echo $reserva->nombreUsuario." ";
                 }
-                //Se muestra el enlace para ver la reserva
-                echo "<a onclick=\"";
-                echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva="
-		. $reserva->id_reserva . "','datosReservaAceptadaLocal','post',1)\"";
-                echo "> Ver </a>";
-                ?>
-						</li>
-						<?php endforeach; ?>
-					</ul>
+                ?><i class="fa fa-user"></i>
+									</td>
+									<td><?php 
+									echo  $reserva->fecha;
+									?> <i class="fa fa-calendar"></i>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<?php endforeach; ?>
+
 				</div>
 			</div>
 			<div id="reservasRechazadasPanel"
@@ -127,26 +135,44 @@
 				</div>
 				<div id="listaReservasRechazadasLocal"
 					class="panel-body collapse sub-panel">
-					<ul>
-						<?php foreach ($reservasRechazadasLocal as $reserva): ?>
-						<li><?php
-						echo $reserva->id_reserva . " - " . $reserva->fecha . " - " . $reserva->hora_inicio . " - ";
-						//Si el idUsuario es 0 se muestra el emisor, no el nombre
-						if ($reserva->id_usuario == 0) {
-                    echo $reserva->nombre_emisor;
+					<?php foreach ($reservasRechazadasLocal as $reserva): ?>
+					<div class="col-md-12 list-div">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td colspan="2"><?php
+									echo "Reserva " . $reserva->id_reserva;
+									?>
+										<button class="btn btn-default pull-right btn-sm" type="button"
+											data-toggle="tooltip" data-original-title="Remove this user"
+											onclick="<?php
+                    echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva=" . $reserva->id_reserva 
+							. "','datosReservaRechazadaLocal','post',1)";
+                ?>">
+											<span class="glyphicon glyphicon-eye-open"></span>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td><?php 
+									if ($reserva->id_usuario == 0) {
+                    echo $reserva->nombre_emisor." ";
                 } else {
-                    echo $reserva->nombreUsuario . " - " . $reserva->nick;
+                    echo $reserva->nombreUsuario." ";
                 }
-                echo " - " . $reserva->estado;
-                //Se muestra el enlace para ver la reserva
-                echo "<a onclick=\"";
-                echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva="
-		. $reserva->id_reserva . "','datosReservaRechazadaLocal','post',1)\"";
-                echo "> Ver </a>";
-                ?>
-						</li>
-						<?php endforeach; ?>
-					</ul>
+                ?><i class="fa fa-user"></i>
+									</td>
+									<td><?php 
+									echo  $reserva->fecha;
+									?> <i class="fa fa-calendar"></i>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<?php endforeach; ?>
+
 				</div>
 			</div>
 		</div>
