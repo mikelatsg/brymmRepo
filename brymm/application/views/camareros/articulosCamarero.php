@@ -43,7 +43,50 @@
 									class="table table-condensed table-responsive table-user-information">
 									<tbody>
 										<tr>
-											<td class="titulo"><?php echo $linea['articulo']?></td>
+											<td class="titulo" colspan="2"><?php echo $linea['articulo']?>
+											</td>
+										</tr>
+										<tr>
+											<td class="titulo">Precio</td>
+											<td><?php echo round($linea['precio'],2)?> <i
+												class="fa fa-euro"></i>
+											</td>
+										</tr>
+										<tr>
+											<td class="titulo">Cantidad</td>
+											<td><form>
+													<select value="1"
+														id="<?php echo "cmd" . $linea['id_articulo_local'] ?>">
+														<option class="form-control" value="1">1</option>
+														<option class="form-control" value="2">2</option>
+														<option class="form-control" value="3">3</option>
+														<option class="form-control" value="4">4</option>
+														<option class="form-control" value="5">5</option>
+														<option class="form-control" value="6">6</option>
+														<option class="form-control" value="7">7</option>
+														<option class="form-control" value="8">8</option>
+														<option class="form-control" value="9">9</option>
+														<option class="form-control" value="10">10</option>
+														<option class="form-control" value="11">11</option>
+														<option class="form-control" value="12">12</option>
+														<option class="form-control" value="13">13</option>
+														<option class="form-control" value="14">14</option>
+														<option class="form-control" value="15">15</option>
+														<option class="form-control" value="16">16</option>
+														<option class="form-control" value="17">17</option>
+														<option class="form-control" value="18">18</option>
+														<option class="form-control" value="19">19</option>
+														<option class="form-control" value="20">20</option>
+														<option class="form-control" value="21">21</option>
+														<option class="form-control" value="22">22</option>
+														<option class="form-control" value="23">23</option>
+														<option class="form-control" value="24">24</option>
+														<option class="form-control" value="25">25</option>
+													</select>
+												</form>
+											</td>
+										</tr>
+										<tr>
 											<td><span class="pull-right">
 													<button class="btn btn-success btn-sm" type="button"
 														data-toggle="tooltip" data-original-title="Edit this user"
@@ -57,45 +100,8 @@
 													</button>
 											</span></td>
 										</tr>
-										<tr>
-											<td class="titulo">Precio</td>
-											<td><?php echo round($linea['precio'],2)?> <i
-												class="fa fa-euro"></i></td>
-										</tr>
-										<tr>
-											<td class="titulo">Cantidad</td>
-											<td><form>
-													<select value="1"
-														id="<?php echo "cmd" . $linea['id_articulo_local'] ?>">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-														<option value="6">6</option>
-														<option value="7">7</option>
-														<option value="8">8</option>
-														<option value="9">9</option>
-														<option value="10">10</option>
-														<option value="11">11</option>
-														<option value="12">12</option>
-														<option value="13">13</option>
-														<option value="14">14</option>
-														<option value="15">15</option>
-														<option value="16">16</option>
-														<option value="17">17</option>
-														<option value="18">18</option>
-														<option value="19">19</option>
-														<option value="20">20</option>
-														<option value="21">21</option>
-														<option value="22">22</option>
-														<option value="23">23</option>
-														<option value="24">24</option>
-														<option value="25">25</option>
-													</select>
-												</form></td>
-										</tr>
 									</tbody>
+
 								</table>
 							</div>
 							<?php
@@ -127,7 +133,8 @@
 									<label for="idTipoArticuloLocal" class="col-sm-4 control-label">Tipo
 										de articulo</label>
 									<div class="col-sm-8">
-										<select class="pull-left" name="idTipoArticuloLocal" id="idTipoArticuloLocal">
+										<select class="pull-left" name="idTipoArticuloLocal"
+											id="idTipoArticuloLocal">
 											<?php foreach ($tiposArticuloPerLocal as $linea): ?>
 											<option class="form-control"
 												value="<?php echo $linea->id_tipo_articulo_local; ?>">
@@ -166,7 +173,8 @@
 									<label for="cantidadArticuloPersonalizado"
 										class="col-sm-4 control-label">Cantidad</label>
 									<div class="col-sm-8">
-										<select class="pull-left" value="1" name="cantidadArticuloPersonalizado"
+										<select class="pull-left" value="1"
+											name="cantidadArticuloPersonalizado"
 											id="cantidadArticuloPersonalizado">
 											<option class="form-control" value="1">1</option>
 											<option class="form-control" value="2">2</option>

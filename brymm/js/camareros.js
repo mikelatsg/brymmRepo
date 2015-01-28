@@ -136,8 +136,7 @@ function mostrarVentanaModificarCamarero(idCamarero, nombre, controlTotal) {
 						// Se envia el formulario que modifica el servicio
 						enviarFormulario(site_url
 								+ '/camareros/modificarCamarero',
-								'formModificarCamarero',
-								'listaCamareros', 1)
+								'formModificarCamarero', 'listaCamareros', 1)
 
 						// Se cierra el dialogo
 						$(this).dialog("close");
@@ -159,6 +158,23 @@ function mostrarVentanaModificarCamarero(idCamarero, nombre, controlTotal) {
 	return false;
 }
 
-$(document).ready(function() {
+function ocultarPlatosMenu() {
+	// $("div[id^='platosMenu_']").each(alert('uno'));
+	$('div[id^="platosMenu_"]').hide();
+	$('h3[id^="tituloMenu_"]').hide();
+}
 
+function mostrarMenuSeleccionado() {
+	var menuSeleccionado = $('select[name=idTipoMenuLocal]').val();
+	$('#tituloMenu_' + menuSeleccionado).show();
+	$('#platosMenu_' + menuSeleccionado).show();
+}
+
+function gestionMenuSeleccionado(){
+	ocultarPlatosMenu();
+	mostrarMenuSeleccionado();
+}
+
+$(document).ready(function() {
+	gestionMenuSeleccionado();
 })
