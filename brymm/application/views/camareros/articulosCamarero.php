@@ -49,8 +49,7 @@
 										<tr>
 											<td class="titulo">Precio</td>
 											<td><?php echo round($linea['precio'],2)?> <i
-												class="fa fa-euro"></i>
-											</td>
+												class="fa fa-euro"></i></td>
 										</tr>
 										<tr>
 											<td class="titulo">Cantidad</td>
@@ -83,11 +82,10 @@
 														<option class="form-control" value="24">24</option>
 														<option class="form-control" value="25">25</option>
 													</select>
-												</form>
-											</td>
+												</form></td>
 										</tr>
 										<tr>
-											<td><span class="pull-right">
+											<td colspan="2"><span class="pull-right">
 													<button class="btn btn-success btn-sm" type="button"
 														data-toggle="tooltip" data-original-title="Edit this user"
 														onclick="<?php
@@ -98,7 +96,8 @@
                     ?>">
 														<span class="glyphicon glyphicon-plus"></span>
 													</button>
-											</span></td>
+											</span>
+											</td>
 										</tr>
 									</tbody>
 
@@ -127,94 +126,98 @@
 						</div>
 						<div id="articulosPerCamarero"
 							class="panel-body collapse sub-panel">
-							<form id="formArticuloPerCamarero" class="form-horizontal"
-								role="form">
-								<div class="form-group">
-									<label for="idTipoArticuloLocal" class="col-sm-4 control-label">Tipo
-										de articulo</label>
-									<div class="col-sm-8">
-										<select class="pull-left" name="idTipoArticuloLocal"
-											id="idTipoArticuloLocal">
-											<?php foreach ($tiposArticuloPerLocal as $linea): ?>
-											<option class="form-control"
-												value="<?php echo $linea->id_tipo_articulo_local; ?>">
-												<?php echo $linea->tipo_articulo . " [ " . $linea->precio; ?>
-												<?php echo  " €]"; ?>
-											</option>
-											<?php endforeach; ?>
-										</select>
+							<div class="col-md-12 well">
+								<form id="formArticuloPerCamarero" class="form-horizontal"
+									role="form">
+									<div class="form-group">
+										<label for="idTipoArticuloLocal"
+											class="col-sm-4 control-label">Tipo de articulo</label>
+										<div class="col-sm-8">
+											<select class="pull-left" name="idTipoArticuloLocal"
+												id="idTipoArticuloLocal">
+												<?php foreach ($tiposArticuloPerLocal as $linea): ?>
+												<option class="form-control"
+													value="<?php echo $linea->id_tipo_articulo_local; ?>">
+													<?php echo $linea->tipo_articulo . " [ " . $linea->precio; ?>
+													<?php echo  " €]"; ?>
+												</option>
+												<?php endforeach; ?>
+											</select>
+										</div>
 									</div>
-								</div>
-								<div class="form-group">
-									<label for="idTipoArticuloLocal" class="col-sm-4 control-label">Ingredientes</label>
-									<?php 
-									$i=false;
-									foreach ($ingredientesLocal as $linea):
-									if ($i):
-									?>
-									<label for="idTipoArticuloLocal" class="col-sm-4 control-label"></label>
-									<?php
-									endif;
-									?>
-									<div class="checkbox col-md-8">
-										<label class="pull-left"> <input type="checkbox"
-											name="ingrediente[]"
-											value="<?php echo $linea->id_ingrediente;?>"> <?php echo $linea->ingrediente . " [" . $linea->precio ; ?>
-											<i class="fa fa-euro"></i> <?php echo " ]"; ?>
-										</label>
-									</div>
+									<div class="form-group">
+										<label for="idTipoArticuloLocal"
+											class="col-sm-4 control-label">Ingredientes</label>
+										<?php 
+										$i=false;
+										foreach ($ingredientesLocal as $linea):
+										if ($i):
+										?>
+										<label for="idTipoArticuloLocal"
+											class="col-sm-4 control-label"></label>
+										<?php
+										endif;
+										?>
+										<div class="checkbox col-md-8">
+											<label class="pull-left"> <input type="checkbox"
+												name="ingrediente[]"
+												value="<?php echo $linea->id_ingrediente;?>"> <?php echo $linea->ingrediente . " [" . $linea->precio ; ?>
+												<i class="fa fa-euro"></i> <?php echo " ]"; ?>
+											</label>
+										</div>
 
-									<?php
-									$i=true;
-									endforeach;
-									?>
-								</div>
-								<div class="form-group">
-									<label for="cantidadArticuloPersonalizado"
-										class="col-sm-4 control-label">Cantidad</label>
-									<div class="col-sm-8">
-										<select class="pull-left" value="1"
-											name="cantidadArticuloPersonalizado"
-											id="cantidadArticuloPersonalizado">
-											<option class="form-control" value="1">1</option>
-											<option class="form-control" value="2">2</option>
-											<option class="form-control" value="3">3</option>
-											<option class="form-control" value="4">4</option>
-											<option class="form-control" value="5">5</option>
-											<option class="form-control" value="6">6</option>
-											<option class="form-control" value="7">7</option>
-											<option class="form-control" value="8">8</option>
-											<option class="form-control" value="9">9</option>
-											<option class="form-control" value="10">10</option>
-											<option class="form-control" value="11">11</option>
-											<option class="form-control" value="12">12</option>
-											<option class="form-control" value="13">13</option>
-											<option class="form-control" value="14">14</option>
-											<option class="form-control" value="15">15</option>
-											<option class="form-control" value="16">16</option>
-											<option class="form-control" value="17">17</option>
-											<option class="form-control" value="18">18</option>
-											<option class="form-control" value="19">19</option>
-											<option class="form-control" value="20">20</option>
-											<option class="form-control" value="21">21</option>
-											<option class="form-control" value="22">22</option>
-											<option class="form-control" value="23">23</option>
-											<option class="form-control" value="24">24</option>
-											<option class="form-control" value="25">25</option>
-										</select>
+										<?php
+										$i=true;
+										endforeach;
+										?>
 									</div>
-								</div>
-							</form>
-							<span class="pull-right">
-								<button class="btn btn-success" type="button"
-									data-toggle="tooltip" data-original-title="Edit this user"
-									onclick="<?php
+									<div class="form-group">
+										<label for="cantidadArticuloPersonalizado"
+											class="col-sm-4 control-label">Cantidad</label>
+										<div class="col-sm-8">
+											<select class="pull-left" value="1"
+												name="cantidadArticuloPersonalizado"
+												id="cantidadArticuloPersonalizado">
+												<option class="form-control" value="1">1</option>
+												<option class="form-control" value="2">2</option>
+												<option class="form-control" value="3">3</option>
+												<option class="form-control" value="4">4</option>
+												<option class="form-control" value="5">5</option>
+												<option class="form-control" value="6">6</option>
+												<option class="form-control" value="7">7</option>
+												<option class="form-control" value="8">8</option>
+												<option class="form-control" value="9">9</option>
+												<option class="form-control" value="10">10</option>
+												<option class="form-control" value="11">11</option>
+												<option class="form-control" value="12">12</option>
+												<option class="form-control" value="13">13</option>
+												<option class="form-control" value="14">14</option>
+												<option class="form-control" value="15">15</option>
+												<option class="form-control" value="16">16</option>
+												<option class="form-control" value="17">17</option>
+												<option class="form-control" value="18">18</option>
+												<option class="form-control" value="19">19</option>
+												<option class="form-control" value="20">20</option>
+												<option class="form-control" value="21">21</option>
+												<option class="form-control" value="22">22</option>
+												<option class="form-control" value="23">23</option>
+												<option class="form-control" value="24">24</option>
+												<option class="form-control" value="25">25</option>
+											</select>
+										</div>
+									</div>
+								</form>
+								<span class="pull-right">
+									<button class="btn btn-success" type="button"
+										data-toggle="tooltip" data-original-title="Edit this user"
+										onclick="<?php
             echo "enviarFormulario('" . site_url() .
             "/comandas/anadirArticuloPerComanda','formArticuloPerCamarero','mostrarComanda',1)"
             ?>">
-									<span class="glyphicon glyphicon-plus"></span>
-								</button>
-							</span>
+										<span class="glyphicon glyphicon-plus"></span>
+									</button>
+								</span>
+							</div>
 						</div>
 					</div>
 					<?php

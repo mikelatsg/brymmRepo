@@ -159,9 +159,10 @@ function mostrarVentanaModificarCamarero(idCamarero, nombre, controlTotal) {
 }
 
 function ocultarPlatosMenu() {
-	// $("div[id^='platosMenu_']").each(alert('uno'));
 	$('div[id^="platosMenu_"]').hide();
 	$('h3[id^="tituloMenu_"]').hide();
+	//Pongo las cantidades de todos los platos a 0
+	$('select[name^="platoCantidad_"]').val(0);
 }
 
 function mostrarMenuSeleccionado() {

@@ -84,8 +84,16 @@
 }
 
 .sub-panel>.panel-body {
-	background-color: #E6E6E6; /*#D8D8D8;*/
+	/*background-color: #E6E6E6; /*#D8D8D8;*/
 	border-radius: 5px;
+		
+	background: -webkit-linear-gradient(top, #BFE1BE, #90A48F);	
+	background: -moz-linear-gradient(bottom, #C6C7C5, #F5F5F5);
+	background: -o-linear-background(top, black, white);	
+	background: -ms-linear-background(top, #BFE1BE, #90A48F);	
+	background: linear-background(top, #BFE1BE, #90A48F);
+	background: -o-linear-background(top, #BFE1BE, #90A48F);
+	
 }
 
 .sub-panel {
@@ -164,6 +172,27 @@
 
 .titulo {
 	font-weight: bold;
+}
+
+.fondo {
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white),
+		to(black));
+	/* Safari 5.1+, Chrome 10+ */
+	background: -webkit-radial-gradient(ellipse, #BFE1BE, #90A48F);
+	/* Firefox 3.6+ */	
+	background: -moz-radial-gradient(ellipse, #BFE1BE, #90A48F);	
+	/* Opera 11.10+ */
+	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
+	/* IE 10 */
+	background: -ms-radial-background(ellipse, #BFE1BE, #90A48F);
+	/* estándar */
+	background: radial-background(ellipse, #BFE1BE, #90A48F);
+	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
+}
+
+#menuH{
+	margin-top:20px;
 }
 
 body {

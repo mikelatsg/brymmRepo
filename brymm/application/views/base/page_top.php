@@ -1,4 +1,4 @@
-<body>
+<body class="fondo">
 	<div id="container" align="center" class="container">
 
 		<!-- Web -->
