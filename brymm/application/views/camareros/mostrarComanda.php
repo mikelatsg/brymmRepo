@@ -12,39 +12,63 @@
 					</h4>
 				</div>
 				<div id="listaComandasActivas" class="panel-body collapse sub-panel">
-					<ul>
-						<?php foreach ($comandasActivas as $comandaActiva): ?>
-						<li><?php
-						echo $comandaActiva->id_comanda . " - ";
-						if ($comandaActiva->id_mesa == 0) {
-                    echo $comandaActiva->destino;
-                } else {
-                    echo $comandaActiva->nombreMesa;
-                }
-                echo " - " . $comandaActiva->nombreCamarero
-                . " - " . $comandaActiva->precio . " - " . $comandaActiva->estado . " - "
-								. $comandaActiva->fecha_alta;
-                ?> <a
-							onclick="<?php
-                echo "doAjax('" . site_url() . "/comandas/cerrarComandaCamarero','idComanda="
-                . $comandaActiva->id_comanda . "','listaComandas','post',1)";
-                ?>
-                   "> Cerrar </a> <a
-							onclick="<?php
+					<?php $hayComandasActivas = false;
+					foreach ($comandasActivas as $comandaActiva):
+					 $hayComandasActivas = true;?>
+					<div class="col-md-12 list-div">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td colspan="3">Comanda <?php echo $comandaActiva->id_comanda;?>
+										<button class="btn btn-danger btn-sm pull-right" type="button"
+											data-toggle="tooltip" data-original-title="Remove this user"
+											onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/cancelarComandaCamarero','idComanda="
                 . $comandaActiva->id_comanda . "','listaComandas','post',1)";
-                ?>
-                   "> Cancelar </a> <a
-							onclick="<?php
+                ?>">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button>
+										<button class="btn btn-warning btn-sm pull-right"
+											type="button" data-toggle="tooltip"
+											data-original-title="Remove this user"
+											onclick="<?php
+                echo "doAjax('" . site_url() . "/comandas/cerrarComandaCamarero','idComanda="
+                . $comandaActiva->id_comanda . "','listaComandas','post',1)";
+                ?>">
+											<span class="glyphicon glyphicon-check"></span>
+										</button>
+										<button class="btn btn-default btn-sm pull-right"
+											type="button" data-toggle="tooltip"
+											data-original-title="Remove this user"
+											onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
                 . $comandaActiva->id_comanda . "','mostrarComandaRealizada','post',1)";
-                ?>
-                   "> Ver </a>
-						</li>
-						<?php
-						endforeach;
-						?>
-					</ul>
+                ?>">
+											<span class="glyphicon glyphicon-eye-open"></span>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td><?php echo $comandaActiva->nombreCamarero;?> <i
+										class="fa fa-user"></i>
+									</td>
+									<td><?php echo $comandaActiva->precio;?> <i class="fa fa-euro">
+									
+									</td>
+									<td><?php if ($comandaActiva->id_mesa == 0) {
+										echo $comandaActiva->destino;
+									} else {
+                    echo $comandaActiva->nombreMesa;
+                }?> <i class="fa fa-flag">
+									
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<?php
+					endforeach;
+					?>
 				</div>
 			</div>
 			<div id="camandasCerradasPanel" class="panel panel-default sub-panel">
@@ -56,9 +80,42 @@
 				</div>
 				<div id="listaComandasCerradas"
 					class="panel-body collapse sub-panel">
-					<ul>
-						<?php foreach ($comandasCerradas as $comandaCerrada): ?>
-						<li><?php
+					<?php foreach ($comandasCerradas as $comandaCerrada): ?>
+					<div class="col-md-12 list-div">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td colspan="3">Comanda <?php echo $comandaCerrada->id_comanda;?>
+										<button class="btn btn-default btn-sm pull-right"
+											type="button" data-toggle="tooltip"
+											data-original-title="Remove this user"
+											onclick="<?php
+                echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
+                . $comandaCerrada->id_comanda . "','mostrarComandaRealizada','post',1)";
+                ?>">
+											<span class="glyphicon glyphicon-eye-open"></span>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td><?php echo $comandaCerrada->nombreCamarero;?> <i
+										class="fa fa-user"></i>
+									</td>
+									<td><?php echo $comandaCerrada->precio;?> <i class="fa fa-euro">
+									
+									</td>
+									<td><?php if ($comandaCerrada->id_mesa == 0) {
+										echo $comandaCerrada->destino;
+									} else {
+                    echo $comandaCerrada->nombreMesa;
+                }?> <i class="fa fa-flag">
+									
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- <li><?php
 						echo $comandaCerrada->id_comanda . " - ";
 						if ($comandaCerrada->id_mesa == 0) {
                     echo $comandaCerrada->destino;
@@ -74,11 +131,10 @@
                 . $comandaCerrada->id_comanda . "','mostrarComandaRealizada','post',1)";
                 ?>
                    "> Ver </a>
-						</li>
-						<?php
-						endforeach;
-						?>
-					</ul>
+						</li> -->
+					<?php
+					endforeach;
+					?>
 				</div>
 			</div>
 		</div>
@@ -87,41 +143,81 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">Detalle comanda</h4>
 				</div>
-				<div id="mostrarComanda" class="panel-body sub-panel">
-					<ul>
-						<?php
-						$existeComanda = false;
-						$existeArticuloPer = false;
-						$existeArticulo = false;
-						$existeCarta = false;
-						$existeMenu = false;
-						$articulos = "";
-						$articulosPer = "";
-						$menus = "";
-						$cartas = "";
-						$detalleComanda = "";
-						foreach ($comanda as $linea) {
-							$existeComanda = true;
-
+				<div class="panel-body sub-panel" class="panel-body sub-panel">
+					<div id="mostrarComanda">
+						<ul>
+							<?php
+							$existeComanda = false;
+							$existeArticuloPer = false;
+							$existeArticulo = false;
+							$existeCarta = false;
+							$existeMenu = false;
+							$articulos = "";
+							$articulosPer = "";
+							$menus = "";
+							$cartas = "";
 							$detalleComanda = "";
-							$detalleComanda = $linea['name'] . " - " . $linea['qty'] . " - " . $linea['price'];
-							$detalleComanda .= htmlentities("<a onclick=\"doAjax('" .
+							foreach ($comanda as $linea) {
+								$existeComanda = true;
+									
+									
+								$detalleComanda = "";
+								//Nombre
+								$detalleComanda .= htmlentities("<tr> ");
+								$detalleComanda .= htmlentities("<td> ");
+								$detalleComanda .= "Nombre";
+								$detalleComanda .= htmlentities("</td> ");
+								$detalleComanda .= htmlentities("<td> ");
+								$detalleComanda .= $linea['name'];
+								$detalleComanda .= htmlentities("</td> ");
+								$detalleComanda .= htmlentities("<td> ");
+								$detalleComanda .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
+																	type=\"button\" data-toggle=\"tooltip\"
+																	data-original-title=\"Remove this user\"
+																	onclick=\"doAjax('" .
 									site_url() . "/comandas/borrarArticuloComanda','rowid=" .
-									$linea['rowid'] . "','mostrarComanda','post',1)\"> X </a>");
+									$linea['rowid'] . "','mostrarComanda','post',1)\"> <span class=\"glyphicon glyphicon-remove\"></span>
+								                </button>");
+							$detalleComanda .= htmlentities("</td> ");
+							$detalleComanda .= htmlentities("</tr> ");
+								
+							//Cantidad
+							$detalleComanda .= htmlentities("<tr> ");
+							$detalleComanda .= htmlentities("<td> ");
+							$detalleComanda .= "Cantidad";
+							$detalleComanda .= htmlentities("</td> ");
+							$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
+							$detalleComanda .= $linea['qty'];
+							$detalleComanda .= htmlentities("</td> ");
+							$detalleComanda .= htmlentities("</tr> ");
+								
+							//Precio
+							$detalleComanda .= htmlentities("<tr> ");
+							$detalleComanda .= htmlentities("<td class=\"separadorArticulo\"> ");
+							$detalleComanda .= "Precio";
+							$detalleComanda .= htmlentities("</td> ");
+							$detalleComanda .= htmlentities("<td colspan=\"2\" class=\"separadorArticulo\"> ");
+							$detalleComanda .= $linea['price'];
+							$detalleComanda .= htmlentities("</td> ");
+							$detalleComanda .= htmlentities("</tr> ");
+								
+							/*$detalleComanda = $linea['name'] . " - " . $linea['qty'] . " - " . $linea['price'];
+							 $detalleComanda .= htmlentities("<a onclick=\"doAjax('" .
+									site_url() . "/comandas/borrarArticuloComanda','rowid=" .
+							 		$linea['rowid'] . "','mostrarComanda','post',1)\"> X </a>");*/
 
 							//Articulo
 							if ($linea['options']['idTipoComanda'] == 1) {
 								if (!$existeArticulo) {
-									$articulos = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");
+									$articulos = htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
+									$articulos .= htmlentities("<div class=\"well col-md-12\">");
+									$articulos .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
+									$articulos .= htmlentities("<tbody>");
 								}
-								$articulos .= htmlentities("<li> ");
-								/* echo $linea['name'] . " - " . $linea['qty'] . " - " . $linea['price'];
-								 echo "<a onclick=\"doAjax('" .
-								 		site_url() . "/camareros/borrarArticuloComanda','rowid=" .
-								 		$linea['rowid'] . "','mostrarComanda','post',1)\"> X ";
-								echo "</a>"; */
+								//$articulos .= htmlentities("<li> ");
+
 								$articulos .= $detalleComanda;
-								$articulos .= htmlentities("</li>");
+								//$articulos .= htmlentities("</li>");
 								$existeArticulo = true;
 
 								//echo "<br>";
@@ -130,10 +226,17 @@
 							//Articulo personalizado
 							if ($linea['options']['idTipoComanda'] == 2) {
 								if (!$existeArticuloPer) {
-									$articulosPer = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");
+									//$articulosPer = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");	
+
+									$articulosPer = htmlentities("<span class=\"col-md-12\">");																		
+									$articulosPer .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
+									$articulosPer .= htmlentities("</span>");
+									$articulosPer .= htmlentities("<div class=\"well col-md-12\">");
+									$articulosPer .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
+									$articulosPer .= htmlentities("<tbody>");
 								}
 
-								$articulosPer .= htmlentities("<li> ");
+								//$articulosPer .= htmlentities("<li> ");
 								$articulosPer .= $detalleComanda;
 
 
@@ -148,7 +251,7 @@
 									$articulosPer .= $ingredientes['ingrediente'];
 									$i += 1;
 								}
-								$articulosPer .= htmlentities("</li>");
+								//$articulosPer .= htmlentities("</li>");
 							}
 
 							//Menu
@@ -189,12 +292,28 @@
 								$cartas .= htmlentities("</li>");
 								$existeCarta = true;
 							}
+							}
+
+							//Cierro el div y la tabla
+							if ($existeArticulo){
+							$articulos .= htmlentities("</tbody>");
+							$articulos .= htmlentities("</table>");
+							$articulos .= htmlentities("</div>");
+						}
+						
+						//Cierro el div y la tabla
+						if ($existeArticuloPer){
+							$articulosPer .= htmlentities("</tbody>");
+							$articulosPer .= htmlentities("</table>");
+							$articulosPer .= htmlentities("</div>");
 						}
 						//Se muestran los datos
+						echo html_entity_decode("<div class=\"col-md-8\">");
 						echo html_entity_decode($articulos);
 						echo html_entity_decode($articulosPer);
 						echo html_entity_decode($menus);
 						echo html_entity_decode($cartas);
+						echo html_entity_decode("</div>");
 
 						if ($existeComanda) {
 						echo "Total : " . $precioTotalComanda;
@@ -204,10 +323,92 @@
 						"Cancelar</a>";
         }
         ?>
-					</ul>
+						</ul>
+					</div>
+					<div class="col-md-12 well">
+						<form id="formAceptarComanda" class="form-horizontal">
+							<div class="form-group">
+								<label for="paraLlevar" class="col-sm-4 control-label">Para
+									llevar </label>
+								<div class="col-sm-8">
+									<input type="radio" name="localLlevar" id="comandaParaLlevar"
+										value="0" class="pull-left"
+										onchange="<?php echo "gestionDestinoComanda()";?>">
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label for="aNombre" class="col-sm-4 control-label">A nombre de
+								</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="aNombre"
+										placeholder="A nombre de" name="aNombre">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="comandaLocal" class="col-sm-4 control-label">Local </label>
+								<div class="col-sm-8">
+									<input type="radio" name="localLlevar" id="comandaLocal"
+										value="1" class="pull-left" checked
+										onchange="<?php echo "gestionDestinoComanda()";?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="idMesaLocal" class="col-sm-4 control-label">Mesa</label>
+								<div class="col-sm-8">
+									<select name="idMesaLocal" id="idMesaLocal" class="pull-left">
+										<?php foreach ($mesasLocal as $mesa): ?>
+										<option class="form-control"
+											value="<?php echo $mesa->id_mesa_local; ?>">
+											<?php echo $mesa->nombre_mesa; ?>
+										</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="observaciones" class="col-sm-4 control-label">Observaciones
+								</label>
+								<div class="col-sm-8">
+									<textarea class="form-control" id="observaciones"
+										placeholder="Observaciones" name="observaciones"></textarea>
+								</div>
+							</div>
+							<span>
+								<button class="btn btn-success" type="button"
+									data-toggle="tooltip" data-original-title="Edit this user"
+									onclick="<?php
+                           echo "enviarFormulario('" . site_url() .
+                           "/comandas/aceptarComanda','formAceptarComanda','mostrarComandasActivas',1)"
+                           ?>">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button> <?php if ($hayComandasActivas):?> <label
+								for="cmbComandasActivas" class="control-label">Añadir a comanda</label>
+								<select name="idComandaAbierta" id="cmbComandasActivas">
+									<?php foreach ($comandasActivas as $comanda): ?>
+									<option class="form-control"
+										value="<?php echo $comanda->id_comanda ?>">
+										<?php echo $comanda->id_comanda; ?>
+									</option>
+									<?php endforeach; ?>
+							</select>
+								<button class="btn btn-success" type="button"
+									data-toggle="tooltip" data-original-title="Edit this user"
+									onclick="<?php
+                           echo "enviarFormulario('" . site_url() .
+                           "/comandas/anadirComanda','formAceptarComanda','mostrarComandasActivas',1)"
+                           ?>">
+									<span class="glyphicon glyphicon-import"> </span>
+								</button> <?php endif;?>
+
+
+							</span>
+
+						</form>
+					</div>
 				</div>
 
-				<div id="formularioComanda" class="panel-body sub-panel">
+				<!-- <div id="formularioComanda" class="panel-body sub-panel">
 					<form id="formAceptarComanda">
 						<table>
 							<tr>
@@ -277,7 +478,7 @@
 							</tr>
 						</table>
 					</form>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

@@ -37,14 +37,12 @@
 												id="tituloMenu_<?php echo $menu['idTipoMenuLocal'];?>">
 												<span class="label label-danger"> <?php echo $plato['tipoPlato'];?>
 												</span>
-											</h4>
-										</td>
+											</h4></td>
 									</tr>
 									<?php endif;?>
 									<tr>
 										<td class="titulo">Plato</td>
-										<td><?php echo $plato['nombrePlato']?>
-										</td>
+										<td><?php echo $plato['nombrePlato']?></td>
 										<td><select
 											name="platoCantidad_<?php echo $plato['idPlatoLocal']; ?>"
 											id="platoCantidad_<?php echo $plato['idPlatoLocal'] ?>">
@@ -74,8 +72,7 @@
 												<option class="form-control" value="23">23</option>
 												<option class="form-control" value="24">24</option>
 												<option class="form-control" value="25">25</option>
-										</select>
-										</td>
+										</select></td>
 										<td>
 											<button class="btn btn-success btn-sm" type="button"
 												data-toggle="tooltip" data-original-title="Edit this user"
@@ -116,7 +113,8 @@
 												<?php
 												endif;
 									endforeach; ?>
-										</select></td>
+										</select>
+										</td>
 									</tr>
 									<tr>
 										<td class="titulo">Cantidad</td>
@@ -146,7 +144,8 @@
 												<option class="form-control" value="23">23</option>
 												<option class="form-control" value="24">24</option>
 												<option class="form-control" value="25">25</option>
-										</select></td>
+										</select>
+										</td>
 									</tr>
 									<tr>
 										<td colspan="2"><span class="pull-right">
@@ -158,7 +157,8 @@
 					                           ?>">
 													<span class="glyphicon glyphicon-plus"></span>
 												</button>
-										</span></td>
+										</span>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -195,15 +195,13 @@
 									<td colspan="4"><h4>
 											<span class="label label-danger"> <?php echo $plato['tipoPlato'];?>
 											</span>
-										</h4>
-									</td>
+										</h4></td>
 								</tr>
 
 								<?php endif;?>
 								<tr>
 									<td class="titulo">Plato</td>
-									<td><?php echo $plato['nombrePlato']?>
-									</td>
+									<td><?php echo $plato['nombrePlato']?></td>
 									<td><select
 										name="cantidadPL_<?php echo $menu['idTipoMenuLocal']."_".$plato['idPlatoLocal']; ?>"
 										id="cantidadPL_<?php echo $menu['idTipoMenuLocal']."_".$plato['idPlatoLocal'] ?>">
@@ -233,8 +231,7 @@
 											<option class="form-control" value="23">23</option>
 											<option class="form-control" value="24">24</option>
 											<option class="form-control" value="25">25</option>
-									</select>
-									</td>
+									</select></td>
 									<td>
 										<button class="btn btn-success btn-sm" type="button"
 											data-toggle="tooltip" data-original-title="Edit this user"
@@ -261,21 +258,6 @@
 					endif;
 					endforeach;
 					?>
-
-
-					<!-- <li><?php echo $plato['nombrePlato'] . "-" . $plato['precioPlato'] ?>
-							<br>Cantidad <input type="text" size="2" maxlength="2" value="1"
-							id="<?php echo "cantidadPL" . $plato['idPlatoLocal'] ?>"> <a
-							onclick="<?php
-                        echo "enviarArticuloComanda('" . site_url()
-                        . "/comandas/anadirPlatoComanda','idPlatoLocal="
-                        . $plato['idPlatoLocal'] . "&precioPlato="
-                        . $plato['precioPlato']
-                        . "&nombrePlato=" . $plato['nombrePlato'] .
-                        "','cantidadPL" . $plato['idPlatoLocal']
-                        . "','mostrarComanda',1)";
-                        ?>"> + </a>
-						</li> -->
 				</div>
 			</div>
 		</div>

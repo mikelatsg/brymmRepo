@@ -171,6 +171,22 @@ function mostrarMenuSeleccionado() {
 	$('#platosMenu_' + menuSeleccionado).show();
 }
 
+/*
+ * Activa o desactiva los inputs dependiendo si la comanda es para llevar
+ * o para el local
+ */
+function gestionDestinoComanda(){
+	if ($('#comandaParaLlevar').is(':checked')){
+		$('#idMesaLocal').prop("disabled",true);
+		$('#aNombre').prop("disabled",false);
+	}
+	
+	if ($('#comandaLocal').is(':checked')){
+		$('#idMesaLocal').prop("disabled",false);
+		$('#aNombre').prop("disabled",true);
+	}
+}
+
 function gestionMenuSeleccionado(){
 	ocultarPlatosMenu();
 	mostrarMenuSeleccionado();
@@ -178,4 +194,5 @@ function gestionMenuSeleccionado(){
 
 $(document).ready(function() {
 	gestionMenuSeleccionado();
+	gestionDestinoComanda();
 })
