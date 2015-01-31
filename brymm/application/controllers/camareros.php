@@ -88,6 +88,9 @@ class Camareros extends CI_Controller {
 		$existeServicio =
 		$this->Servicios_model->servicioLocalActivo($_SESSION['idLocal'], 4)->num_rows();
 
+		$var4['mesasLocal'] =
+		$this->Reservas_model->obtenerMesasLocal($_SESSION['idLocal'])->result();
+
 		//Se comprueban los menus
 		$hayMenus = false;
 		if ($existeServicio) {
@@ -99,8 +102,7 @@ class Camareros extends CI_Controller {
 			$this->Menus_model->obtenerMenuDia($_SESSION['idLocal']
 					, DateTime::createFromFormat('Y-m-d', date('Y-m-d')));
 
-			$var3['mesasLocal'] =
-			$this->Reservas_model->obtenerMesasLocal($_SESSION['idLocal'])->result();
+			$var3['mesasLocal'] = $var4['mesasLocal'];
 		}
 
 		$this->load->library('cart');

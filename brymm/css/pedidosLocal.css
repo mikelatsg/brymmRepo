@@ -20,6 +20,10 @@
 	border-bottom:2px solid #7290B8;
 }
 
+.separadorMenuPlato{
+	border-bottom:2px dotted #7290B8;
+}
+
 .cabeceraPlato{
 	text-align:center;
 }
