@@ -125,21 +125,22 @@ class Camareros extends CI_Controller {
 				, 'camareros', 'comandas', 'mensajes' ,'js/bootstrap.min');
 
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
-				, 'general.css','pedidosLocal.css'
+				, 'general.css','pedidosLocal.css','camareros.css'
 		);
 
 		//Se carga el siguiente paso del alta
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $msg);
 		$this->load->view('camareros/mostrarComanda', $var4);
+		$var3['hayPedido'] = false;
 		if ($hayPedido || $hayComanda) {
 			$this->load->view('camareros/articulosCamarero', $var2);
+			$var3['hayPedido'] = true;
 		}
-		if ($hayMenus) {
+		if ($hayMenus) {			 
 			$this->load->view('camareros/menusCamarero', $var3);
 		}
-		$this->load->view('camareros/gestionCamareros', $var);
-		//$this->load->view('camareros/mostrarComandasRealizadas', $var5);
+		$this->load->view('camareros/gestionCamareros', $var);		
 		$this->load->view('base/page_bottom');
 	}
 
