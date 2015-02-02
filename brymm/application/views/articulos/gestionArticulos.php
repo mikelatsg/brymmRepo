@@ -44,7 +44,7 @@
 						type="checkbox"> Se puede enviar en pedidos</label>
 				</div>
 			</div>
-		</div>
+		</div>		
 		<?php $inicio = true; 
 		foreach ($ingredientes as $linea):
 		if ($inicio):

@@ -15,7 +15,7 @@ function enviarArticuloComanda(url, query, inputid, callback, getxml) {
 
 function mostrarComanda(item) {
 
-	var contenido = "<ul>";
+	var contenido = "";
 	var contenidoMenu = "";
 	var existeMenu = false;
 	var existeCarta = false;
@@ -34,100 +34,322 @@ function mostrarComanda(item) {
 	var precioTotal;
 	// Vacio el div donde se muestra la comanda
 	$("#mostrarComanda").empty();
-	$(item).find('pedido').children().each(
-			function() {
+	$(item)
+			.find('pedido')
+			.children()
+			.each(
+					function() {
 
-				funcionBorrar = "";
-				contenidoTemporal = "";
-				detalleMenu = "";
-				detalleArticuloPer = ""
+						funcionBorrar = "";
+						contenidoTemporal = "";
+						detalleMenu = "";
+						detalleArticuloPer = ""
 
-				// Se obtienen los valores del xml
-				var nombre = $.trim($(this).find('name').text());
-				var cantidad = $.trim($(this).find('qty').text());
-				var precio = $.trim($(this).find('price').text());
-				var id = $.trim($(this).find('id').text());
-				var tipoComanda = $.trim($(this).find('tipoComanda').text());
-				var idTipoComanda = $
-						.trim($(this).find('idTipoComanda').text());
-				var tipoArticulo = $.trim($(this).find('tipoArticulo').text());
-				rowid = $.trim($(this).find('rowid').text());
-				// Si el campo nombre no esta informado no escribimos nada, se
-				// trata del total
-				if (nombre != "") {
-					existeComanda = 1;
-					funcionBorrar = "doAjax('" + site_url
-							+ "/comandas/borrarArticuloComanda','rowid="
-							+ rowid
-					funcionBorrar = funcionBorrar
-							+ "','mostrarComanda','post',1)";
-					contenidoTemporal = contenidoTemporal + "<li>" + nombre
-							+ " - " + cantidad + " - " + precio;
-					contenidoTemporal = contenidoTemporal + "<a onclick="
-							+ funcionBorrar + "> X </a>";
-					contenidoTemporal = contenidoTemporal + "</li>";
-					if (idTipoComanda == 1) {
-						// Articulo
-						if (!existeArticulo) {
-							contenidoArticulo = "<h4>" + tipoComanda + "</h4>";
+						// Se obtienen los valores del xml
+						var nombre = $.trim($(this).find('name').text());
+						var cantidad = $.trim($(this).find('qty').text());
+						var precio = $.trim($(this).find('price').text());
+						var id = $.trim($(this).find('id').text());
+						var tipoComanda = $.trim($(this).find('tipoComanda')
+								.text());
+						var idTipoComanda = $.trim($(this)
+								.find('idTipoComanda').text());
+						var tipoArticulo = $.trim($(this).find('tipoArticulo')
+								.text());
+						rowid = $.trim($(this).find('rowid').text());
+						// Si el campo nombre no esta informado no escribimos
+						// nada, se
+						// trata del total
+						if (nombre != "") {
+							existeComanda = 1;
+							funcionBorrar = "doAjax('"
+									+ site_url
+									+ "/comandas/borrarArticuloComanda','rowid="
+									+ rowid;							
+
+							botonBorrar = "<button class=\"btn btn-danger btn-sm pull-right\""
+									+ "type=\"button\" data-toggle=\"tooltip\""
+									+ "data-original-title=\"Remove this user\" onclick=\""
+									+ "doAjax('"
+									+ site_url
+									+ "/comandas/borrarArticuloComanda','rowid="
+									+ rowid
+									+ "','mostrarComanda','post',1)\">"
+									+ "<span class=\"glyphicon glyphicon-remove\"></span>"
+									+ "</button>";
+
+							if (idTipoComanda == 1) {
+								// Articulo
+								if (!existeArticulo) {
+									
+									contenidoArticulo = "<span class=\"col-md-12\">";
+									contenidoArticulo += "<span class=\"badge progress-bar-danger\">"
+											+ tipoComanda + "</span>";
+									contenidoArticulo += "</span>";
+									contenidoArticulo += "<div class=\"well col-md-12\">";
+									contenidoArticulo += "<table class=\"table table-condensed table-responsive table-user-information\">";
+									contenidoArticulo += "<tbody>";
+								}
+								existeArticulo = true;
+								contenidoArticulo += "<tr>";
+								contenidoArticulo += "<td class=\"titulo\">";
+								contenidoArticulo += "Nombre";
+								contenidoArticulo += "</td>";
+								contenidoArticulo += "<td class=\"titulo\">";
+								contenidoArticulo += nombre;
+								contenidoArticulo += "</td>";
+								contenidoArticulo += "<td>";
+								contenidoArticulo += botonBorrar;
+								contenidoArticulo += "</td>";
+								contenidoArticulo += "</tr>";
+
+								contenidoArticulo += "<tr>";
+								contenidoArticulo += "<td class=\"titulo\">";
+								contenidoArticulo += "Cantidad";
+								contenidoArticulo += "</td>";
+								contenidoArticulo += "<td colspan=\"2\">";
+								contenidoArticulo += cantidad;
+								contenidoArticulo += "</td>";
+								contenidoArticulo += "</tr>";
+
+								contenidoArticulo += "<tr>";
+								contenidoArticulo += "<td class=\"separadorArticulo titulo\">";
+								contenidoArticulo += "Precio";
+								contenidoArticulo += "</td>";
+								contenidoArticulo += "<td class=\"separadorArticulo\" colspan=\"2\">";
+								contenidoArticulo += precio;
+								contenidoArticulo += "<i class=\"fa fa-euro\"></i>";
+								contenidoArticulo += "</td>";
+								contenidoArticulo += "</tr>";
+
+							} else if (idTipoComanda == 2) {
+								// Articulo personalizado
+								// Si es el primer articulo personalizado se
+								// muestra el
+								// titulo
+								if (!existeArticuloPer) {									
+									contenidoArticuloPer = "<span class=\"col-md-12\">";
+									contenidoArticuloPer += "<span class=\"badge progress-bar-danger\">"
+											+ tipoComanda + "</span>";
+									contenidoArticuloPer += "</span>";
+									contenidoArticuloPer += "<div class=\"well col-md-12\">";
+									contenidoArticuloPer += "<table class=\"table table-condensed table-responsive table-user-information\">";
+									contenidoArticuloPer += "<tbody>";
+								}
+								existeArticuloPer = true;
+								detalleArticuloPer = mostrarDetalleArticuloPer(
+										$(this).find('options'), tipoArticulo);
+
+								contenidoArticuloPer += "<tr>";
+								contenidoArticuloPer += "<td class=\"titulo\">";
+								contenidoArticuloPer += "Nombre";
+								contenidoArticuloPer += "</td>";
+								contenidoArticuloPer += "<td class=\"titulo\">";
+								contenidoArticuloPer += nombre;
+								contenidoArticuloPer += "</td>";
+								contenidoArticuloPer += "<td>";
+								contenidoArticuloPer += botonBorrar;
+								contenidoArticuloPer += "</td>";
+								contenidoArticuloPer += "</tr>";
+
+								contenidoArticuloPer += "<tr>";
+								contenidoArticuloPer += "<td class=\"titulo\">";
+								contenidoArticuloPer += "Cantidad";
+								contenidoArticuloPer += "</td>";
+								contenidoArticuloPer += "<td>";
+								contenidoArticuloPer += cantidad;
+								contenidoArticuloPer += "</td>";
+								contenidoArticuloPer += "</tr>";
+
+								contenidoArticuloPer += "<tr>";
+								contenidoArticuloPer += "<td class=\"titulo\">";
+								contenidoArticuloPer += "Precio";
+								contenidoArticuloPer += "</td>";
+								contenidoArticuloPer += "<td>";
+								contenidoArticuloPer += precio;
+								contenidoArticuloPer += "<i class=\"fa fa-euro\"></i>";
+								contenidoArticuloPer += "</td>";
+								contenidoArticuloPer += "</tr>";
+
+								contenidoArticuloPer += detalleArticuloPer;
+								
+							} else if (idTipoComanda == 3) {
+								// Menu
+								// Si es el primer menu se muestra el titulo
+								if (!existeMenu) {
+									
+									contenidoMenu = "<span class=\"col-md-12\">";
+									contenidoMenu += "<span class=\"badge progress-bar-danger\">"
+											+ tipoComanda + "</span>";
+									contenidoMenu += "</span>";
+									contenidoMenu += "<div class=\"well col-md-12\">";
+									contenidoMenu += "<table class=\"table table-condensed table-responsive table-user-information\">";
+									contenidoMenu += "<tbody>";
+								}
+
+								contenidoMenu += "<tr>";
+								contenidoMenu += "<td class=\"titulo\">";
+								contenidoMenu += "Nombre";
+								contenidoMenu += "</td>";
+								contenidoMenu += "<td class=\"titulo\">";
+								contenidoMenu += nombre;
+								contenidoMenu += "</td>";
+								contenidoMenu += "<td>";
+								contenidoMenu += botonBorrar;
+								contenidoMenu += "</td>";
+								contenidoMenu += "</tr>";
+
+								contenidoMenu += "<tr>";
+								contenidoMenu += "<td class=\"titulo\">";
+								contenidoMenu += "Cantidad";
+								contenidoMenu += "</td>";
+								contenidoMenu += "<td colspan=\"2\">";
+								contenidoMenu += cantidad;
+								contenidoMenu += "</td>";
+								contenidoMenu += "</tr>";
+
+								contenidoMenu += "<tr>";
+								contenidoMenu += "<td class=\"separadorMenuPlato titulo\">";
+								contenidoMenu += "Precio";
+								contenidoMenu += "</td>";
+								contenidoMenu += "<td class=\"separadorMenuPlato\" colspan=\"2\">";
+								contenidoMenu += precio;
+								contenidoMenu += "<i class=\"fa fa-euro\"></i>";
+								contenidoMenu += "</td>";
+								contenidoMenu += "</tr>";
+
+								existeMenu = true;
+								detalleMenu = mostrarDetalleMenu($(this).find(
+										'options'));
+
+								contenidoMenu += detalleMenu;
+								/*
+								 * contenidoMenu = contenidoMenu +
+								 * contenidoTemporal + detalleMenu;
+								 */
+
+							} else {
+								// Carta
+								if (!existeCarta) {
+									
+									contenidoCarta = "<span class=\"col-md-12\">";
+									contenidoCarta += "<span class=\"badge progress-bar-danger\">"
+											+ tipoComanda + "</span>";
+									contenidoCarta += "</span>";
+									contenidoCarta += "<div class=\"well col-md-12\">";
+									contenidoCarta += "<table class=\"table table-condensed table-responsive table-user-information\">";
+									contenidoCarta += "<tbody>";
+								}
+								existeCarta = true;
+
+								contenidoCarta += "<tr>";
+								contenidoCarta += "<td class=\"titulo\">";
+								contenidoCarta += "Plato";
+								contenidoCarta += "</td>";
+								contenidoCarta += "<td class=\"titulo\">";
+								contenidoCarta += nombre;
+								contenidoCarta += "</td>";
+								contenidoCarta += "<td>";
+								contenidoCarta += botonBorrar;
+								contenidoCarta += "</td>";
+								contenidoCarta += "</tr>";
+
+								contenidoCarta += "<tr>";
+								contenidoCarta += "<td class=\"titulo\">";
+								contenidoCarta += "Cantidad";
+								contenidoCarta += "</td>";
+								contenidoCarta += "<td>";
+								contenidoCarta += cantidad;
+								contenidoCarta += "</td>";
+								contenidoCarta += "</tr>";
+
+								contenidoCarta += "<tr>";
+								contenidoCarta += "<td class=\"separadorPlato titulo\">";
+								contenidoCarta += "Precio";
+								contenidoCarta += "</td>";
+								contenidoCarta += "<td class=\"separadorPlato\" colspan=\"2\">";
+								contenidoCarta += precio;
+								contenidoCarta += "<i class=\"fa fa-euro\"></i>";
+								contenidoCarta += "</td>";
+								contenidoCarta += "</tr>";
+								
+							}
+						} else {
+							precioTotal = "<div class=\"well col-md-12\">";
+							precioTotal += "<table class=\"table table-condensed table-responsive table-user-information\">";
+							precioTotal += "<tbody>";
+							precioTotal += "<td class=\"titulo\"> ";
+							precioTotal += "Total";
+							precioTotal += "</td> ";
+							precioTotal += "<td> ";
+							precioTotal += $.trim($(item).find('total').text());
+							precioTotal += "<i class=\"fa fa-euro\"></i> ";
+							precioTotal += "</td> ";
+							precioTotal += "<td> ";
+							precioTotal += "<button class=\"btn btn-danger btn-sm pull-right\""
+									+ "type=\"button\" data-toggle=\"tooltip\""
+									+ "data-original-title=\"Remove this user\""
+									+ "onclick=\"doAjax('"
+									+ site_url
+									+ "/comandas/cancelarComanda','','mostrarComanda','post',1)\">"
+									+ "<span class=\"glyphicon glyphicon-remove\"></span>"
+									+ "</button>";
+							precioTotal += "</td> ";
+							precioTotal += "</tr> ";
+							precioTotal += "</tbody>";
+							precioTotal += "</table>";
+							precioTotal += "</div>";
+							
 						}
-						existeArticulo = true;
-						contenidoArticulo = contenidoArticulo
-								+ contenidoTemporal;
-					} else if (idTipoComanda == 2) {
-						// Articulo personalizado
-						// Si es el primer articulo personalizado se muestra el
-						// titulo
-						if (!existeArticuloPer) {
-							contenidoArticuloPer = "<h4>" + tipoComanda
-									+ "</h4>";
-						}
-						existeArticuloPer = true;
-						detalleArticuloPer = mostrarDetalleArticuloPer($(this)
-								.find('options'), tipoArticulo);
-						contenidoArticuloPer = contenidoArticuloPer
-								+ contenidoTemporal + detalleArticuloPer;
-					} else if (idTipoComanda == 3) {
-						// Menu
-						// Si es el primer menu se muestra el titulo
-						if (!existeMenu) {
-							contenidoMenu = "<h4>" + tipoComanda + "</h4>";
-						}
-						existeMenu = true;
-						detalleMenu = mostrarDetalleMenu($(this)
-								.find('options'));
-						contenidoMenu = contenidoMenu + contenidoTemporal
-								+ detalleMenu;
-					} else {
-						// Carta
-						if (!existeCarta) {
-							contenidoCarta = "<h4>" + tipoComanda + "</h4>";
-						}
-						existeCarta = true;
-						contenidoCarta = contenidoCarta + contenidoTemporal;
-					}
-				} else {
-					precioTotal = "Total : "
-							+ $.trim($(item).find('total').text()) + "<br>";
-				}
-			});
+					});
+
+	// Cierro la tabla si existe articulo
+	if (existeArticulo) {
+		contenidoArticulo += "</tbody>";
+		contenidoArticulo += "</table>";
+		contenidoArticulo += "</div>";
+	}
+
+	if (existeArticuloPer) {
+		contenidoArticuloPer += "</tbody>";
+		contenidoArticuloPer += "</table>";
+		contenidoArticuloPer += "</div>";
+	}
+
+	if (existeMenu) {
+		contenidoMenu += "</tbody>";
+		contenidoMenu += "</table>";
+		contenidoMenu += "</div>";
+	}
+
+	if (existeCarta) {
+		contenidoCarta += "</tbody>";
+		contenidoCarta += "</table>";
+		contenidoCarta += "</div>";
+	}
 
 	// Si hay algo en el pedido se muestra el contenido
 	if (existeComanda == 1) {
+		contenido += "<div class=\"col-md-8\">";
 		contenido = contenido + contenidoArticulo + contenidoArticuloPer
-				+ contenidoMenu + contenidoCarta + "</ul>";
+				+ contenidoMenu + contenidoCarta;
 		contenido = contenido + precioTotal
 
-		contenido = contenido + "<a onclick=\"doAjax('" + site_url
-				+ "/comandas/cancelarComanda','','mostrarComanda','post',1)\">";
-		contenido = contenido + "Cancelar";
-		contenido = contenido + "</a>";
+		/*
+		 * contenido = contenido + "<a onclick=\"doAjax('" + site_url +
+		 * "/comandas/cancelarComanda','','mostrarComanda','post',1)\">";
+		 * contenido = contenido + "Cancelar"; contenido = contenido + "</a>";
+		 * contenido += "</div>";
+		 */
 	}
 
 	// Se habilita el boton de aceptar comanda
-	$("#butAceptarComanda").removeAttr("disabled");
-	$("#butAnadirComanda").removeAttr("disabled");
+	// $("#butAceptarComanda").removeAttr("disabled");
+	// $("#butAnadirComanda").removeAttr("disabled");
 	$("#mostrarComanda").html(contenido);
+
+	// Muestro u oculto el formulario de la comanda
+	gestionFormularioComanda();
 
 	// Si hay mensaje se muestra
 	if ($(item).find('mensaje').length > 0) {
@@ -139,33 +361,72 @@ function mostrarComanda(item) {
 }
 
 function mostrarDetalleMenu(item) {
-	var detalleMenu = "<ul>";
-	$(item).find('platosMenu').each(
-			function() {
-				var platoMenu = $.trim($(this).find('nombrePlato').text());
-				var platoCantidad = $
-						.trim($(this).find('platoCantidad').text());
-				detalleMenu = detalleMenu + "<li>" + platoMenu + "-"
-						+ platoCantidad + "</li>";
-			});
-	detalleMenu = detalleMenu + "</ul>";
+	var detalleMenu = "";
+	$(item).find('platosMenu').each(function() {
+		var platoMenu = $.trim($(this).find('nombrePlato').text());
+		var platoCantidad = $.trim($(this).find('platoCantidad').text());
+
+		detalleMenu += "<tr>";
+		detalleMenu += "<td>";
+		detalleMenu += "Plato";
+		detalleMenu += "</td>";
+		detalleMenu += "<td>";
+		detalleMenu += platoMenu;
+		detalleMenu += "</td>";
+		detalleMenu += "</tr>";
+
+		detalleMenu += "<tr>";
+		detalleMenu += "<td class=\"separadorPlato\">";
+		detalleMenu += "Cantidad";
+		detalleMenu += "</td>";
+		detalleMenu += "<td class=\"separadorPlato\" colspan=\"2\">";
+		detalleMenu += platoCantidad;
+		detalleMenu += "</td>";
+		detalleMenu += "</tr>";
+
+		/*
+		 * detalleMenu = detalleMenu + "<li>" + platoMenu + "-" +
+		 * platoCantidad + "</li>";
+		 */
+	});
+	// detalleMenu = detalleMenu + "</ul>";
 	return detalleMenu;
 }
 
 function mostrarDetalleArticuloPer(item, tipoArticulo) {
-	var detalleArticuloPer = tipoArticulo;
+	var detalleArticuloPer = "";// tipoArticulo;
 	var i = 0;
+
+	detalleArticuloPer += "<tr>";
+	detalleArticuloPer += "<td>";
+	detalleArticuloPer += "Tipo de articulo";
+	detalleArticuloPer += "</td>";
+	detalleArticuloPer += "<td>";
+	detalleArticuloPer += tipoArticulo;
+	detalleArticuloPer += "</td>";
+	detalleArticuloPer += "</tr>";
+
+	var ingredientes = "";
 	$(item).find('ingredientes').each(function() {
 		var ingrediente = $.trim($(this).find('ingrediente').text());
 		if (i == 0) {
-			detalleArticuloPer = detalleArticuloPer + " - " + ingrediente;
+			ingredientes += ingrediente;
 		} else {
-			detalleArticuloPer = detalleArticuloPer + " , " + ingrediente;
+			ingredientes += " , " + ingrediente;
 		}
 
 		i++;
 	});
-	detalleArticuloPer = detalleArticuloPer + "";
+	// detalleArticuloPer = detalleArticuloPer + "";
+	detalleArticuloPer += "<tr>";
+	detalleArticuloPer += "<td class=\"separadorArticulo\">";
+	detalleArticuloPer += "Ingredientes";
+	detalleArticuloPer += "</td>";
+	detalleArticuloPer += "<td class=\"separadorArticulo\" colspan=\"2\">";
+	detalleArticuloPer += ingredientes;
+	detalleArticuloPer += "</td>";
+	detalleArticuloPer += "</tr>";
+
 	return detalleArticuloPer;
 }
 
@@ -516,10 +777,13 @@ function mostrarComandaRealizada(item) {
 	 */
 
 	// Se desabilita el boton de aceptar comanda
-	$("#butAceptarComanda").attr("disabled", "disabled");
-	$("#butAnadirComanda").attr("disabled", "disabled");
+	// $("#butAceptarComanda").attr("disabled", "disabled");
+	// $("#butAnadirComanda").attr("disabled", "disabled");
 	// Vacio el div donde se muestra la comanda
 	$("#mostrarComanda").empty();
+
+	gestionFormularioComanda();
+
 	// Se muestra el contenido
 	$("#mostrarComanda").html(contenido);
 }
@@ -849,10 +1113,14 @@ function mostrarComandaRealizadaCocina(item) {
 	contenido += "</div>";
 
 	// Se desabilita el boton de aceptar comanda
-	$("#butAceptarComanda").attr("disabled", "disabled");
-	$("#butAnadirComanda").attr("disabled", "disabled");
+	// $("#butAceptarComanda").attr("disabled", "disabled");
+	// $("#butAnadirComanda").attr("disabled", "disabled");
 	// Vacio el div donde se muestra la comanda
 	$("#mostrarComanda").empty();
+
+	// No muestro el formulario
+	gestionFormularioComanda();
+
 	// Se muestra el contenido
 	$("#mostrarComanda").html(contenido);
 
@@ -912,8 +1180,8 @@ function obtenerDetalleMenuComandaRealizada(item) {
 						var estado = $.trim($(this).find('estado').text());
 						// Si se cambio de tipo de plato se muestra el tipo de
 						// plato
-						// (1er plato ...)						
-						if (idTipoPlatoAnterior != idTipoPlato) { 
+						// (1er plato ...)
+						if (idTipoPlatoAnterior != idTipoPlato) {
 							contenidoMenu += "<tr>";
 							contenidoMenu += "<td colspan=2 class=\"titulo cabeceraPlato\">"
 									+ tipoPlato + "</td>";
@@ -934,7 +1202,7 @@ function obtenerDetalleMenuComandaRealizada(item) {
 						contenidoMenu += "<td class=\"titulo separadorPlato\">Estado</td>";
 						contenidoMenu += "<td class=\"separadorPlato\">"
 								+ estado + "</td>";
-						contenidoMenu += "</tr>";						
+						contenidoMenu += "</tr>";
 						idTipoPlatoAnterior = idTipoPlato;
 					});
 	contenidoMenu += "</ul>";
@@ -1254,6 +1522,9 @@ function mostrarComandasActivas(item) {
 	if ($.trim($(item).find('vaciarDivComanda').text()) == "1") {
 		// Se vacia el div donde se muestran las comandas
 		$("#mostrarComanda").empty();
+
+		// No muestro el formulario
+		gestionFormularioComanda();
 	}
 
 	// Si hay mensaje se muestra
@@ -1453,73 +1724,13 @@ function mostrarComandasCerradas(item) {
 	$("#listaComandasCerradas").html(contenidoComandasCerradas);
 }
 
-/*
- * function mostrarComandaCocina(item) {
- * 
- * var contenido = ""; var contenidoArt = ""; var contenidoArtPer = ""; var
- * contenidoMenu = ""; var contenidoCarta = ""; var precioTotal = ""; var
- * destino = "" var observaciones = ""; var nombreMesa = ""; var nombreCamarero =
- * ""; var fechaComanda = ""; var idMesa = ""; var idComanda = ""; var
- * detalleComanda = ""; var estadoComanda = ""; //Detalle comanda var
- * cantidadDetalleComanda = 0; var precioDetalleComanda = 0; var idTipoComanda =
- * 0; var estadoDetalle = ""; //Se obtienen los datos de la comanda
- * $(item).find('datosComanda').each(function() { idComanda =
- * $.trim($(this).find('id_comanda').text()); precioTotal =
- * $.trim($(this).find('precio').text()); destino =
- * $.trim($(this).find('destino').text()); observaciones =
- * $.trim($(this).find('observaciones').text()); idMesa =
- * $.trim($(this).find('id_mesa').text()); nombreMesa =
- * $.trim($(this).find('nombreMesa').text()); nombreCamarero =
- * $.trim($(this).find('nombreCamarero').text()); fechaComanda =
- * $.trim($(this).find('fecha_alta').text()); estadoComanda =
- * $.trim($(this).find('estado').text()); }); contenido += idComanda + " - " +
- * destino + " - " + nombreMesa + " - " + nombreCamarero + " - " + precioTotal + " - " +
- * fechaComanda + " - " + estadoComanda + "<br>" + observaciones + "<ul>";
- * //Se obtienen el detalle de la comanda
- * $(item).find('detalleComanda').each(function() { var datosEspecificos = "";
- * var tipoComanda = ""; tipoComanda =
- * $.trim($(this).find('tipoComanda').text())
- * 
- * $(this).find('detalleComandaArticulo').each(function() {
- * cantidadDetalleComanda = $.trim($(this).find('cantidad').text());
- * precioDetalleComanda = $.trim($(this).find('precio').text()); idTipoComanda =
- * $.trim($(this).find('id_tipo_comanda').text()); estadoDetalle =
- * $.trim($(this).find('estado').text()); }); switch (parseInt(idTipoComanda)) {
- * case 1: //Articulo datosEspecificos =
- * obtenerDetalleArticuloComandaRealizada($(this)) //En el primer detalle del
- * tipo de comanda se añade cual es if (contenidoArt == "") { contenidoArt +=
- * tipoComanda; } contenidoArt += "<li>" + cantidadDetalleComanda + " - " +
- * precioDetalleComanda + " - " + estadoDetalle + "</li>" + datosEspecificos;
- * break; case 2: //Articulo personalizado datosEspecificos =
- * obtenerDetalleArticuloPerComandaRealizada($(this)); //En el primer detalle
- * del tipo de comanda se añade cual es if (contenidoArtPer == "") {
- * contenidoArtPer += tipoComanda; }
- * 
- * contenidoArtPer += "<li>" + cantidadDetalleComanda + " - " +
- * precioDetalleComanda + " - " + estadoDetalle + "</li>" + datosEspecificos;
- * break; case 3: //Menu datosEspecificos =
- * obtenerDetalleMenuComandaRealizada($(this)); //En el primer detalle del tipo
- * de comanda se añade cual es if (contenidoMenu == "") { contenidoMenu +=
- * tipoComanda; }
- * 
- * contenidoMenu += "<li>" + cantidadDetalleComanda + " - " +
- * precioDetalleComanda + " - " + estadoDetalle + "</li>" + datosEspecificos;
- * break; case 4: //Carta datosEspecificos =
- * obtenerDetalleCartaComandaRealizada($(this)); //En el primer detalle del tipo
- * de comanda se añade cual es if (contenidoCarta == "") { contenidoCarta +=
- * tipoComanda; }
- * 
- * contenidoCarta += "<li>" + datosEspecificos + " - " +
- * cantidadDetalleComanda + " - " + precioDetalleComanda + " - " + estadoDetalle + "</li>" ;
- * break; }
- * 
- * }); contenido += contenidoArt + contenidoArtPer + contenidoMenu +
- * contenidoCarta + "</ul>"; //Se desabilita el boton de aceptar comanda
- * $("#butAceptarComanda").attr("disabled", "disabled");
- * $("#butAnadirComanda").attr("disabled", "disabled"); //Vacio el div donde se
- * muestra la comanda $("#mostrarComanda").empty(); //Se muestra el contenido
- * $("#mostrarComanda").html(contenido); }
- */
+function gestionFormularioComanda(){	
+	if ($('#mostrarComanda').text().trim() == ""){		
+		$('#formularioAceptarComanda').hide();
+	}else{		
+		$('#formularioAceptarComanda').show();
+	}
+}
 
 $(document).ready(function() {
 

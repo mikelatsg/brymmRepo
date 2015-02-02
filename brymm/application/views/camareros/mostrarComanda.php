@@ -53,7 +53,8 @@
 									</tr>
 									<tr>
 										<td><?php echo $comandaActiva->nombreCamarero;?> <i
-											class="fa fa-user"></i></td>
+											class="fa fa-user"></i>
+										</td>
 										<td><?php echo $comandaActiva->precio;?> <i class="fa fa-euro">
 										
 										</td>
@@ -102,7 +103,8 @@
 									</tr>
 									<tr>
 										<td><?php echo $comandaCerrada->nombreCamarero;?> <i
-											class="fa fa-user"></i></td>
+											class="fa fa-user"></i>
+										</td>
 										<td><?php echo $comandaCerrada->precio;?> <i
 											class="fa fa-euro">
 										
@@ -147,202 +149,277 @@
 						<h4 class="panel-title">Detalle comanda</h4>
 					</div>
 					<div class="panel-body sub-panel" class="panel-body sub-panel">
-						<div id="mostrarComanda">							
-								<?php
-								$existeComanda = false;
-								$existeArticuloPer = false;
-								$existeArticulo = false;
-								$existeCarta = false;
-								$existeMenu = false;
-								$articulos = "";
-								$articulosPer = "";
-								$menus = "";
-								$cartas = "";
-								$detalleComanda = "";
-								foreach ($comanda as $linea) {
-									$existeComanda = true;
+						<div id="mostrarComanda">
+							<?php
+							$existeComanda = false;
+							$existeArticuloPer = false;
+							$existeArticulo = false;
+							$existeCarta = false;
+							$existeMenu = false;
+							$articulos = "";
+							$articulosPer = "";
+							$menus = "";
+							$cartas = "";
+							$detalleComanda = "";
+							foreach ($comanda as $linea) {
+								$existeComanda = true;								
 
-									/*$detalleComanda = $linea['name'] . " - " . $linea['qty'] . " - " . $linea['price'];
-									 $detalleComanda .= htmlentities("<a onclick=\"doAjax('" .
-									 		site_url() . "/comandas/borrarArticuloComanda','rowid=" .
-									 		$linea['rowid'] . "','mostrarComanda','post',1)\"> X </a>");*/
-
-									//Articulo
-									if ($linea['options']['idTipoComanda'] == 1) {
-										if (!$existeArticulo) {
-											$articulos = htmlentities("<span class=\"col-md-12\">");
-											$articulos .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
-											$articulos .= htmlentities("</span>");
-											$articulos .= htmlentities("<div class=\"well col-md-12\">");
-											$articulos .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
-											$articulos .= htmlentities("<tbody>");
-										}
-										$detalleComanda = "";
-										//Nombre
-										$detalleComanda .= htmlentities("<tr> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= "Nombre";
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= $linea['name'];
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
-												type=\"button\" data-toggle=\"tooltip\"
-												data-original-title=\"Remove this user\"
-												onclick=\"doAjax('" .
-												site_url() . "/comandas/borrarArticuloComanda','rowid=" .
-												$linea['rowid'] . "','mostrarComanda','post',1)\"> <span class=\"glyphicon glyphicon-remove\"></span>
-												</button>");
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("</tr> ");
-
-										//Cantidad
-										$detalleComanda .= htmlentities("<tr> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= "Cantidad";
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
-										$detalleComanda .= $linea['qty'];
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("</tr> ");
-
-										//Precio
-										$detalleComanda .= htmlentities("<tr> ");
-										$detalleComanda .= htmlentities("<td class=\"separadorArticulo\"> ");
-										$detalleComanda .= "Precio";
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td colspan=\"2\" class=\"separadorArticulo\"> ");
-										$detalleComanda .= $linea['price'];
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("</tr> ");
-
-										$articulos .= $detalleComanda;
-										$existeArticulo = true;
-
-										//echo "<br>";
+								//Articulo
+								if ($linea['options']['idTipoComanda'] == 1) {
+									if (!$existeArticulo) {
+										$articulos = htmlentities("<span class=\"col-md-12\">");
+										$articulos .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
+										$articulos .= htmlentities("</span>");
+										$articulos .= htmlentities("<div class=\"well col-md-12\">");
+										$articulos .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
+										$articulos .= htmlentities("<tbody>");
 									}
+									$detalleComanda = "";
+									//Nombre
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= "Nombre";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= $linea['name'];
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td> ");
+									$detalleComanda .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
+											type=\"button\" data-toggle=\"tooltip\"
+											data-original-title=\"Remove this user\"
+											onclick=\"doAjax('" .
+											site_url() . "/comandas/borrarArticuloComanda','rowid=" .
+											$linea['rowid'] . "','mostrarComanda','post',1)\"> <span class=\"glyphicon glyphicon-remove\"></span>
+											</button>");
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
 
-									//Articulo personalizado
-									if ($linea['options']['idTipoComanda'] == 2) {
-										if (!$existeArticuloPer) {
-											//$articulosPer = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");
+									//Cantidad
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= "Cantidad";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
+									$detalleComanda .= $linea['qty'];
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
 
-											$articulosPer = htmlentities("<span class=\"col-md-12\">");
-											$articulosPer .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
-											$articulosPer .= htmlentities("</span>");
-											$articulosPer .= htmlentities("<div class=\"well col-md-12\">");
-											$articulosPer .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
-											$articulosPer .= htmlentities("<tbody>");
-										}
+									//Precio
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"separadorArticulo titulo\"> ");
+									$detalleComanda .= "Precio";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td colspan=\"2\" class=\"separadorArticulo\"> ");
+									$detalleComanda .= round($linea['price'],2);
+									$detalleComanda .= htmlentities("<i class=\"fa fa-euro\"></i> ");
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
 
-										$detalleComanda = "";
-										//Nombre
-										$detalleComanda .= htmlentities("<tr> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= "Nombre";
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= $linea['name'];
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
-												type=\"button\" data-toggle=\"tooltip\"
-												data-original-title=\"Remove this user\"
-												onclick=\"doAjax('" .
-												site_url() . "/comandas/borrarArticuloComanda','rowid=" .
-												$linea['rowid'] . "','mostrarComanda','post',1)\"> <span class=\"glyphicon glyphicon-remove\"></span>
-												</button>");
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("</tr> ");
+									$articulos .= $detalleComanda;
+									$existeArticulo = true;
 
-										//Cantidad
-										$detalleComanda .= htmlentities("<tr> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= "Cantidad";
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
-										$detalleComanda .= $linea['qty'];
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("</tr> ");
-
-										//Precio
-										$detalleComanda .= htmlentities("<tr> ");
-										$detalleComanda .= htmlentities("<td> ");
-										$detalleComanda .= "Precio";
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
-										$detalleComanda .= $linea['price'];
-										$detalleComanda .= htmlentities("</td> ");
-										$detalleComanda .= htmlentities("</tr> ");
-
-										$articulosPer .= $detalleComanda;
-
-										$existeArticuloPer = true;
-										$i = 0;
-										$articulosPer .= htmlentities("<tr>");
-										$articulosPer .= htmlentities("<td>");
-										$articulosPer .= "Tipo articulo";
-										$articulosPer .= htmlentities("</td>");
-										$articulosPer .= htmlentities("<td colspan=\"2\">");
-										$articulosPer .= $linea['options']['tipoArticulo'];
-										$articulosPer .= htmlentities("</td>");
-										$articulosPer .= htmlentities("</tr>");
-
-										$articulosPer .= htmlentities("<tr>");
-										$articulosPer .= htmlentities("<td class=\"separadorArticulo\">");
-										$articulosPer .= "Ingredientes";
-										$articulosPer .= htmlentities("</td>");
-										$articulosPer .= htmlentities("<td colspan=\"2\" class=\"separadorArticulo\">");
-										foreach ($linea['options']['ingredientes'] as $ingredientes) {
-									if ($i > 0) {
-										$articulosPer .= ", ";
-									}
-									$articulosPer .= $ingredientes['ingrediente'];
-									$i += 1;
 								}
 
-								$articulosPer .= htmlentities("</td>");
-								$articulosPer .= htmlentities("</tr>");
+								//Articulo personalizado
+								if ($linea['options']['idTipoComanda'] == 2) {
+									if (!$existeArticuloPer) {
+										//$articulosPer = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");
+
+										$articulosPer = htmlentities("<span class=\"col-md-12\">");
+										$articulosPer .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
+										$articulosPer .= htmlentities("</span>");
+										$articulosPer .= htmlentities("<div class=\"well col-md-12\">");
+										$articulosPer .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
+										$articulosPer .= htmlentities("<tbody>");
 									}
 
-									//Menu
-									if ($linea['options']['idTipoComanda'] == 3) {
-								if (!$existeMenu) {
-									//$menus = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");
-									$menus = htmlentities("<span class=\"col-md-12\">");
-									$menus .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
-									$menus .= htmlentities("</span>");
-									$menus .= htmlentities("<div class=\"well col-md-12\">");
-									$menus .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
-									$menus .= htmlentities("<tbody>");
+									$detalleComanda = "";
+									//Nombre
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= "Nombre";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= $linea['name'];
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td> ");
+									$detalleComanda .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
+											type=\"button\" data-toggle=\"tooltip\"
+											data-original-title=\"Remove this user\"
+											onclick=\"doAjax('" .
+											site_url() . "/comandas/borrarArticuloComanda','rowid=" .
+											$linea['rowid'] . "','mostrarComanda','post',1)\"> <span class=\"glyphicon glyphicon-remove\"></span>
+											</button>");
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
+
+									//Cantidad
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= "Cantidad";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
+									$detalleComanda .= $linea['qty'];
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
+
+									//Precio
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= "Precio";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
+									$detalleComanda .= round($linea['price'],2);
+									$detalleComanda .= htmlentities("<i class=\"fa fa-euro\"></i> ");
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
+
+									$articulosPer .= $detalleComanda;
+
+									$existeArticuloPer = true;
+									$i = 0;
+									$articulosPer .= htmlentities("<tr>");
+									$articulosPer .= htmlentities("<td class=\"titulo\">");
+									$articulosPer .= "Tipo articulo";
+									$articulosPer .= htmlentities("</td>");
+									$articulosPer .= htmlentities("<td colspan=\"2\">");
+									$articulosPer .= $linea['options']['tipoArticulo'];
+									$articulosPer .= htmlentities("</td>");
+									$articulosPer .= htmlentities("</tr>");
+
+									$articulosPer .= htmlentities("<tr>");
+									$articulosPer .= htmlentities("<td class=\"separadorArticulo titulo\">");
+									$articulosPer .= "Ingredientes";
+									$articulosPer .= htmlentities("</td>");
+									$articulosPer .= htmlentities("<td colspan=\"2\" class=\"separadorArticulo\">");
+									foreach ($linea['options']['ingredientes'] as $ingredientes) {
+										if ($i > 0) {
+											$articulosPer .= ", ";
+										}
+										$articulosPer .= $ingredientes['ingrediente'];
+										$i += 1;
+									}
+
+									$articulosPer .= htmlentities("</td>");
+									$articulosPer .= htmlentities("</tr>");
 								}
 
-								//$menus .= htmlentities("<li> ");
+								//Menu
+								if ($linea['options']['idTipoComanda'] == 3) {
+									if (!$existeMenu) {
+										//$menus = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");
+										$menus = htmlentities("<span class=\"col-md-12\">");
+										$menus .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
+										$menus .= htmlentities("</span>");
+										$menus .= htmlentities("<div class=\"well col-md-12\">");
+										$menus .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
+										$menus .= htmlentities("<tbody>");
+									}
+
+									$detalleComanda = "";
+									//Nombre
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= "Menu";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= $linea['name'];
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td> ");
+									$detalleComanda .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
+											type=\"button\" data-toggle=\"tooltip\"
+											data-original-title=\"Remove this user\"
+											onclick=\"doAjax('" .
+											site_url() . "/comandas/borrarArticuloComanda','rowid=" .
+											$linea['rowid'] . "','mostrarComanda','post',1)\"> <span class=\"glyphicon glyphicon-remove\"></span>
+											</button>");
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
+
+									//Cantidad
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+									$detalleComanda .= "Cantidad";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
+									$detalleComanda .= $linea['qty'];
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
+
+									//Precio
+									$detalleComanda .= htmlentities("<tr> ");
+									$detalleComanda .= htmlentities("<td class=\"separadorMenuPlato titulo\"> ");
+									$detalleComanda .= "Precio";
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("<td colspan=\"2\" class=\"separadorMenuPlato\"> ");
+									$detalleComanda .= round($linea['price'],2);
+									$detalleComanda .= htmlentities("<i class=\"fa fa-euro\"></i> ");
+									$detalleComanda .= htmlentities("</td> ");
+									$detalleComanda .= htmlentities("</tr> ");
+
+									$menus .= $detalleComanda;
+
+									$existeMenu = true;
+									$i = 0;
+									foreach ($linea['options']['platosMenu'] as $plato) {
+										$menus .= htmlentities("<tr> ");
+										$menus .= htmlentities("<td class=\"titulo\"> ");
+										$menus .= "Plato";
+										$menus .= htmlentities("</td> ");
+										$menus .= htmlentities("<td colspan=\"2\" class=\"titulo\"> ");
+										$menus .= $plato['nombrePlato'];
+										$menus .= htmlentities("</td> ");
+										$menus .= htmlentities("</tr> ");
+
+										$menus .= htmlentities("<tr> ");
+										$menus .= htmlentities("<td class=\"separadorPlato titulo\"> ");
+										$menus .= "Cantidad";
+										$menus .= htmlentities("</td> ");
+										$menus .= htmlentities("<td colspan=\"2\" class=\"separadorPlato\"> ");
+										$menus .= $plato['platoCantidad'];
+										$menus .= htmlentities("</td> ");
+										$menus .= htmlentities("</tr> ");
+
+										$i += 1;
+									}
+
+								}
+
+								//Carta
+								if ($linea['options']['idTipoComanda'] == 4) {
+								if (!$existeCarta) {
+					
+									$cartas = htmlentities("<span class=\"col-md-12\">");
+									$cartas .= htmlentities("<span class=\"badge progress-bar-danger\">" . $linea['options']['tipoComanda'] . "</span>");
+									$cartas .= htmlentities("</span>");
+									$cartas .= htmlentities("<div class=\"well col-md-12\">");
+									$cartas .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
+									$cartas .= htmlentities("<tbody>");
+								}
 
 								$detalleComanda = "";
 								//Nombre
 								$detalleComanda .= htmlentities("<tr> ");
-								$detalleComanda .= htmlentities("<td> ");
-								$detalleComanda .= "Menu";
+								$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
+								$detalleComanda .= "Nombre";
 								$detalleComanda .= htmlentities("</td> ");
-								$detalleComanda .= htmlentities("<td> ");
+								$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
 								$detalleComanda .= $linea['name'];
 								$detalleComanda .= htmlentities("</td> ");
 								$detalleComanda .= htmlentities("<td> ");
 								$detalleComanda .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
-										type=\"button\" data-toggle=\"tooltip\"
-										data-original-title=\"Remove this user\"
-										onclick=\"doAjax('" .
+											type=\"button\" data-toggle=\"tooltip\"
+											data-original-title=\"Remove this user\"
+											onclick=\"doAjax('" .
 										site_url() . "/comandas/borrarArticuloComanda','rowid=" .
 										$linea['rowid'] . "','mostrarComanda','post',1)\"> <span class=\"glyphicon glyphicon-remove\"></span>
-										</button>");
+											</button>");
 								$detalleComanda .= htmlentities("</td> ");
 								$detalleComanda .= htmlentities("</tr> ");
 
 								//Cantidad
 								$detalleComanda .= htmlentities("<tr> ");
-								$detalleComanda .= htmlentities("<td> ");
+								$detalleComanda .= htmlentities("<td class=\"titulo\"> ");
 								$detalleComanda .= "Cantidad";
 								$detalleComanda .= htmlentities("</td> ");
 								$detalleComanda .= htmlentities("<td colspan=\"2\"> ");
@@ -352,62 +429,23 @@
 
 								//Precio
 								$detalleComanda .= htmlentities("<tr> ");
-								$detalleComanda .= htmlentities("<td class=\"separadorMenuPlato\"> ");
+								$detalleComanda .= htmlentities("<td class=\"separadorPlato titulo\"> ");
 								$detalleComanda .= "Precio";
 								$detalleComanda .= htmlentities("</td> ");
-								$detalleComanda .= htmlentities("<td colspan=\"2\" class=\"separadorMenuPlato\"> ");
-								$detalleComanda .= $linea['price'];
+								$detalleComanda .= htmlentities("<td colspan=\"2\" class=\"separadorPlato\"> ");
+								$detalleComanda .= round($linea['price'],2);
+								$detalleComanda .= htmlentities("<i class=\"fa fa-euro\"></i> ");
 								$detalleComanda .= htmlentities("</td> ");
 								$detalleComanda .= htmlentities("</tr> ");
-
-								$menus .= $detalleComanda;
-
-								$existeMenu = true;
-								$i = 0;
-								foreach ($linea['options']['platosMenu'] as $plato) {
-										$menus .= htmlentities("<tr> ");
-										$menus .= htmlentities("<td> ");
-										$menus .= "Plato";
-										$menus .= htmlentities("</td> ");
-										$menus .= htmlentities("<td colspan=\"2\"> ");
-										$menus .= $plato['nombrePlato'];
-										$menus .= htmlentities("</td> ");
-										$menus .= htmlentities("</tr> ");
-
-										$menus .= htmlentities("<tr> ");
-										$menus .= htmlentities("<td class=\"separadorPlato\"> ");
-										$menus .= "Cantidad";
-										$menus .= htmlentities("</td> ");
-										$menus .= htmlentities("<td colspan=\"2\" class=\"separadorPlato\"> ");
-										$menus .= $plato['platoCantidad'];
-										$menus .= htmlentities("</td> ");
-										$menus .= htmlentities("</tr> ");
-
-										/*$menus .= htmlentities("<li>");
-										 $menus .= $plato['nombrePlato'];
-										$menus .= htmlentities("</li>");*/
-										$i += 1;
-								}
-								if ($i > 0) {
-									$menus .= htmlentities("</ul>");
-								}
-								//$menus .= htmlentities("</li>");
-							}
-
-							//Carta
-							if ($linea['options']['idTipoComanda'] == 4) {
-								if (!$existeCarta) {
-									$cartas = htmlentities("<h4>" . $linea['options']['tipoComanda'] . "</h4>");
-								}
-								$cartas .= htmlentities("<li>");
+									
 								$cartas .= $detalleComanda;
-								$cartas .= htmlentities("</li>");
+
 								$existeCarta = true;
 							}
-								}
+							}
 
-								//Cierro el div y la tabla
-								if ($existeArticulo){
+							//Cierro el div y la tabla
+							if ($existeArticulo){
 							$articulos .= htmlentities("</tbody>");
 							$articulos .= htmlentities("</table>");
 							$articulos .= htmlentities("</div>");
@@ -427,24 +465,59 @@
 							$menus .= htmlentities("</div>");
 						}
 
-						//Se muestran los datos
-						echo html_entity_decode("<div class=\"col-md-8\">");
-						echo html_entity_decode($articulos);
-						echo html_entity_decode($articulosPer);
-						echo html_entity_decode($menus);
-						echo html_entity_decode($cartas);
-						echo html_entity_decode("</div>");
+						//Cierro el div y la tabla
+						if ($existeCarta){
+							$cartas .= htmlentities("</tbody>");
+							$cartas .= htmlentities("</table>");
+							$cartas .= htmlentities("</div>");
+						}
 
-						if ($existeComanda) {
-						echo "Total : " . $precioTotalComanda;
-						echo "<br>";
-						echo "<a onclick=\"doAjax('" . site_url() .
-						"/comandas/cancelarComanda','','mostrarComanda','post',1)\">" .
-						"Cancelar</a>";
-        }
-        ?>							
+						//Se muestran los datos
+						if ($existeComanda){
+							$total = "";
+							$total .= htmlentities("<div class=\"well col-md-12\">");
+							$total .= htmlentities("<table class=\"table table-condensed table-responsive table-user-information\">");
+							$total .= htmlentities("<tbody>");
+							$total .= htmlentities("<td class=\"titulo\"> ");
+							$total .= "Total";
+							$total .= htmlentities("</td> ");
+							$total .= htmlentities("<td> ");
+							$total .= $precioTotalComanda;
+							$total .= htmlentities("<i class=\"fa fa-euro\"></i> ");
+							$total .= htmlentities("</td> ");
+							$total .= htmlentities("<td> ");
+							$total .= htmlentities("<button class=\"btn btn-danger btn-sm pull-right\"
+																	type=\"button\" data-toggle=\"tooltip\"
+																	data-original-title=\"Remove this user\"
+																	onclick=\"doAjax('" .
+									site_url() . "/comandas/cancelarComanda','','mostrarComanda','post',1)\">
+																	<span class=\"glyphicon glyphicon-remove\"></span>
+																	</button>");
+							$total .= htmlentities("</td> ");
+							$total .= htmlentities("</tr> ");
+							$total .= htmlentities("</tbody>");
+							$total .= htmlentities("</table>");
+							$total .= htmlentities("</div>");
+
+							echo html_entity_decode("<div class=\"col-md-8\">");
+							echo html_entity_decode($articulos);
+							echo html_entity_decode($articulosPer);
+							echo html_entity_decode($menus);
+							echo html_entity_decode($cartas);
+							echo html_entity_decode($total);
+							echo html_entity_decode("</div>");
+								
+							/*echo "Total : " . $precioTotalComanda;
+							 echo "<br>";
+							echo "<a onclick=\"doAjax('" . site_url() .
+							"/comandas/cancelarComanda','','mostrarComanda','post',1)\">" .
+							"Cancelar</a>";*/
+						}
+
+						?>
 						</div>
-						<div class="col-md-12 well">
+						<div id="formularioAceptarComanda" class="col-md-12 well"
+							style="display: none;">
 							<form id="formAceptarComanda" class="form-horizontal">
 								<div class="col-md-6">
 									<div class="form-group">

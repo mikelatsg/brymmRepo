@@ -195,4 +195,5 @@ function gestionMenuSeleccionado(){
 $(document).ready(function() {
 	gestionMenuSeleccionado();
 	gestionDestinoComanda();
+	gestionFormularioComanda();
 })
