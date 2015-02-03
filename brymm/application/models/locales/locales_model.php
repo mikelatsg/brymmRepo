@@ -85,7 +85,9 @@ class Locales_model extends CI_Model {
 
 	function obtenerDatosLocal($idLocal) {
 		// Consulta en la tabla usuarios con el nick
-		$sql = "SELECT * FROM locales WHERE id_local = ?";
+		$sql = "SELECT l.*,tc.tipo_comida FROM locales l, tipos_comida tc
+				 WHERE l.id_tipo_comida =  tc.id_tipo_comida
+				AND id_local = ?";
 		$result = $this->db->query($sql, array($idLocal));
 
 		return $result;

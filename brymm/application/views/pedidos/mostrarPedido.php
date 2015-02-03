@@ -1,6 +1,6 @@
 <div class="col-md-6">
 	<div class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">Confirmar pedido</h4>
 		</div>
 		<div id="mostrarPedido">
@@ -43,7 +43,8 @@
         ?>
 			</div>
 			<div id="formPedido">
-				<?php if ($_SESSION['idUsuario']): ?>
+				<?php if ($_SESSION): 
+				if ($_SESSION['idUsuario']): ?>
 
 				<form method="post"
 					action="<?php echo site_url() ?>/pedidos/confirmarPedido">
@@ -142,10 +143,13 @@
 				</form>
 
 				<?php
-				else :
+				/*else :
 
+				echo "Logeate para realizar pedidos";*/
+
+				endif;
+				else:
 				echo "Logeate para realizar pedidos";
-
 				endif;
 				?>
 			</div>
@@ -153,4 +157,5 @@
 		</div>
 	</div>
 </div>
-</div><!-- En vista de realizar pedido -->
+</div>
+<!-- En vista de realizar pedido -->

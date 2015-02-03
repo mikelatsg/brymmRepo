@@ -183,7 +183,7 @@ class Locales extends CI_Controller {
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'horarios', 'mensajes', 'js/bootstrap.min');
-		
+
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
 				,'general.css');
 
@@ -253,6 +253,16 @@ class Locales extends CI_Controller {
 		//Se obtienen los servicios del local
 		$var2['serviciosLocal'] = $this->Servicios_model->obtenerServiciosLocal($idLocal)->result();
 
+		//Se comprueba si el local es favorito
+		if ($_SESSION){
+			$var2['esFavorito'] = false;
+			if (
+			$this->Locales_model->obtenerLocalFavoritos($idLocal, $_SESSION['idUsuario'])
+			->num_rows()>0){
+				$var2['esFavorito'] = true;
+			}
+		}
+
 		//Se comprueban los servicios del local
 		$var4['envioPedidos'] = false;
 		foreach ($var2['serviciosLocal'] as $linea) {
@@ -284,7 +294,7 @@ class Locales extends CI_Controller {
 				'js/bootstrap.min'
 		);
 
-		$header['estilos'] = array('buscador.css');
+		$header['estilos'] = array('buscador.css','general.css', 'locales.css');
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $datosMensaje);
@@ -296,8 +306,10 @@ class Locales extends CI_Controller {
 				//Se carga el modelo de usuarios
 				$this->load->model('usuarios/Usuarios_model');
 
-				//Se obtienen las direcciones del usuario
-				$var4['direccionesEnvio'] = $this->Usuarios_model->obtenerDirecciones($_SESSION['idUsuario'])->result();
+				if ($_SESSION){
+					//Se obtienen las direcciones del usuario
+					$var4['direccionesEnvio'] = $this->Usuarios_model->obtenerDirecciones($_SESSION['idUsuario'])->result();
+				}
 
 				//Se obtienen los articulos del local
 				$var3['articulosLocal'] = $this->Articulos_model->obtenerArticulosLocal($idLocal);
@@ -413,9 +425,11 @@ class Locales extends CI_Controller {
 		$var3['horarioLocal'] = $this->Locales_model->obtenerHorarioLocal
 		($idLocal)->result();
 
-		//Se obtienen las reservas que tiene realizadas el usuario
-		$var3['reservasUsuario'] = $this->Reservas_model->obtenerActualesReservasUsuario
-		($_SESSION['idUsuario'])->result();
+		if ($_SESSION){
+			//Se obtienen las reservas que tiene realizadas el usuario
+			$var3['reservasUsuario'] = $this->Reservas_model->obtenerActualesReservasUsuario
+			($_SESSION['idUsuario'])->result();
+		}
 
 		//Se obtienen los tipos de menu
 		$var3['tiposMenu'] = $this->Menus_model->obtenerTiposMenu()->result();

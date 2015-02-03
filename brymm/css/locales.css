@@ -1,0 +1,29 @@
+#datosLocal {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.starColor {
+	color: yellow;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+.serviciosLocal {
+	background-color: #b87272;
+	font-weight: bold;
+}
+
+.serviciosLocal  a {
+	color: white;
+}
+
+.serviciosLocal  a:hover {
+	color: grey;
+}
+
+.serviciosLocal > ul > li > a:hover {
+	background-color: #E4DDDD;
+}

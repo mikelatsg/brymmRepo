@@ -1,6 +1,6 @@
 
 <div id="FormularioReserva">
-	<div class="col-md-4">
+	<div class="col-md-4 noPadLeft">
 		<div id="horariosLocal" class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
@@ -87,17 +87,24 @@
 					</select> <input type="text" name="numeroPersonas"
 						placeholder="Numero de personas" />
 					<textarea name="observaciones" placeholder="Observaciones"></textarea>
+					<?php 
+					if (isset($_SESSION['id_usuario'])):
+					?>
 					<input type="button"
 						onclick="<?php
-                           echo "enviarFormulario('" . site_url() .
-                           "/reservas/anadirReservaUsuario','formAltaReservaUsuario','listaReservasUsuario',1)"
-                           ?>"
+	                           echo "enviarFormulario('" . site_url() .
+	                           "/reservas/anadirReservaUsuario','formAltaReservaUsuario','listaReservasUsuario',1)"
+	                           ?>"
 						value="Realizar reserva" />
+					<?php 
+					else:
+					echo "Logeate para hacer reservas";
+						endif;?>
 				</form>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 noPadRight">
 		<div id="reservaLocal" class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
@@ -107,10 +114,12 @@
 			</div>
 			<div id="listaReservasUsuario" class="panel-body collapse">
 				<div class="list-group">
-					<?php foreach ($reservasUsuario as $reserva): ?>
+					<?php					
+					if (isset($_SESSION['id_usuario'])):
+					foreach ($reservasUsuario as $reserva): ?>
 					<span class="list-group-item"><?php
 					echo $reserva->fecha . "-" . $reserva->hora_inicio . "-"
-				. $reserva->nombreLocal . " - "
+			. $reserva->nombreLocal . " - "
 				. $reserva->numero_personas . " - " . $reserva->estado;
 					if ($reserva->estado == 'P' || $reserva->estado == 'AL'):
 					?> <a
@@ -118,7 +127,10 @@
                     echo "doAjax('" . site_url() . "/reservas/anularReservaUsuario','idReserva="
                     . $reserva->id_reserva . "','listaReservasUsuario','post',1)";
                     ?>"> Anular </a> <?php endif; ?> </span>
-					<?php endforeach; ?>
+					<?php endforeach; 					
+					else :
+					echo "Usuario sin logear";
+					endif;?>
 				</div>
 			</div>
 		</div>

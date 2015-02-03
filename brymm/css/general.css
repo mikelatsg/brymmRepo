@@ -115,6 +115,16 @@
 	font-weight: bold;
 }
 
+#opcionesUsuario a {
+	color: white;
+	font-weight: bold;
+}
+
+#opcionesUsuario a:hover {
+	color: grey;
+	font-weight: bold;
+}
+
 #usuarios a {
 	color: white;
 	font-weight: bold;
@@ -202,4 +212,12 @@ body {
 
 body a {
 	font-size: 12px;
+}
+
+.noPadLeft{
+	padding-left:0px;
+}
+
+.noPadRight{
+	padding-right:0px;
 }

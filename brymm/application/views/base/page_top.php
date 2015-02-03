@@ -17,16 +17,22 @@
 				//echo anchor('/home', 'Inicio');
 				if (isset($_SESSION['idUsuario'])):
 				?>
-				<nav class="navbar navbar-inverse">
-					<ul class="nav nav-tabs">
-						<li><?php echo anchor('/home', 'Inicio'); ?></li>
-						<li><?php echo anchor('/usuarios/home', 'Home usuario'); ?>
-						</li>
-						<li class="navbar-tab navbar-right"><?php echo anchor('/usuarios/logout', 'Salir'); ?>
-						</li>
-					</ul>
-				</nav>
-
+				<div id="opcionesUsuario" class="masthead">
+					<nav class="navbar navbar-inverse">
+						<div class="container-fluid">
+							<div id="logo" class="navbar-header">
+								<a class="navbar-brand" href="#">Brymm</a>
+							</div>
+							<div>
+								<ul class="nav nav-tabs">
+									<li><?php echo anchor('/usuarios/home', 'Home usuario'); ?></li>
+									<li class="navbar-tab navbar-right"><?php echo anchor('/usuarios/logout', 'Salir'); ?>
+									</li>
+								</ul>
+							</div>
+					
+					</nav>
+				</div>
 				<?php
 				else:
 				?>
@@ -78,7 +84,8 @@
 												<a href="<?php echo site_url();?>/usuarios/alta">Nuevo
 													usuario</a>
 											</div>
-										</div></li>
+										</div>
+									</li>
 									<li class="dropdown" id="menuLoginLocal"><a
 										class="dropdown-toggle" href="#" data-toggle="dropdown"
 										id="navLoginLocal">Local</a>
@@ -110,8 +117,7 @@
 											<div class="col-md-12">
 												<a href="<?php echo site_url();?>/locales/alta">Nuevo local</a>
 											</div>
-										</div>
-									</li>
+										</div></li>
 									<li class="dropdown" id="menuLoginLocal"><a
 										class="dropdown-toggle" href="#" data-toggle="dropdown"
 										id="navLoginLocal">Camarero</a>
@@ -129,8 +135,9 @@
 													<div class="form-group">
 														<label for="nombreCamarero" class="col-md-4 control-label">Camarero</label>
 														<div class="col-md-8">
-															<input type="text" class="form-control" id="nombreCamarero"
-																placeholder="Camarero" name="nombreCamarero">
+															<input type="text" class="form-control"
+																id="nombreCamarero" placeholder="Camarero"
+																name="nombreCamarero">
 														</div>
 													</div>
 													<div class="form-group">
@@ -147,8 +154,7 @@
 													</button>
 												</form>
 											</div>
-										</div>
-									</li>
+										</div></li>
 
 								</ul>
 							</div>

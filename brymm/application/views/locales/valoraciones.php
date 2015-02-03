@@ -32,7 +32,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div id="valoracionesLocal" class="panel panel-default">
-			<div class="panel-heading">
+			<div class="panel-heading panel-verde">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-target="#listaValoraciones"
 						class="accordion-toggle collapsed"> Valoraciones </a>

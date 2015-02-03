@@ -1,21 +1,28 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="panel panel-default">
-			<div class="panel-heading">
+			<div class="panel-heading panel-verde">
 				<h4 class="panel-title">Realizar pedido</h4>
 			</div>
-			<div id="realizarPedido" class="panel-body">
+			<div id="realizarPedido" class="panel-body panel-verde">
 				<?php
 				if (isset($precioEnvioPedido)) :
 				?>
-				Envio a domicilio:
-				<ul class="list-inline">
-					<li><?php echo "Importe minimo:" .
-							$precioEnvioPedido->importe_minimo; ?>
-					</li>
-					<li><?php echo "Precio:" .$precioEnvioPedido->precio;?>
-					</li>
-				</ul>
+				<div class="well">
+
+					<div class="titulo col-md-4">Envio a domicilio:</div>
+					<div class="titulo col-md-4">
+						Importe minimo :
+						<?php echo round($precioEnvioPedido->importe_minimo,2); ?>
+						<i class="fa fa-euro"></i>
+					</div>
+					<div class="titulo col-md-4">
+						Precio :
+						<?php echo round($precioEnvioPedido->precio,2); ?>
+						<i class="fa fa-euro"></i>
+					</div>
+
+				</div>
 				<?php
 				endif;
 				?>
@@ -37,8 +44,8 @@
 				?>
 
 
-				<div class="panel panel-default">
-					<div class="panel-heading">
+				<div class="panel panel-default sub-panel">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse"
 								data-target="<?php echo "#".$linea['tipo_articulo'];?>"
@@ -47,7 +54,7 @@
 						</h4>
 					</div>
 					<div id="<?php echo $linea['tipo_articulo'];?>"
-						" class="panel-body collapse">
+						" class="panel-body collapse sub-panel">
 						<?php 
 						endif;
 						?>
@@ -127,8 +134,8 @@
 						if ($hayArticuloPersonalizable):
 						?>
 
-						<div class="panel panel-default">
-							<div class="panel-heading">
+						<div class="panel panel-default sub-panel">
+							<div class="panel-heading panel-verde">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-target="#personalizarArticulo"
 										class="accordion-toggle collapsed"> Personalizar articulo </a>
@@ -158,17 +165,15 @@
 
 										<li class="col-md-4"><input type="checkbox"
 											name="ingrediente[]"
-											value="<?php echo $linea->id_ingrediente; ?>" class="pull-left" />
-											<span class="pull-left"> <?php echo $linea->ingrediente . "-" . $linea->precio; ?>
-										</span>
-										</li>
+											value="<?php echo $linea->id_ingrediente; ?>"
+											class="pull-left" /> <span class="pull-left"> <?php echo $linea->ingrediente . "-" . $linea->precio; ?>
+										</span></li>
 
 										<?php
 										endforeach;
 										?>
 									</ol>
-									Cantidad									
-									<select value="1" name="cantidadArticuloPersonalizado">
+									Cantidad <select value="1" name="cantidadArticuloPersonalizado">
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>

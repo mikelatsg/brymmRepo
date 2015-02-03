@@ -1,17 +1,25 @@
 .panel-heading .accordion-toggle:after {
-    /* symbol for "opening" panels */
-    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-    float: right;        /* adjust as needed */
-    color: grey;         /* adjust as needed */
+	/* symbol for "opening" panels */
+	font-family: 'Glyphicons Halflings';
+	/* essential for enabling glyphicon */
+	content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+	float: right; /* adjust as needed */
+	color: grey; /* adjust as needed */
 }
+
 .panel-heading .accordion-toggle.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+	/* symbol for "collapsed" panels */
+	content: "\e080"; /* adjust as needed, taken from bootstrap.css */
 }
 
 .panel-heading a {
-    /* symbol for "collapsed" panels */
-    cursor:pointer;
-    text-decoration: none;
+	/* symbol for "collapsed" panels */
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.buscador {
+	background-color: #f5f5f5;
+	border: 1px solid #e3e3e3;
+	border-radius: 10px;
 }

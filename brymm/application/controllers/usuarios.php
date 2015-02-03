@@ -187,7 +187,7 @@ class Usuarios extends CI_Controller {
             , 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
             , 'usuarios', 'js/bootstrap.min');
         
-        $header['estilos'] = array('buscador.css');
+        $header['estilos'] = array('buscador.css','general.css');
 
         $this->load->view('base/cabecera', $header);
         $this->load->view('base/page_top');
