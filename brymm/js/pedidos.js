@@ -128,7 +128,7 @@ function verPedido(item) {
 	var ingrediente = "";
 	var contadorIngredientes;
 	// Vacio el div donde se muestra la comanda
-	$("#mostrarPedido").empty();	
+	$("#mostrarPedido").empty();
 	contenido += "<div class=\"col-md-6\">";
 	contenido += "<div class=\"pedido col-md-12\">";
 	contenido += "<span class=\"badge pull-left\">Pedido " + idPedido
@@ -323,6 +323,22 @@ function verPedido(item) {
 	$("#mostrarPedido").html(contenido);
 }
 
+function gestionRetrasarPedido() {
+	if ($('#retrasarPedido').is(':checked')) {
+		$('#contenidoRetrasarPedido').show();
+	} else {
+		$('#contenidoRetrasarPedido').hide();
+	}
+}
+
+function gestionEnvioPedido(){
+	if ($('#envioPedido').is(':checked')) {
+		$('#contenidoDireccionEnvio').show();
+	} else {
+		$('#contenidoDireccionEnvio').hide();
+	}
+}
+
 $(document)
 		.ready(
 				function() {
@@ -470,4 +486,12 @@ $(document)
 										$('#dialogRechazar').dialog('open');
 										return false;
 									});
+
+					// Se gestiona si mostrar los combos para retrasar el pedido
+					gestionRetrasarPedido();
+					
+					// Se gestiona si mostrar las direcciones para el envio del pedido
+					gestionEnvioPedido();
+					
+					
 				});
