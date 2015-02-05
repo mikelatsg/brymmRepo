@@ -112,7 +112,7 @@
 <div>
 	<div id="articulos" class="panel panel-default">
 		<div class="panel-heading panel-rojo">
-			<h4 class="panel-title">Articulos</h4>
+			<h4 class="panel-title"><i class="fa fa-beer"></i> Articulos</h4>
 		</div>
 		<div class="panel-body panel-rojo">
 			<div class="col-md-4">

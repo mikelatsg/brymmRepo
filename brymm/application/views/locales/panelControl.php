@@ -8,12 +8,9 @@
 			<div>
 				<ul class="nav nav-tabs">
 					<li><?php
-					echo anchor('/home', 'Inicio');
-					?>
-					</li>
-					<li><?php
 					if ($_SESSION['controlTotal']) {
-			echo anchor('/articulos/gestionArticulos', 'Articulos');
+			?><a href="<?php echo site_url();?>/articulos/gestionArticulos"><i
+							class="fa fa-beer"> </i> Articulos</a> <?php
 		} else {
                 ?> <a>Articulos</a> <?php
             }
@@ -21,7 +18,9 @@
 					</li>
 					<li><?php
 					if ($_SESSION['controlTotal']) {
-                echo anchor('/locales/gestionHorarios', 'Horarios');
+                ?><a
+						href="<?php echo site_url();?>/locales/gestionHorarios"><i
+							class="fa fa-clock-o"> </i> Horarios</a> <?php 
             } else {
                 ?> <a>Horarios</a> <?php
             }
@@ -37,15 +36,19 @@
 					</li>
 					<li><?php
 					if ($_SESSION['controlTotal']) {
-                echo anchor('/pedidos/verPedidosLocal', 'Pedidos/Comandas');
+                ?><a
+						href="<?php echo site_url();?>/pedidos/verPedidosLocal"><i
+							class="fa fa-file-text-o"> </i> Pedidos/Comandas</a> <?php
             } else {
 ?> <a>Pedidos/Comandas</a> <?php
 //echo 'Pedidos/Comandas';
             }
             ?></li>
 					<li><?php
-					if ($_SESSION['controlTotal']) {
-                echo anchor('/menus/menusLocal', 'Menus');
+					if ($_SESSION['controlTotal']) {                
+                ?><a
+						href="<?php echo site_url();?>/locales/gestionHorarios"><i
+							class="fa fa-cutlery"> </i> Menus</a> <?php
             } else {
 ?> <a>Menus</a> <?php
 //     echo 'Menus';
@@ -53,8 +56,9 @@
             ?>
 					</li>
 					<li><?php
-					if ($_SESSION['controlTotal']) {
-                echo anchor('/reservas/reservasLocal', 'Reservas');
+					if ($_SESSION['controlTotal']) {                
+                ?><a href="<?php echo site_url();?>/reservas/reservasLocal"><i
+                							class="fa fa-calendar"> </i> Reservas</a> <?php
             } else {
                ?> <a>Reservas</a> <?php
             }

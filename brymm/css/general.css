@@ -184,14 +184,18 @@
 	font-weight: bold;
 }
 
-.fondo {
+.fond{
+	background-color:#8CAC8C;
+}
+
+.fondo{
 	/* Safari 4-5, Chrome 1-9 */
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white),
 		to(black));
 	/* Safari 5.1+, Chrome 10+ */
 	background: -webkit-radial-gradient(ellipse, #BFE1BE, #90A48F);
 	/* Firefox 3.6+ */	
-	background: -moz-radial-gradient(ellipse, #BFE1BE, #90A48F);	
+	background: -moz-radial-gradient(ellipse, #BFE1BE, #8CAC8C);	
 	/* Opera 11.10+ */
 	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
 	/* IE 10 */
@@ -201,8 +205,13 @@
 	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
 }
 
-#menuH{
-	margin-top:20px;
+.color{
+	background-color:#F2F2F2;
+	padding-top:20px;
+}
+
+#container{
+	padding-top:10px;
 }
 
 body {
