@@ -5,56 +5,182 @@
  * @author Mikel
  */
 function mostrarPedido(item) {
-
+	var formPedido = $('#formPedido').html();
 	$("#detallePedido").empty();
-	var contenido = "<ul>";
+	var contenido = "";
 	var existePedido = 0;
 	var funcionBorrar = "";
 	var rowid = "";
 	var precioTotal;
-	$(item).find('pedido').children().each(
-			function() {
-				existePedido = 1;
-				funcionBorrar = "";
-				// Se obtienen los valores del xml
-				var nombre = $.trim($(this).find('name').text());
-				var cantidad = $.trim($(this).find('qty').text());
-				var precio = $.trim($(this).find('price').text());
-				var idArticulo = $.trim($(this).find('id').text());
-				var tipoArticulo = $.trim($(this).find('tipoArticulo').text());
-				rowid = $.trim($(this).find('rowid').text());
-				funcionBorrar = "doAjax('" + site_url
-						+ "/pedidos/borrarArticulo','rowid=" + rowid
-				funcionBorrar = funcionBorrar + "','mostrarPedido','post',1)";
-				contenido = contenido + "<li>" + nombre + " - " + cantidad
-						+ " - " + precio;
-				contenido = contenido + "<a onclick=" + funcionBorrar
-						+ "> X </a>";
-				contenido = contenido + "<br> " + tipoArticulo;
-				$(this).find('ingredientes').each(
-						function() {
-							var ingrediente = $.trim($(this)
-									.find('ingrediente').text());
-							contenido = contenido + " - " + ingrediente;
-						});
-				contenido = contenido + "</li>";
-			});
-	contenido = contenido + "</ul>";
+	$(item)
+			.find('pedido')
+			.children()
+			.each(
+					function() {
+						if (existePedido == 0) {
+							contenido += "<div class=\"col-md-12 well\">";
+							contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+							contenido += "<tbody>";
+						}
+						existePedido = 1;
+						funcionBorrar = "";
+						// Se obtienen los valores del xml
+						var nombre = $.trim($(this).find('name').text());
+						var cantidad = $.trim($(this).find('qty').text());
+						var precio = $.trim($(this).find('price').text());
+						var idArticulo = $.trim($(this).find('id').text());
+						var tipoArticulo = $.trim($(this).find('tipoArticulo')
+								.text());
+						rowid = $.trim($(this).find('rowid').text());
+						funcionBorrar = "doAjax('" + site_url
+								+ "/pedidos/borrarArticulo','rowid=" + rowid
+						funcionBorrar = funcionBorrar
+								+ "','mostrarPedido','post',1)";
+
+						botonBorrar = "<button class=\"btn btn-danger btn-sm pull-right\""
+								+ "type=\"button\" data-toggle=\"tooltip\""
+								+ "data-original-title=\"Remove this user\" onclick=\""
+								+ "doAjax('"
+								+ site_url
+								+ "/pedidos/borrarArticulo','rowid="
+								+ rowid
+								+ "','mostrarPedido','post',1)\">"
+								+ "<span class=\"glyphicon glyphicon-remove\"></span>"
+								+ "</button>";
+
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo text-center\" colspan=\"2\">";
+						contenido += nombre;
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += botonBorrar;
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\">";
+						contenido += "Cantidad";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += cantidad;
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						ingredientes = "";
+						hayIngredientes = false;
+						$(this).find('ingredientes').each(
+								function() {
+									var ingrediente = $.trim($(this).find(
+											'ingrediente').text());
+									if (hayIngredientes) {
+										ingredientes += ", ";
+									}
+									ingredientes += ingrediente;
+									hayIngredientes = true;
+								});
+
+						/*
+						 * contenido = contenido + "<li>" + nombre + " - " +
+						 * cantidad + " - " + precio; contenido = contenido + "<a
+						 * onclick=" + funcionBorrar + "> X </a>"; contenido =
+						 * contenido + "<br> " + tipoArticulo;
+						 */
+						if (hayIngredientes) {
+							contenido += "<tr>";
+							contenido += "<td class=\"titulo\">";
+							contenido += "Precio";
+							contenido += "</td>";
+							contenido += "<td>";
+							contenido += round(precio, 2, 'PHP_ROUND_HALF_EVEN');
+							contenido += "<i class=\"fa fa-euro\"></i></td>";
+							contenido += "<td>";
+							contenido += "</td>";
+							contenido += "</tr>";
+
+							contenido += "<tr>";
+							contenido += "<td class=\"titulo\">";
+							contenido += "Tipo articulo";
+							contenido += "</td>";
+							contenido += "<td>";
+							contenido += tipoArticulo;
+							contenido += "</td>";
+							contenido += "<td>";
+							contenido += "</td>";
+							contenido += "</tr>";
+
+							contenido += "<tr>";
+							contenido += "<td class=\"titulo separadorArticulo\">";
+							contenido += "Ingredientes";
+							contenido += "</td>";
+							contenido += "<td class=\"separadorArticulo\">";
+							contenido += ingredientes;
+							contenido += "</td>";
+							contenido += "<td class=\"separadorArticulo\">";
+							contenido += "</td>";
+							contenido += "</tr>";
+						} else {
+							contenido += "<tr>";
+							contenido += "<td class=\"titulo separadorArticulo\">";
+							contenido += "Precio";
+							contenido += "</td>";
+							contenido += "<td class=\"separadorArticulo\">";
+							contenido += round(precio, 2, 'PHP_ROUND_HALF_EVEN');
+							contenido += "<i class=\"fa fa-euro\"></i></td>";
+							contenido += "<td class=\"separadorArticulo\">";
+							contenido += "</td>";
+							contenido += "</tr>";
+
+						}
+						// contenido = contenido + "</li>";
+					});
 	// Se obtiene el total
-	precioTotal = "Total : " + $.trim($(item).find('total').text()) + "<br>";
-	contenido = contenido + precioTotal
+	precioTotal = $.trim($(item).find('total').text());
+
 	// Se añade la opción de cancelar si hay algo en el pedido
 	if (existePedido == 1) {
-		contenido = contenido + "<a onclick=\"doAjax('" + site_url
-				+ "/pedidos/cancelarPedido','','mostrarPedido','post',1)\">";
-		contenido = contenido + "Cancelar";
-		contenido = contenido + "</a>";
+		contenido += "</tbody>";
+		contenido += "</table>";
+		contenido += "</div>";
+
+		// Se muestra el total
+		botonCancelar = "<button class=\"btn btn-danger pull-right\""
+				+ "type=\"button\" data-toggle=\"tooltip\""
+				+ "data-original-title=\"Remove this user\" onclick=\""
+				+ "doAjax('" + site_url
+				+ "/pedidos/cancelarPedido','','mostrarPedido','post',1)\">"
+				+ "<span class=\"glyphicon glyphicon-remove\"></span>"
+				+ "</button>";
+
+		contenido += "<div class=\"col-md-12 well\">";
+		contenido += "<div class=\"titulo col-md-5 text-left\">";
+		contenido += "Total";
+		contenido += "</div>";
+		contenido += "<div class=\"titulo col-md-5 text-left\">";
+		contenido += round(precioTotal, 2, 'PHP_ROUND_HALF_EVEN');
+		contenido += "<i class=\"fa fa-euro\"></i></div>";
+		contenido += "<div class=\"col-md-2\">";
+		contenido += botonCancelar;
+		contenido += "</div>";
+		contenido += "</div>";
+
 		// contenido = contenido + "<a href=\"" + site_url +
 		// "/pedidos/confirmarPedido/1\">Confirmar</a>";
+		// Pongo el formulario del pedido
+		contenido += "<div id=\"formPedido\" class=\"col-md-12 well\">";
+		contenido += formPedido;
+		contenido += "</div>";
 
 	}
 
 	$("#detallePedido").html(contenido);
+
+	if (existePedido == 1) {
+		$('#formPedido').show();
+	} else {
+		$('#formPedido').hide();
+	}
 	// Si hay mensaje se muestra
 	if ($(item).find('mensaje').length > 0) {
 		var mensaje = $.trim($(item).find('mensaje').text());
@@ -331,7 +457,7 @@ function gestionRetrasarPedido() {
 	}
 }
 
-function gestionEnvioPedido(){
+function gestionEnvioPedido() {
 	if ($('#envioPedido').is(':checked')) {
 		$('#contenidoDireccionEnvio').show();
 	} else {
@@ -489,9 +615,9 @@ $(document)
 
 					// Se gestiona si mostrar los combos para retrasar el pedido
 					gestionRetrasarPedido();
-					
-					// Se gestiona si mostrar las direcciones para el envio del pedido
+
+					// Se gestiona si mostrar las direcciones para el envio del
+					// pedido
 					gestionEnvioPedido();
-					
-					
+
 				});

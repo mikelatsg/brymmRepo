@@ -29,40 +29,68 @@
 		</table>
 	</form>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<div id="valoracionesLocal" class="panel panel-default">
-			<div class="panel-heading panel-verde">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target="#listaValoraciones"
-						class="accordion-toggle collapsed"> Valoraciones </a>
-				</h4>
-			</div>
-			<div id="listaValoraciones" class="collapse">
-				<div id="anadirValoracion">
-					<?php
-					echo "<a class=\"enlaceAnadirValoracionLocal\" data-toggle=\"modal\"> Valorar local </a>";
-					?>
+<div class="col-md-12 noPadLeft noPadRight">
+	<div id="valoracionesLocal" class="panel panel-default">
+		<div class="panel-heading panel-verde">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-target="#listaValoraciones"
+					class="accordion-toggle collapsed"> Valoraciones </a>
+			</h4>
+		</div>
+		<div id="listaValoraciones" class="panel-body collapse sub-panel">
+			<a class="enlaceAnadirValoracionLocal" data-toggle="modal"> Valorar
+				local </a>
+			<?php
+			if (count($valoraciones) > 0):
+			foreach ($valoraciones as $valoracion):
+			?>
+			<div class="col-md-12 well">
+				<div class="col-md-4">
+					<table
+						class="table table-condensed table-responsive table-user-information">
+						<tbody>
+							<tr>
+								<td class="titulo">Usuario</td>
+								<td><?php echo  $valoracion->nick;?></td>
+							</tr>
+							<tr>
+								<td class="titulo">Fecha</td>
+								<td><?php echo  $valoracion->fecha;?></td>
+							</tr>
+							<tr>
+								<td class="titulo">Nota</td>
+								<td><div class="progress">
+										<div class="progress-bar progress-bar-warning" role="progressbar"
+											aria-valuenow="<?php echo $valoracion->nota;?>" aria-valuemin="0" aria-valuemax="5"
+											style="width: <?php echo $valoracion->nota * 100/10; ?>%;">
+											<span class="sr-only">60% Complete</span>
+											<?php echo $valoracion->nota."/10";?>
+										</div>
+									</div></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<div class="list-group">
-					<?php
-					if (count($valoraciones) > 0):
-					foreach ($valoraciones as $valoracion):
-					?>
-					<span class="list-group-item"><?php
-					echo "Usuario : " . $valoracion->nick
-					. " - Fecha : " . $valoracion->fecha
-					. " - Nota : " . $valoracion->nota
-					. "<br> Observaciones : " . $valoracion->observaciones;
-					?> </span>
-					<?php
-					endforeach;
-					else:
-					echo "No se ha realizado ninguna valoracion";
-					endif;
-					?>
+				<div class="col-md-8">
+					<table
+						class="table table-condensed table-responsive table-user-information">
+						<tbody>
+							<tr>
+								<td class="titulo col-md-3">Observaciones</td>
+								<td class="text-left col-md-9"><?php echo  $valoracion->observaciones;?>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
+			<?php
+			endforeach;
+			else:
+			echo "No se ha realizado ninguna valoracion";
+			endif;
+			?>			
 		</div>
 	</div>
+</div>
 </div>

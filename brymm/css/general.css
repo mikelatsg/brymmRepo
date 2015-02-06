@@ -27,13 +27,6 @@
 	border-width: thin;
 }
 
-.panel-default>.panel-verde {
-	background-color: white;
-	border-color: #B87272; /* #72B883;*/
-	border-width: medium;
-	border-radius: 5px;
-}
-
 .panel-body.panel-verde {
 	background-color: white; /*#EBF7E9;*/
 }
@@ -58,7 +51,7 @@
 }
 
 .panel-title {
-	color: grey;
+	color: #302F2F;
 	text-align: left;
 }
 
@@ -66,9 +59,16 @@
 	border-color: white;
 }
 
+.panel-default>.panel-verde {
+	background-color: white;
+	border-color: #E67070;/*#B87272; /* #72B883;*/
+	border-width: medium;
+	border-radius: 5px;
+}
+
 .sub-panel>.panel-verde {
-	background-color: #BFE1BE;/*#BCF1B3;*/
-	border-color: #72B883;
+	background-color: #E67070;/*#EC4848;/* #BFE1BE;/*#BCF1B3;*/
+	border-color: #E67070;
 	border-width: thin;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .sub-panel>.panel-heading>.panel-title a {
-	color: grey;
+	color: #302F2F;
 	font-weight: bold;
 }
 
@@ -137,11 +137,11 @@
 
 #logo a {
 	padding: 10px 15px;
-	color: #72B899;
+	color: #CF0505;/*#72B899;*/
 }
 
 #logo a:hover {
-	color: #72B899;
+	color: #CF0505;/*#72B899;*/
 }
 
 /*Barra menu usuario*/
@@ -229,4 +229,8 @@ body a {
 
 .noPadRight{
 	padding-right:0px;
+}
+
+.table{
+	margin-bottom:0px;
 }

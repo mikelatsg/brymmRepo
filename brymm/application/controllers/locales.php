@@ -254,7 +254,7 @@ class Locales extends CI_Controller {
 		$var2['serviciosLocal'] = $this->Servicios_model->obtenerServiciosLocal($idLocal)->result();
 
 		//Se comprueba si el local es favorito
-		if ($_SESSION){
+		if (isset($_SESSION['idUsuario'])){
 			$var2['esFavorito'] = false;
 			if (
 			$this->Locales_model->obtenerLocalFavoritos($idLocal, $_SESSION['idUsuario'])
@@ -291,7 +291,7 @@ class Locales extends CI_Controller {
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'pedidos', 'menus', 'reservas', 'usuarios', 'locales', 'mensajes',
-				'js/bootstrap.min'
+				'js/bootstrap.min','general'
 		);
 
 		$header['estilos'] = array('buscador.css','general.css', 'locales.css','pedidosLocal.css');
@@ -306,7 +306,7 @@ class Locales extends CI_Controller {
 				//Se carga el modelo de usuarios
 				$this->load->model('usuarios/Usuarios_model');
 
-				if ($_SESSION){
+				if (isset($_SESSION['idUsuario'])){
 					//Se obtienen las direcciones del usuario
 					$var4['direccionesEnvio'] = $this->Usuarios_model->obtenerDirecciones($_SESSION['idUsuario'])->result();
 				}

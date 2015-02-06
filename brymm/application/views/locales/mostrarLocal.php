@@ -6,9 +6,8 @@
 				<div class="col-md-5">
 					<h1>
 						<span class="label label-primary"><?php	
-						echo $datosLocal->nombre;?> <?php
-						if ($_SESSION):
-						if ($_SESSION['idUsuario']):
+						echo $datosLocal->nombre;?> <?php						
+						if (isset($_SESSION['idUsuario'])):
 						if ($esFavorito):
 						?> <a
 							onclick="
@@ -25,8 +24,7 @@
 					    ?>"> <i class="fa fa-star-o starColor fa-2x" title="Agregar a favoritos"></i>
 						</a> <?php
 						endif;
-						endif;
-						endif;
+						endif;						
 						?>
 						</span>
 					</h1>

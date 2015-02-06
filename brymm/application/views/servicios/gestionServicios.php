@@ -36,7 +36,7 @@
 <div>
 	<div id="serviciosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Servicios</h4>
+			<h4 class="panel-title"><i class="fa fa-cloud"></i> Servicios</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -44,7 +44,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaServicios"
-								class="accordion-toggle collapsed"> Nuevo servicio </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo servicio </a>
 						</h4>
 					</div>
 					<div id="altaServicios" class="panel-body collapse sub-panel">
@@ -98,7 +98,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaServicioLocal"
-								class="accordion-toggle collapsed"> Lista servicios </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista servicios </a>
 						</h4>
 					</div>
 					<div id="listaServicioLocal" class="panel-body collapse sub-panel">
