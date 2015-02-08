@@ -200,9 +200,10 @@
 								</select>
 							</div>
 							<div class="col-md-2">
-								<button class="btn btn-success btn-sm enlaceAnadirDireccion"
+								<button class="btn btn-success btn-sm"
 									type="button" data-toggle="modal"
-									data-original-title="Edit this user" title="Anadir direccion">
+									data-original-title="Edit this user" title="Anadir direccion"
+									onclick="<?php echo "anadirDireccion()";?>">
 									<span class="glyphicon glyphicon-plus"></span>
 								</button>
 							</div>
