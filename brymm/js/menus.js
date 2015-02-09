@@ -477,96 +477,244 @@ function mostrarMenuUsuario(item) {
 	var contenido = "";
 	var existeMenu = false;
 	var hayTitulo = false;
-	$(item).find('xml').children().each(
-			function() {
-				// Se obtienen los valores del xml
-				tipoMenu = $.trim($(this).find('tipoMenu').text());
-				idTipoMenu = $.trim($(this).find('idTipoMenu').text());
-				fechaMenu = $.trim($(this).find('fechaMenu').text());
-				idLocal = $.trim($(this).find('idLocal').text());
-				precioMenu = $.trim($(this).find('precioMenu').text());
-				nombreMenu = $.trim($(this).find('nombreMenu').text());
-				esCarta = $.trim($(this).find('esCarta').text());
+	$(item)
+			.find('xml')
+			.children()
+			.each(
+					function() {
+						// Se obtienen los valores del xml
+						tipoMenu = $.trim($(this).find('tipoMenu').text());
+						idTipoMenu = $.trim($(this).find('idTipoMenu').text());
+						fechaMenu = $.trim($(this).find('fechaMenu').text());
+						idLocal = $.trim($(this).find('idLocal').text());
+						precioMenu = $.trim($(this).find('precioMenu').text());
+						nombreMenu = $.trim($(this).find('nombreMenu').text());
+						esCarta = $.trim($(this).find('esCarta').text());
 
-				// El titulo (comida,cena, desayuno) solo se pone una vez
-				if (!hayTitulo) {
-					contenido = contenido + "<h2>" + tipoMenu + "</h2>";
-				}
-				hayTitulo = true;
+						// El titulo (comida,cena, desayuno) solo se pone una
+						// vez
+						if (!hayTitulo) {
+							contenido += "<h3>";
+							contenido += "<span class=\"label label-default\">"
+									+ tipoMenu + "</span>";
+							contenido += "</h3>";
+							// contenido = contenido + "<h2>" + tipoMenu +
+							// "</h2>";
+						}
+						hayTitulo = true;
 
-				var idTipoPlato = "";
-				var nombrePlato = "";
-				var precioPlato = "";
-				var idTipoPlatoAnterior = 0;
-				var tipoPlato = "";
+						var idTipoPlato = "";
+						var nombrePlato = "";
+						var precioPlato = "";
+						var idTipoPlatoAnterior = 0;
+						var tipoPlato = "";
 
-				// Se muestra el nombre del menu
-				contenido = contenido + "<h3>" + nombreMenu + "</h3>";
-				$(this).find('detalleMenu').each(
-						function() {
-							existeMenu = true;
+						// Se muestra el nombre del menu
+						// contenido = contenido + "<h3>" + nombreMenu +
+						// "</h3>";
+
+						// Se muestra el nombre del menu
+						contenido += "<div class=\"well col-md-12\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+
+						contenido += "<tr id=\"nombreMenu\">";
+						contenido += "<td>";
+						contenido += "<h4>";
+						contenido += "<span class=\"label label-danger\">";
+						contenido += nombreMenu;
+						contenido += "</span>"
+						contenido += "</h4>";
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						$(this)
+								.find('detalleMenu')
+								.each(
+										function() {
+											existeMenu = true;
+											
+											/*
+											 * En la carta se muestran los
+											 * precios de los platos
+											 */
+											if (esCarta == "1") {
+												idTipoPlato = $.trim($(this)
+														.find('idTipoPlato')
+														.text());
+												tipoPlato = $.trim($(this)
+														.find('tipoPlato')
+														.text());												
+
+												if (idTipoPlato != idTipoPlatoAnterior) {
+													
+													contenido += "<tr id=\"tipoPlato\">";
+													contenido += "<td>";
+													contenido += "<span class=\"label label-default\">";
+													contenido += tipoPlato;
+													contenido += "</span>"
+													contenido += "</td>";
+													contenido += "</tr>";
+
+												}
+												nombrePlato = $.trim($(this)
+														.find('nombrePlato')
+														.text());
+												precioPlato = $.trim($(this)
+														.find('precioPlato')
+														.text());
+												idTipoPlatoAnterior = idTipoPlato;
+
+												contenido += "<tr>";
+												contenido += "<td>";
+												contenido += nombrePlato;
+												contenido += " ["
+														+ precioPlato
+														+ " <i class=\"fa fa-euro\"></i>]";
+												contenido += "</td>";
+												contenido += "</tr>";
+												 
+											} else {
+												/*
+												 * Desayunos, comidas y cenas
+												 */
+												idTipoPlato = $.trim($(this)
+														.find('idTipoPlato')
+														.text());
+												tipoPlato = $.trim($(this)
+														.find('tipoPlato')
+														.text());
+												if (idTipoPlato != idTipoPlatoAnterior
+														& idTipoPlatoAnterior != 0) {
+													contenido = contenido
+															+ "</ul>";
+												}
+
+												if (idTipoPlato != idTipoPlatoAnterior) {
+
+													contenido += "<tr id=\"tipoPlato\">";
+													contenido += "<td>";
+													contenido += "<span class=\"label label-default\">";
+													contenido += tipoPlato;
+													contenido += "</span>"
+													contenido += "</td>";
+													contenido += "</tr>";
+
+													
+												}
+												nombrePlato = $.trim($(this)
+														.find('nombrePlato')
+														.text());
+												idTipoPlatoAnterior = idTipoPlato;
+
+												contenido += "<tr>";
+												contenido += "<td>";
+												contenido += nombrePlato;
+												contenido += "</td>";												
+												contenido += "</tr>";
+
+												
+											}
+											/*
+											 * En los desayunos se muestran los
+											 * platos como en carta
+											 */
+											/*if (esCarta == "1") {
+												idTipoPlato = $.trim($(this)
+														.find('idTipoPlato')
+														.text());
+												tipoPlato = $.trim($(this)
+														.find('tipoPlato')
+														.text());
+												if (idTipoPlato != idTipoPlatoAnterior
+														& idTipoPlatoAnterior != 0) {
+													contenido = contenido
+															+ "</ul>";
+												}
+
+												if (idTipoPlato != idTipoPlatoAnterior) {
+													contenido = contenido
+															+ "<h4>"
+															+ tipoPlato
+															+ "</h4>";
+													contenido = contenido
+															+ "<ul>";
+												}
+												nombrePlato = $.trim($(this)
+														.find('nombrePlato')
+														.text());
+												precioPlato = $.trim($(this)
+														.find('precioPlato')
+														.text());
+												idTipoPlatoAnterior = idTipoPlato;
+												contenido = contenido + "<li>";
+												contenido = contenido
+														+ nombrePlato + " - "
+														+ precioPlato;
+												contenido = contenido + "</li>";
+											} else {
+												/*
+												 * Desayunos, comidas y cenas
+												 *
+												idTipoPlato = $.trim($(this)
+														.find('idTipoPlato')
+														.text());
+												tipoPlato = $.trim($(this)
+														.find('tipoPlato')
+														.text());
+												if (idTipoPlato != idTipoPlatoAnterior
+														& idTipoPlatoAnterior != 0) {
+													contenido = contenido
+															+ "</ul>";
+												}
+
+												if (idTipoPlato != idTipoPlatoAnterior) {
+													contenido = contenido
+															+ "<h4>"
+															+ tipoPlato
+															+ "</h4>";
+													contenido = contenido
+															+ "<ul>";
+												}
+												nombrePlato = $.trim($(this)
+														.find('nombrePlato')
+														.text());
+												idTipoPlatoAnterior = idTipoPlato;
+												contenido = contenido + "<li>";
+												contenido = contenido
+														+ nombrePlato;
+												contenido = contenido + "</li>";
+
+											}*/
+
+										});
+						/*
+						 * contenido = contenido + "</ul>"; if ((esCarta ==
+						 * "0") && existeMenu) { contenido = contenido + "Precio
+						 * menu : " + precioMenu; }
+						 */
+
+						if ((esCarta == "0") && existeMenu) {
+							contenido += "<tr>";
+							contenido += "<td>";
+							contenido += "Precio menu : " + precioMenu;
+							contenido += " <i class=\"fa fa-euro\"></i></td>";
+							contenido += "<td>";
+							contenido += "</td>";
+							contenido += "</tr>";
 							/*
-							 * En los desayunos se muestran los platos como en
-							 * carta
+							 * contenido = contenido + "Precio menu : " +
+							 * precioMenu;
 							 */
-							if (esCarta == "1") {
-								idTipoPlato = $.trim($(this)
-										.find('idTipoPlato').text());
-								tipoPlato = $.trim($(this).find('tipoPlato')
-										.text());
-								if (idTipoPlato != idTipoPlatoAnterior
-										& idTipoPlatoAnterior != 0) {
-									contenido = contenido + "</ul>";
-								}
+						}
 
-								if (idTipoPlato != idTipoPlatoAnterior) {
-									contenido = contenido + "<h4>" + tipoPlato
-											+ "</h4>";
-									contenido = contenido + "<ul>";
-								}
-								nombrePlato = $.trim($(this)
-										.find('nombrePlato').text());
-								precioPlato = $.trim($(this)
-										.find('precioPlato').text());
-								idTipoPlatoAnterior = idTipoPlato;
-								contenido = contenido + "<li>";
-								contenido = contenido + nombrePlato + " - "
-										+ precioPlato;
-								contenido = contenido + "</li>";
-							} else {
-								/*
-								 * Desayunos, comidas y cenas
-								 */
-								idTipoPlato = $.trim($(this)
-										.find('idTipoPlato').text());
-								tipoPlato = $.trim($(this).find('tipoPlato')
-										.text());
-								if (idTipoPlato != idTipoPlatoAnterior
-										& idTipoPlatoAnterior != 0) {
-									contenido = contenido + "</ul>";
-								}
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						contenido += "</div>";
 
-								if (idTipoPlato != idTipoPlatoAnterior) {
-									contenido = contenido + "<h4>" + tipoPlato
-											+ "</h4>";
-									contenido = contenido + "<ul>";
-								}
-								nombrePlato = $.trim($(this)
-										.find('nombrePlato').text());
-								idTipoPlatoAnterior = idTipoPlato;
-								contenido = contenido + "<li>";
-								contenido = contenido + nombrePlato;
-								contenido = contenido + "</li>";
-
-							}
-
-						});
-				contenido = contenido + "</ul>";
-				if ((esCarta == "0") && existeMenu) {
-					contenido = contenido + "Precio menu : " + precioMenu;
-				}
-
-			});
+					});
 
 	$("#menuDiaUsuario").empty();
 	$("#menuDiaUsuario").html(contenido);

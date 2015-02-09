@@ -2,57 +2,85 @@
 <div id="homeUsuario">
 	<div>
 		<div id="pedidosUsuario" class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target="#collapsePedidosUsuario"
-						class="accordion-toggle collapsed"> Pedidos</a>
-				</h4>
+			<div class="panel-heading panel-verde">
+				<h4 class="panel-title">Pedidos</h4>
 			</div>
-			<div id="collapsePedidosUsuario" class="panel-body collapse">
-				<div class="col-md-6">
-					<div id="ultimosPedidosUsuario" class="panel panel-default">
-						<div class="panel-heading">
+			<div id="collapsePedidosUsuario" class="panel-body panel-verde">
+				<div class="col-md-4">
+					<div id="ultimosPedidosUsuario"
+						class="panel panel-default sub-panel">
+						<div class="panel-heading panel-verde">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-target="#collapseUltimosPedidos"
 									class="accordion-toggle collapsed"> Ultimos pedidos </a>
 							</h4>
 						</div>
-						<div id="collapseUltimosPedidos" class="panel-collapse collapse">
+						<div id="collapseUltimosPedidos"
+							class="panel-body collapse sub-panel">
 							<?php
-							if (count($pedidosUsuario) > 0) :
+							foreach ($pedidosUsuario as $linea):
 							?>
-							<div class="list-group">
-								<?php
-								foreach ($pedidosUsuario as $linea):
-								echo "<span class=\"list-group-item\">";
-								//echo "Local : " . $linea['nombreLocal'];
-								echo anchor('/locales/mostrarLocal/' . $linea['idLocal'], $linea['nombreLocal']);
-								echo " - Pedido : " . $linea['idPedido'];
-								echo " - Precio : " . $linea['precio'];
-								echo " - Estado : <span id=\"estadoPedido\">" . $linea['estado'] . "</span>";
-								echo "<a onclick=\"";
-								echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido="
-									. $linea['idPedido'] . "','verPedidoHomeUsuario','post',1)\"> Ver pedido </a>";
-								echo anchor('/pedidos/generarPedidoAntiguo/' . $linea['idPedido'], ' Cargar pedido ');
-								if ($linea['fechaPedido'] >= date('Y-m-d')) {
-					echo anchor('/pedidos/mostrarEstadoPedido/' . $linea['idPedido'], ' Estado pedido ');
-				}
-				echo "</span>";
-				endforeach;
-				?>
+							<div class="col-md-12 list-div">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td class="titulo" colspan="3">Pedido <?php echo $linea['idPedido'];?>
+												<button class="btn btn-default btn-sm pull-right"
+													type="button" data-toggle="tooltip"
+													data-original-title="Remove this user"
+													onclick="<?php
+                    echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido="
+									. $linea['idPedido'] . "','verPedidoHomeUsuario','post',1)";
+                ?>" title="Ver detalle del pedido">
+													<span class="glyphicon glyphicon-eye-open"></span>
+												</button> <?php 
+												if ($linea['fechaPedido'] >= date('Y-m-d')):
+												?> <a class="btn btn-primary btn-sm pull-right"
+												role="button"
+												href="<?php echo site_url();?>/pedidos/mostrarEstadoPedido/<?php echo $linea['idPedido'];?>"
+												title="Ver estado pedido"><i class="fa fa-tag"></i> </a> <?php 
+												endif;?> <a class="btn btn-warning btn-sm pull-right"
+												role="button"
+												href="<?php echo site_url();?>/pedidos/generarPedidoAntiguo/<?php echo $linea['idPedido'];?>"
+												title="Cargar el pedido para realizar un nuevo pedido"><i class="fa fa-refresh"></i> </a>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $linea['precio'];?> <i class="fa fa-euro"></i>
+											</td>
+											<td><?php echo $linea['estado'];?> <i class="fa fa-tag"></i>
+											</td>
+											<td><a
+												href="<?php echo site_url();?>/locales/mostrarLocal/<?php echo $linea['idLocal'];?>">
+													<?php echo $linea['nombreLocal'];?> <i class="fa fa-home">
+												</i>
+											</a></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
+							<!--
+							echo "<a onclick=\"";
+							echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido="
+									. $linea['idPedido'] . "','verPedidoHomeUsuario','post',1)\"> Ver pedido </a>";
+							echo anchor('/pedidos/generarPedidoAntiguo/' . $linea['idPedido'], ' Cargar pedido ');
+							if ($linea['fechaPedido'] >= date('Y-m-d')) {
+					echo anchor('/pedidos/mostrarEstadoPedido/' . $linea['idPedido'], ' Estado pedido ');
+							}
+							echo "</span>"; -->
 							<?php
-							endif;
+							endforeach;
 							?>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<div id="detallePedidoUsuario" class="panel panel-default">
-						<div class="panel-heading">
+				<div class="col-md-8">
+					<div id="detallePedidoUsuario"
+						class="panel panel-default sub-panel">
+						<div class="panel-heading panel-verde">
 							<h4 class="panel-title">Detalle pedido</h4>
 						</div>
-						<div id="muestraDetalle"></div>
+						<div id="muestraDetalle" class="panel-body sub-panel"></div>
 					</div>
 				</div>
 			</div>
@@ -60,22 +88,21 @@
 	</div>
 	<div>
 		<div id="reservasUsuario" class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target="#collapseReservasUsuario"
-						class="accordion-toggle collapsed"> Reservas</a>
-				</h4>
+			<div class="panel-heading panel-verde">
+				<h4 class="panel-title">Reservas</h4>
 			</div>
-			<div id="collapseReservasUsuario" class="panel-body collapse">
-				<div class="col-md-6">
-					<div id="ultimasReservasUsuario" class="panel panel-default">
-						<div class="panel-heading">
+			<div id="collapseReservasUsuario" class="panel-body panel-verde">
+				<div class="col-md-4">
+					<div id="ultimasReservasUsuario"
+						class="panel panel-default sub-panel">
+						<div class="panel-heading panel-verde">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-target="#ultimasReservas"
 									class="accordion-toggle collapsed"> Ultimas Reservas </a>
 							</h4>
 						</div>
-						<div id="ultimasReservas" class="collapse">
+						<div id="ultimasReservas"
+							class="panel-collapse collapse sub-panel">
 							<?php
 							if (count($ultimasReservas) > 0) :
 							?>
@@ -98,12 +125,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<div id="detalleReservaUsuario" class="panel panel-default">
-						<div class="panel-heading">
+				<div class="col-md-8">
+					<div id="detalleReservaUsuario"
+						class="panel panel-default sub-panel">
+						<div class="panel-heading panel-verde">
 							<h4 class="panel-title">Detalle reserva</h4>
 						</div>
-						<div id="muestraDetalleReserva"></div>
+						<div id="muestraDetalleReserva" class="panel-body sub-panel"></div>
 					</div>
 				</div>
 			</div>
@@ -111,13 +139,13 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div id="localesFavoritosUsuario" class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#localesFavoritos"
 								class="accordion-toggle collapsed"> Locales favoritos </a>
 						</h4>
 					</div>
-					<div id="localesFavoritos" class="collapse">
+					<div id="localesFavoritos" class="panel-body collapse sub-panel">
 						<div class="list-group">
 							<?php
 							foreach ($localesFavoritos as $local):
@@ -127,7 +155,7 @@
                     " - localidad : " . $local->localidad);
             echo "<a onclick=\"";
             echo "doAjax('" . site_url() . "/locales/quitarLocalFavorito','idLocal="
-							. $local->id_local . "','eliminarLocalFavorito','post',1)\">Eliminar favorito </a>";
+									. $local->id_local . "','eliminarLocalFavorito','post',1)\">Eliminar favorito </a>";
             echo "</span>";
             endforeach;
             ?>
@@ -138,14 +166,14 @@
 			</div>
 			<div class="col-md-6">
 				<div id="misDireccionesUsuario" class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaDirecciones"
 								class="accordion-toggle collapsed"> Mis direcciones </a>
 						</h4>
 					</div>
 
-					<div id="listaDirecciones" class="panel-body collapse">
+					<div id="listaDirecciones" class="panel-body collapse sub-panel">
 						<div class="list-group">
 							<?php foreach ($direccionesEnvio as $linea): ?>
 							<span class="list-group-item"><?php

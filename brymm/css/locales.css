@@ -12,12 +12,12 @@ a:hover {
 }
 
 .serviciosLocal {
-	background-color: #E67070;
+	background-color: #A4A4A4;
 	font-weight: bold;
 }
 
 .serviciosLocal  a {
-	color: white;
+	color: black;
 }
 
 .serviciosLocal  a:hover {

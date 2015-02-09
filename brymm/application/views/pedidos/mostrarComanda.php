@@ -105,14 +105,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-8">
-				<!-- <div id="tituloMostrarComanda">
-					<h4>Comanda</h4>
-				</div>
-				 -->
+			<div class="col-md-8">				
 				<div id="detalleComandaCab" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-verde">
-						<h4 class="panel-title sub-panel">Detalle Comanda</h4>
+						<h4 class="panel-title">Detalle Comanda</h4>
 					</div>
 					<div id="mostrarComanda" class="panel-body sub-panel"></div>
 				</div>

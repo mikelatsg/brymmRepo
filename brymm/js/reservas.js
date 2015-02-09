@@ -73,7 +73,7 @@ function listaReservasUsuario(item) {
 	var contenido = "";
 	var enlaceAnular = "";
 
-	contenido = contenido + "<ul>";
+	contenido = "";
 	$(item)
 			.find('xml')
 			.children('reservaUsuario')
@@ -90,27 +90,50 @@ function listaReservasUsuario(item) {
 						estado = $.trim($(this).find('estado').text());
 						idReserva = $.trim($(this).find('id_reserva').text());
 
-						// Se crea el enlace para poder anular la reserva
-						enlaceAnular = "<a onclick=\"doAjax('"
+						// Se crea el enlace para poder anular la reserva						
+						botonAnular = "<button class=\"btn btn-danger btn-sm pull-right\""
+								+ "type=\"button\" data-toggle=\"tooltip\""
+								+ "data-original-title=\"Remove this user\" onclick=\""
+								+ "doAjax('"
 								+ site_url
 								+ "/reservas/anularReservaUsuario','idReserva="
 								+ idReserva
-								+ "','listaReservasUsuario','post',1)\">Anular</a>";
+								+ "','listaReservasUsuario','post',1)\" title=\"Anular reserva\">"
+								+ "<span class=\"glyphicon glyphicon-remove\"></span>"
+								+ "</button>";
 
-						contenido = contenido + "<li>";
-						contenido = contenido + fecha + " - " + horaInicio
-								+ " - " + nombreLocal + " - " + numeroPersonas
-								+ " - " + estado;
-						// Si el estado no es ya anulado se da la opción de
-						// anular
+						contenido += "<div class=\"col-md-12 list-div\">";
+						contenido += "<table class=\"table\">";
+						contenido += "<tbody>";
+
+						contenido += "<tr>";
+						contenido += "<td colspan=\"3\" class=\"text-left titulo\">";
+						contenido += "Reserva " + idReserva;
 						if (estado == 'P' || estado == 'AL') {
-							contenido = contenido + " - " + enlaceAnular;
+							contenido += botonAnular;
 						}
-						contenido = contenido + "</li>";
+						contenido += "</td>";
+						contenido += "</tr>";
 
-					});
+						contenido += "<tr>";
+						contenido += "<td>";
+						contenido += nombreLocal
+								+ " <i class=\"fa fa-home\"></i>";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += numeroPersonas
+								+ " <i class=\"fa fa-users\"></i>";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += estado + " <i class=\"fa fa-tag\"></i>";
+						contenido += "</td>";
+						contenido += "</tr>";						
 
-	contenido = contenido + "</ul>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+
+					});	
 
 	$("#listaReservasUsuario").empty();
 	$("#listaReservasUsuario").html(contenido);
@@ -1141,17 +1164,22 @@ function listaMesasLibres(item) {
 	var contenidoCheckbox = "";
 	contenidoCheckbox += "<div class=\"checkbox\">";
 	contenidoCheckbox += "</div>";
-	$(item).find("mesaLibre").each(function() {
-		nombreMesa = $.trim($(this).find('nombre_mesa').text());
-		idMesaLocal = $.trim($(this).find('id_mesa_local').text());
-		capacidad = $.trim($(this).find('capacidad').text());
-		contenidoCheckbox += "<div class=\"checkbox\">";
-		contenidoCheckbox += "<input type=\"checkbox\" name=\"mesas[]\" ";
-		contenidoCheckbox += "value=\"" + idMesaLocal + "\"/>";
-		contenidoCheckbox += "Mesa " + nombreMesa; 
-		contenidoCheckbox += " [" + capacidad + " <i class=\"fa fa-users\"></i>]";
-		contenidoCheckbox += "</div>";
-	});
+	$(item)
+			.find("mesaLibre")
+			.each(
+					function() {
+						nombreMesa = $.trim($(this).find('nombre_mesa').text());
+						idMesaLocal = $.trim($(this).find('id_mesa_local')
+								.text());
+						capacidad = $.trim($(this).find('capacidad').text());
+						contenidoCheckbox += "<div class=\"checkbox\">";
+						contenidoCheckbox += "<input type=\"checkbox\" name=\"mesas[]\" ";
+						contenidoCheckbox += "value=\"" + idMesaLocal + "\"/>";
+						contenidoCheckbox += "Mesa " + nombreMesa;
+						contenidoCheckbox += " [" + capacidad
+								+ " <i class=\"fa fa-users\"></i>]";
+						contenidoCheckbox += "</div>";
+					});
 
 	$("#listaMesasLibres").empty();
 	$("#listaMesasLibres").html(contenidoCheckbox);

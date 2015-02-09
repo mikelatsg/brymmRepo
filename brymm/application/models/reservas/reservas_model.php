@@ -148,7 +148,7 @@ class Reservas_model extends CI_Model {
 		$result = $this->db->query($sql, array($idUsuario, $numeroReservas));
 
 		return $result;
-	}	
+	}
 
 	function insertarReservaUsuario($idUsuario, $idLocal, $numeroPersonas
 			, $fecha, $idTipoMenu, $horaInicio, $horaFin
@@ -619,23 +619,26 @@ class Reservas_model extends CI_Model {
 				AND dia = ?
 				AND id_tipo_menu = ?";
 
-		$idDiaCerrado = $this->db->query($sql, array($idLocal, $fecha, $idTipoMenu))
-		->row()->id_reserva_dia_cerrado;
+		$diaCerrado = $this->db->query($sql, array($idLocal, $fecha, $idTipoMenu));
 
+		//Si estan cerradas las reservas la abro
+		if ($diaCerrado->num_rows() > 0 ){
+			$idDiaCerrado = $diaCerrado->row()->id_reserva_dia_cerrado;
 
-		$sql = "DELETE FROM reservas_dias_cerrados
-				WHERE id_local = ?
-				AND dia = ?
-				AND id_tipo_menu = ?";
+			$sql = "DELETE FROM reservas_dias_cerrados
+					WHERE id_local = ?
+					AND dia = ?
+					AND id_tipo_menu = ?";
 
-		$this->db->query($sql, array($idLocal, $fecha, $idTipoMenu));
+			$this->db->query($sql, array($idLocal, $fecha, $idTipoMenu));
 
-		//Se carga el modelo de alertas
-		$this->load->model('alertas/Alertas_model');
+			//Se carga el modelo de alertas
+			$this->load->model('alertas/Alertas_model');
 
-		//Se inserta la alerta
-		$this->Alertas_model->insertAlertaLocal
-		(38, $idLocal, $idDiaCerrado);
+			//Se inserta la alerta
+			$this->Alertas_model->insertAlertaLocal
+			(38, $idLocal, $idDiaCerrado);
+		}
 	}
 
 	function obtenerReservaDiasCierreObject($idLocal){
@@ -663,17 +666,17 @@ class Reservas_model extends CI_Model {
 	}
 
 	function obtenerReservaUsuario($idReserva) {
-	
+
 		$sql = "SELECT r.*, l.nombre nombreLocal, tm.descripcion tipoMenu
-		FROM reservas r, locales l,tipo_menu tm
-		WHERE r.id_local = l.id_local
-		AND r.id_tipo_menu = tm.id_tipo_menu
-		AND id_reserva = ?
-		ORDER BY r.fecha DESC";
-	
+				FROM reservas r, locales l,tipo_menu tm
+				WHERE r.id_local = l.id_local
+				AND r.id_tipo_menu = tm.id_tipo_menu
+				AND id_reserva = ?
+				ORDER BY r.fecha DESC";
+
 		$result = $this->db->query($sql, array($idReserva));
-	
+
 		return $result;
 	}
-	
+
 }

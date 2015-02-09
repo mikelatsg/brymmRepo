@@ -21,14 +21,14 @@ class Menus_model extends CI_Model {
 				$precio, date('Y-m-d H:i:s')));
 
 		$idPlato = $this->db->insert_id();
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(33, $idLocal, $idPlato);
-		
+
 		return $idPlato;
 	}
 
@@ -111,10 +111,10 @@ class Menus_model extends CI_Model {
 				AND id_plato_local = ?";
 
 		$this->db->query($sql, array($idLocal, $idPlatoLocal));
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(34, $idLocal, $idPlatoLocal);
@@ -194,7 +194,7 @@ class Menus_model extends CI_Model {
 			$sql = "DELETE FROM menu_local
 					WHERE id_menu_local = ?";
 			$this->db->query($sql, array($idMenuLocal));
-				
+
 			//Se carga el modelo de alertas
 			$this->load->model('alertas/Alertas_model');
 
@@ -240,14 +240,14 @@ class Menus_model extends CI_Model {
 			$sql = "DELETE FROM menu_local
 					WHERE id_menu_local = ?";
 			$this->db->query($sql, array($idMenuLocal));
-				
+
 			//Se carga el modelo de alertas
 			$this->load->model('alertas/Alertas_model');
-				
+
 			//Se inserta la alerta de borrado
 			$this->Alertas_model->insertAlertaLocal
 			(32, $idLocal, $idMenuLocal);
-				
+
 			return true;
 		}
 
@@ -374,17 +374,17 @@ class Menus_model extends CI_Model {
 	function modificarPlatoLocal($nombre, $precio, $idTipoPlato, $idPlatoLocal) {
 		//Obtengo el local
 		$idLocal = $this->obtenerPlatoLocal($idPlatoLocal)->row()->id_local;
-		
+
 		$sql = "UPDATE platos_local
 				SET  nombre = ? , precio = ?, id_tipo_plato = ?
 				WHERE id_plato_local = ?";
 
 		$this->db->query($sql, array($nombre, $precio, $idTipoPlato,
 				$idPlatoLocal));
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(33, $idLocal, $idPlatoLocal);
@@ -402,8 +402,8 @@ class Menus_model extends CI_Model {
 
 		$this->db->query($sql, array($idTipoMenu, $nombreMenu, $precioMenu, $esCarta
 				, $idTipoMenuLocal));
-		
-		$idLocal = $this->obtenerTipoMenuLocal($idTipoMenuLocal)->row()->id_local; 
+
+		$idLocal = $this->obtenerTipoMenuLocal($idTipoMenuLocal)->row()->id_local;
 
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
@@ -838,7 +838,7 @@ class Menus_model extends CI_Model {
 
 		//{cal_cell_content}<a onclick="{content}">{day}</a><a onclick="{enlaceDesayuno}"><img src="{imagenDesayuno}"></a><a onclick="{enlaceComida}"><img src="{imagenComida}"></a><a onclick="{enlaceCena}"><img src="{imagenCena}"></a><a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a>{/cal_cell_content}
 		//<a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a>
-		
+
 		$prefs['template'] = '
 		{table_open}<table border="0" cellpadding="0" cellspacing="0">{/table_open}
 
@@ -857,7 +857,7 @@ class Menus_model extends CI_Model {
 		{cal_row_start}<tr>{/cal_row_start}
 		{cal_cell_start}<td class="col-md-1 cuadroDia">{/cal_cell_start}
 
-		{cal_cell_content}<div class="row numeroDia">{day}</div><div class="row"><div class="col-md-4"><a onclick="{enlaceDesayuno}">{imagenDesayuno}</a></div><div class="col-md-4"><a onclick="{enlaceComida}">{imagenComida}</a></div><div class="col-md-4"><a onclick="{enlaceCena}">{imagenCena}</a></div></div>{/cal_cell_content}		 
+		{cal_cell_content}<div class="row numeroDia">{day}</div><div class="row"><div class="col-md-4"><a onclick="{enlaceDesayuno}">{imagenDesayuno}</a></div><div class="col-md-4"><a onclick="{enlaceComida}">{imagenComida}</a></div><div class="col-md-4"><a onclick="{enlaceCena}">{imagenCena}</a></div></div>{/cal_cell_content}
 		{cal_cell_content_today}<div class="row numeroDia">{day}</div><div class="row"><div class="col-md-4"><a onclick="{enlaceDesayuno}">{imagenDesayuno}</a></div><div class="col-md-4"><a onclick="{enlaceComida}">{imagenComida}</a></div><div class="col-md-4"><a onclick="{enlaceCena}">{imagenCena}</a></div></div>{/cal_cell_content_today}
 
 		{cal_cell_no_content}{day}{/cal_cell_no_content}
@@ -986,9 +986,9 @@ class Menus_model extends CI_Model {
 
 		{heading_row_start}<tr>{/heading_row_start}
 
-		{heading_previous_cell}<th><a onclick="{previous_url}">&lt;&lt;</a></th>{/heading_previous_cell}
-		{heading_title_cell}<th colspan="{colspan}">{heading}</th>{/heading_title_cell}
-		{heading_next_cell}<th><a onclick="{next_url}">&gt;&gt;</a></th>{/heading_next_cell}
+		{heading_previous_cell}<th class="mesAno"><a onclick="{previous_url}"><span class="glyphicon glyphicon-arrow-left flechasMes"></span></a></th>{/heading_previous_cell}
+		{heading_title_cell}<th colspan="{colspan}" class="mesAno">{heading}</th>{/heading_title_cell}
+		{heading_next_cell}<th class="mesAno"><a onclick="{next_url}"><span class="glyphicon glyphicon-arrow-right flechasMes"></span></a></th>{/heading_next_cell}
 
 		{heading_row_end}</tr>{/heading_row_end}
 
@@ -997,10 +997,10 @@ class Menus_model extends CI_Model {
 		{week_row_end}</tr>{/week_row_end}
 
 		{cal_row_start}<tr>{/cal_row_start}
-		{cal_cell_start}<td>{/cal_cell_start}
+		{cal_cell_start}<td class="col-md-1 cuadroDia">{/cal_cell_start}
 
-		{cal_cell_content}<a onclick="{content}">{day}</a><a onclick="{enlaceDesayuno}"><img src="{imagenDesayuno}"></a><a onclick="{enlaceComida}"><img src="{imagenComida}"></a><a onclick="{enlaceCena}"><img src="{imagenCena}"></a><a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a>{/cal_cell_content}
-		{cal_cell_content_today}<div class="highlight"><a onclick="{content}">{day}</a><a onclick="{enlaceDesayuno}"><img src="{imagenDesayuno}"></a><a onclick="{enlaceComida}"><img src="{imagenComida}"></a><a onclick="{enlaceCena}"><img src="{imagenCena}"></a><a onclick="{enlaceCarta}"><img src="{imagenCarta}"></a></div>{/cal_cell_content_today}
+		{cal_cell_content}<div class="row numeroDia">{day}</div><div class="row"><div class="col-md-4"><a onclick="{enlaceDesayuno}">{imagenDesayuno}</a></div><div class="col-md-4"><a onclick="{enlaceComida}">{imagenComida}</a></div><div class="col-md-4"><a onclick="{enlaceCena}">{imagenCena}</a></div></div>{/cal_cell_content}
+		{cal_cell_content_today}<div class="row numeroDia">{day}</div><div class="row"><div class="col-md-4"><a onclick="{enlaceDesayuno}">{imagenDesayuno}</a></div><div class="col-md-4"><a onclick="{enlaceComida}">{imagenComida}</a></div><div class="col-md-4"><a onclick="{enlaceCena}">{imagenCena}</a></div></div>{/cal_cell_content_today}
 
 		{cal_cell_no_content}{day}{/cal_cell_no_content}
 		{cal_cell_no_content_today}<div class="highlight">{day}</div>{/cal_cell_no_content_today}
@@ -1060,20 +1060,20 @@ class Menus_model extends CI_Model {
 					}
 				}
 			}
-			$imagenDesayuno[$i] = "img/dialogerror.png";
-			$imagenComida[$i] = "img/dialogerror.png";
-			$imagenCena[$i] = "img/dialogerror.png";
+			$imagenDesayuno[$i] = "<i class=\"fa fa-coffee fa-fw colorDesactivo\"></i>";//"img/dialogerror.png";
+			$imagenComida[$i] = "<i class=\"fa fa-cutlery fa-fw colorDesactivo\"></i>";//"img/dialogerror.png";
+			$imagenCena[$i] = "<i class=\"fa fa-moon-o fa-fw colorDesactivo\"></i>";//"img/dialogerror.png";
 			/*
 			 * En el caso de haber menu se asigna la imagen
 			*/
 			if ($hayMenuDesayuno) {
-				$imagenDesayuno[$i] = "img/dialogclean.png";
+				$imagenDesayuno[$i] = "<i class=\"fa fa-coffee fa-fw colorActivo\"></i>";
 			}
 			if ($hayMenuComida) {
-				$imagenComida[$i] = "img/dialogclean.png";
+				$imagenComida[$i] = "<i class=\"fa fa-cutlery fa-fw colorActivo\"></i>";
 			}
 			if ($hayMenuCena) {
-				$imagenCena[$i] = "img/dialogclean.png";
+				$imagenCena[$i] = "<i class=\"fa fa-moon-o fa-fw colorActivo\"></i>";
 			}
 		}
 

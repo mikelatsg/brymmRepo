@@ -163,7 +163,35 @@
 					<?php					
 					if (isset($_SESSION['idUsuario'])):
 					foreach ($reservasUsuario as $reserva): ?>
-					<span class="list-group-item"><?php
+					<div class="col-md-12 list-div">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td colspan="3" class="text-left titulo">Reserva <?php echo $reserva->id_reserva;
+									if ($reserva->estado == 'P' || $reserva->estado == 'AL'):
+									?>
+										<button class="btn btn-danger pull-right btn-sm"
+											type="button" data-toggle="tooltip"
+											data-original-title="Remove this user"
+											onclick="<?php
+                    echo "doAjax('" . site_url() . "/reservas/anularReservaUsuario','idReserva="
+                    . $reserva->id_reserva . "','listaReservasUsuario','post',1)";
+                    ?>" title="Anular reserva">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button> <?php endif;?>
+									</td>
+								</tr>
+								<tr>
+									<td><?php echo $reserva->nombreLocal;?> <i class="fa fa-home"></i>
+									</td>
+									<td><?php echo $reserva->numero_personas;?> <i
+										class="fa fa-users"></i></td>
+									<td><?php echo $reserva->estado;?> <i class="fa fa-tag"></i></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- <span class="list-group-item"><?php
 					echo $reserva->fecha . "-" . $reserva->hora_inicio . "-"
 			. $reserva->nombreLocal . " - "
 				. $reserva->numero_personas . " - " . $reserva->estado;
@@ -172,7 +200,7 @@
 						onclick="<?php
                     echo "doAjax('" . site_url() . "/reservas/anularReservaUsuario','idReserva="
                     . $reserva->id_reserva . "','listaReservasUsuario','post',1)";
-                    ?>"> Anular </a> <?php endif; ?> </span>
+                    ?>"> Anular </a> <?php endif; ?> </span> -->
 					<?php endforeach; 					
 					else :
 					echo "Usuario sin logear";

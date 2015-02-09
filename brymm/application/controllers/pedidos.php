@@ -89,9 +89,7 @@ class Pedidos extends CI_Controller {
 
 				//Se obtiene el precio del articulo
 				$datosTipoArticulo = $this->Articulos_model->obtenerTipoArticuloLocal2
-				($articulo['idTipoArticulo'])->row();
-
-				echo $articulo['idArticuloLocal'];
+				($articulo['idTipoArticulo'])->row();				
 
 				$this->Pedidos_model->anadirArticuloPersonalizadoCart(
 						$idArticuloPersonalizado, $articulo['cantidad']
@@ -99,12 +97,10 @@ class Pedidos extends CI_Controller {
 						, $datosTipoArticulo, $articulo['detalleArticulo']);
 			} else {
 				$this->Pedidos_model->anadirArticuloCart($articulo['idArticuloLocal'], $articulo['cantidad']
-						, $articulo['precioArticulo'], $articulo['articulo'], $articulo['idTipoArticulo']);
+						, $articulo['precioArticulo'], $articulo['articulo'], $articulo['idTipoArticulo'],$pedido['idLocal']);
 			}
 		}
 
-		//print_r($this->cart->contents());
-		//$this->Locales->mostrarLocal($pedido['idLocal'], 1);
 		redirect('locales/mostrarLocal/' . $pedido['idLocal'] . '/1', 'location');
 	}
 

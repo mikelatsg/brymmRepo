@@ -294,7 +294,9 @@ class Locales extends CI_Controller {
 				'js/bootstrap.min','general'
 		);
 
-		$header['estilos'] = array('buscador.css','general.css', 'locales.css','pedidosLocal.css');
+		$header['estilos'] = array('buscador.css','general.css', 'locales.css','pedidosLocal.css'
+				,'calendario.css','menus.css'
+		);
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $datosMensaje);
