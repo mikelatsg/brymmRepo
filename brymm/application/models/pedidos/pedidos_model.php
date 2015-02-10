@@ -463,12 +463,12 @@ class Pedidos_model extends CI_Model {
 		}
 	}
 
-	function obtenerUltimosPedidosUsuario($idUsuario) {
+	function obtenerUltimosPedidosUsuario($idUsuario,$numPedidos = 5) {
 		//Se obtienen los pedidos del local
 		$sql = "SELECT * FROM pedido WHERE id_usuario = ?
-				ORDER BY id_pedido desc LIMIT 0,5";
+				ORDER BY id_pedido desc LIMIT 0,?";
 
-		$sqlPedidos = $this->db->query($sql, array($idUsuario))->result();
+		$sqlPedidos = $this->db->query($sql, array($idUsuario,$numPedidos))->result();
 
 		$pedidosUsuario = array();
 

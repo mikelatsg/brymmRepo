@@ -429,7 +429,9 @@ class Locales extends CI_Controller {
 
 		if ($_SESSION){
 			//Se obtienen las reservas que tiene realizadas el usuario
-			$var3['reservasUsuario'] = $this->Reservas_model->obtenerActualesReservasUsuario
+			//$var3['reservasUsuario'] = $this->Reservas_model->obtenerActualesReservasUsuario
+			//($_SESSION['idUsuario'])->result();
+			$var3['reservasUsuario'] = $this->Reservas_model->obtenerUltimasReservasUsuario
 			($_SESSION['idUsuario'])->result();
 		}
 

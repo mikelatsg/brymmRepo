@@ -185,9 +185,9 @@ class Usuarios extends CI_Controller {
 
         $header['javascript'] = array('miajaxlib', 'jquery/jquery'
             , 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
-            , 'usuarios', 'js/bootstrap.min');
+            , 'usuarios', 'js/bootstrap.min', 'reservas', 'mensajes');
         
-        $header['estilos'] = array('buscador.css','general.css');
+        $header['estilos'] = array('buscador.css','general.css', 'pedidosLocal.css');
 
         $this->load->view('base/cabecera', $header);
         $this->load->view('base/page_top');

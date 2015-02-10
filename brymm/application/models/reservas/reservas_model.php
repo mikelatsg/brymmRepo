@@ -142,7 +142,7 @@ class Reservas_model extends CI_Model {
 				WHERE r.id_local = l.id_local
 				AND r.id_tipo_menu = tm.id_tipo_menu
 				AND id_usuario = ?
-				ORDER BY r.fecha DESC
+				ORDER BY r.id_reserva DESC
 				LIMIT 0,?";
 
 		$result = $this->db->query($sql, array($idUsuario, $numeroReservas));

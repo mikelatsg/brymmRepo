@@ -49,7 +49,7 @@ class Reservas extends CI_Controller {
 				'reservas', 'mensajes','js/bootstrap.min');
 
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css',
-		'general.css','reservas.css','calendario.css');
+				'general.css','reservas.css','calendario.css');
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top');
@@ -277,10 +277,11 @@ class Reservas extends CI_Controller {
 		$this->listaReservasAceptadasLocal($mensaje);
 	}
 
-	private function listaReservasUsuario($mensaje = '') {
-		//Se obtienen los platos del local
+	private function listaReservasUsuario($mensaje = '',$numReservas = 5) {
+		//Se obtienen las reservas del usuario
 		$reservasUsuario =
-		$this->Reservas_model->obtenerActualesReservasUsuario($_SESSION['idUsuario'])->result();
+		$this->Reservas_model->obtenerUltimasReservasUsuario($_SESSION['idUsuario'],$numReservas)->result();
+		//$this->Reservas_model->obtenerActualesReservasUsuario($_SESSION['idUsuario'])->result();
 
 		$params = array('etiqueta' => 'reservaUsuario', 'mensaje' => $mensaje);
 		$this->load->library('objectandxml', $params);
@@ -289,6 +290,10 @@ class Reservas extends CI_Controller {
 
 		//Se carga la vista que genera el xml
 		$this->load->view('xml/generarXML', $var);
+	}
+
+	public function mostrarTodasReservasUsuario(){
+		$this->listaReservasUsuario('',500);
 	}
 
 	public function mostrarReservaLocal($idReserva = '', $mensaje = '') {

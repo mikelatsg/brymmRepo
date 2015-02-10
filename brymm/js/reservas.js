@@ -72,6 +72,7 @@ function listaReservasUsuario(item) {
 	var estado = "";
 	var contenido = "";
 	var enlaceAnular = "";
+	var contadorReservas = 0;
 
 	contenido = "";
 	$(item)
@@ -79,6 +80,7 @@ function listaReservasUsuario(item) {
 			.children('reservaUsuario')
 			.each(
 					function() {
+						contadorReservas += 1;
 						// Se obtienen los valores del xml
 						nombreLocal = $
 								.trim($(this).find('nombreLocal').text());
@@ -90,7 +92,7 @@ function listaReservasUsuario(item) {
 						estado = $.trim($(this).find('estado').text());
 						idReserva = $.trim($(this).find('id_reserva').text());
 
-						// Se crea el enlace para poder anular la reserva						
+						// Se crea el enlace para poder anular la reserva
 						botonAnular = "<button class=\"btn btn-danger btn-sm pull-right\""
 								+ "type=\"button\" data-toggle=\"tooltip\""
 								+ "data-original-title=\"Remove this user\" onclick=\""
@@ -117,23 +119,34 @@ function listaReservasUsuario(item) {
 
 						contenido += "<tr>";
 						contenido += "<td>";
-						contenido += nombreLocal
-								+ " <i class=\"fa fa-home\"></i>";
-						contenido += "</td>";
-						contenido += "<td>";
-						contenido += numeroPersonas
-								+ " <i class=\"fa fa-users\"></i>";
+						contenido += fecha
+								+ " <i class=\"fa fa-calendar\"></i>";
 						contenido += "</td>";
 						contenido += "<td>";
 						contenido += estado + " <i class=\"fa fa-tag\"></i>";
 						contenido += "</td>";
-						contenido += "</tr>";						
+						contenido += "<td>";
+						contenido += "<a href=\"" + site_url
+								+ "/locales/mostrarLocal/" + idLocal + "\">"
+								+ nombreLocal
+								+ " <i class=\"fa fa-home\"></i></a>";
+						contenido += "</td>";
+						contenido += "</tr>";
 
 						contenido += "</tbody>";
 						contenido += "</table>";
 						contenido += "</div>";
 
-					});	
+					});
+	
+	if (contadorReservas <= 5) {
+		contenido += "<div class=\"col-md-12 text-center\">";
+		contenido += "<a onclick=\"doAjax('"
+				+ site_url
+				+ "/reservas/mostrarTodasReservasUsuario','','listaUltimasReservasUsuario','post',1)\">";
+		contenido += "<i class=\"fa fa-plus\"></i> Mostrar todas</a>";
+		contenido += "</div>";
+	}
 
 	$("#listaReservasUsuario").empty();
 	$("#listaReservasUsuario").html(contenido);
@@ -147,6 +160,122 @@ function listaReservasUsuario(item) {
 	}
 
 	resetFormularios();
+
+}
+
+function listaUltimasReservasUsuario(item) {
+
+	var nombreLocal = "";
+	var idReserva = "";
+	var idLocal = "";
+	var numeroPersonas = "";
+	var fecha = "";
+	var horaInicio = "";
+	var estado = "";
+	var contenido = "";
+	var enlaceAnular = "";
+	var contadorReservas = 0;
+
+	contenido = "";
+	$(item)
+			.find('xml')
+			.children('reservaUsuario')
+			.each(
+					function() {
+						contadorReservas += 1;
+						// Se obtienen los valores del xml
+						nombreLocal = $
+								.trim($(this).find('nombreLocal').text());
+						fecha = $.trim($(this).find('fecha').text());
+						idLocal = $.trim($(this).find('id_local').text());
+						horaInicio = $.trim($(this).find('hora_inicio').text());
+						numeroPersonas = $.trim($(this).find('numero_personas')
+								.text());
+						estado = $.trim($(this).find('estado').text());
+						idReserva = $.trim($(this).find('id_reserva').text());
+
+						// Se crea el enlace para poder anular la reserva
+						botonVer = "<button class=\"btn btn-default btn-sm pull-right\""
+								+ "type=\"button\" data-toggle=\"tooltip\""
+								+ "data-original-title=\"Remove this user\" onclick=\""
+								+ "doAjax('"
+								+ site_url
+								+ "/reservas/mostrarReservaUsuario','idReserva="
+								+ idReserva
+								+ "','mostrarReservaHomeUsuario','post',1)\" title=\"Ver detalle reserva\">"
+								+ "<span class=\"glyphicon glyphicon-eye-open\"></span>"
+								+ "</button>";
+
+						botonAnular = "<button class=\"btn btn-danger btn-sm pull-right\""
+								+ "type=\"button\" data-toggle=\"tooltip\""
+								+ "data-original-title=\"Remove this user\" onclick=\""
+								+ "doAjax('"
+								+ site_url
+								+ "/reservas/anularReservaUsuario','idReserva="
+								+ idReserva
+								+ "','listaReservasUsuario','post',1)\" title=\"Anular reserva\">"
+								+ "<span class=\"glyphicon glyphicon-remove\"></span>"
+								+ "</button>";
+
+						contenido += "<div class=\"col-md-12 list-div\">";
+						contenido += "<table class=\"table\">";
+						contenido += "<tbody>";
+
+						contenido += "<tr>";
+						contenido += "<td colspan=\"3\" class=\"text-left titulo\">";
+						contenido += "Reserva " + idReserva;
+						contenido += botonVer;
+						if (estado == 'P' || estado == 'AL') {
+							contenido += botonAnular;
+						}
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						contenido += "<tr>";
+						contenido += "<td>";
+						contenido += fecha
+								+ " <i class=\"fa fa-calendar\"></i>";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += estado + " <i class=\"fa fa-tag\"></i>";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += "<a href=\"" + site_url
+								+ "/locales/mostrarLocal/" + idLocal + "\">"
+								+ nombreLocal
+								+ " <i class=\"fa fa-home\"></i></a>";
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+
+					});
+
+	if (contadorReservas <= 5) {
+		contenido += "<div class=\"col-md-12 text-center\">";
+		contenido += "<a onclick=\"doAjax('"
+				+ site_url
+				+ "/reservas/mostrarTodasReservasUsuario','','listaUltimasReservasUsuario','post',1)\">";
+		contenido += "<i class=\"fa fa-plus\"></i> Mostrar todas</a>";
+		contenido += "</div>";
+	}
+
+	// Vacio el detalle de la reserva
+	$("#muestraDetalleReserva").empty();
+
+	// Vacio la lista de las reservas
+	$("#listaReservasUsuario").empty();
+	$("#listaReservasUsuario").html(contenido);
+
+	// Si hay mensaje se muestra
+	if ($(item).find('mensaje').length > 0) {
+		var mensaje = $.trim($(item).find('mensaje').text());
+		if (mensaje != "") {
+			mostrarMensaje(mensaje);
+		}
+	}
 
 }
 

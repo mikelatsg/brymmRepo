@@ -89,7 +89,7 @@ class Pedidos extends CI_Controller {
 
 				//Se obtiene el precio del articulo
 				$datosTipoArticulo = $this->Articulos_model->obtenerTipoArticuloLocal2
-				($articulo['idTipoArticulo'])->row();				
+				($articulo['idTipoArticulo'])->row();
 
 				$this->Pedidos_model->anadirArticuloPersonalizadoCart(
 						$idArticuloPersonalizado, $articulo['cantidad']
@@ -395,6 +395,19 @@ class Pedidos extends CI_Controller {
 
 		$var['xml'] = $this->arraytoxml->convertArrayToXml($pedido, 'xml');
 
+		//Se carga la vista que genera el xml
+		$this->load->view('xml/generarXML', $var);
+	}
+
+	public function mostrarTodosPedidosUsuario(){
+		$pedidosUsuario =
+		$this->Pedidos_model->obtenerUltimosPedidosUsuario($_SESSION['idUsuario'],500);
+		
+		$params = array('etiqueta' => 'pedido');
+		$this->load->library('arraytoxml', $params);
+		
+		$var['xml'] = $this->arraytoxml->convertArrayToXml($pedidosUsuario, 'xml');
+		
 		//Se carga la vista que genera el xml
 		$this->load->view('xml/generarXML', $var);
 	}

@@ -61,13 +61,13 @@
 
 .panel-default>.panel-verde {
 	background-color: white;
-	border-color: #E67070;/*#B87272; /* #72B883;*/
+	border-color: #E67070; /*#B87272; /* #72B883;*/
 	border-width: medium;
 	border-radius: 5px;
 }
 
 .sub-panel>.panel-verde {
-	background-color: #E67070;/*#EC4848;/* #BFE1BE;/*#BCF1B3;*/
+	background-color: #E67070; /*#EC4848;/* #BFE1BE;/*#BCF1B3;*/
 	border-color: #E67070;
 	border-width: thin;
 }
@@ -86,14 +86,12 @@
 .sub-panel>.panel-body {
 	/*background-color: #E6E6E6; /*#D8D8D8;*/
 	border-radius: 5px;
-		
-	background: -webkit-linear-gradient(top, #BFE1BE, #90A48F);	
+	background: -webkit-linear-gradient(top, #BFE1BE, #90A48F);
 	background: -moz-linear-gradient(bottom, #C6C7C5, #F5F5F5);
-	background: -o-linear-background(top, black, white);	
-	background: -ms-linear-background(top, #BFE1BE, #90A48F);	
+	background: -o-linear-background(top, black, white);
+	background: -ms-linear-background(top, #BFE1BE, #90A48F);
 	background: linear-background(top, #BFE1BE, #90A48F);
 	background: -o-linear-background(top, #BFE1BE, #90A48F);
-	
 }
 
 .sub-panel {
@@ -137,11 +135,11 @@
 
 #logo a {
 	padding: 10px 15px;
-	color: #CF0505;/*#72B899;*/
+	color: #CF0505; /*#72B899;*/
 }
 
 #logo a:hover {
-	color: #CF0505;/*#72B899;*/
+	color: #CF0505; /*#72B899;*/
 }
 
 /*Barra menu usuario*/
@@ -184,18 +182,18 @@
 	font-weight: bold;
 }
 
-.fond{
-	background-color:#8CAC8C;
+.fond {
+	background-color: #8CAC8C;
 }
 
-.fondo{
+.fondo {
 	/* Safari 4-5, Chrome 1-9 */
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white),
 		to(black));
 	/* Safari 5.1+, Chrome 10+ */
 	background: -webkit-radial-gradient(ellipse, #BFE1BE, #90A48F);
-	/* Firefox 3.6+ */	
-	background: -moz-radial-gradient(ellipse, #C5DCC5, #C5DCC5);	
+	/* Firefox 3.6+ */
+	background: -moz-radial-gradient(ellipse, #C5DCC5, #C5DCC5);
 	/* Opera 11.10+ */
 	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
 	/* IE 10 */
@@ -205,13 +203,13 @@
 	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
 }
 
-.color{
-	background-color:#F2F2F2;
-	padding-top:20px;
+.color {
+	background-color: #F2F2F2;
+	padding-top: 20px;
 }
 
-#container{
-	padding-top:10px;
+#container {
+	padding-top: 10px;
 }
 
 body {
@@ -223,14 +221,19 @@ body a {
 	font-size: 12px;
 }
 
-.noPadLeft{
-	padding-left:0px;
+.noPadLeft {
+	padding-left: 0px;
 }
 
-.noPadRight{
-	padding-right:0px;
+.noPadRight {
+	padding-right: 0px;
 }
 
-.table{
-	margin-bottom:0px;
+.table {
+	margin-bottom: 0px;
+}
+
+.altoMaximo {
+	max-height: 500px;
+	overflow: auto;
 }
