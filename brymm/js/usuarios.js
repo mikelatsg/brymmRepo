@@ -6,7 +6,105 @@
  */
 function listaDireccionEnvio(item) {
 
-	alert('listaServiciosLocal');
+	var nombreDireccion = "";
+	var idDireccionEnvio = "";
+	var direccion = "";
+	var poblacion = "";
+	var provincia = "";
+	var contenidoCombo = "";
+	var contenidoLista = "";
+	var hayCombo = false;
+	var hayLista = false;
+	var enlaceBorrar = "";	
+
+	if ($("#comboDireccionesEnvio").length) {
+		hayCombo = true;
+		$("#comboDireccionesEnvio").empty();
+	}
+
+	if ($("#listaDirecciones").length) {
+		hayLista = true;
+		$("#listaDirecciones").empty();
+		contenidoLista += "";
+	}
+
+	$(item)
+			.find('direccionEnvio')
+			.each(
+					function() {
+
+						nombreDireccion = $.trim($(this).find('nombre').text());
+						idDireccionEnvio = $.trim($(this).find(
+								'id_direccion_envio').text());
+						direccion = $.trim($(this).find('direccion').text());
+						poblacion = $.trim($(this).find('poblacion').text());
+						provincia = $.trim($(this).find('provincia').text());
+
+						// Se crea el enlace para poder borrar las direcciones 
+						enlaceBorrar = "";
+						enlaceBorrar += "<button class=\"btn btn-danger btn-sm pull-right\" type=\"button\"";
+						enlaceBorrar += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						enlaceBorrar += "onclick=";
+						enlaceBorrar += "doAjax('"
+								+ site_url
+								+ "/usuarios/borrarDireccionEnvio','idDireccionEnvio="
+								+ idDireccionEnvio
+								+ "','listaDireccionEnvio','post',1)>";
+						enlaceBorrar += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						enlaceBorrar += "</button>";
+
+						if (hayCombo) {
+							contenidoCombo += "<option value=\""
+									+ idDireccionEnvio + "\">"
+									+ nombreDireccion + "</option>";
+						}
+
+						if (hayLista) {
+							contenidoLista += "<div class=\"list-div col-md-12\">";
+							contenidoLista += "<table class=\"table\">";
+							contenidoLista += "<tbody>";
+
+							contenidoLista += "<tr>";
+							contenidoLista += "<td class=\"titulo\" colspan=\"4\">"
+									+ nombreDireccion + enlaceBorrar
+							"</td>";
+							contenidoLista += "</tr>";
+
+							contenidoLista += "<tr>";
+							contenidoLista += "<td class=\"titulo col-md-2\">Direccion</td>";
+							contenidoLista += "<td class=\"col-md-10\" colspan=\"3\">"
+									+ direccion + "</td>";
+							contenidoLista += "</tr>";
+
+							contenidoLista += "<tr>";
+							contenidoLista += "<td class=\"titulo col-md-2\">Poblacion</td>";
+							contenidoLista += "<td class=\"col-md-4\">"
+									+ poblacion + "</td>";
+							contenidoLista += "<td class=\"titulo col-md-2\">Provincia</td>";
+							contenidoLista += "<td class=\"col-md-4\">"
+									+ provincia + "</td>";
+							contenidoLista += "</tr>";
+
+							contenidoLista += "</tbody>";
+							contenidoLista += "</table>";
+							contenidoLista += "</div>";							
+						}
+
+					});
+
+	// Enlace añadir direccion
+	contenidoLista += "<div id=\"anadirDireccion\">";
+	contenidoLista += " <a onclick=\"anadirDireccion(true)\" data-toggle=\"modal\">";
+	contenidoLista += "<i class=\"fa fa-plus\"></i> Anadir direccion</a>";
+	contenidoLista += "</div>";
+
+	if (hayCombo) {
+		$("#comboDireccionesEnvio").html(contenidoCombo);
+	}
+
+	if (hayLista) {
+		$("#listaDirecciones").html(contenidoLista);
+	}
 }
 
 function verPedidoHomeUsuario(item) {
@@ -319,7 +417,7 @@ function actualizarDirecciones(item) {
 						enlaceBorrar += "</button>";
 
 						if (hayCombo) {
-							contenidoCombo += "<option value=\""
+							contenidoCombo += "<option class=\"form-control\" value=\""
 									+ idDireccionEnvio + "\">"
 									+ nombreDireccion + "</option>";
 						}
@@ -352,17 +450,11 @@ function actualizarDirecciones(item) {
 
 							contenidoLista += "</tbody>";
 							contenidoLista += "</table>";
-							contenidoLista += "</div>";
-							/*
-							 * contenidoLista += "<li>"; contenidoLista += "
-							 * Nombre direccion : " + nombreDireccion;
-							 * contenidoLista += " - Direccion : " + direccion;
-							 * contenidoLista += " - Poblacion : " + poblacion;
-							 * contenidoLista += enlaceBorrar; contenidoLista += "</li>";
-							 */
+							contenidoLista += "</div>";							
 						}
 
 					});
+
 	if (hayCombo) {
 		$("#comboDireccionesEnvio").html(contenidoCombo);
 	}
@@ -370,23 +462,31 @@ function actualizarDirecciones(item) {
 	if (hayLista) {
 		$("#listaDirecciones").html(contenidoLista);
 	}
-
-	// <option value="<?php echo $linea->id_direccion_envio; ?>"><?php echo
-	// $linea->nombre; ?></option>
 }
 
-function anadirDireccion() {
+function anadirDireccion(esListaHome) {
+	esListaHome = (typeof esListaHome === "undefined") ? false : esListaHome;
+
 	$("#dialogAnadirDireccion").dialog(
 			{
 				width : 600,
 				modal : true,
 				buttons : {
 					"Aceptar" : function() {
-						// Se envia el formulario que acutaliza el estado
-						enviarFormulario(site_url
-								+ '/usuarios/anadirDireccionEnvio',
-								'formAnadirDireccionEnvio',
-								'actualizarDirecciones', 1);
+						if (esListaHome){
+							// Se envia el formulario que acutaliza el estado
+							enviarFormulario(site_url
+									+ '/usuarios/anadirDireccionEnvio',
+									'formAnadirDireccionEnvio',
+									'listaDireccionEnvio', 1);
+						}else{
+							// Se envia el formulario que acutaliza el estado
+							enviarFormulario(site_url
+									+ '/usuarios/anadirDireccionEnvio',
+									'formAnadirDireccionEnvio',
+									'actualizarDirecciones', 1);
+						}
+							
 						// Se cierra el dialogo
 						$(this).dialog("close");
 					},

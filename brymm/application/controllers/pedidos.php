@@ -255,6 +255,8 @@ class Pedidos extends CI_Controller {
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'pedidos');
+		
+		$header['estilos'] = array('general.css','pedidosLocal.css');
 
 		//Se carga la vista que genera el xml
 		$this->load->view('base/cabecera', $header);

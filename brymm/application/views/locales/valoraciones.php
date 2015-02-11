@@ -37,8 +37,8 @@
 					class="accordion-toggle collapsed"> Valoraciones </a>
 			</h4>
 		</div>
-		<div id="listaValoraciones" class="panel-body collapse sub-panel">
-			<a class="enlaceAnadirValoracionLocal" data-toggle="modal"> Valorar
+		<div id="listaValoraciones" class="panel-body collapse sub-panel altoMaximo">
+			<a class="enlaceAnadirValoracionLocal" data-toggle="modal"><i class="fa fa-plus"></i> Valorar
 				local </a>
 			<?php
 			if (count($valoraciones) > 0):
@@ -87,9 +87,11 @@
 			<?php
 			endforeach;
 			else:
-			echo "No se ha realizado ninguna valoracion";
+			?>
+			<div class="col-md-12">No se ha realizado ninguna valoracion</div>
+			<?php 			
 			endif;
-			?>			
+			?>
 		</div>
 	</div>
 </div>

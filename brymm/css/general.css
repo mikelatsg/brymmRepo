@@ -237,3 +237,7 @@ body a {
 	max-height: 500px;
 	overflow: auto;
 }
+
+.progress{
+	margin-bottom: 0px;
+}

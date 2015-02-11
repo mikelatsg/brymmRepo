@@ -1,29 +1,45 @@
-
-#mostrarPedido .pedido{
+#mostrarPedido .pedido {
 	margin: 0px;
-	font-size:100%;
+	font-size: 100%;
 }
 
-#mostrarPedido .badge{
-	border-radius:5px;
+#mostrarPedido .badge {
+	border-radius: 5px;
 }
 
-#mostrarComanda .badge{
-	border-radius:5px;
+#mostrarComanda .badge {
+	border-radius: 5px;
 }
 
-.separadorArticulo{
-	border-bottom:2px solid #d9534f;
+.separadorArticulo {
+	border-bottom: 2px solid #d9534f;
 }
 
-.separadorPlato{
-	border-bottom:2px solid #7290B8;
+.separadorPlato {
+	border-bottom: 2px solid #7290B8;
 }
 
-.separadorMenuPlato{
-	border-bottom:2px dotted #7290B8;
+.separadorMenuPlato {
+	border-bottom: 2px dotted #7290B8;
 }
 
-.cabeceraPlato{
-	text-align:center;
+.cabeceraPlato {
+	text-align: center;
+}
+
+.estadosPedido{
+	margin-bottom:5px;
+}
+
+#idPedido{
+	border:0px solid;
+}
+
+#nombreArticulo{
+	border:0px solid;
+}
+
+#divBotonAct{
+	margin-top:5px;
+	margin-bottom:5px;
 }

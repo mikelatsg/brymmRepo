@@ -194,8 +194,33 @@ function mostrarPedido(item) {
 
 function actualizarEstadoPedido(item) {
 	var estado = $.trim($(item).find("estado").text());
+	var estadoAbrv = $.trim($(item).find("estadoAbrv").text());
+	var clase ="";
 	$("#estadoPedido").empty();
 	$("#estadoPedido").text(estado);
+	if (estadoAbrv == "R") {
+		$("#progresoEstado").css("width", "13%");
+		clase = "progress-bar-danger";
+	} else if (estadoAbrv == "P") {		
+		$("#progresoEstado").css("width", "37%");
+		clase = "progress-bar-warning";
+	} else if (estadoAbrv == "A") {
+		$("#progresoEstado").css("width", "63%");
+		clase = "progress-bar-primary";
+	} else if (estadoAbrv == "T") {
+		$("#progresoEstado").css("width", "87%");
+		clase = "progress-bar-success";
+	}	
+	
+	if ($("#progresoEstado").hasClass("progress-bar-danger")){
+		$("#progresoEstado").toggleClass('progress-bar-danger ' + clase);
+	}else if ($("#progresoEstado").hasClass("progress-bar-warning")){
+		$("#progresoEstado").toggleClass('progress-bar-warning ' + clase);
+	}else if ($("#progresoEstado").hasClass("progress-bar-primary")){
+		$("#progresoEstado").toggleClass('progress-bar-primary ' + clase);
+	}else if ($("#progresoEstado").hasClass("progress-bar-success")){
+		$("#progresoEstado").toggleClass('progress-bar-success ' + clase);
+	}
 }
 
 function moverPedidoEstado(item) {

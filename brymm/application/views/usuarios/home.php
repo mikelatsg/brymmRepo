@@ -237,7 +237,7 @@
 												data-original-title="Anular reserva"
 												onclick="<?php
                     echo "doAjax('" . site_url() . "/usuarios/borrarDireccionEnvio','idDireccionEnvio="
-                    . $linea->id_direccion_envio . "','actualizarDirecciones','post',1)";
+                    . $linea->id_direccion_envio . "','listaDireccionEnvio','post',1)";
                     ?>"
 												title="Borrar direccion">
 												<span class="glyphicon glyphicon-remove"></span>
@@ -246,7 +246,8 @@
 									</tr>
 									<tr>
 										<td class="titulo col-md-2">Direccion</td>
-										<td class="col-md-10" colspan="3"><?php echo  $linea->direccion;?></td>										
+										<td class="col-md-10" colspan="3"><?php echo  $linea->direccion;?>
+										</td>
 									</tr>
 									<tr>
 										<td class="titulo col-md-2">Poblacion</td>
@@ -269,9 +270,8 @@
                  -->
 						<?php endforeach; ?>
 						<div id="anadirDireccion">
-							<?php
-							echo "<a class=\"enlaceAnadirDireccion\" data-toggle=\"modal\" > AÃ±adir direccion </a>";
-							?>
+							<a onclick="<?php echo "anadirDireccion(true)";?>" data-toggle="modal"><i
+								class="fa fa-plus"></i> <?php echo utf8_encode('Añadir direccion');?></a>
 						</div>
 					</div>
 				</div>
