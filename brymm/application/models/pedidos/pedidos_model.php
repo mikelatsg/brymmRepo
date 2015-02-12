@@ -389,7 +389,10 @@ class Pedidos_model extends CI_Model {
 
 	function obtenerPedidosLocal($idLocal, $estado) {
 		//Se obtienen los pedidos del local
-		$sql = "SELECT * FROM pedido WHERE id_local = ?
+		$sql = "SELECT p.*, u.nombre 
+				FROM pedido p, usuarios u 
+				WHERE p.id_usuario = u.id_usuario
+				AND id_local = ?
 				AND estado = ?
 				AND fecha >= SYSDATE() - INTERVAL 7 DAY
 				ORDER BY fecha";

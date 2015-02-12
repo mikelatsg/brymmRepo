@@ -70,7 +70,7 @@
 				<div class="col-md-6 well">
 					<table
 						class="table table-condensed table-responsive table-user-information">
-						<tbody>
+						<tbody id="cabeceraPedido">
 							<tr>
 								<td id="idPedido"><h4>
 										<span class="label label-default">Pedido <?php echo $pedido['idPedido'];?>
@@ -124,7 +124,7 @@
 								<td class="titulo">Observaciones</td>
 								<td colspan="3"><?php echo $pedido['observaciones'];?>
 								</td>
-							</tr>
+							</tr>							
 						</tbody>
 					</table>
 				</div>

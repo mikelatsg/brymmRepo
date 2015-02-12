@@ -195,13 +195,14 @@ function mostrarPedido(item) {
 function actualizarEstadoPedido(item) {
 	var estado = $.trim($(item).find("estado").text());
 	var estadoAbrv = $.trim($(item).find("estadoAbrv").text());
-	var clase ="";
+	var motivoRechazo = $.trim($(item).find("motivoRechazo").text());
+	var clase = "";
 	$("#estadoPedido").empty();
 	$("#estadoPedido").text(estado);
 	if (estadoAbrv == "R") {
 		$("#progresoEstado").css("width", "13%");
 		clase = "progress-bar-danger";
-	} else if (estadoAbrv == "P") {		
+	} else if (estadoAbrv == "P") {
 		$("#progresoEstado").css("width", "37%");
 		clase = "progress-bar-warning";
 	} else if (estadoAbrv == "A") {
@@ -210,16 +211,31 @@ function actualizarEstadoPedido(item) {
 	} else if (estadoAbrv == "T") {
 		$("#progresoEstado").css("width", "87%");
 		clase = "progress-bar-success";
-	}	
-	
-	if ($("#progresoEstado").hasClass("progress-bar-danger")){
+	}
+
+	if ($("#progresoEstado").hasClass("progress-bar-danger")) {
 		$("#progresoEstado").toggleClass('progress-bar-danger ' + clase);
-	}else if ($("#progresoEstado").hasClass("progress-bar-warning")){
+	} else if ($("#progresoEstado").hasClass("progress-bar-warning")) {
 		$("#progresoEstado").toggleClass('progress-bar-warning ' + clase);
-	}else if ($("#progresoEstado").hasClass("progress-bar-primary")){
+	} else if ($("#progresoEstado").hasClass("progress-bar-primary")) {
 		$("#progresoEstado").toggleClass('progress-bar-primary ' + clase);
-	}else if ($("#progresoEstado").hasClass("progress-bar-success")){
+	} else if ($("#progresoEstado").hasClass("progress-bar-success")) {
 		$("#progresoEstado").toggleClass('progress-bar-success ' + clase);
+	}
+
+	// Muestro el motivo del rechazo si existe en el xml y no existe ya en la
+	// vista
+	if (!$('#lineaMotivoRechazo').length) {
+		var contenido = "";
+		if (motivoRechazo.length) {
+			contenido += "<tr id=\"lineaMotivoRechazo\">";
+			contenido += "<td class=\"titulo\">Motivo rechazo</td>";
+			contenido += "<td colspan=\"3\">" + motivoRechazo;
+			contenido += "</td>";
+			contenido += "</tr>";
+		}
+
+		$(contenido).appendTo("#cabeceraPedido");
 	}
 }
 
@@ -269,6 +285,7 @@ function verPedido(item) {
 	var direccion = "";
 	var observaciones = $.trim($(item).find('observaciones').text());
 	var motivoRechazo = $.trim($(item).find('motivoRechazo').text());
+	var usuario = $.trim($(item).find('nombreUsuario').text());
 	var articulo = "";
 	var precioArticulo = "";
 	var cantidad = "";
@@ -295,6 +312,11 @@ function verPedido(item) {
 	 * contenido = contenido + "<td>" + idPedido + "</td>"; contenido =
 	 * contenido + "</tr>";
 	 */
+
+	contenido = contenido + "<tr>";
+	contenido = contenido + "<td class=\"titulo\">Usuario</td>";
+	contenido = contenido + "<td>" + usuario + "</td>";
+	contenido = contenido + "</tr>";
 
 	contenido = contenido + "<tr>";
 	contenido = contenido + "<td class=\"titulo\">Precio</td>";

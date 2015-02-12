@@ -39,10 +39,14 @@
           <td  width="46"><input type="text" name="codigoPostal" /></td>
           </tr>
           <tr>
+          <td  width="47">Telefono:</td>
+          <td  width="46"><input type="text" name="telefono" /></td>
+          </tr>
+          <tr>
           <td width="51" colspan="2" align="center">
               <input type="submit" value="Crear nuevo Usuario" />
           </td>
-          </tr>
+          </tr>          
         </form>
     </table>
 </div>

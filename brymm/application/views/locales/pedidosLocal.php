@@ -81,7 +81,8 @@
 								class="accordion-toggle collapsed"> Pedidos pendientes </a>
 						</h4>
 					</div>
-					<div id="pedidosPendientes" class="panel-body collapse sub-panel">
+					<div id="pedidosPendientes"
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php
 						if ($pedidosPendientesLocal) :
 						foreach ($pedidosPendientesLocal as $pedido):
@@ -91,7 +92,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="2"><?php
+										<td class="titulo" colspan="3"><?php
 										echo "Pedido " . $pedido->id_pedido;
 										?> <span id="modificarEstado"> <span class="rechazarPedido">
 													<button
@@ -130,6 +131,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
+										<td><a href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $pedido->id_usuario?>"><?php 
+										echo  $pedido->nombre;
+										?> <i class="fa fa-user"></i> </a>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -148,7 +153,8 @@
 								class="accordion-toggle collapsed"> Pedidos aceptados </a>
 						</h4>
 					</div>
-					<div id="pedidosAceptados" class="panel-body collapse sub-panel">
+					<div id="pedidosAceptados"
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php
 						if ($pedidosAceptadosLocal) :
 						foreach ($pedidosAceptadosLocal as $pedido):
@@ -158,7 +164,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="2"><?php
+										<td colspan="3"><?php
 										echo "Pedido " . $pedido->id_pedido;
 										?> <span id="modificarEstado"> <span class="rechazarPedido">
 													<button
@@ -199,6 +205,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
+										<td><?php 
+										echo  $pedido->nombre;
+										?> <i class="fa fa-user"></i>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -217,7 +227,8 @@
 								class="accordion-toggle collapsed"> Pedidos terminados </a>
 						</h4>
 					</div>
-					<div id="pedidosTerminados" class="panel-body collapse sub-panel">
+					<div id="pedidosTerminados"
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php
 						if ($pedidosTerminadosLocal) :
 						foreach ($pedidosTerminadosLocal as $pedido):
@@ -227,7 +238,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="2"><?php
+										<td colspan="3"><?php
 										echo "Pedido " . $pedido->id_pedido;
 										?>
 											<button class="btn btn-default pull-right" type="button"
@@ -249,6 +260,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
+										<td><?php 
+										echo  $pedido->nombre;
+										?> <i class="fa fa-user"></i>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -257,7 +272,7 @@
 						echo "</div>";
 						endforeach;
 						endif;
-						?>						
+						?>
 					</div>
 				</div>
 				<div id="pedidosRechazadosCab" class="panel panel-default sub-panel">
@@ -267,8 +282,9 @@
 								class="accordion-toggle collapsed"> Pedidos rechazados </a>
 						</h4>
 					</div>
-					<div id="pedidosRechazados" class="panel-body collapse sub-panel">
-					<?php
+					<div id="pedidosRechazados"
+						class="panel-body collapse sub-panel altoMaximo">
+						<?php
 						if ($pedidosRechazadosLocal) :
 						foreach ($pedidosRechazadosLocal as $pedido):
 						echo "<div id=\"pedido_" . $pedido->id_pedido . "\">";
@@ -277,7 +293,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="2"><?php
+										<td colspan="3"><?php
 										echo "Pedido " . $pedido->id_pedido;
 										?>
 											<button class="btn btn-default pull-right" type="button"
@@ -299,6 +315,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
+										<td><?php 
+										echo  $pedido->nombre;
+										?> <i class="fa fa-user"></i>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -307,7 +327,7 @@
 						echo "</div>";
 						endforeach;
 						endif;
-						?>						
+						?>
 					</div>
 				</div>
 			</div>

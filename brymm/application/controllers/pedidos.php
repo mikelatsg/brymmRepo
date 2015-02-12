@@ -331,7 +331,9 @@ class Pedidos extends CI_Controller {
 			//$var['estadoPedido'] = array('estado' => 'Rechazado');
 			$var = array('estado' => 'Rechazado',
 					'idPedido' => $idPedido,
-					'estadoAbrv' => 'R');
+					'estadoAbrv' => 'R',
+					'motivoRechazo' => $estadoPedido->motivo_rechazo
+			);
 		} elseif ($estadoPedido->estado == 'T') {
 			//$var['estadoPedido'] = array('estado' => 'Terminado');
 			$var = array('estado' => 'Terminado',

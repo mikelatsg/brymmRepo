@@ -86,7 +86,7 @@ class Locales_model extends CI_Model {
 	function obtenerDatosLocal($idLocal) {
 		// Consulta en la tabla usuarios con el nick
 		$sql = "SELECT l.*,tc.tipo_comida FROM locales l, tipos_comida tc
-				 WHERE l.id_tipo_comida =  tc.id_tipo_comida
+				WHERE l.id_tipo_comida =  tc.id_tipo_comida
 				AND id_local = ?";
 		$result = $this->db->query($sql, array($idLocal));
 
@@ -103,12 +103,12 @@ class Locales_model extends CI_Model {
 				. " VALUES ('',?,?,?,?)";
 
 		$this->db->query($sql, array($idLocal, $idDia, $horaInicio, $horaFin));
-		
+
 		$idHorarioLocal = $this->db->insert_id();
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(21, $idLocal,  $idHorarioLocal);
@@ -121,12 +121,12 @@ class Locales_model extends CI_Model {
 		$this->db->query($sql, array($idLocal, $horarioLocal->dia->idDia
 				, $horarioLocal->horaInicio
 				, $horarioLocal->horaFin));
-		
+
 		$idHorarioLocal = $this->db->insert_id();
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(21, $idLocal,  $idHorarioLocal);
@@ -139,12 +139,12 @@ class Locales_model extends CI_Model {
 				. " VALUES ('',?,?,?,?)";
 
 		$this->db->query($sql, array($idLocal, $idDia, $horaInicio, $horaFin));
-		
+
 		$idHorarioPedido = $this->db->insert_id();
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(23, $idLocal,  $idHorarioPedido);
@@ -157,16 +157,16 @@ class Locales_model extends CI_Model {
 		$this->db->query($sql, array($idLocal, $horarioPedido->dia->idDia
 				, $horarioPedido->horaInicio
 				, $horarioPedido->horaFin));
-		
+
 		$idHorarioPedido = $this->db->insert_id();
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(23, $idLocal,  $idHorarioPedido);
-		
+
 		return $idHorarioPedido;
 	}
 
@@ -253,17 +253,26 @@ class Locales_model extends CI_Model {
 		return $result;
 	}
 
+	function obtenerTipoComida($idTipoComida) {
+		$sql = "SELECT * FROM tipos_comida
+				WHERE id_tipo_comida = ?";
+
+		$result = $this->db->query($sql,array($idTipoComida));
+
+		return $result;
+	}
+
 	function borrarHorarioLocal($idHorarioLocal) {
 		//Obtengo el local antes de borrar
 		$idLocal = $this->obtenerHorarioLocalId($idHorarioLocal)->row()->id_local;
-		
+
 		$sql = "DELETE FROM horarios_local WHERE id_horario_local = ?";
 
 		$result = $this->db->query($sql, array($idHorarioLocal));
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(22, $idLocal,  $idHorarioLocal);
@@ -272,14 +281,14 @@ class Locales_model extends CI_Model {
 	function borrarHorarioPedido($idHorarioPedido) {
 		//Obtengo el local
 		$idLocal = $this->obtenerHorarioPedido($idHorarioPedido)->row()->id_local;
-		
+
 		$sql = "DELETE FROM horarios_pedidos WHERE id_horario_pedido = ?";
 
 		$result = $this->db->query($sql, array($idHorarioPedido));
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(24, $idLocal,  $idHorarioPedido);
@@ -460,20 +469,20 @@ class Locales_model extends CI_Model {
 				. " VALUES (?,?,?)";
 
 		$this->db->query($sql, array($idLocal, $fecha, date('Y-m-d H:i:s')));
-		
+
 		$idDiaCierreLocal = $this->db->insert_id();
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(25, $idLocal,  $idDiaCierreLocal);
-		
+
 		return $idDiaCierreLocal;
-		
-		
-	}	
+
+
+	}
 
 	function comprobarDiaCierreLocal($fecha, $idLocal) {
 		$sql = "SELECT * FROM dias_cierre_local
@@ -494,44 +503,44 @@ class Locales_model extends CI_Model {
 
 		return $result;
 	}
-	
+
 	function obtenerDiasCierreLocalObject($idLocal) {
 		$sql = "SELECT * FROM dias_cierre_local
 				WHERE id_local = ?
 				AND fecha >= ? ";
-	
+
 		$result = $this->db->query($sql, array($idLocal, date('Y-m-d')))->result();
-		
+
 		$diasCierre = array();
 		foreach ($result as $row){
-			$diasCierre[] = DiaCierre::withID($row->id_dia_cierre_local); 
+			$diasCierre[] = DiaCierre::withID($row->id_dia_cierre_local);
 		}
-	
+
 		return $diasCierre;
 	}
-	
+
 	function obtenerDiaCierreLocal($idDiaCierre) {
 		$sql = "SELECT * FROM dias_cierre_local
 				WHERE id_dia_cierre_local = ?
 				AND fecha >= ? ";
-	
+
 		$result = $this->db->query($sql, array($idDiaCierre, date('Y-m-d')));
-	
+
 		return $result;
 	}
 
 	function borrarDiaCierreLocal($idDiaCierreLocal) {
 		//Obtengo el local
 		$idLocal = $this->obtenerDiaCierreLocal($idDiaCierreLocal)->row()->id_local;
-		
+
 		$sql = "DELETE FROM dias_cierre_local
 				WHERE id_dia_cierre_local = ? ";
 
 		$this->db->query($sql, array($idDiaCierreLocal));
-		
+
 		//Se carga el modelo de alertas
 		$this->load->model('alertas/Alertas_model');
-		
+
 		//Se inserta la alerta
 		$this->Alertas_model->insertAlertaLocal
 		(26, $idLocal,  $idDiaCierreLocal);

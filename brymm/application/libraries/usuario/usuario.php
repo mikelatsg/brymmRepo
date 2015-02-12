@@ -13,6 +13,7 @@ class Usuario {
 	const FIELD_LOCALIDAD = "localidad";
 	const FIELD_PROVINCIA = "provincia";
 	const FIELD_COD_POSTAL = "codPostal";
+	const FIELD_TELEFONO = "telefono";
 	const FIELD_USUARIO = "usuario";
 
 	public $idUsuario;
@@ -23,6 +24,7 @@ class Usuario {
 	public $localidad;
 	public $provincia;
 	public $codPostal;
+	public $telefono;
 
 	public function __construct( $idUsuario,
 			$nick,
@@ -31,7 +33,8 @@ class Usuario {
 			$email,
 			$localidad,
 			$provincia,
-			$codPostal) {
+			$codPostal,
+			$telefono='') {
 
 		$this->idUsuario = $idUsuario;
 		$this->nick = $nick;
@@ -41,6 +44,7 @@ class Usuario {
 		$this->localidad = $localidad;
 		$this->provincia = $provincia;
 		$this->codPostal = $codPostal;
+		$this->telefono = $telefono;
 
 	}
 
@@ -60,7 +64,8 @@ class Usuario {
 					$datosUsuario->email,
 					$datosUsuario->localidad,
 					$datosUsuario->provincia,
-					$datosUsuario->cod_postal);
+					$datosUsuario->cod_postal,
+					$datosUsuario->telefono);
 		}else{
 			$instance = new self(
 					0,
@@ -70,7 +75,8 @@ class Usuario {
 					"",
 					"",
 					"",
-					0);
+					0,
+					"");
 		}
 
 		return $instance;

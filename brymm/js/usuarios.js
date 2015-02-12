@@ -15,7 +15,7 @@ function listaDireccionEnvio(item) {
 	var contenidoLista = "";
 	var hayCombo = false;
 	var hayLista = false;
-	var enlaceBorrar = "";	
+	var enlaceBorrar = "";
 
 	if ($("#comboDireccionesEnvio").length) {
 		hayCombo = true;
@@ -40,7 +40,7 @@ function listaDireccionEnvio(item) {
 						poblacion = $.trim($(this).find('poblacion').text());
 						provincia = $.trim($(this).find('provincia').text());
 
-						// Se crea el enlace para poder borrar las direcciones 
+						// Se crea el enlace para poder borrar las direcciones
 						enlaceBorrar = "";
 						enlaceBorrar += "<button class=\"btn btn-danger btn-sm pull-right\" type=\"button\"";
 						enlaceBorrar += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
@@ -87,7 +87,7 @@ function listaDireccionEnvio(item) {
 
 							contenidoLista += "</tbody>";
 							contenidoLista += "</table>";
-							contenidoLista += "</div>";							
+							contenidoLista += "</div>";
 						}
 
 					});
@@ -418,7 +418,8 @@ function actualizarDirecciones(item) {
 
 						if (hayCombo) {
 							contenidoCombo += "<option class=\"form-control\" value=\""
-									+ idDireccionEnvio + "\">"
+									+ idDireccionEnvio
+									+ "\">"
 									+ nombreDireccion + "</option>";
 						}
 
@@ -450,7 +451,7 @@ function actualizarDirecciones(item) {
 
 							contenidoLista += "</tbody>";
 							contenidoLista += "</table>";
-							contenidoLista += "</div>";							
+							contenidoLista += "</div>";
 						}
 
 					});
@@ -473,20 +474,20 @@ function anadirDireccion(esListaHome) {
 				modal : true,
 				buttons : {
 					"Aceptar" : function() {
-						if (esListaHome){
+						if (esListaHome) {
 							// Se envia el formulario que acutaliza el estado
 							enviarFormulario(site_url
 									+ '/usuarios/anadirDireccionEnvio',
 									'formAnadirDireccionEnvio',
 									'listaDireccionEnvio', 1);
-						}else{
+						} else {
 							// Se envia el formulario que acutaliza el estado
 							enviarFormulario(site_url
 									+ '/usuarios/anadirDireccionEnvio',
 									'formAnadirDireccionEnvio',
 									'actualizarDirecciones', 1);
 						}
-							
+
 						// Se cierra el dialogo
 						$(this).dialog("close");
 					},
@@ -620,11 +621,60 @@ function listaPedidosUsuario(item) {
 	$('#collapseUltimosPedidos').html(contenido);
 }
 
+function valorarUsuario() {
+	/*
+	 * Ventana modal añadir valoracion
+	 */
+
+	$("#dialogAnadirValoracionUsuario").dialog(
+			{
+				width : 600,
+				modal : true,
+				buttons : {
+					"Aceptar" : function() {
+						// Se envia el formulario
+						// que acutaliza el estado
+						enviarFormulario(site_url
+								+ '/valoraciones/anadirValoracionUsuario',
+								'formAnadirValoracionUsuario',
+								'listaValoracionesUsuario', 0);
+						// Se cierra el dialogo
+						$(this).dialog("close");
+					},
+					Cancel : function() {
+						// Se cierra el dialogo
+						$(this).dialog("close");
+					}
+				},
+				close : function(event, ui) {
+					// Se cierra el dialogo
+					$(this).dialog("close");
+				}
+			});
+	$('#dialogAnadirValoracionUsuario').dialog('open');
+	return false;
+
+}
+
+function listaValoracionesUsuario(data) {	
+	$.each($.parseJSON(data), function(key,value){
+		var nota = value.nota;
+	    var fecha = value.fecha;
+	    var observaciones = value.observaciones;
+	    var local = value.local.nombre;	    
+	});
+	
+}
+
 $(document).ready(function() {
 	/*
 	 * Ventana modal añadir direccion
 	 */
 	$('.enlaceAnadirDireccion').click(function() {
 		anadirDireccion();
+	});
+
+	$('.enlaceAnadirValoracionUsuario').click(function() {
+		valorarUsuario();
 	});
 });
