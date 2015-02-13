@@ -111,19 +111,19 @@
 
 <div>
 	<div id="articulos" class="panel panel-default">
-		<div class="panel-heading panel-rojo">
+		<div class="panel-heading panel-verde">
 			<h4 class="panel-title"><i class="fa fa-beer"></i> Articulos</h4>
 		</div>
-		<div class="panel-body panel-rojo">
+		<div class="panel-body panel-verde">
 			<div class="col-md-4">
 				<div id="nuevoArticulo" class="panel panel-default sub-panel">
-					<div class="panel-heading panel-rojo">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaArticulo"
-								class="accordion-toggle collapsed"> Nuevo articulo </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo articulo </a>
 						</h4>
 					</div>
-					<div id="altaArticulo" class="panel-body collapse panel-rojo">
+					<div id="altaArticulo" class="panel-body collapse panel-verde">
 						<form id="formAltaArticulo" class="form-horizontal">
 							<div class="form-group">
 								<label for="listaTiposArticulosArticulo"
@@ -218,10 +218,10 @@
 			<div class="col-md-8">
 				<div id="listaArticulosCabecera"
 					class="panel panel-default sub-panel">
-					<div class="panel-heading panel-rojo">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaArticulos"
-								class="accordion-toggle collapsed"> Lista articulos </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista articulos </a>
 						</h4>
 					</div>
 					<div id="listaArticulos" class="panel-body collapse sub-panel">
@@ -266,7 +266,7 @@
 											</tr>
 											<tr>
 												<td>Precio</td>
-												<td><?php echo $linea['precio'];?></td>
+												<td><?php echo round($linea['precio']);?> <i class="fa fa-euro"></i></td>
 											</tr>
 											<tr>
 												<td>Ingredientes</td>
@@ -286,7 +286,7 @@
 									</table>
 								</div>
 								<span class="pull-right">
-									<button class="btn btn-warning" type="button"
+									<button class="btn btn-warning btn-sm" type="button"
 										data-toggle="tooltip" data-original-title="Edit this user"
 										onclick="mostrarVentanaModificarArticulo(
 											<?php echo trim($linea['id_articulo_local']); ?>,
@@ -297,7 +297,7 @@
                    							'<?php echo trim($linea['validoPedidos']); ?>')">
 										<span class="glyphicon glyphicon-edit"></span>
 									</button>
-									<button class="btn btn-danger" type="button"
+									<button class="btn btn-danger btn-sm" type="button"
 										data-toggle="tooltip" data-original-title="Remove this user"
 										onclick="<?php
                 							echo "doAjax('" . site_url() . "/articulos/borrarArticulo','idArticuloLocal="
@@ -329,7 +329,7 @@
 <div>
 	<div id="inigredientes" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Ingredientes</h4>
+			<h4 class="panel-title"><i class="fa fa-leaf"></i> Ingredientes</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -337,7 +337,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaIngrediente"
-								class="accordion-toggle collapsed"> Nuevo Ingrediente </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo Ingrediente </a>
 						</h4>
 					</div>
 					<div id="altaIngrediente" class="panel-body collapse sub-panel">
@@ -385,7 +385,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaIngredientes"
-								class="accordion-toggle collapsed"> Lista ingredientes </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista ingredientes </a>
 						</h4>
 					</div>
 					<div id="listaIngredientes" class="panel-body collapse sub-panel">
@@ -410,13 +410,13 @@
 											</tr>
 											<tr>
 												<td>Precio</td>
-												<td><?php echo $ingrediente->precio;?></td>
+												<td><?php echo round($ingrediente->precio);?> <i class="fa fa-euro"></i></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 								<span class="pull-right">
-									<button class="btn btn-warning" type="button"
+									<button class="btn btn-warning btn-sm" type="button"
 										data-toggle="tooltip" data-original-title="Edit this user"
 										onclick="mostrarVentanaModificarIngrediente(
 										'<?php echo trim($ingrediente->ingrediente); ?>',
@@ -425,7 +425,7 @@
                    						'<?php echo trim($ingrediente->id_ingrediente); ?>')">
 										<span class="glyphicon glyphicon-edit"></span>
 									</button>
-									<button class="btn btn-danger" type="button"
+									<button class="btn btn-danger btn-sm" type="button"
 										data-toggle="tooltip" data-original-title="Remove this user"
 										onclick="<?php
                 						echo "doAjax('" . site_url() . "/ingredientes/borrarIngrediente','idIngrediente="

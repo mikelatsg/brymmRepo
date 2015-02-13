@@ -82,59 +82,75 @@
 		</div>
 		<div class="panel-body panel-verde">
 			<a class="enlaceAnadirValoracionUsuario" data-toggle="modal"><i
-				class="fa fa-plus"></i> Valorar Usuario </a>				
-			<?php
-			if (count($valoraciones) > 0):
-			foreach ($valoraciones as $valoracion):
-			?>
-			<div class="col-md-12 well">
-				<div class="col-md-5">
-					<table
-						class="table table-condensed table-responsive table-user-information">
-						<tbody>
-							<tr>
-								<td class="titulo">Local</td>
-								<td><?php echo  $valoracion->local->nombre;?></td>
-							</tr>
-							<tr>
-								<td class="titulo">Fecha</td>
-								<td><?php echo  $valoracion->fecha;?></td>
-							</tr>
-							<tr>
-								<td class="titulo">Nota</td>
-								<td><div class="progress">
-										<div class="progress-bar progress-bar-warning" role="progressbar"
-											aria-valuenow="<?php echo $valoracion->nota;?>" aria-valuemin="0" aria-valuemax="5"
-											style="width: <?php echo $valoracion->nota * 100/10; ?>%;">
-											<span class="sr-only">60% Complete</span>
-											<?php echo $valoracion->nota."/10";?>
-										</div>
-									</div></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-md-7">
-					<table
-						class="table table-condensed table-responsive table-user-information">
-						<tbody>
-							<tr>
-								<td class="titulo col-md-3">Observaciones</td>
-								<td class="text-left col-md-9"><?php echo  $valoracion->observaciones;?>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<?php
-			endforeach;
-			else:
-			?>
-			<div class="col-md-12">No se ha realizado ninguna valoracion</div>
-			<?php 			
-			endif;
-			?>
+				class="fa fa-plus"></i> Valorar Usuario </a> <span
+				id="valoracionesUsuario"> <?php
+				if (count($valoraciones) > 0):
+				foreach ($valoraciones as $valoracion):
+				?>
+				<div class="col-md-12 well">
+					<div class="col-md-5">
+						<table
+							class="table table-condensed table-responsive table-user-information">
+							<tbody>
+								<tr>
+									<td class="titulo">Local</td>
+									<td><?php echo  $valoracion->local->nombre;?></td>
+								</tr>
+								<tr>
+									<td class="titulo">Fecha</td>
+									<td><?php echo  $valoracion->fecha;?></td>
+								</tr>
+								<tr>
+									<td class="titulo">Nota</td>
+									<td><div class="progress">
+											<div class="progress-bar <?php 
+											if ($valoracion->nota <= 3){
+												echo "progress-bar-danger";
+											}else if(($valoracion->nota > 3 && $valoracion->nota <= 5)){
+												echo "progress-bar-warning";
+											}else if(($valoracion->nota > 5 && $valoracion->nota <= 7)){
+												echo "progress-bar-primary";
+											}else if(($valoracion->nota > 7)){
+												echo "progress-bar-success";
+											}
+											?>" role="progressbar"
+											aria-valuenow="<?php echo $valoracion->nota;?>" aria-valuemin="0" aria-valuemax="10"
+											style="width: <?php echo ($valoracion->nota * 100/10); ?>%">
+												<?php echo trim($valoracion->nota);?>
+											</div>
+										</div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-7">
+						<table
+							class="table table-condensed table-responsive table-user-information">
+							<tbody>
+								<tr>
+									<td class="titulo col-md-3">Observaciones</td>
+									<td class="text-left col-md-9"><?php echo  $valoracion->observaciones;?>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div> <?php
+				endforeach;
+				?>
+				<div class="col-md-12">
+					<a
+						onclick="<?php
+                    echo "doAjax('" . site_url() . "/valoraciones/mostrarTodasValoracionesUsuario','idUsuario="
+					.$usuario->idUsuario."','listaValoracionesUsuario','post',0)";
+                    ?>"><i class="fa fa-plus"></i> Mostrar todas</a>
+				</div> <?php 
+				else:
+				?>
+				<div class="col-md-12">No se ha realizado ninguna valoracion</div> <?php 			
+				endif;
+				?>
+			</span>
 		</div>
 	</div>
 </div>

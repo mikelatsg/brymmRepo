@@ -3,7 +3,7 @@
 		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-target="#collapseFormBuscador"
-					class="accordion-toggle collapsed"> Buscador </a>
+					class="accordion-toggle collapsed"><i class="fa fa-search"></i> Buscador </a>
 			</h4>
 		</div>
 		<div id="collapseFormBuscador"

@@ -1,7 +1,7 @@
 <div>
 	<div id="horariosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Horarios local</h4>
+			<h4 class="panel-title"><i class="fa fa-clock-o"></i> Horarios local</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -9,11 +9,10 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaHorarioLocal"
-								class="accordion-toggle collapsed"> Nuevo horario local </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>  Nuevo horario local </a>
 						</h4>
 					</div>
 					<div id="altaHorarioLocal" class="panel-body collapse sub-panel">
-
 						<form id="formAltaHorarioLocal" class="form-horizontal">
 							<div class="form-group">
 								<label for="idDia" class="col-sm-4 control-label">Dia</label>
@@ -133,7 +132,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaHorarioLocal"
-								class="accordion-toggle collapsed"> Lista horarios local </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>  Lista horarios local </a>
 						</h4>
 					</div>
 					<div id="listaHorarioLocal" class="panel-body collapse sub-panel">
@@ -195,7 +194,7 @@
 <div>
 	<div id="diasCierreLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Dias cierre local</h4>
+			<h4 class="panel-title"><i class="fa fa-calendar-o"></i> Dias cierre local</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -203,7 +202,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaDiasCierreLocal"
-								class="accordion-toggle collapsed"> Nuevo dia cierre </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>  Nuevo dia cierre </a>
 						</h4>
 					</div>
 					<div id="altaDiasCierreLocal" class="panel-body collapse sub-panel">
@@ -235,7 +234,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaDiasCierreLocal"
-								class="accordion-toggle collapsed"> Lista dia cierre </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>  Lista dia cierre </a>
 						</h4>
 					</div>
 					<div id="listaDiasCierreLocal"

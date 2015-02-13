@@ -70,7 +70,9 @@
 <div>
 	<div id="pedidosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Pedidos</h4>
+			<h4 class="panel-title">
+				<i class="fa fa-shopping-cart"></i> Pedidos
+			</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -78,7 +80,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#pedidosPendientes"
-								class="accordion-toggle collapsed"> Pedidos pendientes </a>
+								class="accordion-toggle collapsed"><i class="fa fa-unlock"></i>
+								Pedidos pendientes </a>
 						</h4>
 					</div>
 					<div id="pedidosPendientes"
@@ -131,9 +134,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
-										<td><a href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $pedido->id_usuario?>"><?php 
-										echo  $pedido->nombre;
-										?> <i class="fa fa-user"></i> </a>
+										<td><a
+											href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $pedido->id_usuario?>"><?php 
+											echo  $pedido->nombre;
+											?> <i class="fa fa-user"></i> </a>
 										</td>
 									</tr>
 								</tbody>
@@ -150,7 +154,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#pedidosAceptados"
-								class="accordion-toggle collapsed"> Pedidos aceptados </a>
+								class="accordion-toggle collapsed"><i
+								class="fa fa-thumbs-up"></i> Pedidos aceptados </a>
 						</h4>
 					</div>
 					<div id="pedidosAceptados"
@@ -164,7 +169,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="3"><?php
+										<td class="titulo" colspan="3"><?php
 										echo "Pedido " . $pedido->id_pedido;
 										?> <span id="modificarEstado"> <span class="rechazarPedido">
 													<button
@@ -224,7 +229,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#pedidosTerminados"
-								class="accordion-toggle collapsed"> Pedidos terminados </a>
+								class="accordion-toggle collapsed"><i class="fa fa-lock"></i> Pedidos terminados </a>
 						</h4>
 					</div>
 					<div id="pedidosTerminados"
@@ -238,7 +243,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="3"><?php
+										<td class="titulo" colspan="3"><?php
 										echo "Pedido " . $pedido->id_pedido;
 										?>
 											<button class="btn btn-default pull-right" type="button"
@@ -279,7 +284,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#pedidosRechazados"
-								class="accordion-toggle collapsed"> Pedidos rechazados </a>
+								class="accordion-toggle collapsed"><i class="fa fa-thumbs-down"></i> Pedidos rechazados </a>
 						</h4>
 					</div>
 					<div id="pedidosRechazados"
@@ -293,7 +298,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="3"><?php
+										<td class="titulo" colspan="3"><?php
 										echo "Pedido " . $pedido->id_pedido;
 										?>
 											<button class="btn btn-default pull-right" type="button"
@@ -334,7 +339,9 @@
 			<div class="col-md-8">
 				<div id="detallePedidoCab" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-verde">
-						<h4 class="panel-title">Detalle pedido</h4>
+						<h4 class="panel-title">
+							<i class="fa fa-list"></i> Detalle pedido
+						</h4>
 					</div>
 					<!-- <div id="tituloMostrarPedido">						
 					</div> -->

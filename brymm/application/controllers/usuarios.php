@@ -16,6 +16,7 @@ class Usuarios extends CI_Controller {
 		$this->load->model('usuarios/Usuarios_model');
 		//Se carga el modelo de sessiones
 		$this->load->model('sesiones/Sesiones_model');
+		$this->load->library('session');
 	}
 
 	public function alta() {
@@ -48,6 +49,20 @@ class Usuarios extends CI_Controller {
 			$this->load->view('home');
 			$this->load->view('base/page_bottom');
 		}
+	}
+
+	public function modificarUsuario() {
+			
+		$msg = "Datos modificados correctamente!";
+
+		//Se llama a la función que inserta el usuario
+		$this->Usuarios_model->modificarUsuario($_POST,$_SESSION['idUsuario']);
+
+		$this->session->set_flashdata('msg', $msg);
+
+		redirect('/usuarios/perfil');
+
+
 	}
 
 	public function login() {
@@ -223,24 +238,47 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function datosPerfil($idUsuario = '') {
-				
+
 		//Obtengo los datos del usuario
 		$var['usuario'] = Usuario::withID($idUsuario);
-		 
+			
 		$this->load->model('valoraciones/Valoraciones_model');
-		 
+			
 		//Obtengo las valoraciones
 		$var['valoraciones'] = $this->Valoraciones_model->obtenerValoracionesUsuario($idUsuario);
-		 
+			
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'usuarios', 'js/bootstrap.min', 'reservas', 'mensajes','usuarios');
-		 
+			
 		$header['estilos'] = array('buscador.css','general.css');
 
 		$this->load->view('base/cabecera',$header);
 		$this->load->view('base/page_top');
 		$this->load->view('usuarios/datosPerfil', $var);
+		$this->load->view('base/page_bottom');
+	}
+
+	public function perfil() {
+
+		//Obtengo los datos del usuario
+		$var['usuario'] = Usuario::withID($_SESSION['idUsuario']);
+
+		$msg = $this->session->flashdata('msg');
+
+		if ($msg != ''){
+			$var['msg'] = $msg;
+		}
+			
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				, 'usuarios', 'js/bootstrap.min', 'reservas', 'mensajes','usuarios');
+			
+		$header['estilos'] = array('buscador.css','general.css');
+
+		$this->load->view('base/cabecera',$header);
+		$this->load->view('base/page_top');
+		$this->load->view('usuarios/modificarPerfil', $var);
 		$this->load->view('base/page_bottom');
 	}
 

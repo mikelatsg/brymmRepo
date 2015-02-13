@@ -44,10 +44,10 @@ class Valoraciones extends CI_Controller {
 		$this->listaValoracionesUsuario($_POST['idUsuario'], $mensaje);
 	}
 
-	private function listaValoraciones($idLocal, $mensaje = '') {
+	private function listaValoraciones($idLocal, $mensaje = '',$numRegistros = 5) {
 		//Se obtienen las valoraciones
 		$datosValoraciones =
-		$this->Valoraciones_model->obtenerValoracionLocal($idLocal)->result();
+		$this->Valoraciones_model->obtenerValoracionLocal($idLocal,$numRegistros)->result();
 
 		$params = array('etiqueta' => 'valoracionLocal', 'mensaje' => $mensaje);
 		$this->load->library('objectandxml', $params);
@@ -57,14 +57,24 @@ class Valoraciones extends CI_Controller {
 		$this->load->view('xml/generarXML', $var);
 	}
 
-	private function listaValoracionesUsuario($idUsuario, $mensaje = '') {
+	private function listaValoracionesUsuario($idUsuario, $mensaje = '',$numRegistros = 5) {
 		//Se obtienen las valoraciones
 		$valoraciones =
-		$this->Valoraciones_model->obtenerValoracionesUsuario($idUsuario);
-		
-		//Se genera el json		
-		echo json_encode($valoraciones);		
+		$this->Valoraciones_model->obtenerValoracionesUsuario($idUsuario,$numRegistros);
 
+		$datos = array("valoraciones" =>$valoraciones, "mensaje"=>$mensaje);
+
+		//Se genera el json
+		echo json_encode($datos);
+
+	}
+
+	public function mostrarTodasValoracionesUsuario(){
+		$this->listaValoracionesUsuario($_POST['idUsuario'],'',50);
+	}
+
+	public function mostrarTodasValoracionesLocal(){
+		$this->listaValoraciones($_POST['idLocal'],'',50);
 	}
 
 }

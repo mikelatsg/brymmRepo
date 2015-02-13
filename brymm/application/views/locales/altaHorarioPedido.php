@@ -1,7 +1,7 @@
 <div>
 	<div id="horariosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Horarios pedido</h4>
+			<h4 class="panel-title"><i class="fa fa-clock-o"></i> Horarios pedido</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -9,7 +9,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaHorarioPedido"
-								class="accordion-toggle collapsed"> Nuevo horario pedido </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>  Nuevo horario pedido </a>
 						</h4>
 					</div>
 					<div id="altaHorarioPedido" class="panel-body collapse sub-panel">
@@ -136,7 +136,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaHorarioPedidos"
-								class="accordion-toggle collapsed"> Lista horarios pedido </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>  Lista horarios pedido </a>
 						</h4>
 					</div>
 					<div id="listaHorarioPedidos" class="panel-body collapse sub-panel">

@@ -21,6 +21,19 @@ class Usuarios_model extends CI_Model {
 		));
 	}
 
+	function modificarUsuario($datos,$idUsuario) {
+		// Guardar usuario en BD
+		$sql = "UPDATE usuarios SET nombre = ?, apellido= ? , email= ? ,
+				localidad= ? , provincia= ? , cod_postal= ? , telefono =?
+				WHERE id_usuario = ?";
+
+		$this->db->query($sql, array( $datos['nombre'], $datos['apellido'],
+				$datos['email'],
+				$datos['localidad'], $datos['provincia'], $datos['codigoPostal'],
+				$datos['telefono'],$idUsuario
+		));
+	}
+
 	function comprobarUsuarioNick($nick) {
 
 		// Consulta en la tabla usuarios con el nick

@@ -3,7 +3,7 @@
 	<div>
 		<div id="pedidosUsuario" class="panel panel-default">
 			<div class="panel-heading panel-verde">
-				<h4 class="panel-title">Pedidos</h4>
+				<h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Pedidos</h4>
 			</div>
 			<div id="collapsePedidosUsuario" class="panel-body panel-verde">
 				<div class="col-md-4">
@@ -12,7 +12,7 @@
 						<div class="panel-heading panel-verde">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-target="#collapseUltimosPedidos"
-									class="accordion-toggle collapsed"> Ultimos pedidos </a>
+									class="accordion-toggle collapsed"><i class="fa fa-long-arrow-down"></i> Ultimos pedidos </a>
 							</h4>
 						</div>
 						<div id="collapseUltimosPedidos"
@@ -78,7 +78,7 @@
 					<div id="detallePedidoUsuario"
 						class="panel panel-default sub-panel">
 						<div class="panel-heading panel-verde">
-							<h4 class="panel-title">Detalle pedido</h4>
+							<h4 class="panel-title"><i class="fa fa-list"></i> Detalle pedido</h4>
 						</div>
 						<div id="muestraDetalle" class="panel-body sub-panel altoMaximo"></div>
 					</div>
@@ -89,7 +89,7 @@
 	<div>
 		<div id="reservasUsuario" class="panel panel-default">
 			<div class="panel-heading panel-verde">
-				<h4 class="panel-title">Reservas</h4>
+				<h4 class="panel-title"><i class="fa fa-calendar"></i> Reservas</h4>
 			</div>
 			<div id="collapseReservasUsuario" class="panel-body panel-verde">
 				<div class="col-md-4">
@@ -98,7 +98,7 @@
 						<div class="panel-heading panel-verde">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-target="#listaReservasUsuario"
-									class="accordion-toggle collapsed"> Ultimas Reservas </a>
+									class="accordion-toggle collapsed"><i class="fa fa-long-arrow-down"></i> Ultimas Reservas </a>
 							</h4>
 						</div>
 						<div id="listaReservasUsuario"
@@ -164,7 +164,7 @@
 					<div id="detalleReservaUsuario"
 						class="panel panel-default sub-panel">
 						<div class="panel-heading panel-verde">
-							<h4 class="panel-title">Detalle reserva</h4>
+							<h4 class="panel-title"><i class="fa fa-list"></i> Detalle reserva</h4>
 						</div>
 						<div id="muestraDetalleReserva" class="panel-body sub-panel"></div>
 					</div>
@@ -177,7 +177,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#localesFavoritos"
-								class="accordion-toggle collapsed"> Locales favoritos </a>
+								class="accordion-toggle collapsed"><i class="fa fa-cutlery"></i> Locales favoritos </a>
 						</h4>
 					</div>
 					<div id="localesFavoritos"
@@ -220,7 +220,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaDirecciones"
-								class="accordion-toggle collapsed"> Mis direcciones </a>
+								class="accordion-toggle collapsed"><i class="fa fa-inbox"></i> Mis direcciones </a>
 						</h4>
 					</div>
 					<div id="listaDirecciones"

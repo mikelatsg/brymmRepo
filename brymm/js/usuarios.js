@@ -656,14 +656,137 @@ function valorarUsuario() {
 
 }
 
-function listaValoracionesUsuario(data) {	
-	$.each($.parseJSON(data), function(key,value){
-		var nota = value.nota;
-	    var fecha = value.fecha;
-	    var observaciones = value.observaciones;
-	    var local = value.local.nombre;	    
-	});
-	
+function listaValoracionesUsuario(data) {
+	var contenido = "";
+	var idUsuario = "";
+	var contadorVal = 0;
+	var json = $.parseJSON(data);
+	var jsonValoraciones = json.valoraciones;
+	$
+			.each(
+					jsonValoraciones,/* $.parseJSON(data), */
+					function(key, value) {
+						var nota = value.nota;
+						var fecha = value.fecha;
+						var observaciones = value.observaciones;
+						var local = value.local.nombre;
+						idUsuario = value.usuario.idUsuario;
+
+						contadorVal += 1;
+
+						contenido += "<div class=\"col-md-12 well\">";
+
+						contenido += "<div class=\"col-md-5\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\">";
+						contenido += "Local";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += local;
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\">";
+						contenido += "Fecha";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += fecha;
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\">";
+						contenido += "Nota";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += "<div class=\"progress\">";
+						if (nota <= 3) {
+							contenido += "<div class=\"progress-bar progress-bar-danger\" role=\"progressbar\""
+									+ "aria-valuenow=\""
+									+ nota
+									+ "\" aria-valuemin=\"0\" aria-valuemax=\"10\""
+									+ "style=\"width: "
+									+ (nota * 100 / 10)
+									+ "%;\">";
+						} else if ((nota > 3 && nota <= 5)) {
+							contenido += "<div class=\"progress-bar progress-bar-warning\" role=\"progressbar\""
+									+ "aria-valuenow=\""
+									+ nota
+									+ "\" aria-valuemin=\"0\" aria-valuemax=\"10\""
+									+ "style=\"width: "
+									+ (nota * 100 / 10)
+									+ "%;\">";
+						} else if ((nota > 5 && nota <= 7)) {
+							contenido += "<div class=\"progress-bar progress-bar-primary\" role=\"progressbar\""
+									+ "aria-valuenow=\""
+									+ nota
+									+ "\" aria-valuemin=\"0\" aria-valuemax=\"10\""
+									+ "style=\"width: "
+									+ (nota * 100 / 10)
+									+ "%;\">";
+						} else if ((nota > 7)) {
+							contenido += "<div class=\"progress-bar progress-bar-success\" role=\"progressbar\""
+									+ "aria-valuenow=\""
+									+ nota
+									+ "\" aria-valuemin=\"0\" aria-valuemax=\"10\""
+									+ "style=\"width: "
+									+ (nota * 100 / 10)
+									+ "%;\">";
+						}
+						contenido += nota;
+						contenido += "</div>";
+						contenido += "</div>";
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+
+						contenido += "<div class=\"col-md-7\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\">";
+						contenido += "Observaciones";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += observaciones;
+						contenido += "</td>";
+						contenido += "</tr>";
+
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+
+						contenido += "</div>";
+					});
+
+	if (contadorVal <= 5) {
+		contenido += "<div class=\"col-md-12\">";
+		contenido += "<a onclick=\"doAjax('" + site_url
+				+ "/valoraciones/mostrarTodasValoracionesUsuario','idUsuario="
+				+ idUsuario + "','listaValoracionesUsuario','post',0)\">"
+				+ "<i class=\"fa fa-plus\"></i> Mostrar todas</a>";
+		contenido += "</div>";
+	}
+
+	// Si hay mensaje se muestra
+	if (json.mensaje.length > 0) {
+		var mensaje = json.mensaje;
+		if (mensaje != "") {
+			mostrarMensaje(mensaje);
+		}
+	}
+
+	$('#valoracionesUsuario').empty();
+	$('#valoracionesUsuario').html(contenido);
+
 }
 
 $(document).ready(function() {

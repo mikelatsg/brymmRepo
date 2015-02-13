@@ -36,16 +36,16 @@
 </div>
 <div>
 	<div id="tiposArticulo" class="panel panel-default">
-		<div class="panel-heading panel-azul">
-			<h4 class="panel-title">Tipos articulo</h4>
+		<div class="panel-heading panel-verde">
+			<h4 class="panel-title"><i class="fa fa-tags"></i> Tipos articulo</h4>
 		</div>
-		<div class="panel-body panel-azul">
+		<div class="panel-body panel-verde">
 			<div class="col-md-4">
 				<div id="nuevoTipoArticulo" class="panel panel-default sub-panel">
-					<div class="panel-heading panel-azul">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaTipoArticulo"
-								class="accordion-toggle collapsed"> Nuevo tipo articulo </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo tipo articulo </a>
 						</h4>
 					</div>
 					<div id="altaTipoArticulo" class="panel-body collapse sub-panel">
@@ -82,33 +82,7 @@
 										id="precioBaseTipoArticulo" placeholder="Precio base"
 										name="precioBase">
 								</div>
-							</div>
-							<!-- 
-							<table>
-								<tr>
-
-									<td>Tipo articulo<select name="tipoArticulo">
-											<?php foreach ($tiposArticulo as $linea): ?>
-											<option value="<?php echo $linea->id_tipo_articulo; ?>">
-												<?php echo $linea->tipo_articulo; ?>
-											</option>
-											<?php endforeach; ?>
-									</select>
-									</td>
-								</tr>
-								<tr>
-									<td>Personalizar<select name="personalizar">
-											<option value="1">Si</option>
-											<option value="0">No</option>
-									</select>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="text" name="precioBase"
-										placeHolder="Precio base">
-									</td>
-								</tr>
-							</table> -->
+							</div>							
 						</form>
 						<span class="pull-right">
 							<button class="btn btn-success" type="button"
@@ -126,10 +100,10 @@
 			</div>
 			<div class="col-md-8">
 				<div id="nuevoTipoArticulo" class="panel panel-default sub-panel">
-					<div class="panel-heading panel-azul">
+					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaTipoArticulos"
-								class="accordion-toggle collapsed"> Lista tipos articulo </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista tipos articulo </a>
 						</h4>
 					</div>
 					<div id="listaTipoArticulos" class="panel-body collapse sub-panel">
@@ -150,17 +124,21 @@
 										<tbody>
 											<tr>
 												<td>Personalizable</td>
-												<td><?php echo $linea->personalizar;?></td>
+												<td><?php if ($linea->personalizar){
+													echo "Si";
+												}else{
+													echo "No";		
+												}?></td>
 											</tr>
 											<tr>
 												<td>Precio</td>
-												<td><?php echo $linea->precio;?></td>
+												<td><?php echo $linea->precio;?> <i class="fa fa-euro"></i></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 								<span class="pull-right">
-									<button class="btn btn-warning" type="button"
+									<button class="btn btn-warning btn-sm" type="button"
 										data-toggle="tooltip" data-original-title="Edit this user"
 										onclick="mostrarVentanaModificarTipoArticulo(
 										'<?php echo trim($linea->id_tipo_articulo_local); ?>',
@@ -169,7 +147,7 @@
 					                   '<?php echo trim($linea->precio); ?>')">
 										<span class="glyphicon glyphicon-edit"></span>
 									</button>
-									<button class="btn btn-danger" type="button"
+									<button class="btn btn-danger btn-sm" type="button"
 										data-toggle="tooltip" data-original-title="Remove this user"
 										onclick="<?php
                 						echo "doAjax('" . site_url() . "/articulos/borrarTipoArticuloLocal','idTipoArticuloLocal="

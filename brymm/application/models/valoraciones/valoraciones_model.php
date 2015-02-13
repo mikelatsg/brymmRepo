@@ -18,13 +18,14 @@ class Valoraciones_model extends CI_Model {
 				, $observaciones, date('Y-m-d H:i:s')));
 	}
 
-	function obtenerValoracionLocal($idLocal) {
+	function obtenerValoracionLocal($idLocal,$numRegistros = 5) {
 		$sql = "SELECT vl.* , u.nick FROM valoracion_local vl, usuarios u
 				WHERE u.id_usuario = vl.id_usuario
 				AND id_local = ?
-				ORDER BY fecha desc";
+				ORDER BY id_valoracion_local DESC
+				LIMIT 0,?";
 
-		return $this->db->query($sql, array($idLocal));
+		return $this->db->query($sql, array($idLocal,$numRegistros));
 	}
 
 	function insertarValoracionUsuario($idLocal, $idUsuario, $nota

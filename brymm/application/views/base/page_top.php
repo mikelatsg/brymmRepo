@@ -10,13 +10,26 @@
 				<nav class="navbar navbar-inverse">
 					<div class="container-fluid">
 						<div id="logo" class="navbar-header">
-							<a class="navbar-brand" href="#">Brymm</a>
+							<a class="navbar-brand" href="#"><i class="fa fa-home"></i> Brymm</a>
 						</div>
 						<div>
 							<ul class="nav nav-tabs">
-								<li><?php echo anchor('/usuarios/home', 'Home usuario'); ?>
+								<li><a href="<?php echo site_url();?>/usuarios/home"><i
+										class="fa fa-home"> </i> Home</a>
 								</li>
-								<li class="navbar-tab navbar-right"><?php echo anchor('/usuarios/logout', 'Salir'); ?>
+								<li class="navbar-tab navbar-right"><a class="dropdown-toggle"
+									href="#" data-toggle="dropdown" id="navUsuario"><i
+										class="fa fa-user"></i> <?php echo $_SESSION['nick'];?> </a>
+									<div class="dropdown-menu menuUsuario">										
+										<div class="col-md-12">
+											<a href="<?php echo site_url();?>/usuarios/perfil"><i
+												class="fa fa-user"> </i> Perfil</a>
+										</div>
+										<div class="col-md-12">
+											<a href="<?php echo site_url();?>/usuarios/logout"><i
+												class="fa fa-sign-out"> </i> Salir</a>
+										</div>
+									</div>
 								</li>
 							</ul>
 						</div>
@@ -36,13 +49,13 @@
 				<nav class="navbar navbar-inverse">
 					<div class="container-fluid">
 						<div id="logo" class="navbar-header">
-							<a class="navbar-brand" href="#">Brymm</a>
+							<a class="navbar-brand" href="#"><i class="fa fa-home"></i> Brymm</a>
 						</div>
 						<div>
 							<ul class="nav nav-tabs">
 								<li class="dropdown" id="menuLoginUsuario"><a
 									class="dropdown-toggle" href="#" data-toggle="dropdown"
-									id="navLoginUsuario">Usuario</a>
+									id="navLoginUsuario"><i class="fa fa-user"></i> Usuario</a>
 									<div class="dropdown-menu">
 										<!--  <div class="col-md-12">-->
 										<form method="post" id="formLoginUsuario"
@@ -74,10 +87,11 @@
 											<a href="<?php echo site_url();?>/usuarios/alta">Nuevo
 												usuario</a>
 										</div>
-									</div></li>
+									</div>
+								</li>
 								<li class="dropdown" id="menuLoginLocal"><a
 									class="dropdown-toggle" href="#" data-toggle="dropdown"
-									id="navLoginLocal">Local</a>
+									id="navLoginLocal"><i class="fa fa-home"></i> Local</a>
 									<div class="dropdown-menu">
 										<div class="col-md-12">
 											<form method="post" id="formLoginLocal"
@@ -106,11 +120,10 @@
 										<div class="col-md-12">
 											<a href="<?php echo site_url();?>/locales/alta">Nuevo local</a>
 										</div>
-									</div>
-								</li>
+									</div></li>
 								<li class="dropdown" id="menuLoginLocal"><a
 									class="dropdown-toggle" href="#" data-toggle="dropdown"
-									id="navLoginLocal">Camarero</a>
+									id="navLoginLocal"><i class="fa fa-user"></i> Camarero</a>
 									<div class="dropdown-menu">
 										<div class="col-md-12">
 											<form method="post" id="formLoginLocal"
@@ -144,8 +157,7 @@
 												</button>
 											</form>
 										</div>
-									</div>
-								</li>
+									</div></li>
 
 							</ul>
 						</div>

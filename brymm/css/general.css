@@ -158,6 +158,20 @@
 	border-color: grey;
 }
 
+#opcionesUsuario .dropdown-menu a {
+	color: black;
+	font-weight: bold;
+}
+
+.menuUsuario div{
+	height:30px;
+}
+
+.menuUsuario{
+	border: 1px solid grey;
+    border-radius: 10px;
+}
+
 ::-webkit-input-placeholder { /* WebKit browsers */
 	font-style: italic;
 	font-size: 12px;
@@ -240,4 +254,9 @@ body a {
 
 .progress{
 	margin-bottom: 0px;
+}
+
+.colCentered{
+    float: none;
+    margin: 0 auto;
 }
