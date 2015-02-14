@@ -52,9 +52,9 @@ class Reservas extends CI_Controller {
 				'general.css','reservas.css','calendario.css');
 
 		$this->load->view('base/cabecera', $header);
-		$this->load->view('base/page_top');
-		$this->load->view('reservas/mesasLocal', $var2);
+		$this->load->view('base/page_top');		
 		$this->load->view('reservas/reservasLocal', $var);
+		$this->load->view('reservas/mesasLocal', $var2);
 		$this->load->view('base/page_bottom');
 	}
 

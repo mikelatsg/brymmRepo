@@ -1,7 +1,7 @@
 <div class="col-md-6 noPadLeft">
 	<div id="articulosCamareroPanel" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Articulos</h4>
+			<h4 class="panel-title"><i class="fa fa-beer"></i> Articulos</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-12">
@@ -9,7 +9,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#articulosCamarero"
-								class="accordion-toggle collapsed">Articulos</a>
+								class="accordion-toggle collapsed"><i class="fa fa-beer"></i> Articulos</a>
 						</h4>
 					</div>
 					<div id="articulosCamarero" class="panel-body collapse sub-panel">
@@ -43,7 +43,7 @@
 									<table
 										class="table table-condensed table-responsive table-user-information">
 										<tbody>
-											<tr>
+											<tr id="nombrePlato">
 												<td class="titulo" colspan="2"><?php echo $linea['articulo']?>
 												</td>
 											</tr>
@@ -97,7 +97,8 @@
                     . $linea['id_articulo_local'] . "&precio=" . $linea['precio'] . "&articulo=" . $linea['articulo'] .
                     "&idTipoArticulo=" . $linea['id_tipo_articulo'] . "','cmd" . $linea['id_articulo_local']
                     . "','mostrarComanda',1)";
-                    ?>">
+                    ?>"
+                    title="Añadir articulo">
 															<span class="glyphicon glyphicon-plus"></span>
 														</button>
 												</span></td>
@@ -124,7 +125,7 @@
 							<div class="panel-heading panel-verde">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-target="#articulosPerCamarero"
-										class="accordion-toggle collapsed">Articulos personalizados</a>
+										class="accordion-toggle collapsed"><i class="fa fa-beer"></i> Articulos personalizados</a>
 								</h4>
 							</div>
 							<div id="articulosPerCamarero"
@@ -216,7 +217,8 @@
 											onclick="<?php
             echo "enviarFormulario('" . site_url() .
             "/comandas/anadirArticuloPerComanda','formArticuloPerCamarero','mostrarComanda',1)"
-            ?>">
+            ?>"
+            title="Añadir articulo personalizado">
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>
 									</span>

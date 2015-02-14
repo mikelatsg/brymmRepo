@@ -424,7 +424,7 @@ class Reservas_model extends CI_Model {
 		$this->db->query($sql, array($idReserva));
 	}
 
-	function obtenerReservas2EstadosLocal($idLocal, $estado1, $estado2) {
+	function obtenerReservas2EstadosLocal($idLocal, $estado1, $estado2,$numRegistros = 5) {
 
 		$sql = "SELECT r.*, u.nombre nombreUsuario,u.nick nick,u.apellido
 				, tm.descripcion tipo_menu
@@ -434,9 +434,10 @@ class Reservas_model extends CI_Model {
 				WHERE r.id_tipo_menu = tm.id_tipo_menu
 				AND id_local = ?
 				AND (r.estado = ? OR r.estado = ?)
-				ORDER BY r.fecha_actualizacion DESC,r.fecha DESC";
+				ORDER BY r.fecha_actualizacion DESC,r.fecha DESC
+				LIMIT 0,?";
 
-		$result = $this->db->query($sql, array($idLocal, $estado1, $estado2));
+		$result = $this->db->query($sql, array($idLocal, $estado1, $estado2,$numRegistros));
 
 		return $result;
 	}

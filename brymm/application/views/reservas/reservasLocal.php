@@ -24,7 +24,9 @@
 </div>
 <div id="reservasLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
-		<h4 class="panel-title">Reservas</h4>
+		<h4 class="panel-title">
+			<i class="fa fa-calendar"></i> Reservas
+		</h4>
 	</div>
 	<div class="panel-body panel-verde">
 		<div class="col-md-4">
@@ -34,7 +36,8 @@
 					<h4 class="panel-title">
 						<a data-toggle="collapse"
 							data-target="#listaReservasPendientesLocal"
-							class="accordion-toggle collapsed">Reservas pendientes </a>
+							class="accordion-toggle collapsed"><i class="fa fa-unlock"></i>
+							Reservas pendientes </a>
 					</h4>
 				</div>
 				<div id="listaReservasPendientesLocal"
@@ -44,15 +47,17 @@
 						<table class="table">
 							<tbody>
 								<tr>
-									<td colspan="2"><?php
+									<td class="titulo" colspan="2"><?php
 									echo "Reserva " . $reserva->id_reserva;
 									?>
-										<button class="btn btn-default pull-right btn-sm" type="button"
-											data-toggle="tooltip" data-original-title="Remove this user"
+										<button class="btn btn-default pull-right btn-sm"
+											type="button" data-toggle="tooltip"
+											data-original-title="Remove this user"
 											onclick="<?php
                     echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva=" . $reserva->id_reserva 
 							. "','datosReservaLocal','post',1)";
-                ?>">
+                					?>"
+											title="Mostrar detalle reserva">
 											<span class="glyphicon glyphicon-eye-open"></span>
 										</button>
 									</td>
@@ -79,7 +84,8 @@
 					<h4 class="panel-title">
 						<a data-toggle="collapse"
 							data-target="#listaReservasAceptadasLocal"
-							class="accordion-toggle collapsed">Ultimas reservas aceptadas </a>
+							class="accordion-toggle collapsed"><i class="fa fa-thumbs-up"></i>
+							Ultimas reservas aceptadas </a>
 					</h4>
 				</div>
 				<div id="listaReservasAceptadasLocal"
@@ -90,15 +96,17 @@
 						<table class="table">
 							<tbody>
 								<tr>
-									<td colspan="2"><?php
+									<td class="titulo" colspan="2"><?php
 									echo "Reserva " . $reserva->id_reserva;
 									?>
-										<button class="btn btn-default pull-right btn-sm" type="button"
-											data-toggle="tooltip" data-original-title="Remove this user"
+										<button class="btn btn-default pull-right btn-sm"
+											type="button" data-toggle="tooltip"
+											data-original-title="Remove this user"
 											onclick="<?php
                     echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva=" . $reserva->id_reserva 
 							. "','datosReservaAceptadaLocal','post',1)";
-                ?>">
+                					?>"
+											title="Mostrar detalle reserva">
 											<span class="glyphicon glyphicon-eye-open"></span>
 										</button>
 									</td>
@@ -130,25 +138,28 @@
 					<h4 class="panel-title">
 						<a data-toggle="collapse"
 							data-target="#listaReservasRechazadasLocal"
-							class="accordion-toggle collapsed">Ultimas reservas rechazadas </a>
+							class="accordion-toggle collapsed"><i class="fa fa-thumbs-down"></i>
+							Ultimas reservas rechazadas </a>
 					</h4>
 				</div>
 				<div id="listaReservasRechazadasLocal"
-					class="panel-body collapse sub-panel">
+					class="panel-body collapse sub-panel altoMaximo">
 					<?php foreach ($reservasRechazadasLocal as $reserva): ?>
 					<div class="col-md-12 list-div">
 						<table class="table">
 							<tbody>
 								<tr>
-									<td colspan="2"><?php
+									<td class="titulo" colspan="2"><?php
 									echo "Reserva " . $reserva->id_reserva;
 									?>
-										<button class="btn btn-default pull-right btn-sm" type="button"
-											data-toggle="tooltip" data-original-title="Remove this user"
+										<button class="btn btn-default pull-right btn-sm"
+											type="button" data-toggle="tooltip"
+											data-original-title="Remove this user"
 											onclick="<?php
                     echo "doAjax('" . site_url() . "/reservas/mostrarReservaLocal','idReserva=" . $reserva->id_reserva 
 							. "','datosReservaRechazadaLocal','post',1)";
-                ?>">
+                ?>"
+											title="Mostrar detalle reserva">
 											<span class="glyphicon glyphicon-eye-open"></span>
 										</button>
 									</td>
@@ -179,7 +190,9 @@
 		<div class="col-md-8">
 			<div id="detalleReservaPanel" class="panel panel-default sub-panel">
 				<div class="panel-heading panel-verde">
-					<h4 class="panel-title">Detalle reserva</h4>
+					<h4 class="panel-title">
+						<i class="fa fa-list"></i> Detalle reserva
+					</h4>
 				</div>
 				<div id="detalleReserva" class="panel-body sub-panel"></div>
 			</div>
@@ -188,7 +201,9 @@
 </div>
 <div id="reservasLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
-		<h4 class="panel-title">Calendario reservas</h4>
+		<h4 class="panel-title">
+			<i class="fa fa-calendar"></i> Calendario reservas
+		</h4>
 	</div>
 	<div class="panel-body panel-verde">
 		<div class="col-md-4">
@@ -196,7 +211,8 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#insertarReservas"
-							class="accordion-toggle collapsed">Nueva reserva </a>
+							class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+							Nueva reserva </a>
 					</h4>
 				</div>
 				<div id="insertarReservas" class="panel-body collapse sub-panel">
@@ -325,7 +341,9 @@
 			</div>
 			<div id="reservasDiaPanel" class="panel panel-default sub-panel">
 				<div class="panel-heading panel-verde">
-					<h4 class="panel-title">Reservas del dia</h4>
+					<h4 class="panel-title">
+						<i class="fa fa-calendar-o"></i> Reservas del dia
+					</h4>
 				</div>
 				<div id="reservasDiaLocal" class="panel-body sub-panel"></div>
 			</div>
@@ -333,20 +351,23 @@
 		<div class="col-md-8">
 			<div id="reservasDiaPanel" class="panel panel-default sub-panel">
 				<div class="panel-heading panel-verde">
-					<h4 class="panel-title">Calendario reservas</h4>
+					<h4 class="panel-title">
+						<i class="fa fa-calendar"></i> Calendario reservas
+					</h4>
 				</div>
-				<div id="calendarioReservasLocal" class="panel-body sub-panel">
-					<?php
+				<div class="panel-body sub-panel">
+					<span id="calendarioReservasLocal"> <?php
 					echo $calendarioReservas;
 					?>
-				</div>
-				<div id="actualizarCalendarioReservas" class="panel-body sub-panel">
-					<?php
-					echo "<a onclick=";
-					echo "doAjax('" . site_url() . "/reservas/actualizarCalendarioReservas',''" .
-							",'actualizarCalendarioReservas','post',1)";
-					echo "> Actualizar calendario </a>";
-					?>
+					</span>
+					<div id="actualizarCalendarioReservas" class="actualizarCalendario">
+						<?php
+						echo "<a onclick=";
+						echo "doAjax('" . site_url() . "/reservas/actualizarCalendarioReservas',''" .
+								",'actualizarCalendarioReservas','post',1)";
+						echo "> Actualizar calendario </a>";
+						?>
+					</div>
 				</div>
 			</div>
 		</div>

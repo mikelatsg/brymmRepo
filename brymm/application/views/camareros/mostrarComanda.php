@@ -1,7 +1,7 @@
 <div>
 	<div id="comandasPanel" class="panel panel-default col-md-12">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Comandas</h4>
+			<h4 class="panel-title"><i class="fa fa-pencil"></i> Comandas</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -9,7 +9,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaComandasActivas"
-								class="accordion-toggle collapsed">Comandas activas</a>
+								class="accordion-toggle collapsed"><i class="fa fa-unlock"></i> Comandas activas</a>
 						</h4>
 					</div>
 					<div id="listaComandasActivas"
@@ -28,7 +28,8 @@
 												onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/cancelarComandaCamarero','idComanda="
                 . $comandaActiva->id_comanda . "','listaComandas','post',1)";
-                ?>">
+                ?>"
+                title="Cancelar comanda">
 												<span class="glyphicon glyphicon-remove"></span>
 											</button>
 											<button class="btn btn-warning btn-sm pull-right"
@@ -37,7 +38,8 @@
 												onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/cerrarComandaCamarero','idComanda="
                 . $comandaActiva->id_comanda . "','listaComandas','post',1)";
-                ?>">
+                ?>"
+                title="Cerrar comanda">
 												<span class="glyphicon glyphicon-check"></span>
 											</button>
 											<button class="btn btn-default btn-sm pull-right"
@@ -46,7 +48,8 @@
 												onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
                 . $comandaActiva->id_comanda . "','mostrarComandaRealizada','post',1)";
-                ?>">
+                ?>"
+                title="Mostrar detalle comanda">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>
@@ -79,7 +82,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaComandasCerradas"
-								class="accordion-toggle collapsed">Comandas cerradas</a>
+								class="accordion-toggle collapsed"><i class="fa fa-lock"></i> Comandas cerradas</a>
 						</h4>
 					</div>
 					<div id="listaComandasCerradas"
@@ -96,7 +99,8 @@
 												onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
                 . $comandaCerrada->id_comanda . "','mostrarComandaRealizada','post',1)";
-                ?>">
+                ?>"
+                title="Mostrar detalle comanda">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>
@@ -119,24 +123,7 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
-						<!-- <li><?php
-						echo $comandaCerrada->id_comanda . " - ";
-						if ($comandaCerrada->id_mesa == 0) {
-                    echo $comandaCerrada->destino;
-                } else {
-                    echo $comandaCerrada->nombreMesa;
-                }
-                echo "-" . $comandaCerrada->nombreCamarero
-                . "-" . $comandaCerrada->precio . "-" . $comandaCerrada->estado . "-"
-								. $comandaCerrada->fecha_alta;
-                ?> <a
-							onclick="<?php
-                echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
-                . $comandaCerrada->id_comanda . "','mostrarComandaRealizada','post',1)";
-                ?>
-                   "> Ver </a>
-						</li> -->
+						</div>						
 						<?php
 						endforeach;
 						?>
@@ -146,7 +133,7 @@
 			<div class="col-md-8">
 				<div id="detalleComandaPanel" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-verde">
-						<h4 class="panel-title">Detalle comanda</h4>
+						<h4 class="panel-title"><i class="fa fa-list"></i> Detalle comanda</h4>
 					</div>
 					<div class="panel-body sub-panel" class="panel-body sub-panel">
 						<div id="mostrarComanda">

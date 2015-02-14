@@ -86,13 +86,17 @@
 
 <div id="calendarioMenuLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
-		<h4 class="panel-title">Calendario menu</h4>
+		<h4 class="panel-title">
+			<i class="fa fa-calendar"></i> Calendario menu
+		</h4>
 	</div>
 	<div class="panel-body panel-verde">
 		<div class="col-md-4">
 			<div id="altaTiposMenuPanel" class="panel panel-default sub-panel">
 				<div class="panel-heading panel-verde">
-					<h4 class="panel-title">Añadir plato a menu</h4>
+					<h4 class="panel-title">
+						<i class="fa fa-plus"></i> Añadir plato a menu
+					</h4>
 				</div>
 				<div id="anadirPlatoMenu" class="panel-body sub-panel">
 					<form id="formAnadirPlatoMenu" class="form-horizontal">
@@ -123,32 +127,36 @@
 			</div>
 			<div id="altaTiposMenuPanel" class="panel panel-default sub-panel">
 				<div class="panel-heading panel-verde">
-					<h4 class="panel-title">Menu Dia</h4>
+					<h4 class="panel-title">
+						<i class="fa fa-cutlery"></i> Menu Dia
+					</h4>
 				</div>
-				<div id="menuDia" class="panel-body sub-panel"></div>
+				<div id="menuDia" class="panel-body sub-panel altoMaximo"></div>
 			</div>
 		</div>
 		<div class="col-md-8">
 			<!-- Div que contiene los platos creados del local-->
 			<div id="listaPlatosLocalPanel" class="panel panel-default sub-panel">
 				<div class="panel-heading panel-verde">
-					<h4 class="panel-title">Calendario</h4>
+					<h4 class="panel-title">
+						<i class="fa fa-calendar"></i> Calendario
+					</h4>
 				</div>
-				<div id="calendarioMenu" class="panel-body sub-panel">
-					<?php
+				<div class="panel-body sub-panel">
+					<span id="calendarioMenu"> <?php
 					echo $calendario;
 					?>
+					</span>
+					<div id="actualizarCalendario"
+						class="col-md-12 actualizarCalendario">
+						<?php
+						echo "<a onclick=";
+						echo "doAjax('" . site_url() . "/menus/actualizarCalendario',''" .
+								",'actualizarCalendarioMenu','post',1)";
+						echo "> Actualizar calendario </a>";
+						?>
+					</div>
 				</div>
-				<div id="actualizarCalendario"
-					class="panel-body sub-panel actualizarCalendario">
-					<?php
-					echo "<a onclick=";
-					echo "doAjax('" . site_url() . "/menus/actualizarCalendario',''" .
-							",'actualizarCalendarioMenu','post',1)";
-					echo "> Actualizar calendario </a>";
-					?>
-				</div>
-
 			</div>
 		</div>
 	</div>
@@ -156,7 +164,9 @@
 
 <div id="platosLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
-		<h4 class="panel-title">Platos</h4>
+		<h4 class="panel-title">
+			<i class="fa fa-tag"></i> Platos
+		</h4>
 	</div>
 	<div class="panel-body panel-verde">
 		<div class="col-md-4">
@@ -164,7 +174,8 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#anadirPlato"
-							class="accordion-toggle collapsed">Plato </a>
+							class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+							Nuevo plato </a>
 					</h4>
 				</div>
 				<!-- Div que contiene el formulario para crear los platos-->
@@ -204,7 +215,8 @@
 							onclick="<?php
                            echo "enviarFormulario('" . site_url() .
                            "/menus/anadirPlatoLocal','formAnadirPlato','listaPlatosLocal',1)"
-					                           ?>">
+					                           ?>"
+					                           title="Nuevo plato">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</span>
@@ -217,10 +229,11 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#listaPlatosLocal"
-							class="accordion-toggle collapsed"> Lista platos </a>
+							class="accordion-toggle collapsed"><i class="fa fa-list"></i>
+							Lista platos </a>
 					</h4>
 				</div>
-				<div id="listaPlatosLocal" class="panel-body collapse sub-panel">
+				<div id="listaPlatosLocal" class="panel-body collapse sub-panel altoMaximo">
 					<?php
 					$idTipoPlato = 0;
 					$idTipoPlatoAnterior = 0;
@@ -249,12 +262,7 @@
 									</h4>
 								</td>
 							</tr>
-							<?php 
-							//echo "<div id=\"tipoPlato" . $plato->id_tipo_plato . "\">";
-							/*echo "<h2>";
-							echo $plato->descripcion;
-							echo "</h2>";*/
-							//echo "<ul>";
+							<?php 							
 							$idTipoPlatoAnterior = $idTipoPlato;
 							$idTipoPlato = $plato->id_tipo_plato;
             }
@@ -267,37 +275,41 @@
 
 							<tr>
 								<td class="titulo">Precio</td>
-								<td><?php echo $plato->precio." "; ?> <i class="fa fa-euro">
+								<td><?php echo round($plato->precio)." "; ?> <i
+									class="fa fa-euro">
 								
 								</td>
 							</tr>
 
-							<tr>
+							<tr class="separadorPlato">
 								<td colspan="2"><span class="pull-right">
 										<button class="btn btn-danger btn-sm" type="button"
-											data-toggle="tooltip" data-original-title="Edit this user"
+											data-toggle="tooltip" data-original-title="Borrar plato"
 											onclick="<?php
                            echo "doAjax('" . site_url() . "/menus/borrarPlatoLocal','idPlatoLocal="
 			. $plato->id_plato_local . "','listaPlatosLocal','post',1)"
-					                           ?>">
+					                           ?>"
+											title="Borrar plato">
 											<span class="glyphicon glyphicon-remove"></span>
 										</button> <!--    Modificar un plato        -->
 										<button class="btn btn-warning btn-sm" type="button"
-											data-toggle="tooltip" data-original-title="Edit this user"
+											data-toggle="tooltip" data-original-title="Modificar plato"
 											onclick="mostrarVentanaModificarPlato(
 								'<?php echo trim($plato->nombre); ?>',
                '<?php echo trim($plato->precio); ?>',
                '<?php echo trim($plato->id_plato_local); ?>',
-               '<?php echo trim($plato->id_tipo_plato); ?>')">
+               '<?php echo trim($plato->id_tipo_plato); ?>')"
+											title="Modificar plato">
 											<span class="glyphicon glyphicon-edit"></span>
 										</button>
 										<button class="btn btn-default btn-sm" type="button"
-											data-toggle="tooltip" data-original-title="Edit this user"
+											data-toggle="tooltip" data-original-title="Añadir plato a menu"
 											onclick="<?php
                            echo  "enviarDatosMenu('" . site_url() .
 							"/menus/anadirPlatoMenu','formAnadirPlatoMenu','idPlatoLocal="
 			. $plato->id_plato_local . "','mostrarMenu',1)"
-					                           ?>">
+					                           ?>"
+					                           title="Añadir plato a menu">
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>
 								</span>
@@ -326,7 +338,7 @@
 				(menu del dia, menu especial...)-->
 <div id="tiposMenuLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
-		<h4 class="panel-title">Tipos menu</h4>
+		<h4 class="panel-title"><i class="fa fa-tags"></i> Tipos menu</h4>
 	</div>
 	<div class="panel-body panel-verde">
 		<div class="col-md-4">
@@ -334,7 +346,7 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#anadirTipoMenuLocal"
-							class="accordion-toggle collapsed">Tipo menu </a>
+							class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo tipo menu </a>
 					</h4>
 				</div>
 				<div id="anadirTipoMenuLocal" class="panel-body collapse sub-panel">
@@ -384,7 +396,8 @@
 							onclick="<?php
                            echo "enviarFormulario('" . site_url() .
                            "/menus/anadirTipoMenuLocal','formAnadirTipoMenuLocal','listaTipoMenuLocal',1)"
-					                           ?>">
+					                           ?>"
+					                           title="Nuevo tipo menu">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</span>
@@ -398,7 +411,7 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#listaTipoMenuLocal"
-							class="accordion-toggle collapsed"> Lista tipos menu </a>
+							class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista tipos menu </a>
 					</h4>
 				</div>
 				<div id="listaTipoMenuLocal" class="panel-body collapse sub-panel">
@@ -410,7 +423,7 @@
 							<table
 								class="table table-condensed table-responsive table-user-information">
 								<tbody>
-									<tr>
+									<tr id="nombreMenu">
 										<td class="titulo">Menu</td>
 										<td><?php echo  $tipoMenuLocal->nombre_menu; ?>
 										</td>
@@ -432,7 +445,8 @@
 							<span class="pull-right">
 								<button class="btn btn-warning btn-sm" type="button"
 									data-toggle="tooltip" data-original-title="Edit this user"
-									onclick="mostrarVentanaModificarTipoMenu(<?php echo $tipoMenuLocal->id_tipo_menu_local?>)">
+									onclick="mostrarVentanaModificarTipoMenu(<?php echo $tipoMenuLocal->id_tipo_menu_local?>)"
+									title="Modificar tipo menu">
 									<span class="glyphicon glyphicon-edit"></span>
 								</button>
 								<button class="btn btn-danger btn-sm" type="button"
@@ -440,7 +454,8 @@
 									onclick="<?php
                            echo "doAjax('" . site_url() . "/menus/borrarTipoMenuLocal','idTipoMenuLocal="
 				. $tipoMenuLocal->id_tipo_menu_local . "','listaTipoMenuLocal','post',1)"
-					                           ?>">
+					                           ?>"
+					                title="Borrar tipo menu">
 									<span class="glyphicon glyphicon-remove"></span>
 								</button>
 							</span>

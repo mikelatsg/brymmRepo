@@ -1,6 +1,6 @@
 <div id="tiposMenuLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
-		<h4 class="panel-title">Mesas local</h4>
+		<h4 class="panel-title"><i class="fa fa-flag"></i> Mesas</h4>
 	</div>
 	<div class="panel-body panel-verde">
 		<div class="col-md-4">
@@ -8,7 +8,7 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#altaMesas"
-							class="accordion-toggle collapsed">Alta mesas </a>
+							class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nueva mesa</a>
 					</h4>
 				</div>
 				<div id="altaMesas" class="panel-body collapse sub-panel">
@@ -35,7 +35,8 @@
 							onclick="<?php
                            echo "enviarFormulario('" . site_url() .
                            "/reservas/anadirMesaLocal','formAltaMesasLocal','listaMesasLocal',1)"
-					                           ?>">
+					                           ?>"
+					       title="Nueva mesa">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</span>
@@ -47,7 +48,7 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#listaMesasLocal"
-							class="accordion-toggle collapsed">Lista mesas </a>
+							class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista mesas</a>
 					</h4>
 				</div>
 				<div id="listaMesasLocal" class="panel-body collapse sub-panel">
@@ -57,7 +58,7 @@
 							<table
 								class="table table-condensed table-responsive table-user-information">
 								<tbody>
-									<tr>
+									<tr id="nombreMesa">
 										<td class="titulo">Nombre mesa</td>
 										<td><?php echo  $mesa->nombre_mesa; ?></td>
 									</tr>
@@ -73,23 +74,14 @@
 									onclick="<?php
                            echo "doAjax('" . site_url() . "/reservas/borrarMesaLocal','idMesaLocal="
 				. $mesa->id_mesa_local . "','listaMesasLocal','post',1)"
-					                           ?>">
+					                           ?>"
+					            title="Borrar mesa">
 									<span class="glyphicon glyphicon-remove"></span>
 								</button>
 							</span>
 						</div>
 					</div>
-					<?php endforeach;?>
-					<!--  <ul>
-						<?php foreach ($mesasLocal as $mesa): ?>
-						<li><?php echo $mesa->nombre_mesa . " - " . $mesa->capacidad ?> <a
-							onclick="<?php
-                echo "doAjax('" . site_url() . "/reservas/borrarMesaLocal','idMesaLocal="
-                . $mesa->id_mesa_local . "','listaMesasLocal','post',1)";
-                ?>"> B </a>
-						</li>
-						<?php endforeach; ?>
-					</ul>-->
+					<?php endforeach;?>				
 				</div>
 			</div>
 		</div>

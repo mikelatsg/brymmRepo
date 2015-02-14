@@ -3,7 +3,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div id="logo" class="navbar-header">
-				<a class="navbar-brand" href="#"><i class="fa fa-home"></i>Brymm</a>
+				<a class="navbar-brand" href="#"><i class="fa fa-home"></i> Brymm</a>
 			</div>
 			<div>
 				<ul class="nav nav-tabs">
@@ -49,7 +49,7 @@
 					<li><?php
 					if ($_SESSION['controlTotal']) {
                 ?><a
-						href="<?php echo site_url();?>/locales/gestionHorarios"><i
+						href="<?php echo site_url();?>/menus/menusLocal"><i
 							class="fa fa-cutlery"> </i> Menus</a> <?php
             } else {
 ?> <a>Menus</a> <?php
