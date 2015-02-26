@@ -2,7 +2,7 @@
 <div class="col-md-7 noPadLeft">
 	<div class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Realizar pedido</h4>
+			<h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Realizar pedido</h4>
 		</div>
 		<div id="realizarPedido" class="panel-body panel-verde">
 			<?php
@@ -54,7 +54,7 @@
 					</h4>
 				</div>
 				<div id="<?php echo $linea['tipo_articulo'];?>"
-					" class="panel-body collapse sub-panel">
+					" class="panel-body collapse sub-panel altoMaximo">
 					<?php 
 					endif;
 					?>
@@ -118,7 +118,8 @@
 								                        . "&idTipoArticulo=" . $linea['id_tipo_articulo'] . "&idLocal="
 								                        . $idLocal . "','art" . $linea['id_articulo_local']
 								                        . "','mostrarPedido',1)";
-								                        ?>">
+								                        ?>"
+								                        title="Añadir al pedido">
 												<span class="glyphicon glyphicon-plus"></span>
 											</button>
 									</span></td>
@@ -150,7 +151,7 @@
 									class="accordion-toggle collapsed"> Personalizar articulo </a>
 							</h4>
 						</div>
-						<div id="personalizarArticulo" class="panel-body collapse">
+						<div id="personalizarArticulo" class="panel-body collapse altoMaximo">
 							<div class="col-md-12 well">
 								<form id="formArticuloPersonalizado" class="form-horizontal"
 									role="form">
@@ -244,7 +245,8 @@
 										onclick="<?php
             echo "enviarFormulario('" . site_url() .
             "/pedidos/anadirArticuloPersonalizadoPedido','formArticuloPersonalizado','mostrarPedido',1)"
-            ?>">
+            ?>"
+            title="Añadir al pedido">
 										<span class="glyphicon glyphicon-plus"></span>
 									</button>
 								</span>

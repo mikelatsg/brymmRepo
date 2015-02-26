@@ -1,9 +1,9 @@
 <div class="col-md-5 noPadRight">
 	<div class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Detalle pedido</h4>
+			<h4 class="panel-title"><i class="fa fa-list"></i> Detalle pedido</h4>
 		</div>
-		<div id="mostrarPedido" class="panel-body panel-verde">
+		<div id="mostrarPedido" class="panel-body panel-verde altoMaximo">
 			<div id="detallePedido">
 				<?php
 				$existePedido = false;
@@ -25,7 +25,8 @@
 										data-toggle="tooltip" data-original-title="Edit this user"
 										onclick="<?php
             echo "doAjax('" . site_url() . "/pedidos/borrarArticulo','rowid=".$linea['rowid']."','mostrarPedido','post',1)"
-            ?>">
+            ?>"
+            title="Eliminar articulo del pedido">
 										<span class="glyphicon glyphicon-remove"></span>
 									</button>
 								</td>
@@ -93,7 +94,8 @@
 							data-original-title="Edit this user"
 							onclick="<?php
             echo "doAjax('" . site_url() . "/pedidos/cancelarPedido','','mostrarPedido','post',1)"
-            ?>">
+            ?>"
+            title="Eliminar pedido">
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</div>
@@ -218,7 +220,8 @@
 						</div>
 						<div class="form-group">
 							<button type="submit" value=" Send" class="btn btn-success"
-								id="submit">
+								id="submit"
+								title="Enviar pedido">
 								<span class="glyphicon glyphicon-send"></span> Enviar pedido
 							</button>
 						</div>

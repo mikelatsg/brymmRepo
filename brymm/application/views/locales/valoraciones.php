@@ -34,7 +34,7 @@
 		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-target="#listaValoraciones"
-					class="accordion-toggle collapsed"> Valoraciones </a>
+					class="accordion-toggle collapsed"><span class="glyphicon glyphicon-stats"></span> Valoraciones </a>
 			</h4>
 		</div>
 		<div id="listaValoraciones"

@@ -17,7 +17,7 @@
 			<div class="panel-heading panel-verde">
 				<h4 class="panel-title">Detalle menu</h4>
 			</div>
-			<div id="menuDiaUsuario" class="panel-body panel-verde"></div>
+			<div id="menuDiaUsuario" class="panel-body panel-verde altoMaximo"></div>
 		</div>
 	</div>
 </div>

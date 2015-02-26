@@ -27,3 +27,7 @@ a:hover {
 .serviciosLocal > ul > li > a:hover {
 	background-color: #E4DDDD;
 }
+
+li.activo{
+	background-color: #E4DDDD;
+}

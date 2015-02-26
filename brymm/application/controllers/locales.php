@@ -298,6 +298,8 @@ class Locales extends CI_Controller {
 				,'calendario.css','menus.css'
 		);
 
+		$var2['idTipoServicio'] = $idTipoServicio;
+		
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $datosMensaje);
 		$this->load->view('locales/buscadorLocales', $var);

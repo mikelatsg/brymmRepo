@@ -208,7 +208,8 @@
 								onclick="<?php
 					                           echo "enviarFormulario('" . site_url() .
 					                           "/articulos/anadirArticulo','formAltaArticulo','listaArticulos',1)"
-					                           ?>">
+					                           ?>"
+					            title="Añadir articulo">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</span>
@@ -224,7 +225,7 @@
 								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista articulos </a>
 						</h4>
 					</div>
-					<div id="listaArticulos" class="panel-body collapse sub-panel">
+					<div id="listaArticulos" class="panel-body collapse sub-panel altoMaximo">
 
 						<?php
 						$idTipoArticulo = 0;

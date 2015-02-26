@@ -44,7 +44,8 @@ function mostrarPedido(item) {
 								+ site_url
 								+ "/pedidos/borrarArticulo','rowid="
 								+ rowid
-								+ "','mostrarPedido','post',1)\">"
+								+ "','mostrarPedido','post',1)\""
+								+ " title=\"Eliminar articulo del pedido\" >"
 								+ "<span class=\"glyphicon glyphicon-remove\"></span>"
 								+ "</button>";
 
@@ -149,7 +150,8 @@ function mostrarPedido(item) {
 				+ "type=\"button\" data-toggle=\"tooltip\""
 				+ "data-original-title=\"Remove this user\" onclick=\""
 				+ "doAjax('" + site_url
-				+ "/pedidos/cancelarPedido','','mostrarPedido','post',1)\">"
+				+ "/pedidos/cancelarPedido','','mostrarPedido','post',1)\""
+				+ " title=\"Eliminar pedido\" >"
 				+ "<span class=\"glyphicon glyphicon-remove\"></span>"
 				+ "</button>";
 

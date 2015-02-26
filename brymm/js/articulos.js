@@ -16,16 +16,14 @@ function listaArticulos(item) {
 	var enlaceModificar = "";
 	var ingrediente = "";
 	var contenido = "";
-	var contador = 0;
 	var idTipoArticuloAnterior = 0;
+	var contador = 0;
 	$(item)
 			.find('articuloLocal')
 			.each(
 					function() {
-						if (contador == 0) {
-							contenido = contenido + "<ul>";
-						}
 
+						var ingredientes = "";
 						// Se obtienen los valores del xml
 						articulo = $.trim($(this).find('articulo').text());
 						descripcion = $
@@ -40,9 +38,22 @@ function listaArticulos(item) {
 						validoPedidos = $.trim($(this).find('validoPedidos')
 								.text());
 
-						if (idTipoArticulo != idTipoArticuloAnterior) {
-							contenido = contenido + tipoArticulo;
+						if (idTipoArticulo != idTipoArticuloAnterior) {							
+							contador = 0;
+							contenido += "<div class=\"col-md-12\">";
+							contenido += "<h3>";
+							contenido += "<span class=\"label label-default\">";
+							contenido += tipoArticulo;
+							contenido += "</span>";
+							contenido += "</h3>";
+							contenido += "</div>";
 						}
+
+						contador += 1;
+						if (contador%2 != 0){
+							contenido += "<div class=\"col-md-12\">";
+						}
+							
 
 						idTipoArticuloAnterior = idTipoArticulo;
 
@@ -69,29 +80,81 @@ function listaArticulos(item) {
 								+ idArticuloLocal
 								+ "','listaArticulos','post',1)\">B</a>";
 
-						// Se genera el contenido de cada articulo
-						contenido = contenido + "<li>";
-						contenido = contenido + articulo + " - " + descripcion
-								+ " - " + precio + " - " + enlaceModificar
-								+ " - " + enlaceBorrar;
-						contenido = contenido + "</li>";
 						if ($(this).find('ingredientes').children().length > 0) {
-							contenido = contenido + "<ul>";
+							var primeraVuelta = true;
 							$(this).find('ingredientes').each(
 									function() {
 										ingrediente = $.trim($(this).find(
 												'ingrediente').text());
-										contenido = contenido + "<li>";
-										contenido = contenido + ingrediente;
-										contenido = contenido + "</li>";
+										if (!primeraVuelta) {
+											ingredientes += ",";
+										}
+										ingredientes += ingrediente;
+										primeraVuelta = false;
 									});
-							contenido = contenido + "</ul>";
 						}
-						contador++;
+
+						contenido += "<div class=\"well col-md-6\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<strong>" + articulo + "</strong><br>";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+						contenido += "<tr>";
+						contenido += "<td>Descripcion</td>";
+						contenido += "<td>" + descripcion + "</td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>Precio</td>";
+						contenido += "<td>" + precio
+								+ "<i class=\"fa fa-euro\"></i></td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>Ingredientes</td>";
+						contenido += "<td>";
+						contenido += ingredientes;
+						contenido += "</td>";
+						contenido += "</tr>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						/*
+						 * <span class="pull-right"> <button class="btn
+						 * btn-warning btn-sm" type="button"
+						 * data-toggle="tooltip" data-original-title="Edit this
+						 * user" onclick="mostrarVentanaModificarArticulo( <?php
+						 * echo trim($linea['id_articulo_local']); ?>, '<?php
+						 * echo trim($linea['articulo']); ?>', '<?php echo
+						 * trim($linea['descripcion']); ?>', '<?php echo
+						 * trim($linea['precio']); ?>', '<?php echo
+						 * trim($linea['id_tipo_articulo']); ?>', '<?php echo
+						 * trim($linea['validoPedidos']); ?>')"> <span
+						 * class="glyphicon glyphicon-edit"></span> </button>
+						 * <button class="btn btn-danger btn-sm" type="button"
+						 * data-toggle="tooltip" data-original-title="Remove
+						 * this user" onclick="<?php echo "doAjax('" .
+						 * site_url() .
+						 * "/articulos/borrarArticulo','idArticuloLocal=" .
+						 * $linea['id_articulo_local'] .
+						 * "','listaArticulos','post',1)"; ?>"> <span
+						 * class="glyphicon glyphicon-remove"></span> </button>
+						 * </span>
+						 */
+						contenido += "</div>";
+						if (contador%2 == 0){
+							contenido += "</div>";
+						}
+						if (idTipoArticulo != idTipoArticuloAnterior){
+							idTipoArticuloAnterior = idTipoArticulo;
+						}
+
+						// Se genera el contenido de cada articulo
+						/*
+						 * contenido = contenido + "<li>"; contenido =
+						 * contenido + articulo + " - " + descripcion + " - " +
+						 * precio + " - " + enlaceModificar + " - " +
+						 * enlaceBorrar; contenido = contenido + "</li>";
+						 */
 					});
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
 
 	// Se vacia la lista para rellenar con el contenido
 	$("#listaArticulos").empty();
@@ -453,7 +516,8 @@ function mostrarVentanaModificarTipoArticulo(idTipoArticuloLocal,
 				modal : true,
 				buttons : {
 					"Aceptar" : function() {
-						// Se envia el formulario que modifica el tipo de articulo
+						// Se envia el formulario que modifica el tipo de
+						// articulo
 						enviarFormulario(site_url
 								+ '/articulos/modificarTipoArticulo',
 								'formModificarTipoArticulo',

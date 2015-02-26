@@ -5,7 +5,7 @@
 			<div class="panel-heading panel-verde">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-target="#HorarioLocal"
-						class="accordion-toggle collapsed"> Horario local </a>
+						class="accordion-toggle collapsed"><i class="fa fa-clock-o"></i> Horario local </a>
 				</h4>
 			</div>
 			<div id="HorarioLocal" class="panel-body collapse sub-panel altoMaximo">
@@ -37,7 +37,7 @@
 			<div class="panel-heading panel-verde">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-target="#realizarReservaLocal"
-						class="accordion-toggle collapsed"> Realizar reserva </a>
+						class="accordion-toggle collapsed"><i class="fa fa-calendar"></i> Realizar reserva </a>
 				</h4>
 			</div>
 			<div id="realizarReservaLocal" class="panel-body collapse sub-panel">
@@ -139,8 +139,9 @@
 						onclick="<?php
 	                           echo "enviarFormulario('" . site_url() .
 	                           "/reservas/anadirReservaUsuario','formAltaReservaUsuario','listaReservasUsuario',1)"
-	                           ?>">
-						<span class="glyphicon glyphicon-plus"></span>
+	                           ?>"
+	                           title="Enviar reserva">
+						<span class="glyphicon glyphicon-send"></span>
 					</button>
 				</span>
 				<?php 
@@ -155,7 +156,7 @@
 			<div class="panel-heading panel-verde">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-target="#listaReservasUsuario"
-						class="accordion-toggle collapsed"> Reservas usuario </a>
+						class="accordion-toggle collapsed"><i class="fa fa-calendar-o"></i> Reservas usuario </a>
 				</h4>
 			</div>
 			<div id="listaReservasUsuario" class="panel-body collapse sub-panel altoMaximo" >

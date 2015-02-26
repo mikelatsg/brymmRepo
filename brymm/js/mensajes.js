@@ -15,8 +15,14 @@ function mostrarMensaje(mensaje) {
         position: {at: "right top", of: window}
     });
 
+    var contenido = "<div class=\"alert alert-warning\" role=\"alert\">";
+    contenido += "<span class=\"glyphicon glyphicon-info-sign\">";
+    contenido += "</span>";
+    contenido += " " + mensaje;    
+    contenido += "</div>";
+    
     $("#dialogMensaje").empty();
-    $("#dialogMensaje").html(mensaje);
+    $("#dialogMensaje").html(contenido);
 
     setTimeout(function() {
         $("#dialogMensaje").dialog("close")
