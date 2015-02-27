@@ -63,10 +63,7 @@ function listaHorarioLocal(item) {
     var contenido = "";
     var contador = 0;
     var idTipoArticuloAnterior = 0;
-    $(item).find('xml').children('horarioLocal').each(function() {
-        if (contador == 0) {
-            contenido = contenido + "<ul>";
-        }
+    $(item).find('xml').children('horarioLocal').each(function() {       
 
         //Se obtienen los valores del xml
         dia = $.trim($(this).find('dia').text());
@@ -79,17 +76,54 @@ function listaHorarioLocal(item) {
                 + "/locales/borrarHorarioLocal','idHorarioLocal="
                 + idHorarioLocal + "','listaHorarioLocal','post',1)\">B</a>";
 
+        contador += 1;
+		if (contador % 2 != 0) {
+			contenido += "<div class=\"col-md-12\">";
+		}
+
+		contenido += "<div class=\"well col-md-6\">";
+		contenido += "<div class=\"span6\">";
+		contenido += "<strong>" + dia + "</strong><br>";
+		contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+		contenido += "<tbody>";
+		contenido += "<tr>";
+		contenido += "<td>Hora inicio</td>";
+		contenido += "<td>" + horaInicio + "</td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td>Hora fin</td>";
+		contenido += "<td>"
+				+ horaFin
+				+ "</td>";
+		contenido += "</tr>";
+		contenido += "</tbody>";
+		contenido += "</table>";
+		contenido += "</div>";
+		contenido += "<span class=\"pull-right\">";		
+		contenido += "<button class=\"btn btn-danger btn-sm\" type=\"button\"";
+		contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+		contenido += "onclick=\"doAjax('"
+				+ site_url
+				+ "/locales/borrarHorarioLocal','idHorarioLocal="
+				+ idHorarioLocal
+				+ "','listaHorarioLocal','post',1)\""
+				+ " title=\"Eliminar horario\">";
+		contenido += "<span class=\"glyphicon glyphicon-remove\"></span>";
+		contenido += "</button>";
+		contenido += "</span>";
+		contenido += "</div>";
+		if (contador % 2 == 0) {
+			contenido += "</div>";
+		}
+        
         //Se genera el contenido de cada articulo
-        contenido = contenido + "<li>";
+        /*contenido = contenido + "<li>";
         contenido = contenido + dia + " - " + horaInicio + " - "
                 + horaFin + " - " + enlaceBorrar;
         contenido = contenido + "</li>";
 
-        contador++;
+        contador++;*/
     });
-    if (contador > 0) {
-        contenido = contenido + "</ul>";
-    }
 
     //Se vacia la lista para rellenar con el contenido
     $("#listaHorarioLocal").empty();

@@ -90,7 +90,8 @@
 								onclick="<?php
                            echo "enviarFormulario('" . site_url() .
                            "/articulos/anadirTipoArticulo','formAltaTipoArticulo','listaTiposArticulo',1)"
-                           ?>">
+                           ?>"
+                           title="Añadir tipo articulo">
 								<span class="glyphicon glyphicon-plus">
 							
 							</button>
@@ -106,7 +107,7 @@
 								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista tipos articulo </a>
 						</h4>
 					</div>
-					<div id="listaTipoArticulos" class="panel-body collapse sub-panel">
+					<div id="listaTipoArticulos" class="panel-body collapse sub-panel altoMaximo">
 						<?php 
 						$contador = 0;
 						foreach ($tiposArticuloLocal as $linea):
@@ -144,7 +145,8 @@
 										'<?php echo trim($linea->id_tipo_articulo_local); ?>',
 					                   '<?php echo trim($linea->id_tipo_articulo); ?>',
 					                   '<?php echo trim($linea->personalizar); ?>',
-					                   '<?php echo trim($linea->precio); ?>')">
+					                   '<?php echo trim($linea->precio); ?>')"
+					                   title="Modificar tipo articulo">
 										<span class="glyphicon glyphicon-edit"></span>
 									</button>
 									<button class="btn btn-danger btn-sm" type="button"
@@ -152,7 +154,8 @@
 										onclick="<?php
                 						echo "doAjax('" . site_url() . "/articulos/borrarTipoArticuloLocal','idTipoArticuloLocal="
                 						. $linea->id_tipo_articulo_local . "','listaTiposArticulo','post',1)";
-                							?>">
+                							?>"
+                							title="Eliminar tipo articulo">
 										<span class="glyphicon glyphicon-remove"></span>
 									</button>
 								</span>

@@ -44,12 +44,12 @@
 						type="checkbox"> Se puede enviar en pedidos</label>
 				</div>
 			</div>
-		</div>		
+		</div>
 		<?php $inicio = true; 
 		foreach ($ingredientes as $linea):
 		if ($inicio):
 		?>
-		<div class="form-group">
+		<div class="form-group listaIngredientesArticuloMod">
 			<label class="col-sm-4 control-label">Ingredientes</label>
 			<div class="col-sm-8">
 				<div class="checkbox">
@@ -76,7 +76,7 @@
 		$inicio = false;
 		?>
 
-		<?php endforeach; ?>		
+		<?php endforeach; ?>
 	</form>
 </div>
 
@@ -112,7 +112,9 @@
 <div>
 	<div id="articulos" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title"><i class="fa fa-beer"></i> Articulos</h4>
+			<h4 class="panel-title">
+				<i class="fa fa-beer"></i> Articulos
+			</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -120,10 +122,12 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaArticulo"
-								class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo articulo </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+								Nuevo articulo </a>
 						</h4>
 					</div>
-					<div id="altaArticulo" class="panel-body collapse panel-verde">
+					<div id="altaArticulo"
+						class="panel-body collapse panel-verde altoMaximo">
 						<form id="formAltaArticulo" class="form-horizontal">
 							<div class="form-group">
 								<label for="listaTiposArticulosArticulo"
@@ -172,8 +176,8 @@
 							<?php $inicio = true; 
 							foreach ($ingredientes as $linea):
 							if ($inicio):
-							?>
-							<div class="form-group">
+							?>							
+							<div class="form-group listaIngredientesArticulo">
 								<label for="precioArticulo" class="col-sm-4 control-label">Ingredientes</label>
 								<div class="col-sm-8">
 									<div class="checkbox">
@@ -209,7 +213,7 @@
 					                           echo "enviarFormulario('" . site_url() .
 					                           "/articulos/anadirArticulo','formAltaArticulo','listaArticulos',1)"
 					                           ?>"
-					            title="Añadir articulo">
+								title="Añadir articulo">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</span>
@@ -222,10 +226,12 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaArticulos"
-								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista articulos </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>
+								Lista articulos </a>
 						</h4>
 					</div>
-					<div id="listaArticulos" class="panel-body collapse sub-panel altoMaximo">
+					<div id="listaArticulos"
+						class="panel-body collapse sub-panel altoMaximo">
 
 						<?php
 						$idTipoArticulo = 0;
@@ -267,22 +273,27 @@
 											</tr>
 											<tr>
 												<td>Precio</td>
-												<td><?php echo round($linea['precio']);?> <i class="fa fa-euro"></i></td>
+												<td><?php echo round($linea['precio'],2);?> <i
+													class="fa fa-euro"></i></td>
 											</tr>
-											<tr>
-												<td>Ingredientes</td>
-												<td><?php
-												$primeraVuelta = true;
-												foreach ($linea['ingredientes'] as $ingrediente) {
+											<?php
+											$primeraVuelta = true;
+											$textoIngredientes ="";
+											foreach ($linea['ingredientes'] as $ingrediente) {
 												if (!$primeraVuelta){
-													echo ",";
+													$textoIngredientes.= ",";
 												}
 												$primeraVuelta = false;
-												echo $ingrediente['ingrediente'];
+												$textoIngredientes.= $ingrediente['ingrediente'];
             								}
+            								if (!$primeraVuelta):
             								?>
+											<tr>
+												<td>Ingredientes</td>
+												<td><?php echo $textoIngredientes;?>
 												</td>
 											</tr>
+											<?php endif;?>
 										</tbody>
 									</table>
 								</div>
@@ -295,7 +306,8 @@
                    							'<?php echo trim($linea['descripcion']); ?>',
                    							'<?php echo trim($linea['precio']); ?>',
                    							'<?php echo trim($linea['id_tipo_articulo']); ?>',
-                   							'<?php echo trim($linea['validoPedidos']); ?>')">
+                   							'<?php echo trim($linea['validoPedidos']); ?>')"
+										title="Modificar articulo">
 										<span class="glyphicon glyphicon-edit"></span>
 									</button>
 									<button class="btn btn-danger btn-sm" type="button"
@@ -303,7 +315,8 @@
 										onclick="<?php
                 							echo "doAjax('" . site_url() . "/articulos/borrarArticulo','idArticuloLocal="
                 							. $linea['id_articulo_local'] . "','listaArticulos','post',1)";
-                							?>">
+                							?>"
+										title="Eliminar articulo">
 										<span class="glyphicon glyphicon-remove"></span>
 									</button>
 								</span>
@@ -330,7 +343,9 @@
 <div>
 	<div id="inigredientes" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title"><i class="fa fa-leaf"></i> Ingredientes</h4>
+			<h4 class="panel-title">
+				<i class="fa fa-leaf"></i> Ingredientes
+			</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -338,7 +353,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaIngrediente"
-								class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo Ingrediente </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+								Nuevo Ingrediente </a>
 						</h4>
 					</div>
 					<div id="altaIngrediente" class="panel-body collapse sub-panel">
@@ -373,7 +389,8 @@
 								onclick="<?php
                            echo "enviarFormulario('" . site_url()
                            . "/ingredientes/anadirIngrediente','formAltaIngrediente','listaIngredientes',1)"
-                           ?>">
+                           ?>"
+								title="Añadir ingrediente">
 								<span class="glyphicon glyphicon-plus">
 							
 							</button>
@@ -386,10 +403,12 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaIngredientes"
-								class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista ingredientes </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>
+								Lista ingredientes </a>
 						</h4>
 					</div>
-					<div id="listaIngredientes" class="panel-body collapse sub-panel">
+					<div id="listaIngredientes"
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php
 						$contador =0;
 						foreach ($ingredientes as $ingrediente):
@@ -411,7 +430,8 @@
 											</tr>
 											<tr>
 												<td>Precio</td>
-												<td><?php echo round($ingrediente->precio);?> <i class="fa fa-euro"></i></td>
+												<td><?php echo round($ingrediente->precio,2);?> <i
+													class="fa fa-euro"></i></td>
 											</tr>
 										</tbody>
 									</table>
@@ -423,7 +443,8 @@
 										'<?php echo trim($ingrediente->ingrediente); ?>',
                    						'<?php echo trim($ingrediente->descripcion); ?>',
                    						'<?php echo trim($ingrediente->precio); ?>',
-                   						'<?php echo trim($ingrediente->id_ingrediente); ?>')">
+                   						'<?php echo trim($ingrediente->id_ingrediente); ?>')"
+										title="Modificar ingrediente">
 										<span class="glyphicon glyphicon-edit"></span>
 									</button>
 									<button class="btn btn-danger btn-sm" type="button"
@@ -431,7 +452,8 @@
 										onclick="<?php
                 						echo "doAjax('" . site_url() . "/ingredientes/borrarIngrediente','idIngrediente="
                 						. $ingrediente->id_ingrediente . "','listaIngredientes','post',1)";
-                							?>">
+                							?>"
+										title="Eliminar ingrediente">
 										<span class="glyphicon glyphicon-remove"></span>
 									</button>
 								</span>

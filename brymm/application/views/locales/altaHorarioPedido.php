@@ -124,7 +124,8 @@
 								onclick="<?php
                            echo "enviarFormulario('" . site_url()
                            . "/locales/anadirHorarioPedido','formAltaHorarioPedido','listaHorarioPedido',1)"
-                           ?>">
+                           ?>"
+                           title="Añadir horario pedido">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</span>
@@ -139,7 +140,7 @@
 								class="accordion-toggle collapsed"><i class="fa fa-list"></i>  Lista horarios pedido </a>
 						</h4>
 					</div>
-					<div id="listaHorarioPedidos" class="panel-body collapse sub-panel">
+					<div id="listaHorarioPedidos" class="panel-body collapse sub-panel altoMaximo">
 						<?php
 						$contador = 0;
 						foreach ($horarioPedido as $linea):
@@ -172,12 +173,13 @@
 										</tbody>
 									</table>
 									<span class="pull-right">
-										<button class="btn btn-danger" type="button"
+										<button class="btn btn-danger btn-sm" type="button"
 											data-toggle="tooltip" data-original-title="Remove this user"
 											onclick="<?php
                 echo "doAjax('" . site_url() . "/locales/borrarHorarioPedido','idHorarioPedido="
                 . $linea->id_horario_pedido . "','listaHorarioPedido','post',1)";
-                ?>">
+                ?>"
+                title="Eliminar horario pedido">
 											<span class="glyphicon glyphicon-remove"></span>
 										</button>
 									</span>

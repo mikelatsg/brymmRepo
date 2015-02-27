@@ -38,7 +38,7 @@ function listaArticulos(item) {
 						validoPedidos = $.trim($(this).find('validoPedidos')
 								.text());
 
-						if (idTipoArticulo != idTipoArticuloAnterior) {							
+						if (idTipoArticulo != idTipoArticuloAnterior) {
 							contador = 0;
 							contenido += "<div class=\"col-md-12\">";
 							contenido += "<h3>";
@@ -50,38 +50,14 @@ function listaArticulos(item) {
 						}
 
 						contador += 1;
-						if (contador%2 != 0){
+						if (contador % 2 != 0) {
 							contenido += "<div class=\"col-md-12\">";
 						}
-							
 
 						idTipoArticuloAnterior = idTipoArticulo;
 
-						// Se crea el enlace para poder modificar el articulo
-						enlaceModificar = "<a onclick=\"mostrarVentanaModificarArticulo('"
-								+ idArticuloLocal
-								+ "','"
-								+ articulo
-								+ "','"
-								+ descripcion
-								+ "','"
-								+ precio
-								+ "','"
-								+ idTipoArticulo
-								+ "','"
-								+ validoPedidos
-								+ "')\" data-toggle=\'modal\'> M </a>";
-
-						// Se crea el enlace para poder borrar los platos del
-						// local
-						enlaceBorrar = "<a onclick=\"doAjax('"
-								+ site_url
-								+ "/articulos/borrarArticulo','idArticuloLocal="
-								+ idArticuloLocal
-								+ "','listaArticulos','post',1)\">B</a>";
-
+						var primeraVuelta = true;
 						if ($(this).find('ingredientes').children().length > 0) {
-							var primeraVuelta = true;
 							$(this).find('ingredientes').each(
 									function() {
 										ingrediente = $.trim($(this).find(
@@ -105,45 +81,56 @@ function listaArticulos(item) {
 						contenido += "</tr>";
 						contenido += "<tr>";
 						contenido += "<td>Precio</td>";
-						contenido += "<td>" + precio
+						contenido += "<td>"
+								+ round(precio, 2, 'PHP_ROUND_HALF_EVEN')
 								+ "<i class=\"fa fa-euro\"></i></td>";
 						contenido += "</tr>";
-						contenido += "<tr>";
-						contenido += "<td>Ingredientes</td>";
-						contenido += "<td>";
-						contenido += ingredientes;
-						contenido += "</td>";
-						contenido += "</tr>";
+						// Muestro los ingredientes solo si existen
+						if (!primeraVuelta) {
+							contenido += "<tr>";
+							contenido += "<td>Ingredientes</td>";
+							contenido += "<td>";
+							contenido += ingredientes;
+							contenido += "</td>";
+							contenido += "</tr>";
+						}
 						contenido += "</tbody>";
 						contenido += "</table>";
 						contenido += "</div>";
-						/*
-						 * <span class="pull-right"> <button class="btn
-						 * btn-warning btn-sm" type="button"
-						 * data-toggle="tooltip" data-original-title="Edit this
-						 * user" onclick="mostrarVentanaModificarArticulo( <?php
-						 * echo trim($linea['id_articulo_local']); ?>, '<?php
-						 * echo trim($linea['articulo']); ?>', '<?php echo
-						 * trim($linea['descripcion']); ?>', '<?php echo
-						 * trim($linea['precio']); ?>', '<?php echo
-						 * trim($linea['id_tipo_articulo']); ?>', '<?php echo
-						 * trim($linea['validoPedidos']); ?>')"> <span
-						 * class="glyphicon glyphicon-edit"></span> </button>
-						 * <button class="btn btn-danger btn-sm" type="button"
-						 * data-toggle="tooltip" data-original-title="Remove
-						 * this user" onclick="<?php echo "doAjax('" .
-						 * site_url() .
-						 * "/articulos/borrarArticulo','idArticuloLocal=" .
-						 * $linea['id_articulo_local'] .
-						 * "','listaArticulos','post',1)"; ?>"> <span
-						 * class="glyphicon glyphicon-remove"></span> </button>
-						 * </span>
-						 */
+						contenido += "<span class=\"pull-right\">";
+						contenido += "<button class=\"btn btn-warning btn-sm\" type=\"button\"";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Edit this user\"";
+						contenido += "onclick=\"mostrarVentanaModificarArticulo('"
+								+ idArticuloLocal
+								+ "','"
+								+ articulo
+								+ "','"
+								+ descripcion
+								+ "','"
+								+ precio
+								+ "','"
+								+ idTipoArticulo
+								+ "','"
+								+ validoPedidos
+								+ "')\"" + "title=\"Modificar articulo\">";
+						contenido += "<span class=\"glyphicon glyphicon-edit\"></span>";
+						contenido += "</button> ";
+						contenido += "<button class=\"btn btn-danger btn-sm\" type=\"button\"";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						contenido += "onclick=\"doAjax('"
+								+ site_url
+								+ "/articulos/borrarArticulo','idArticuloLocal="
+								+ idArticuloLocal
+								+ "','listaArticulos','post',1)\""
+								+ " title=\"Eliminar articulo\">";
+						contenido += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						contenido += "</button>";
+						contenido += "</span>";
 						contenido += "</div>";
-						if (contador%2 == 0){
+						if (contador % 2 == 0) {
 							contenido += "</div>";
 						}
-						if (idTipoArticulo != idTipoArticuloAnterior){
+						if (idTipoArticulo != idTipoArticuloAnterior) {
 							idTipoArticuloAnterior = idTipoArticulo;
 						}
 
@@ -231,9 +218,6 @@ function listaIngredientes(item) {
 			.children('ingrediente')
 			.each(
 					function() {
-						if (contador == 0) {
-							contenido = contenido + "<ul>";
-						}
 
 						// Se obtienen los valores del xml
 						ingrediente = $
@@ -263,34 +247,107 @@ function listaIngredientes(item) {
 								+ idIngrediente
 								+ "','listaIngredientes','post',1)\">B</a>";
 
-						// Se genera el contenido de cada articulo
-						contenido = contenido + "<li>";
-						contenido = contenido + ingrediente + " - "
-								+ descripcion + " - " + precio + " - "
-								+ enlaceModificar + " - " + enlaceBorrar;
-						contenido = contenido + "</li>";
+						contador += 1;
+						if (contador % 2 != 0) {
+							contenido += "<div class=\"col-md-12\">";
+						}
+
+						contenido += "<div class=\"well col-md-6\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<strong>" + ingrediente + "</strong><br>";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+						contenido += "<tr>";
+						contenido += "<td>Descripcion</td>";
+						contenido += "<td>" + descripcion + "</td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>Precio</td>";
+						contenido += "<td>"
+								+ round(precio, 2, 'PHP_ROUND_HALF_EVEN')
+								+ "<i class=\"fa fa-euro\"></i></td>";
+						contenido += "</tr>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						contenido += "<span class=\"pull-right\">";
+						contenido += "<button class=\"btn btn-warning btn-sm\" type=\"button\"";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Edit this user\"";
+						contenido += "onclick=\"mostrarVentanaModificarIngrediente('"
+								+ ingrediente
+								+ "','"
+								+ descripcion
+								+ "','"
+								+ precio
+								+ "','"
+								+ idIngrediente
+								+ "')\""
+								+ "title=\"Modificar ingrediente\">";
+						contenido += "<span class=\"glyphicon glyphicon-edit\"></span>";
+						contenido += "</button> ";
+						contenido += "<button class=\"btn btn-danger btn-sm\" type=\"button\"";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						contenido += "onclick=\"doAjax('"
+								+ site_url
+								+ "/ingredientes/borrarIngrediente','idIngrediente="
+								+ idIngrediente
+								+ "','listaIngredientes','post',1)\""
+								+ " title=\"Eliminar ingrediente\">";
+						contenido += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						contenido += "</button>";
+						contenido += "</span>";
+						contenido += "</div>";
+						if (contador % 2 == 0) {
+							contenido += "</div>";
+						}
 
 						// Checkbox de los formularios
-						contenidoIngredientes = contenidoIngredientes
-								+ "<tr class=\"listaIngredientesArticulo\">";
-						contenidoIngredientes = contenidoIngredientes
-								+ "<td></td><td>";
-						contenidoIngredientes = contenidoIngredientes
-								+ "<input type = \"checkbox\" ";
-						contenidoIngredientes = contenidoIngredientes
-								+ "name = \"ingrediente[]\" ";
-						contenidoIngredientes = contenidoIngredientes
-								+ "value = \"" + idIngrediente + "\" / >";
-						contenidoIngredientes = contenidoIngredientes
-								+ ingrediente;
-						contenidoIngredientes = contenidoIngredientes
-								+ "</td></tr>";
+						if (contador == 1){
+							contenidoIngredientes += "<div class=\"form-group listaIngredientesArticulo\">";
+							contenidoIngredientes += "<label for=\"precioArticulo\" class=\"col-sm-4 control-label\">Ingredientes</label>";
+							contenidoIngredientes += "<div class=\"col-sm-offset-4 col-sm-8\">";
+							contenidoIngredientes += "<div class=\"checkbox\">";
+							contenidoIngredientes += "<label class=\"pull-left\"><input name=\"ingrediente[]\"";
+							contenidoIngredientes += "type=\"checkbox\" value=\""
+									+ idIngrediente + "\">";
+							contenidoIngredientes += ingrediente + "</label>";
+							contenidoIngredientes += "</div>";
+							contenidoIngredientes += "</div>";
+							contenidoIngredientes += "</div>";
+						}else{
+							contenidoIngredientes += "<div class=\"form-group listaIngredientesArticulo\">";
+							contenidoIngredientes += "<div class=\"col-sm-offset-4 col-sm-8\">";
+							contenidoIngredientes += "<div class=\"checkbox\">";
+							contenidoIngredientes += "<label class=\"pull-left\"><input name=\"ingrediente[]\"";
+							contenidoIngredientes += "type=\"checkbox\" value=\""
+									+ idIngrediente + "\">";
+							contenidoIngredientes += ingrediente + "</label>";
+							contenidoIngredientes += "</div>";
+							contenidoIngredientes += "</div>";
+							contenidoIngredientes += "</div>";
+						}
+												
+						
 
-						contador++;
+						// Se genera el contenido de cada articulo
+						/*
+						 * contenido = contenido + "<li>"; contenido =
+						 * contenido + ingrediente + " - " + descripcion + " - " +
+						 * precio + " - " + enlaceModificar + " - " +
+						 * enlaceBorrar; contenido = contenido + "</li>"; //
+						 * Checkbox de los formularios contenidoIngredientes =
+						 * contenidoIngredientes + "<tr class=\"listaIngredientesArticulo\">";
+						 * contenidoIngredientes = contenidoIngredientes + "<td></td><td>";
+						 * contenidoIngredientes = contenidoIngredientes + "<input
+						 * type = \"checkbox\" "; contenidoIngredientes =
+						 * contenidoIngredientes + "name = \"ingrediente[]\" ";
+						 * contenidoIngredientes = contenidoIngredientes +
+						 * "value = \"" + idIngrediente + "\" / >";
+						 * contenidoIngredientes = contenidoIngredientes +
+						 * ingrediente; contenidoIngredientes =
+						 * contenidoIngredientes + "</td></tr>";
+						 */
 					});
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
 	// Se modifican los formularios de articulos
 	listaIngredientesArticulo(contenidoIngredientes);
 
@@ -309,9 +366,10 @@ function listaIngredientes(item) {
 function listaIngredientesArticulo(contenidoIngredientes) {
 	// Se vacia la lista para rellenar con el contenido
 	$(".listaIngredientesArticulo").remove();
-	$("#tituloIngredientesArticulo").after(contenidoIngredientes);
+	$(".listaIngredientesArticuloMod").remove();// Formulario modificar	
+	$("#formAltaArticulo").append(contenidoIngredientes);
 	// Formulario modificar
-	$("#tituloIngredientesArticuloMod").after(contenidoIngredientes);
+	$("#formModificarArticulo").append(contenidoIngredientes);
 }
 
 function listaTiposArticulo(item) {
@@ -339,7 +397,6 @@ function listaTiposArticulo(item) {
 							// Se activa el boton para añadir articulos
 							$("#formAltaArticulo").find('input[type="button"]')
 									.removeAttr('disabled');
-							contenido = contenido + "<ul>";
 						}
 
 						// Se obtienen los valores del xml
@@ -372,27 +429,87 @@ function listaTiposArticulo(item) {
 								+ precio
 								+ "')\"> M </a>";
 
-						// Se genera el contenido de cada articulo
-						contenido = contenido + "<li>";
-						contenido = contenido + tipoArticulo + " - "
-								+ personalizar + " - " + precio + " - "
-								+ enlaceBorrar + enlaceModificar;
-						contenido = contenido + "</li>";
+						contador += 1;
+						if (contador % 2 != 0) {
+							contenido += "<div class=\"col-md-12\">";
+						}
 
-						// Se genera el contenido de los formularios de los
-						// articulos
+						contenido += "<div class=\"well col-md-6\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<strong>" + tipoArticulo
+								+ "</strong><br>";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+						contenido += "<tr>";
+						contenido += "<td>Personalizable</td>";
+						if (personalizar == 0) {
+							contenido += "<td>No</td>";
+						} else {
+							contenido += "<td>Si</td>";
+						}
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>Precio</td>";
+						contenido += "<td>"
+								+ round(precio, 2, 'PHP_ROUND_HALF_EVEN')
+								+ "<i class=\"fa fa-euro\"></i></td>";
+						contenido += "</tr>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						contenido += "<span class=\"pull-right\">";
+						contenido += "<button class=\"btn btn-warning btn-sm\" type=\"button\"";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Edit this user\"";
+						contenido += "onclick=\"mostrarVentanaModificarTipoArticulo('"
+								+ idTipoArticuloLocal
+								+ "','"
+								+ idTipoArticulo
+								+ "','"
+								+ personalizar
+								+ "','"
+								+ precio
+								+ "')\"" + "title=\"Modificar tipo articulo\">";
+						contenido += "<span class=\"glyphicon glyphicon-edit\"></span>";
+						contenido += "</button> ";
+						contenido += "<button class=\"btn btn-danger btn-sm\" type=\"button\"";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						contenido += "onclick=\"doAjax('"
+								+ site_url
+								+ "/articulos/borrarTipoArticuloLocal','idTipoArticuloLocal="
+								+ idTipoArticuloLocal
+								+ "','listaTiposArticulo','post',1)\""
+								+ " title=\"Eliminar tipo articulo\">";
+						contenido += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						contenido += "</button>";
+						contenido += "</span>";
+						contenido += "</div>";
+						if (contador % 2 == 0) {
+							contenido += "</div>";
+						}
+
+						// Se genera el contenido de los formularios de los //
+
 						contenidoTiposArticulo = contenidoTiposArticulo
-								+ "<option value=";
+								+ "<option class=\"form-control\" value=";
 						contenidoTiposArticulo = contenidoTiposArticulo + "\""
 								+ idTipoArticulo + "\"";
 						contenidoTiposArticulo = contenidoTiposArticulo + ">"
 								+ tipoArticulo + "</option>";
 
-						contador++;
+						// Se genera el contenido de cada articulo
+						/*
+						 * contenido = contenido + "<li>"; contenido =
+						 * contenido + tipoArticulo + " - " + personalizar + " - " +
+						 * precio + " - " + enlaceBorrar + enlaceModificar;
+						 * contenido = contenido + "</li>"; // Se genera el
+						 * contenido de los formularios de los // articulos
+						 * contenidoTiposArticulo = contenidoTiposArticulo + "<option
+						 * value="; contenidoTiposArticulo =
+						 * contenidoTiposArticulo + "\"" + idTipoArticulo +
+						 * "\""; contenidoTiposArticulo = contenidoTiposArticulo +
+						 * ">" + tipoArticulo + "</option>";
+						 */
 					});
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
 	// Se modifican los formularios de articulos
 	listaTiposArticuloArticulo(contenidoTiposArticulo)
 

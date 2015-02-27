@@ -1,7 +1,9 @@
 <div>
 	<div id="horariosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title"><i class="fa fa-clock-o"></i> Horarios local</h4>
+			<h4 class="panel-title">
+				<i class="fa fa-clock-o"></i> Horarios local
+			</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -9,7 +11,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaHorarioLocal"
-								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>  Nuevo horario local </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+								Nuevo horario local </a>
 						</h4>
 					</div>
 					<div id="altaHorarioLocal" class="panel-body collapse sub-panel">
@@ -120,7 +123,8 @@
 						<span class="pull-right">
 							<button class="btn btn-success" type="button"
 								data-toggle="tooltip" data-original-title="Edit this user"
-								onclick="<?php echo "enviarFormulario('" . site_url() . "/locales/anadirHorarioLocal','formAltaHorarioLocal','listaHorarioLocal',1)" ?>">
+								onclick="<?php echo "enviarFormulario('" . site_url() . "/locales/anadirHorarioLocal','formAltaHorarioLocal','listaHorarioLocal',1)" ?>"
+								title="Añadir horario">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</span>
@@ -132,11 +136,13 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaHorarioLocal"
-								class="accordion-toggle collapsed"><i class="fa fa-list"></i>  Lista horarios local </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>
+								Lista horarios local </a>
 						</h4>
 					</div>
-					<div id="listaHorarioLocal" class="panel-body collapse sub-panel">
-					<?php
+					<div id="listaHorarioLocal"
+						class="panel-body collapse sub-panel altoMaximo">
+						<?php
 						$contador = 0;
 						foreach ($horarioLocal as $linea):
 						$contador++;
@@ -147,33 +153,33 @@
 							?>
 							<div class="well col-md-6">
 								<div class="span6">
+									<strong><?php echo $linea->dia;?>
+									</strong><br>
 									<table
 										class="table table-condensed table-responsive table-user-information">
 										<tbody>
-											<tr>
+											<!-- <tr>
 												<td>Dia</td>
-												<td><?php echo $linea->dia;?>
-												</td>
-											</tr>
+												<td><?php echo $linea->dia;?></td>
+											</tr> -->
 											<tr>
 												<td>Hora inicio</td>
-												<td><?php echo $linea->hora_inicio;?>
-												</td>
+												<td><?php echo $linea->hora_inicio;?></td>
 											</tr>
 											<tr>
 												<td>Hora fin</td>
-												<td><?php echo $linea->hora_fin;?>
-												</td>
+												<td><?php echo $linea->hora_fin;?></td>
 											</tr>
 										</tbody>
 									</table>
 									<span class="pull-right">
-										<button class="btn btn-danger" type="button"
+										<button class="btn btn-danger btn-sm" type="button"
 											data-toggle="tooltip" data-original-title="Remove this user"
 											onclick="<?php
                 echo "doAjax('" . site_url() . "/locales/borrarHorarioLocal','idHorarioLocal="
                 . $linea->id_horario_local . "','listaHorarioLocal','post',1)";
-                ?>">
+                ?>"
+											title="Eliminar horario">
 											<span class="glyphicon glyphicon-remove"></span>
 										</button>
 									</span>
@@ -184,7 +190,7 @@
 						</div>
 						<?php 
 						endif;
-							endforeach; ?>						
+							endforeach; ?>
 					</div>
 				</div>
 			</div>
@@ -194,7 +200,9 @@
 <div>
 	<div id="diasCierreLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title"><i class="fa fa-calendar-o"></i> Dias cierre local</h4>
+			<h4 class="panel-title">
+				<i class="fa fa-calendar-o"></i> Dias cierre local
+			</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -202,7 +210,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaDiasCierreLocal"
-								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>  Nuevo dia cierre </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+								Nuevo dia cierre </a>
 						</h4>
 					</div>
 					<div id="altaDiasCierreLocal" class="panel-body collapse sub-panel">
@@ -222,7 +231,8 @@
 								onclick="<?php
                            echo "enviarFormulario('" . site_url()
                            . "/locales/anadirDiaCierreLocal','formDiasCierreLocal','listaDiasCierreLocal',1)"
-                           ?>">
+                           ?>"
+								title="Añadir dia cierre">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</span>
@@ -234,11 +244,12 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaDiasCierreLocal"
-								class="accordion-toggle collapsed"><i class="fa fa-list"></i>  Lista dia cierre </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>
+								Lista dia cierre </a>
 						</h4>
 					</div>
 					<div id="listaDiasCierreLocal"
-						class="panel-body collapse sub-panel">
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php
 						$contador = 0;
 						foreach ($diasCierreLocal as $linea):
@@ -258,19 +269,20 @@
 												<td><?php echo $linea->fecha;?>
 												</td>
 												<td><span class="pull-right">
-														<button class="btn btn-danger" type="button"
+														<button class="btn btn-danger btn-sm" type="button"
 															data-toggle="tooltip"
 															data-original-title="Remove this user"
 															onclick="<?php
                 echo "doAjax('" . site_url() . "/locales/borrarDiaCierreLocal','idDiaCierreLocal="
                 . $linea->id_dia_cierre_local . "','listaDiasCierreLocal','post',1)";
-                ?>">
+                ?>"
+															title="Eliminar dia cierre">
 															<span class="glyphicon glyphicon-remove"></span>
 														</button>
 												</span></td>
 											</tr>
 										</tbody>
-									</table>									
+									</table>
 								</div>
 							</div>
 							<?php 
