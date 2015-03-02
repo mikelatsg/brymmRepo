@@ -1,4 +1,7 @@
 <div>
+<?php if (!$servicioComandasActivo):?>
+<div class="alert alert-danger" role="alert">El servicio de comandas está desactivado</div>
+<?php endif;?>
 	<div id="comandasLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
 			<h4 class="panel-title"><i class="fa fa-pencil"></i> Comandas</h4>

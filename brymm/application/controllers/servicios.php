@@ -24,7 +24,7 @@ class Servicios extends CI_Controller {
 
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
-				, 'servicios', 'mensajes' , 'js/bootstrap.min');
+				, 'servicios', 'mensajes' , 'js/bootstrap.min', 'general');
 		
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css',
 				'general.css'
@@ -187,7 +187,7 @@ class Servicios extends CI_Controller {
 			}
 		} else if ($servicioLocal->id_tipo_servicio_local == 4) {
 			if (comprobarServicioMenu($_SESSION['idLocal'])) {
-				$activarServicio = true;
+				$activarServicio = true;				
 			} else {
 				$mensaje =
 				"Es necesario tener platos y menus para activar el sevicio";

@@ -69,6 +69,7 @@
 	function comprobarServicioMenu($idLocal) {
 
 		//Se carga el modelo de articulos
+		$CI = get_instance();
 		$CI->load->model('menus/Menus_model');
 
 		$existenPlatosLocal =

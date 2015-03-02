@@ -68,6 +68,9 @@
 	</form>
 </div>
 <div>
+<?php if (!$servicioPedidoActivo):?>
+<div class="alert alert-danger" role="alert">El servicio de pedidos está desactivado</div>
+<?php endif;?>
 	<div id="pedidosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">

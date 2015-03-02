@@ -1,7 +1,9 @@
 <div>
 	<div id="horariosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title"><i class="fa fa-clock-o"></i> Horarios pedido</h4>
+			<h4 class="panel-title">
+				<i class="fa fa-clock-o"></i> Horarios pedido
+			</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
@@ -9,12 +11,13 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaHorarioPedido"
-								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>  Nuevo horario pedido </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+								Nuevo horario pedido </a>
 						</h4>
 					</div>
 					<div id="altaHorarioPedido" class="panel-body collapse sub-panel">
 						<form id="formAltaHorarioPedido" class="form-horizontal">
-						<div class="form-group">
+							<div class="form-group">
 								<label for="dia" class="col-sm-4 control-label">Dia</label>
 								<div class="col-sm-8">
 									<select name="dia" id="dia">
@@ -73,8 +76,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="horaFin" class="col-sm-4 control-label">Hora
-									fin</label>
+								<label for="horaFin" class="col-sm-4 control-label">Hora fin</label>
 								<div class="col-sm-8">
 									<select name="horaFin" id="horaFin">
 										<option class="form-control" value="0">00</option>
@@ -116,7 +118,7 @@
 										<option class="form-control" value="55">55</option>
 									</select>
 								</div>
-							</div>							
+							</div>
 						</form>
 						<span class="pull-right">
 							<button class="btn btn-success" type="button"
@@ -125,7 +127,7 @@
                            echo "enviarFormulario('" . site_url()
                            . "/locales/anadirHorarioPedido','formAltaHorarioPedido','listaHorarioPedido',1)"
                            ?>"
-                           title="Añadir horario pedido">
+								title="Añadir horario pedido">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</span>
@@ -137,10 +139,12 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaHorarioPedidos"
-								class="accordion-toggle collapsed"><i class="fa fa-list"></i>  Lista horarios pedido </a>
+								class="accordion-toggle collapsed"><i class="fa fa-list"></i>
+								Lista horarios pedido </a>
 						</h4>
 					</div>
-					<div id="listaHorarioPedidos" class="panel-body collapse sub-panel altoMaximo">
+					<div id="listaHorarioPedidos"
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php
 						$contador = 0;
 						foreach ($horarioPedido as $linea):
@@ -152,23 +156,22 @@
 							?>
 							<div class="well col-md-6">
 								<div class="span6">
+									<strong><?php echo $linea->dia;?> </strong><br>
 									<table
 										class="table table-condensed table-responsive table-user-information">
 										<tbody>
-											<tr>
+											<!-- <tr>
 												<td>Dia</td>
 												<td><?php echo $linea->dia;?>
 												</td>
-											</tr>
+											</tr> -->
 											<tr>
 												<td>Hora inicio</td>
-												<td><?php echo $linea->hora_inicio;?>
-												</td>
+												<td><?php echo $linea->hora_inicio;?></td>
 											</tr>
 											<tr>
 												<td>Hora fin</td>
-												<td><?php echo $linea->hora_fin;?>
-												</td>
+												<td><?php echo $linea->hora_fin;?></td>
 											</tr>
 										</tbody>
 									</table>
@@ -179,7 +182,7 @@
                 echo "doAjax('" . site_url() . "/locales/borrarHorarioPedido','idHorarioPedido="
                 . $linea->id_horario_pedido . "','listaHorarioPedido','post',1)";
                 ?>"
-                title="Eliminar horario pedido">
+											title="Eliminar horario pedido">
 											<span class="glyphicon glyphicon-remove"></span>
 										</button>
 									</span>

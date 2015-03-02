@@ -21,9 +21,6 @@ function listaServiciosLocal(item) {
 			.find('servicioLocal')
 			.each(
 					function() {
-						if (contador == 0) {
-							contenido = contenido + "<ul>";
-						}
 
 						// Se obtienen los valores del xml
 						servicio = $.trim($(this).find('servicio').text());
@@ -38,14 +35,34 @@ function listaServiciosLocal(item) {
 
 						// Se crea el enlace para poder borrar los platos del
 						// local
-						enlaceBorrar = "<a onclick=\"doAjax('"
+						/*
+						 * enlaceBorrar = "<a onclick=\"doAjax('" + site_url +
+						 * "/servicios/borrarServicio','idServicioLocal=" +
+						 * idServicioLocal +
+						 * "','listaServiciosLocal','post',1)\">B</a>";
+						 */
+
+						enlaceBorrar = "<button class=\"btn btn-danger btn-sm\" type=\"button\"";
+						enlaceBorrar += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						enlaceBorrar += "onclick=\"doAjax('"
 								+ site_url
 								+ "/servicios/borrarServicio','idServicioLocal="
 								+ idServicioLocal
-								+ "','listaServiciosLocal','post',1)\">B</a>";
+								+ "','listaServiciosLocal','post',1)\""
+								+ " title=\"Eliminar horario\">";
+						enlaceBorrar += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						enlaceBorrar += "</button> ";
 
 						// Se crea el enlace para poder modificar el articulo
-						enlaceModificar = "<a onclick=\"mostrarVentanaModificarServicio('"
+						/*
+						 * enlaceModificar = "<a
+						 * onclick=\"mostrarVentanaModificarServicio('" +
+						 * idTipoServicioLocal + "','" + importeMinimo + "','" +
+						 * precio + "','" + idServicioLocal + "')\"> M </a>";
+						 */
+						enlaceModificar = "<button class=\"btn btn-warning btn-sm\" type=\"button\"";
+						enlaceModificar += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+						enlaceModificar += "onclick=\"mostrarVentanaModificarServicio('"
 								+ idTipoServicioLocal
 								+ "','"
 								+ importeMinimo
@@ -53,40 +70,101 @@ function listaServiciosLocal(item) {
 								+ precio
 								+ "','"
 								+ idServicioLocal
-								+ "')\"> M </a>";
+								+ "')\"" + " title=\"Modificar servicio\">";
+						enlaceModificar += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						enlaceModificar += "</button> ";
 
 						if (activo == 1) {
 							// Se crea el enlace para poder desactivar el
 							// servicio
-							enlaceActivarDesactivar = "<a onclick=\"doAjax('"
+							/*
+							 * enlaceActivarDesactivar = "<a
+							 * onclick=\"doAjax('" + site_url +
+							 * "/servicios/desactivarServicio','idServicioLocal=" +
+							 * idServicioLocal +
+							 * "','listaServiciosLocal','post',1)\">" + "
+							 * Desactivar </a>";
+							 */
+							enlaceActivarDesactivar = "<button class=\"btn btn-danger btn-sm\" type=\"button\"";
+							enlaceActivarDesactivar += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+							enlaceActivarDesactivar += "onclick=\"doAjax('"
 									+ site_url
 									+ "/servicios/desactivarServicio','idServicioLocal="
 									+ idServicioLocal
-									+ "','listaServiciosLocal','post',1)\">"
-									+ " Desactivar </a>";
+									+ "','listaServiciosLocal','post',1)\""
+									+ " title=\"Eliminar horario\">";
+							enlaceActivarDesactivar += "<span class=\"glyphicon glyphicon-off\"></span>";
+							enlaceActivarDesactivar += "</button> ";
 						} else {
 							// Se crea el enlace para poder activar el servicio
-							enlaceActivarDesactivar = "<a onclick=\"doAjax('"
+							/*
+							 * enlaceActivarDesactivar = "<a
+							 * onclick=\"doAjax('" + site_url +
+							 * "/servicios/activarServicio','idServicioLocal=" +
+							 * idServicioLocal +
+							 * "','listaServiciosLocal','post',1)\">" + "
+							 * Activar </a>";
+							 */
+							enlaceActivarDesactivar = "<button class=\"btn btn-success btn-sm\" type=\"button\"";
+							enlaceActivarDesactivar += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
+							enlaceActivarDesactivar += "onclick=\"doAjax('"
 									+ site_url
 									+ "/servicios/activarServicio','idServicioLocal="
 									+ idServicioLocal
-									+ "','listaServiciosLocal','post',1)\">"
-									+ " Activar </a>";
+									+ "','listaServiciosLocal','post',1)\""
+									+ " title=\"Eliminar horario\">";
+							enlaceActivarDesactivar += "<span class=\"glyphicon glyphicon-off\"></span>";
+							enlaceActivarDesactivar += "</button> ";
+						}
+
+						contador += 1;
+						if (contador % 2 != 0) {
+							contenido += "<div class=\"col-md-12\">";
+						}
+
+						contenido += "<div class=\"well col-md-6\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+						contenido += "<tr>";
+						contenido += "<td>Servicio</td>";
+						contenido += "<td>" + servicio + "</td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>Importe minimo</td>";
+						contenido += "<td>"
+								+ round(importeMinimo, 2, 'PHP_ROUND_HALF_EVEN')
+								+ " <i class=\"fa fa-euro\"></i></td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>Precio</td>";
+						contenido += "<td>"
+								+ round(precio, 2, 'PHP_ROUND_HALF_EVEN')
+								+ " <i class=\"fa fa-euro\"></td>";
+						contenido += "</tr>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+						contenido += "<span class=\"pull-right\">";
+						contenido += enlaceBorrar;
+						contenido += enlaceActivarDesactivar;
+						contenido += enlaceModificar;
+						contenido += "</span>";
+						contenido += "</div>";
+						if (contador % 2 == 0) {
+							contenido += "</div>";
 						}
 
 						// Se genera el contenido de cada articulo
-						contenido = contenido + "<li>";
-						contenido = contenido + servicio + " - "
-								+ importeMinimo + " - " + precio + " - "
-								+ enlaceBorrar + enlaceModificar
-								+ enlaceActivarDesactivar;
-						contenido = contenido + "</li>";
-
-						contador++;
+						/*
+						 * contenido = contenido + "<li>"; contenido =
+						 * contenido + servicio + " - " + importeMinimo + " - " +
+						 * precio + " - " + enlaceBorrar + enlaceModificar +
+						 * enlaceActivarDesactivar; contenido = contenido + "</li>";
+						 * 
+						 * contador++;
+						 */
 					});
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
 
 	// Se vacia la lista para rellenar con el contenido
 	$("#listaServicioLocal").empty();
@@ -112,8 +190,8 @@ function llenarFormularioModificarServicio(idTipoServicioLocal, importeMinimo,
 			idServicioLocal);
 }
 
-function mostrarVentanaModificarServicio(idTipoServicioLocal,
-		importeMinimo, precio, idServicioLocal) {
+function mostrarVentanaModificarServicio(idTipoServicioLocal, importeMinimo,
+		precio, idServicioLocal) {
 	/*
 	 * Ventana modal modificar ingrediente
 	 */
@@ -123,7 +201,7 @@ function mostrarVentanaModificarServicio(idTipoServicioLocal,
 				modal : true,
 				buttons : {
 					"Aceptar" : function() {
-						// Se envia el formulario que modifica el servicio						
+						// Se envia el formulario que modifica el servicio
 						enviarFormulario(site_url
 								+ '/servicios/modificarServicioLocal',
 								'formModificarServicioLocal',

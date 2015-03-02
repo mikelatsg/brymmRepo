@@ -255,7 +255,7 @@ class Pedidos extends CI_Controller {
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'pedidos');
-		
+
 		$header['estilos'] = array('general.css','pedidosLocal.css');
 
 		//Se carga la vista que genera el xml
@@ -283,16 +283,43 @@ class Pedidos extends CI_Controller {
 		$var['pedidosRechazadosLocal'] =
 		$this->Pedidos_model->obtenerPedidosLocal($_SESSION['idLocal'], 'R')->result();
 
-		//Se carga el modelo de comandas
-		$this->load->model('comandas/Comandas_model');
+		//Compruebo si esta activas las comandas
+		$this->load->model('servicios/Servicios_model');
 
-		//Se obtienen las comandas activas
-		$var2['comandasActivas'] = $this->Comandas_model->obtenerComandasEstadoDiferente
-		($_SESSION['idLocal'], 'CC')->result();
+		$servicios = $this->Servicios_model->obtenerServiciosLocalObject($_SESSION['idLocal']);
 
-		//Se obtienen las comandas cerradas
-		$var2['comandasCerradas'] = $this->Comandas_model->obtenerComandasCerradas
-		($_SESSION['idLocal'])->result();
+		$comandasActivas = false;
+		$pedidosActivos = false;
+		$existePedidos = false;
+		$existeComandas = false;
+		foreach ($servicios as $servicio){
+			if ($servicio->tipoServicio->idTipoServicio == 5){
+				$existeComandas = true;
+				if ($servicio->activo){
+					$comandasActivas = true;
+				}
+			}
+			if ($servicio->tipoServicio->idTipoServicio == 1){
+				$existePedidos = true;
+				if ($servicio->activo){
+					$pedidosActivos = true;
+				}
+			}
+		}
+
+		if ($comandasActivas){
+
+			//Se carga el modelo de comandas
+			$this->load->model('comandas/Comandas_model');
+
+			//Se obtienen las comandas activas
+			$var2['comandasActivas'] = $this->Comandas_model->obtenerComandasEstadoDiferente
+			($_SESSION['idLocal'], 'CC')->result();
+
+			//Se obtienen las comandas cerradas
+			$var2['comandasCerradas'] = $this->Comandas_model->obtenerComandasCerradas
+			($_SESSION['idLocal'])->result();
+		}
 
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery',
 				'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min',
@@ -304,8 +331,15 @@ class Pedidos extends CI_Controller {
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top');
-		$this->load->view('locales/pedidosLocal', $var);
-		$this->load->view('pedidos/mostrarComanda', $var2);
+		if ($existePedidos){
+			//Envio si el servicio esta activo para mostrar un mensaje
+			$var['servicioPedidoActivo'] = $pedidosActivos;
+			$this->load->view('locales/pedidosLocal', $var);
+		}
+		if ($existeComandas){
+			$var2['servicioComandasActivo'] = $comandasActivas;
+			$this->load->view('pedidos/mostrarComanda', $var2);
+		}
 		$this->load->view('base/page_bottom');
 	}
 
@@ -406,12 +440,12 @@ class Pedidos extends CI_Controller {
 	public function mostrarTodosPedidosUsuario(){
 		$pedidosUsuario =
 		$this->Pedidos_model->obtenerUltimosPedidosUsuario($_SESSION['idUsuario'],500);
-		
+
 		$params = array('etiqueta' => 'pedido');
 		$this->load->library('arraytoxml', $params);
-		
+
 		$var['xml'] = $this->arraytoxml->convertArrayToXml($pedidosUsuario, 'xml');
-		
+
 		//Se carga la vista que genera el xml
 		$this->load->view('xml/generarXML', $var);
 	}

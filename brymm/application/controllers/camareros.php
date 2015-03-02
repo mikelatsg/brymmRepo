@@ -36,23 +36,30 @@ class Camareros extends CI_Controller {
 		//Se carga el modelo de servicios
 		$this->load->model('servicios/Servicios_model');
 
-		//Se comprueban los servicios del local (Comanda)
-		$existeServicio = $this->Servicios_model->servicioLocalActivo
-		($_SESSION['idLocal'], 5)->num_rows();
+		//Compruebo si esta activas las comandas
+		$this->load->model('servicios/Servicios_model');
 
-		$hayComanda = false;
-		if ($existeServicio) {
-			$hayComanda = true;
+		$servicios = $this->Servicios_model->obtenerServiciosLocalObject($_SESSION['idLocal']);
+
+		$comandasActivas = false;		
+		$menusActivos = false;
+		foreach ($servicios as $servicio){
+			/*Comandas*/
+			if ($servicio->tipoServicio->idTipoServicio == 5){
+				if ($servicio->activo){
+					$comandasActivas = true;
+				}
+			}		
+			/*Menus*/
+			if ($servicio->tipoServicio->idTipoServicio == 4){
+				if ($servicio->activo){
+					$menusActivos = true;
+				}
+			}
 		}
 
-		//Se comprueban los servicios del local
-		$existeServicio = $this->Servicios_model->servicioLocalActivo
-		($_SESSION['idLocal'], 1)->num_rows();
-
-		//Se comprueban los pedidos
-		$hayPedido = false;
-		if ($existeServicio || $hayComanda) {
-			$hayPedido = true;
+		//Se comprueban los pedidos		
+		if ($comandasActivas) {			
 			//Se carga el modelo de articulos
 			$this->load->model('articulos/Articulos_model');
 			//Se obtienen los articulos del local
@@ -85,16 +92,14 @@ class Camareros extends CI_Controller {
 		}
 
 		//Se comprueban los servicios del local
-		$existeServicio =
-		$this->Servicios_model->servicioLocalActivo($_SESSION['idLocal'], 4)->num_rows();
+		/*$existeServicio =
+		$this->Servicios_model->servicioLocalActivo($_SESSION['idLocal'], 4)->num_rows();*/
 
 		$var4['mesasLocal'] =
 		$this->Reservas_model->obtenerMesasLocal($_SESSION['idLocal'])->result();
 
-		//Se comprueban los menus
-		$hayMenus = false;
-		if ($existeServicio) {
-			$hayMenus = true;
+		//Se comprueban los menus		
+		if ($menusActivos) {			
 			//Se carga el modelo de menus
 			$this->load->model('menus/Menus_model');
 
@@ -131,16 +136,17 @@ class Camareros extends CI_Controller {
 		//Se carga el siguiente paso del alta
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $msg);
-		$this->load->view('camareros/mostrarComanda', $var4);
-		$var3['hayPedido'] = false;
-		if ($hayPedido || $hayComanda) {
+
+		//Solo muestro las vistas si esta el servicio de comandas activo
+		if ($comandasActivas) {
+			$this->load->view('camareros/mostrarComanda', $var4);
 			$this->load->view('camareros/articulosCamarero', $var2);
-			$var3['hayPedido'] = true;
+			$var3['hayPedido'] = true;				
+			if ($menusActivos) {
+				$this->load->view('camareros/menusCamarero', $var3);
+			}
 		}
-		if ($hayMenus) {			 
-			$this->load->view('camareros/menusCamarero', $var3);
-		}
-		$this->load->view('camareros/gestionCamareros', $var);		
+		$this->load->view('camareros/gestionCamareros', $var);
 		$this->load->view('base/page_bottom');
 	}
 
