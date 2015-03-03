@@ -18,6 +18,30 @@ class Menus extends CI_Controller {
     }
 
     function menusLocal() {
+    	
+    	//Compruebo si esta activas las comandas
+    	$this->load->model('servicios/Servicios_model');
+    	
+    	$servicios = $this->Servicios_model->obtenerServiciosLocalObject($_SESSION['idLocal']);
+    	
+    	$existeMenus = false;
+    	$menusActivos = false;
+    	foreach ($servicios as $servicio){
+    		if ($servicio->tipoServicio->idTipoServicio == 4){
+    			$existeMenus = true;
+    			if ($servicio->activo){
+    				$menusActivos = true;
+    			}
+    		}
+    	}
+    	
+    	if (!$existeMenus){
+    		$this->load->library('session');
+    		$this->session->set_flashdata('servicio', 'menus');
+    		redirect('/locales/servicioNoActivo', 'localtion');
+    	}
+    	
+    	$var['menusActivos'] = $menusActivos;
 
         //Se obtienen los tipos de platos 
         $var['tiposPlato'] = $this->Menus_model->obtenerTiposPlatosLocal()->result();
@@ -45,7 +69,7 @@ class Menus extends CI_Controller {
         $this->load->view('base/page_top');
         $this->load->view('menus/menusLocal', $var);
         $this->load->view('base/page_bottom');
-    }
+    }    
 
     function anadirPlatoLocal() {
 

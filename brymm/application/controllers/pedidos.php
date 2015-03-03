@@ -307,6 +307,12 @@ class Pedidos extends CI_Controller {
 			}
 		}
 
+		if (!$existePedidos && !$existeComandas){
+			$this->load->library('session');
+			$this->session->set_flashdata('servicio', 'pedidos/comandas');
+			redirect('/locales/servicioNoActivo', 'location');
+		}
+		
 		if ($comandasActivas){
 
 			//Se carga el modelo de comandas

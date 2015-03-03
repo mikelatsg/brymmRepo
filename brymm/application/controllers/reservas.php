@@ -17,9 +17,33 @@ class Reservas extends CI_Controller {
 
 	public function reservasLocal() {
 		//Se obtienen las mesas del local
-		$var2['mesasLocal'] = $this->Reservas_model->obtenerMesasLocal
-		($_SESSION['idLocal'])->result();
+		/*$var2['mesasLocal'] = $this->Reservas_model->obtenerMesasLocal
+		($_SESSION['idLocal'])->result();*/
+		
+		//Compruebo si esta activas las comandas
+		$this->load->model('servicios/Servicios_model');
+		
+		$servicios = $this->Servicios_model->obtenerServiciosLocalObject($_SESSION['idLocal']);
+		
+		$existeReservas = false;
+		$reservasActivas = false;
+		foreach ($servicios as $servicio){
+			if ($servicio->tipoServicio->idTipoServicio == 3){
+				$existeReservas = true;
+				if ($servicio->activo){
+					$reservasActivas = true;
+				}
+			}			
+		}
+		
+		if (!$existeReservas){
+			$this->load->library('session');
+			$this->session->set_flashdata('servicio', 'reservas');
+			redirect('/locales/servicioNoActivo', 'localtion');
+		}
 
+		$var['reservasActivas'] = $reservasActivas;
+		
 		//Se obtienen las reservas pendientes del local
 		$var['reservasLocal'] = $this->Reservas_model->obtenerReservasLocal
 		($_SESSION['idLocal'], 'P')->result();
@@ -54,10 +78,28 @@ class Reservas extends CI_Controller {
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top');		
 		$this->load->view('reservas/reservasLocal', $var);
-		$this->load->view('reservas/mesasLocal', $var2);
+		//$this->load->view('reservas/mesasLocal', $var2);
 		$this->load->view('base/page_bottom');
 	}
 
+	public function mesasLocal() {
+		//Se obtienen las mesas del local
+		$var2['mesasLocal'] = $this->Reservas_model->obtenerMesasLocal
+		($_SESSION['idLocal'])->result();		
+	
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery',
+				'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min',
+				'reservas', 'mensajes','js/bootstrap.min');
+	
+		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css',
+				'general.css','reservas.css','calendario.css');
+	
+		$this->load->view('base/cabecera', $header);
+		$this->load->view('base/page_top');		
+		$this->load->view('reservas/mesasLocal', $var2);
+		$this->load->view('base/page_bottom');
+	}
+	
 	public function anadirMesaLocal() {
 		//Se recogen los parametros enviados por el formulario
 		$nombreMesa = $_POST["nombreMesa"];

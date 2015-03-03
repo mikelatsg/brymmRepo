@@ -477,7 +477,7 @@ class Locales extends CI_Controller {
 		$mensaje = "Fecha borrada correctamente";
 
 		$this->listaDiasCierreLocal($mensaje);
-	}
+	}	
 
 	private function listaDiasCierreLocal($mensaje = '') {
 		//Se obtienen los horarios de pedido del local
@@ -489,6 +489,25 @@ class Locales extends CI_Controller {
 
 		//Se carga la vista que genera el xml
 		$this->load->view('xml/generarXML', $var);
+	}
+	
+	public function servicioNoActivo(){
+		$this->load->library('session');
+		$var['servicio'] = $this->session->flashdata('servicio');
+		echo 'lh'.$var['servicio']; 
+		
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				, 'mensajes','js/bootstrap.min');
+		
+		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
+				, 'general.css'
+		);
+		
+		$this->load->view('base/cabecera',$header);
+		$this->load->view('base/page_top');
+		$this->load->view('locales/servicioNoActivo',$var);
+		$this->load->view('base/page_bottom');
 	}
 
 }

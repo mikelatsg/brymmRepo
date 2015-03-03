@@ -83,6 +83,10 @@
 	</form>
 </div>
 
+<?php if (!$menusActivos):?>
+<div class="alert alert-danger" role="alert">El servicio de menus está
+	desactivado</div>
+<?php endif;?>
 
 <div id="calendarioMenuLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
@@ -216,7 +220,7 @@
                            echo "enviarFormulario('" . site_url() .
                            "/menus/anadirPlatoLocal','formAnadirPlato','listaPlatosLocal',1)"
 					                           ?>"
-					                           title="Nuevo plato">
+							title="Nuevo plato">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</span>
@@ -233,7 +237,8 @@
 							Lista platos </a>
 					</h4>
 				</div>
-				<div id="listaPlatosLocal" class="panel-body collapse sub-panel altoMaximo">
+				<div id="listaPlatosLocal"
+					class="panel-body collapse sub-panel altoMaximo">
 					<?php
 					$idTipoPlato = 0;
 					$idTipoPlatoAnterior = 0;
@@ -303,13 +308,14 @@
 											<span class="glyphicon glyphicon-edit"></span>
 										</button>
 										<button class="btn btn-default btn-sm" type="button"
-											data-toggle="tooltip" data-original-title="Añadir plato a menu"
+											data-toggle="tooltip"
+											data-original-title="Añadir plato a menu"
 											onclick="<?php
                            echo  "enviarDatosMenu('" . site_url() .
 							"/menus/anadirPlatoMenu','formAnadirPlatoMenu','idPlatoLocal="
 			. $plato->id_plato_local . "','mostrarMenu',1)"
 					                           ?>"
-					                           title="Añadir plato a menu">
+											title="Añadir plato a menu">
 											<span class="glyphicon glyphicon-plus"></span>
 										</button>
 								</span>
@@ -338,7 +344,9 @@
 				(menu del dia, menu especial...)-->
 <div id="tiposMenuLocal" class="panel panel-default">
 	<div class="panel-heading panel-verde">
-		<h4 class="panel-title"><i class="fa fa-tags"></i> Tipos menu</h4>
+		<h4 class="panel-title">
+			<i class="fa fa-tags"></i> Tipos menu
+		</h4>
 	</div>
 	<div class="panel-body panel-verde">
 		<div class="col-md-4">
@@ -346,7 +354,8 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#anadirTipoMenuLocal"
-							class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo tipo menu </a>
+							class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+							Nuevo tipo menu </a>
 					</h4>
 				</div>
 				<div id="anadirTipoMenuLocal" class="panel-body collapse sub-panel">
@@ -397,7 +406,7 @@
                            echo "enviarFormulario('" . site_url() .
                            "/menus/anadirTipoMenuLocal','formAnadirTipoMenuLocal','listaTipoMenuLocal',1)"
 					                           ?>"
-					                           title="Nuevo tipo menu">
+							title="Nuevo tipo menu">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</span>
@@ -411,7 +420,8 @@
 				<div class="panel-heading panel-verde">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-target="#listaTipoMenuLocal"
-							class="accordion-toggle collapsed"><i class="fa fa-list"></i> Lista tipos menu </a>
+							class="accordion-toggle collapsed"><i class="fa fa-list"></i>
+							Lista tipos menu </a>
 					</h4>
 				</div>
 				<div id="listaTipoMenuLocal" class="panel-body collapse sub-panel">
@@ -455,7 +465,7 @@
                            echo "doAjax('" . site_url() . "/menus/borrarTipoMenuLocal','idTipoMenuLocal="
 				. $tipoMenuLocal->id_tipo_menu_local . "','listaTipoMenuLocal','post',1)"
 					                           ?>"
-					                title="Borrar tipo menu">
+									title="Borrar tipo menu">
 									<span class="glyphicon glyphicon-remove"></span>
 								</button>
 							</span>

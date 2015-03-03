@@ -183,20 +183,24 @@ class Servicios_model extends CI_Model {
 	}
 
 	function borrarServicioLocalTipo($idTipoServicioLocal, $idLocal) {
-		$idServicioLocal = $this->existeServicioLocal
-		($idLocal, $idTipoServicioLocal)->row()->id_servicio_Local;
+		$servicio = $this->existeServicioLocal
+		($idLocal, $idTipoServicioLocal);
 
-		$sql = "DELETE FROM servicios_local
-				WHERE id_tipo_servicio_local = ?
-				AND id_local = ?";
+		if ($servicio->num_rows()> 0){
+			$idServicioLocal = $servicio->row()->id_servicio_Local;
 
-		$this->db->query($sql, array($idTipoServicioLocal, $idLocal));
+			$sql = "DELETE FROM servicios_local
+					WHERE id_tipo_servicio_local = ?
+					AND id_local = ?";
 
-		//Se borran el precio del servicio
-		$sql = "DELETE FROM precio_servicio_local
-				WHERE id_servicio_local = ?";
+			$this->db->query($sql, array($idTipoServicioLocal, $idLocal));
 
-		$this->db->query($sql, array($idServicioLocal));
+			//Se borran el precio del servicio
+			$sql = "DELETE FROM precio_servicio_local
+					WHERE id_servicio_local = ?";
+
+			$this->db->query($sql, array($idServicioLocal));
+		}
 	}
 
 	function existeServicioLocal($idLocal, $idTipoServicioLocal) {

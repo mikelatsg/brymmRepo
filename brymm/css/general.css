@@ -260,3 +260,19 @@ body a {
     float: none;
     margin: 0 auto;
 }
+
+/*Panel de control*/
+#panelControl .dropdown-menu {
+	border-radius: 10px;
+	border: 1px solid;
+	border-color: grey;	
+}
+
+#panelControl .dropdown-menu div{
+	height:30px;
+}
+
+#menuLocalGestion  a{
+	color: black;
+	font-weight: bold;
+}

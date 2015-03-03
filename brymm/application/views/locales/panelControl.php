@@ -7,34 +7,67 @@
 			</div>
 			<div>
 				<ul class="nav nav-tabs">
-					<li><?php
-					if ($_SESSION['controlTotal']) {
-			?><a href="<?php echo site_url();?>/articulos/gestionArticulos"><i
-							class="fa fa-beer"> </i> Articulos</a> <?php
-		} else {
-                ?> <a>Articulos</a> <?php
-            }
-            ?>
-					</li>
-					<li><?php
-					if ($_SESSION['controlTotal']) {
-                ?><a
-						href="<?php echo site_url();?>/locales/gestionHorarios"><i
-							class="fa fa-clock-o"> </i> Horarios</a> <?php 
-            } else {
-                ?> <a>Horarios</a> <?php
-            }
-            ?>
-					</li>
-					<li><?php
-					if ($_SESSION['controlTotal']) {
-                ?><a
-						href="<?php echo site_url();?>/servicios/gestionServicios"><i
-							class="fa fa-cloud"> </i> Servicios</a> <?php
-            } else {
-                ?> <a>Servicios</a> <?php
-            }
-            ?>
+					<li class="navbar-tab"><a class="dropdown-toggle" href="#"
+						data-toggle="dropdown" id="navUsuario"><i class="fa fa-cog"></i>
+							Gestion </a>
+						<div class="dropdown-menu" id="menuLocalGestion">
+							<div class="col-md-12">
+								<?php
+								if ($_SESSION['controlTotal']) :
+								?>
+								<a href="<?php echo site_url();?>/servicios/gestionServicios"><i
+									class="fa fa-cloud"> </i> Servicios</a>
+								<?php
+								else:
+								?>
+								<a><i class="fa fa-cloud"> </i>Servicios</a>
+								<?php
+								endif;
+								?>
+							</div>
+							<div class="col-md-12">
+								<?php
+								if ($_SESSION['controlTotal']) :
+								?>
+								<a href="<?php echo site_url();?>/articulos/gestionArticulos"><i
+									class="fa fa-beer"> </i> Articulos</a>
+								<?php
+								else:
+								?>
+								<a><i class="fa fa-beer"> </i>Articulos</a>
+								<?php
+								endif;
+								?>
+							</div>
+							<div class="col-md-12">
+								<?php
+								if ($_SESSION['controlTotal']) :
+								?>
+								<a href="<?php echo site_url();?>/locales/gestionHorarios"><i
+									class="fa fa-clock-o"> </i> Horarios</a>
+								<?php 
+								else:
+								?>
+								<a><i class="fa fa-clock-o"> </i>Horarios</a>
+								<?php
+								endif;
+								?>
+							</div>
+							<div class="col-md-12">
+								<?php
+								if ($_SESSION['controlTotal']) :
+								?>
+								<a href="<?php echo site_url();?>/reservas/mesasLocal"><i
+									class="fa fa-flag"> </i> Mesas</a>
+								<?php 
+								else:
+								?>
+								<a><i class="fa fa-flag"> </i> Mesas</a>
+								<?php
+								endif;
+								?>
+							</div>
+						</div>
 					</li>
 					<li><?php
 					if ($_SESSION['controlTotal']) {
@@ -48,8 +81,7 @@
             ?></li>
 					<li><?php
 					if ($_SESSION['controlTotal']) {
-                ?><a
-						href="<?php echo site_url();?>/menus/menusLocal"><i
+                ?><a href="<?php echo site_url();?>/menus/menusLocal"><i
 							class="fa fa-cutlery"> </i> Menus</a> <?php
             } else {
 ?> <a>Menus</a> <?php
@@ -70,7 +102,9 @@
 					<li><a href="<?php echo site_url();?>/camareros/camarerosLocal"><i
 							class="fa fa-user"> </i> Camareros</a>
 					</li>
-					<li class="navbar-tab navbar-right"><?php echo anchor('/usuarios/logout', 'Salir'); ?>
+					<li class="navbar-tab navbar-right"><a
+						href="<?php echo site_url();?>/usuarios/logout"><span
+							class="glyphicon glyphicon-log-out"> </span> Salir</a>
 					</li>
 				</ul>
 			</div>

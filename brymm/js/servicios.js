@@ -71,7 +71,7 @@ function listaServiciosLocal(item) {
 								+ "','"
 								+ idServicioLocal
 								+ "')\"" + " title=\"Modificar servicio\">";
-						enlaceModificar += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						enlaceModificar += "<span class=\"glyphicon glyphicon-edit\"></span>";
 						enlaceModificar += "</button> ";
 
 						if (activo == 1) {
@@ -146,9 +146,9 @@ function listaServiciosLocal(item) {
 						contenido += "</table>";
 						contenido += "</div>";
 						contenido += "<span class=\"pull-right\">";
-						contenido += enlaceBorrar;
+						contenido += enlaceModificar;						
 						contenido += enlaceActivarDesactivar;
-						contenido += enlaceModificar;
+						contenido += enlaceBorrar;
 						contenido += "</span>";
 						contenido += "</div>";
 						if (contador % 2 == 0) {
