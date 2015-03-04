@@ -52,7 +52,7 @@
 						data-toggle="tooltip" data-original-title="Remove this user"
 						onclick="<?php
                     echo "doAjax('" . site_url() . "/locales/anadirLocalFavorito','idLocal=" . $linea->id_local .
-							"','','post',1)";
+							"','mostrarMensajeXml','post',1)";
                 ?>"
 						title="Añadir a favoritos">
 						<span class="glyphicon glyphicon-star"></span>

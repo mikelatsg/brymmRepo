@@ -130,7 +130,7 @@ class Locales extends CI_Controller {
 		//Se inserta la linea en la tabla
 		$this->Locales_model->insertHorarioPedido($_SESSION['idLocal'], $idDia, $horaInicio, $horaFin);
 
-		$msg = 'Horario aÃ±adido correctamente.';
+		$msg = utf8_encode('Horario añadido correctamente.');
 
 		//Se obtienen los datos del local
 		/*$datosLocal = $this->Locales_model->obtenerDatosLocal($_SESSION['idLocal'])->row();
@@ -227,12 +227,12 @@ class Locales extends CI_Controller {
 
 		$var2['locales'] = $locales->result();
 
-		$var2['numLocalesEncontrados'] = $locales->num_rows();		
-		
+		$var2['numLocalesEncontrados'] = $locales->num_rows();
+
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'horarios', 'mensajes', 'js/bootstrap.min');
-		
+
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
 				,'general.css','locales.css');
 
@@ -304,7 +304,7 @@ class Locales extends CI_Controller {
 		);
 
 		$var2['idTipoServicio'] = $idTipoServicio;
-		
+
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $datosMensaje);
 		$this->load->view('locales/buscadorLocales', $var);
@@ -396,23 +396,36 @@ class Locales extends CI_Controller {
 		$existeFavorito = $this->Locales_model->obtenerLocalFavoritos
 		($_POST['idLocal'], $_SESSION['idUsuario'])->num_rows();
 
+		$msg="El local ya es favorito";
 		if ($existeFavorito == 0) {
+			$msg="Local agregado correctamente a favoritos";
 			//Se inserta el local en favoritos.
 			$this->Locales_model->insertLocalFavoritos($_POST['idLocal'], $_SESSION['idUsuario']);
 		}
 
+		$var['idLocal'] = $_POST['idLocal'];
+		$var['mensaje'] = utf8_encode($msg);
+		$var['favorito'] = 1;
+		$params = array('etiqueta' => 'local');
+		$this->load->library('arraytoxml', $params);
+
+		$var['xml'] = $this->arraytoxml->convertArrayToXml($var, 'xml');
+
 		//Se carga la vista que genera el xml
-		//$this->load->view('xml/cabecera');
-		//$this->load->view('locales/xml/horarioLocal', $var);
-		//$this->load->view('xml/final');
+		$this->load->view('xml/generarXML', $var);
+
 	}
 
 	function quitarLocalFavorito() {
-		//Se elimina el local de favoitos.
+		//Se elimina el local de favoritos.
 		$this->Locales_model->deleteLocalFavoritos
 		($_POST['idLocal'], $_SESSION['idUsuario']);
 
+		$msg = 'Local eliminado de favoritos';
+
 		$var['idLocal'] = $_POST['idLocal'];
+		$var['mensaje'] = $msg;
+		$var['favorito'] = 0;
 		$params = array('etiqueta' => 'local');
 		$this->load->library('arraytoxml', $params);
 
@@ -482,7 +495,7 @@ class Locales extends CI_Controller {
 		$mensaje = "Fecha borrada correctamente";
 
 		$this->listaDiasCierreLocal($mensaje);
-	}	
+	}
 
 	private function listaDiasCierreLocal($mensaje = '') {
 		//Se obtienen los horarios de pedido del local
@@ -495,20 +508,20 @@ class Locales extends CI_Controller {
 		//Se carga la vista que genera el xml
 		$this->load->view('xml/generarXML', $var);
 	}
-	
+
 	public function servicioNoActivo(){
 		$this->load->library('session');
 		$var['servicio'] = $this->session->flashdata('servicio');
-		echo 'lh'.$var['servicio']; 
-		
+		echo 'lh'.$var['servicio'];
+
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
 				, 'mensajes','js/bootstrap.min');
-		
+
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
 				, 'general.css'
 		);
-		
+
 		$this->load->view('base/cabecera',$header);
 		$this->load->view('base/page_top');
 		$this->load->view('locales/servicioNoActivo',$var);

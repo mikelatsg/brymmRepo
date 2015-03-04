@@ -17,7 +17,7 @@ function listaValoraciones(item) {
 			.find('valoracionLocal')
 			.each(
 					function() {
-						contador+=1;
+						contador += 1;
 						// Se obtienen los valores del xml
 						nick = $.trim($(this).find('nick').text());
 						fecha = $.trim($(this).find('fecha').text());
@@ -119,14 +119,14 @@ function listaValoraciones(item) {
 						contenido += "</div>";
 
 						// Se genera el contenido de cada articulo
-						/*contenido += "<li>";
-						contenido += "Usuario : " + nick + " - Fecha : "
-								+ fecha + " - Nota : " + nota
-								+ "<br> Observaciones : " + observaciones;
-						contenido += "</li>";
-						contador++;*/
+						/*
+						 * contenido += "<li>"; contenido += "Usuario : " +
+						 * nick + " - Fecha : " + fecha + " - Nota : " + nota + "<br>
+						 * Observaciones : " + observaciones; contenido += "</li>";
+						 * contador++;
+						 */
 					});
-	
+
 	if (contador <= 5) {
 		contenido += "<div class=\"col-md-12\">";
 		contenido += "<a onclick=\"doAjax('" + site_url
@@ -149,6 +149,42 @@ function listaValoraciones(item) {
 	}
 
 	resetFormularios();
+}
+
+function gestionFavorito(item) {
+	$('#enlaceFavorito').empty();
+	var favorito = $.trim($(item).find('favorito').text());
+	var idLocal = $.trim($(item).find('idLocal').text());
+	var button = "";		
+	if (favorito == "1") {		
+		button += "<a ";
+		button += "onclick=\"doAjax('";
+		button += site_url + "/locales/quitarLocalFavorito','idLocal=";
+		button += idLocal + "','gestionFavorito','post',1)\">";
+		button += "<i class=\"fa fa-star starColor fa-2x\"";
+		button += " title=\"Eliminar favorito\"></i>";
+		button += "</a>";
+	} else {
+		button += "<a ";
+		button += "onclick=\"doAjax('";
+		button += site_url + "/locales/anadirLocalFavorito','idLocal=";
+		button += idLocal + "','gestionFavorito','post',1)\">";
+		button += "<i class=\"fa fa-star-o starColor fa-2x\"";
+		button += " title=\"Agregar a favorito\"></i>";
+		button += "</a>";
+	}
+
+	// alert(button);
+
+	$('#enlaceFavorito').html(button);
+
+	if ($(item).find('mensaje').length > 0) {
+		var mensaje = $.trim($(item).find('mensaje').text());
+		if (mensaje != "") {
+			mostrarMensaje(mensaje);
+		}
+	}
+
 }
 
 $(document)

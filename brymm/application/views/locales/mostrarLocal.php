@@ -6,14 +6,16 @@
 				<div class="col-md-5">
 					<h1>
 						<span class="label label-primary"><?php	
-						echo $datosLocal->nombre;?> <?php
+						echo $datosLocal->nombre;?> 
+						<span id="enlaceFavorito">
+						<?php
 						if (isset($_SESSION['idUsuario'])):
 						if ($esFavorito):
 						?> <a
 							onclick="
 					    <?php
 					    echo "doAjax('" . site_url() . "/locales/quitarLocalFavorito','idLocal="
-					    . $datosLocal->id_local . "','','post',1)";
+					    . $datosLocal->id_local . "','gestionFavorito','post',1)";
 					    ?>"> <i class="fa fa-star starColor fa-2x"
 								title="Eliminar favorito"></i>
 						</a> <?php
@@ -21,13 +23,13 @@
 							onclick="
 					    <?php
 					    echo "doAjax('" . site_url() . "/locales/anadirLocalFavorito','idLocal="
-					    . $datosLocal->id_local . "','','post',1)";
+					    . $datosLocal->id_local . "','gestionFavorito','post',1)";
 					    ?>"> <i class="fa fa-star-o starColor fa-2x"
 								title="Agregar a favoritos"></i>
 						</a> <?php
 						endif;
-						endif;
-						?> </span>
+						endif;						
+						?> </span></span>
 					</h1>
 				</div>
 				<div class="col-md-7 well">

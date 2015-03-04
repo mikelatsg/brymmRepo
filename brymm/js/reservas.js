@@ -912,7 +912,8 @@ function listaReservasDia(item) {
 	enlaceCerrarReservas += "onclick=";
 	enlaceCerrarReservas += "doAjax('" + site_url
 			+ "/reservas/cerrarReservaDia','fecha=" + fecha + "&idTipoMenu="
-			+ idTipoMenu + "','actualizarReservasDiaLocal','post',1)>";
+			+ idTipoMenu + "','actualizarReservasDiaLocal','post',1)" +
+					" title=\"Cerrar reservas del dia\">";
 	enlaceCerrarReservas += "<i class=\"fa fa-lock\"></i>";
 	enlaceCerrarReservas += "</button>";
 
@@ -924,7 +925,8 @@ function listaReservasDia(item) {
 	enlaceAbrirReservas += "onclick=";
 	enlaceAbrirReservas += "doAjax('" + site_url
 			+ "/reservas/abrirReservaDia','fecha=" + fecha + "&idTipoMenu="
-			+ idTipoMenu + "','actualizarReservasDiaLocal','post',1)>";
+			+ idTipoMenu + "','actualizarReservasDiaLocal','post',1)" +
+					" title=\"Abrir reservas del dia\">";
 	enlaceAbrirReservas += "<i class=\"fa fa-unlock\"></i>";
 	enlaceAbrirReservas += "</button>";
 
