@@ -227,9 +227,14 @@ class Locales extends CI_Controller {
 
 		$var2['locales'] = $locales->result();
 
-		$var2['numLocalesEncontrados'] = $locales->num_rows();
-
-		$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
+		$var2['numLocalesEncontrados'] = $locales->num_rows();		
+		
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				, 'horarios', 'mensajes', 'js/bootstrap.min');
+		
+		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
+				,'general.css','locales.css');
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top');

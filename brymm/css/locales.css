@@ -32,3 +32,6 @@ li.activo{
 	background-color: #E4DDDD;
 }
 
+#numLocalesEncontrados{
+	margin-bottom: 10px;
+}
