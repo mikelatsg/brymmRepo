@@ -36,8 +36,7 @@ class CalendarioReservas {
 	var $template = '';
 	var $start_day = 'sunday';
 	var $month_type = 'long';
-	var $day_type = 'abr';
-	var $idioma = 'en';
+	var $day_type = 'abr';	
 	var $show_next_prev = FALSE;
 	//var $next_prev_url = '';
 	var $prev_url = '';
@@ -188,7 +187,7 @@ class CalendarioReservas {
 		$out .= $this->temp['week_row_start'];
 		$out .= "\n";
 
-		$day_names = $this->get_day_names($this->day_type,$this->idioma);
+		$day_names = $this->get_day_names($this->day_type);
 
 		for ($i = 0; $i < 7; $i++) {
 			$out .= str_replace('{week_day}', $day_names[($start_day + $i) % 7], $this->temp['week_day_cell']);
@@ -290,29 +289,17 @@ class CalendarioReservas {
 	 * @param	string
 	 * @return	array
 	 */
-	function get_day_names($day_type = '',$idioma = 'en') {
-		if ($idioma == 'en'){
-			if ($day_type != '')
-				$this->day_type = $day_type;
+	function get_day_names($day_type = '') {
 
-			if ($this->day_type == 'long') {
-				$day_names = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
-			} elseif ($this->day_type == 'short') {
-				$day_names = array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat');
-			} else {
-				$day_names = array('su', 'mo', 'tu', 'we', 'th', 'fr', 'sa');
-			}
-		}elseif ($idioma == 'es'){
-			if ($day_type != '')
-				$this->day_type = $day_type;
-			
-			if ($this->day_type == 'long') {
-				$day_names = array('domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado');
-			} elseif ($this->day_type == 'short') {
-				$day_names = array('dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab');
-			} else {
-				$day_names = array('su', 'mo', 'tu', 'we', 'th', 'fr', 'sa');
-			}
+		if ($day_type != '')
+			$this->day_type = $day_type;
+
+		if ($this->day_type == 'long') {
+			$day_names = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
+		} elseif ($this->day_type == 'short') {
+			$day_names = array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat');
+		} else {
+			$day_names = array('su', 'mo', 'tu', 'we', 'th', 'fr', 'sa');
 		}
 
 		$days = array();

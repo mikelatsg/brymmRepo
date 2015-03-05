@@ -182,12 +182,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td><?php echo $reserva->fecha;?> <i class="fa fa-calendar"></i>
+								<td><?php echo $reserva->fecha;?> <i class="fa fa-calendar" title="Fecha reserva"></i>
 								</td>
-								<td><?php echo $reserva->estado;?> <i class="fa fa-tag"></i></td>
+								<td><?php echo estadosReserva($reserva->estado);?> <i class="fa fa-tag" title="Estado"></i></td>
 								<td><a
 									href="<?php echo site_url();?>/locales/mostrarLocal/<?php echo $reserva->id_local;?>">
-										<?php echo $reserva->nombreLocal;?> <i class="fa fa-home"> </i>
+										<?php echo $reserva->nombreLocal;?> <i class="fa fa-home" title="Local"> </i>
 								</a>
 								</td>
 							</tr>

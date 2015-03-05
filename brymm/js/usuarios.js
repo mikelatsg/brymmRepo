@@ -597,16 +597,16 @@ function listaPedidosUsuario(item) {
 
 						contenido += "<tr>";
 						contenido += "<td>";
-						contenido += precio + " <i class=\"fa fa-euro\"></i>";
+						contenido += precio + " <i class=\"fa fa-euro\" title=\"Precio\"></i>";
 						contenido += "</td>";
 						contenido += "<td>";
-						contenido += estado + " <i class=\"fa fa-tag\"></i>";
+						contenido += estado + " <i class=\"fa fa-tag\" title=\"Estado\"></i>";
 						contenido += "</td>";
 						contenido += "<td>";
 						contenido += "<a href=\"" + site_url
 								+ "/locales/mostrarLocal/" + idLocal + "\">"
 								+ nombreLocal
-								+ " <i class=\"fa fa-home\"></i></a>";
+								+ " <i class=\"fa fa-home\" title=\"Local\"></i></a>";
 						contenido += "</td>";
 						contenido += "</tr>";
 

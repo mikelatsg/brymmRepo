@@ -67,6 +67,20 @@
 								endif;
 								?>
 							</div>
+							<div class="col-md-12">
+								<?php
+								if ($_SESSION['controlTotal']) :
+								?>
+								<a href="<?php echo site_url();?>/locales/datosLocal"><i
+									class="fa fa-flag"> </i> Datos local</a>
+								<?php 
+								else:
+								?>
+								<a><i class="fa fa-flag"> </i> Datos local</a>
+								<?php
+								endif;
+								?>
+							</div>
 						</div>
 					</li>
 					<li><?php

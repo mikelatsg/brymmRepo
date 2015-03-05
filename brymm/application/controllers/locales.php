@@ -3,6 +3,9 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
+require_once APPPATH . '/libraries/local/local.php';
+require_once APPPATH . '/libraries/local/tipoComida.php';
+
 class Locales extends CI_Controller {
 
 	public function __construct() {
@@ -75,12 +78,48 @@ class Locales extends CI_Controller {
 			$vistaCargar = 'locales/panelControl';
 		}
 
-		$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
-		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','general.css');
+		/*$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
+		 $header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','general.css');*/
+
+		//Se añaden los archivos js utilizados
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				,  'mensajes',
+				'js/bootstrap.min','general'
+		);
+
+		$header['estilos'] = array('buscador.css','general.css', 'locales.css'
+				,'menus.css'
+		);
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top', $msg);
 		$this->load->view($vistaCargar);
+		$this->load->view('base/page_bottom');
+	}
+
+	public function datosLocal() {
+		$var['local'] = Local::withID($_SESSION['idLocal']);
+		
+		$var['tiposComida'] = $this->Locales_model->obtenerTiposComidaObject();
+
+		/*$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
+			$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','general.css');*/
+
+		//Se añaden los archivos js utilizados
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				,  'mensajes',
+				'js/bootstrap.min','general'
+		);
+
+		$header['estilos'] = array('buscador.css','general.css', 'locales.css'
+				,'menus.css'
+		);
+
+		$this->load->view('base/cabecera', $header);
+		$this->load->view('base/page_top');
+		$this->load->view('locales/datosLocal', $var);
 		$this->load->view('base/page_bottom');
 	}
 
@@ -457,6 +496,9 @@ class Locales extends CI_Controller {
 
 		//Se obtienen los tipos de menu
 		$var3['tiposMenu'] = $this->Menus_model->obtenerTiposMenu()->result();
+
+		//Cargo el helper de estados.
+		$this->load->helper('estados_helper');
 
 		$this->load->view('reservas/reservasUsuarioLocal', $var3);
 		//$this->load->view('reservas/listaReservasUsuario', $var4);

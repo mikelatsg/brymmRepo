@@ -207,6 +207,9 @@ class Usuarios extends CI_Controller {
 				, 'usuarios', 'js/bootstrap.min', 'reservas', 'mensajes');
 
 		$header['estilos'] = array('buscador.css','general.css', 'pedidosLocal.css');
+		
+		//Cargo el helper de estados.
+		$this->load->helper('estados_helper');
 
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top');

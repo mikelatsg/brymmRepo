@@ -474,8 +474,7 @@ class Reservas_model extends CI_Model {
 				. "','actualizarCalendarioReservas','post',1)",
 				'prev_url' => "doAjax('" . site_url() . "/reservas/mostrarCalendarioReservas','mes=" .
 				$mesAnterior . "&ano=" . $anoAnterior
-				. "','actualizarCalendarioReservas','post',1)",
-				'idioma' => 'es'
+				. "','actualizarCalendarioReservas','post',1)"				
 		);
 
 		$prefs['template'] = '

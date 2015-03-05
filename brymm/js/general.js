@@ -52,3 +52,20 @@ function round(value, precision, mode) {
 
 	return (isHalf ? value : Math.round(value)) / m;
 }
+
+function estadosReserva(idEstado) {
+	
+	var textoEstado = "";
+
+	if (idEstado =="P"){
+		textoEstado ="Pendiente";
+	}else if (idEstado =="AL"){
+		textoEstado ="Pendiente";
+	}else if (idEstado =="AU"){
+		textoEstado ="Anulada usuario";
+	}else if (idEstado =="RL"){
+		textoEstado ="Rechazada";
+	}	
+	
+	return textoEstado;
+}

@@ -374,6 +374,8 @@ class Reservas extends CI_Controller {
 			);
 		}
 
+		$this->load->helper('estados_helper');		
+		
 		$var['reserva'] = array(
 				"mensaje" => $mensaje,
 				"idReserva" => $idReserva,
@@ -386,7 +388,7 @@ class Reservas extends CI_Controller {
 				"idTipoMenu" => $datosReserva->id_tipo_menu,
 				"tipoMenu" => $datosReserva->tipo_menu,
 				"horaInicio" => $datosReserva->hora_inicio,
-				"estado" => $datosReserva->estado,
+				"estado" => estadosReserva($datosReserva->estado),
 				"observaciones" => $datosReserva->observaciones,
 				"motivo" => $datosReserva->motivo,
 				"detalleMesasLibres" => $detalleMesasLibres,
@@ -409,6 +411,9 @@ class Reservas extends CI_Controller {
 		$datosReserva =
 		$this->Reservas_model->obtenerDatosReservaUsuario($idReserva)->row();
 
+		//Cargo el helper de estados.
+		$this->load->helper('estados_helper');
+		
 		$var['reserva'] = array(
 				"idReserva" => $idReserva,
 				"idLocal" => $datosReserva->id_local,
@@ -418,10 +423,10 @@ class Reservas extends CI_Controller {
 				"idTipoMenu" => $datosReserva->id_tipo_menu,
 				"tipoMenu" => $datosReserva->tipo_menu,
 				"horaInicio" => $datosReserva->hora_inicio,
-				"estado" => $datosReserva->estado,
+				"estado" => estadosReserva($datosReserva->estado),
 				"observaciones" => $datosReserva->observaciones,
 				"motivo" => $datosReserva->motivo,
-		);
+		);				
 
 		$params = array('etiqueta' => 'reserva');
 		$this->load->library('arraytoxml', $params);

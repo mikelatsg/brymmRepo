@@ -120,16 +120,16 @@ function listaReservasUsuario(item) {
 						contenido += "<tr>";
 						contenido += "<td>";
 						contenido += fecha
-								+ " <i class=\"fa fa-calendar\"></i>";
+								+ " <i class=\"fa fa-calendar\" title=\"Fecha reserva\"></i>";
 						contenido += "</td>";
 						contenido += "<td>";
-						contenido += estado + " <i class=\"fa fa-tag\"></i>";
+						contenido += estadosReserva(estado) + " <i class=\"fa fa-tag\" title=\"Estado\"></i>";
 						contenido += "</td>";
 						contenido += "<td>";
 						contenido += "<a href=\"" + site_url
 								+ "/locales/mostrarLocal/" + idLocal + "\">"
 								+ nombreLocal
-								+ " <i class=\"fa fa-home\"></i></a>";
+								+ " <i class=\"fa fa-home\" title=\"Local\"></i></a>";
 						contenido += "</td>";
 						contenido += "</tr>";
 
