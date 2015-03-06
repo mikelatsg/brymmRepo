@@ -20,9 +20,24 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function alta() {
-		$this->load->view('base/cabecera');
+
+		//Recojo el mensaje si existe
+		$msg = $this->session->flashdata('msg');
+
+		$var=array();
+		if ($msg != ''){
+			$var['msg'] = $msg;
+		}
+
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				, 'usuarios', 'js/bootstrap.min', 'reservas', 'mensajes','usuarios');
+			
+		$header['estilos'] = array('buscador.css','general.css');
+
+		$this->load->view('base/cabecera',$header);
 		$this->load->view('base/page_top');
-		$this->load->view('usuarios/alta');
+		$this->load->view('usuarios/alta',$var);
 		$this->load->view('base/page_bottom');
 	}
 
@@ -32,22 +47,31 @@ class Usuarios extends CI_Controller {
 
 		if ($existeNick > 0) {
 			$msg = "El nick indicado ya existe!";
-			$this->load->view('base/cabecera');
-			$this->load->view('base/page_top', $msg);
+			/*$this->load->view('base/cabecera');
+			 $this->load->view('base/page_top', $msg);
 			$this->load->view('usuarios/alta');
-			$this->load->view('base/page_bottom');
+			$this->load->view('base/page_bottom');*/
+
+			$this->session->set_flashdata('msg', $msg);
+
+			redirect('usuarios/alta', 'location');
 		} else {
 			$msg = "Alta Ok!";
 			//Se encripta el password
 			//$password = $_POST['password']; //$this->encrypt->encode($_POST['password']);
 			$password = md5($_POST['password']);
-			//Se llama a la función que inserta el usuario
-			$this->Usuarios_model->insertUsuario($_POST, $password);
 
-			$this->load->view('base/cabecera');
-			$this->load->view('base/page_top', $msg);
+			//Se llama a la función que inserta el usuario
+			$idUsuario = $this->Usuarios_model->insertUsuario($_POST, $password);
+
+			$this->Sesiones_model->iniciarSesion($_POST['nick'], $idUsuario);
+
+			redirect('usuarios/home', 'location');
+
+			/*$this->load->view('base/cabecera');
+			 $this->load->view('base/page_top', $msg);
 			$this->load->view('home');
-			$this->load->view('base/page_bottom');
+			$this->load->view('base/page_bottom');*/
 		}
 	}
 
@@ -207,7 +231,7 @@ class Usuarios extends CI_Controller {
 				, 'usuarios', 'js/bootstrap.min', 'reservas', 'mensajes');
 
 		$header['estilos'] = array('buscador.css','general.css', 'pedidosLocal.css');
-		
+
 		//Cargo el helper de estados.
 		$this->load->helper('estados_helper');
 

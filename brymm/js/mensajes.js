@@ -7,11 +7,11 @@
 
 function mostrarMensaje(mensaje) {
 
-	$("#dialogMensaje").dialog({
-		width : 400,
-		height : 150,
-		show : "clip",
-		hide : "clip",
+	$("#dialogMensaje").dialog({			
+		width : 600,
+		height : 140,
+		show : "fade",
+		hide : "fade",
 		resizable : "false",
 		position : {
 			at : "right top",
@@ -19,14 +19,13 @@ function mostrarMensaje(mensaje) {
 		}
 	});
 
-	var contenido = "<div class=\"alert alert-warning\" role=\"alert\">";
-	contenido += "<span class=\"glyphicon glyphicon-info-sign\">";
-	contenido += "</span>";
-	contenido += " " + mensaje;
+	var contenido = "<div class=\"alert alert-success text-center\" role=\"alert\">";	
+	contenido += mensaje;
 	contenido += "</div>";
 
 	$("#dialogMensaje").empty();
 	$("#dialogMensaje").html(contenido);
+	$(".ui-dialog-titlebar").hide()
 
 	setTimeout(function() {
 		$("#dialogMensaje").dialog("close")

@@ -789,6 +789,136 @@ function listaValoracionesUsuario(data) {
 
 }
 
+function validarAlta(){
+	var nick = $('#FormularioAlta').find('input[name="nick"]').val();
+	var pass = $('#FormularioAlta').find('input[name="password"]').val();
+	var passConf = $('#FormularioAlta').find('input[name="passwordConf"]').val();
+	var nombre = $('#FormularioAlta').find('input[name="nombre"]').val();
+	var apellido = $('#FormularioAlta').find('input[name="apellido"]').val();
+	var email = $('#FormularioAlta').find('input[name="email"]').val();
+	var localidad = $('#FormularioAlta').find('input[name="localidad"]').val();
+	var provincia = $('#FormularioAlta').find('input[name="provincia"]').val();
+	var codPostal = $('#FormularioAlta').find('input[name="codigoPostal"]').val();
+	var telefono = $('#FormularioAlta').find('input[name="telefono"]').val();
+	
+	var error = false;
+	var mensaje = "";
+	
+	/*Compruebo el valor de los campos*/
+	if (telefono == ''){
+		mensaje = 'El campo "telefono" tiene que estar informado';
+		error = true;
+	}
+	
+	if (codPostal == ''){
+		mensaje = 'El campo "codigo postal" tiene que estar informado';
+		error = true;
+	}
+	
+	if (provincia == ''){
+		mensaje = 'El campo "provincia" tiene que estar informado';
+		error = true;
+	}
+	
+	if (localidad == ''){
+		mensaje = 'El campo "localidad" tiene que estar informado';
+		error = true;
+	}
+	
+	if (email == ''){
+		mensaje = 'El campo "email" tiene que estar informado';
+		error = true;
+	}
+	
+	if (apellido == ''){
+		mensaje = 'El campo "apellido" tiene que estar informado';
+		error = true;
+	}
+	
+	if (nombre == ''){
+		mensaje = 'El campo "nombre" tiene que estar informado';
+		error = true;
+	}
+	
+	if (passConf == ''){
+		mensaje = 'El campo "repite password" tiene que estar informado';
+		error = true;
+	}
+	
+	if (pass == ''){
+		mensaje = 'El campo "password" tiene que estar informado';
+		error = true;
+	}
+	
+	if (nick == ''){
+		mensaje = 'El campo "nick" tiene que estar informado';
+		error = true;
+	}	
+		
+	if (error){
+		mostrarMensaje(mensaje);
+		return false;
+	}
+	
+	return true;
+}
+
+function validarModificarUsuario(){	
+	var nombre = $('#formModificarUsuario').find('input[name="nombre"]').val();
+	var apellido = $('#formModificarUsuario').find('input[name="apellido"]').val();
+	var email = $('#formModificarUsuario').find('input[name="email"]').val();
+	var localidad = $('#formModificarUsuario').find('input[name="localidad"]').val();
+	var provincia = $('#formModificarUsuario').find('input[name="provincia"]').val();
+	var codPostal = $('#formModificarUsuario').find('input[name="codigoPostal"]').val();
+	var telefono = $('#formModificarUsuario').find('input[name="telefono"]').val();
+	
+	var error = false;
+	var mensaje = "";
+	
+	/*Compruebo el valor de los campos*/
+	if (telefono == ''){
+		mensaje = 'El campo "telefono" tiene que estar informado';
+		error = true;
+	}
+	
+	if (codPostal == ''){
+		mensaje = 'El campo "codigo postal" tiene que estar informado';
+		error = true;
+	}
+	
+	if (provincia == ''){
+		mensaje = 'El campo "provincia" tiene que estar informado';
+		error = true;
+	}
+	
+	if (localidad == ''){
+		mensaje = 'El campo "localidad" tiene que estar informado';
+		error = true;
+	}
+	
+	if (email == ''){
+		mensaje = 'El campo "email" tiene que estar informado';
+		error = true;
+	}
+	
+	if (apellido == ''){
+		mensaje = 'El campo "apellido" tiene que estar informado';
+		error = true;
+	}
+	
+	if (nombre == ''){
+		mensaje = 'El campo "nombre" tiene que estar informado';
+		error = true;
+	}	
+		
+	if (error){
+		mostrarMensaje(mensaje);
+		return false;
+	}
+	
+	return true;
+}
+
 $(document).ready(function() {
 	/*
 	 * Ventana modal añadir direccion

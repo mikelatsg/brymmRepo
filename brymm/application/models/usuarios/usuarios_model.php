@@ -19,6 +19,8 @@ class Usuarios_model extends CI_Model {
 				$datos['localidad'], $datos['provincia'], $datos['codigoPostal'],
 				$datos['telefono']
 		));
+		
+		return $this->db->insert_id();
 	}
 
 	function modificarUsuario($datos,$idUsuario) {

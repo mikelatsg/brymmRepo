@@ -19,10 +19,30 @@ class Locales extends CI_Controller {
 	}
 
 	public function alta() {
+
+		//Recojo el mensaje si existe
+		$this->load->library('session');
+		$msg = $this->session->flashdata('msg');
+
+		$var=array();
+		if ($msg != ''){
+			$var['msg'] = $msg;
+		}
+
 		//Se obtienen los tipos de comida
 		$var['tiposComida'] = $this->Locales_model->obtenerTiposComida()->result();
 
-		$this->load->view('base/cabecera');
+		//Se añaden los archivos js utilizados
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				,  'mensajes',
+				'js/bootstrap.min','general', 'locales'
+		);
+
+		$header['estilos'] = array('buscador.css','general.css', 'locales.css'
+		);
+
+		$this->load->view('base/cabecera',$header);
 		$this->load->view('base/page_top');
 		$this->load->view('locales/alta', $var);
 		$this->load->view('base/page_bottom');
@@ -35,10 +55,12 @@ class Locales extends CI_Controller {
 		$existeLocal = $result->num_rows();
 		if ($existeLocal > 0) {
 			$msg = "El local indicado ya existe!";
-			$this->load->view('base/cabecera');
-			$this->load->view('base/page_top', $msg);
-			$this->load->view('locales/alta');
-			$this->load->view('base/page_bottom');
+
+			$this->load->library('session');
+
+			$this->session->set_flashdata('msg', $msg);
+
+			redirect('locales/alta', 'location');
 		} else {
 			$msg = "Alta Ok!";
 
@@ -47,15 +69,15 @@ class Locales extends CI_Controller {
 
 			//Se inicia la session con el local creado
 			$this->Sesiones_model->iniciarSesionLocal($idLocal);
-
-			$header['javascript'] = array('miajaxlib', '/jquery/jquery', 'horarios');
+				
+			redirect('locales/panelControl', 'location');
 
 			//Se carga el siguiente paso del alta
-			$this->load->view('base/cabecera', $header);
+			/*$this->load->view('base/cabecera', $header);
 			$this->load->view('base/page_top', $msg);
 			$this->load->view('locales/panelControl');
 			//$this->load->view('locales/altaHorario');
-			$this->load->view('base/page_bottom');
+			$this->load->view('base/page_bottom');*/
 		}
 	}
 
@@ -100,16 +122,22 @@ class Locales extends CI_Controller {
 
 	public function datosLocal() {
 		$var['local'] = Local::withID($_SESSION['idLocal']);
-		
+
 		$var['tiposComida'] = $this->Locales_model->obtenerTiposComidaObject();
 
-		/*$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
-			$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','general.css');*/
+		$this->load->library('session');
+
+		//Recojo el mensaje si hay
+		$msg = $this->session->flashdata('msg');
+
+		if ($msg != ''){
+			$var['msg'] = $msg;
+		}
 
 		//Se añaden los archivos js utilizados
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
 				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
-				,  'mensajes',
+				,  'mensajes','locales',
 				'js/bootstrap.min','general'
 		);
 
@@ -121,6 +149,18 @@ class Locales extends CI_Controller {
 		$this->load->view('base/page_top');
 		$this->load->view('locales/datosLocal', $var);
 		$this->load->view('base/page_bottom');
+	}
+
+	public function modificarLocal(){
+		$msg="Datos modificados correctamente";
+
+		$this->Locales_model->modificarLocal($_POST,$_SESSION['idLocal']);
+
+		$this->load->library('session');
+
+		$this->session->set_flashdata('msg', $msg);
+
+		redirect('/locales/datosLocal');
 	}
 
 	public function logout() {
@@ -195,10 +235,19 @@ class Locales extends CI_Controller {
 	}
 
 	public function panelControl() {
-		$msg = "";
+		//Se añaden los archivos js utilizados
+		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
+				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
+				,  'mensajes',
+				'js/bootstrap.min','general'
+		);
 
-		$this->load->view('base/cabecera');
-		$this->load->view('base/page_top', $msg);
+		$header['estilos'] = array('buscador.css','general.css', 'locales.css'
+				,'menus.css'
+		);
+
+		$this->load->view('base/cabecera', $header);
+		$this->load->view('base/page_top');
 		$this->load->view('locales/panelControl');
 		$this->load->view('base/page_bottom');
 	}

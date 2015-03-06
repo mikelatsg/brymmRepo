@@ -135,11 +135,11 @@
 
 #logo a {
 	padding: 10px 15px;
-	color: #CF0505; /*#72B899;*/
+	color: #F78181; /*#72B899;*/
 }
 
 #logo a:hover {
-	color: #CF0505; /*#72B899;*/
+	color: #F78181; /*#72B899;*/
 }
 
 /*Barra menu usuario*/
@@ -275,4 +275,11 @@ body a {
 #menuLocalGestion  a{
 	color: black;
 	font-weight: bold;
+}
+
+.ui-dialog{
+	border: 1px solid #66afe9;
+	box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+	margin: 15px;
+	padding-top: 15px;
 }

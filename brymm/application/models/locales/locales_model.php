@@ -27,6 +27,17 @@ class Locales_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function modificarLocal($datos,$idLocal) {
+
+		$sql = "UPDATE locales SET localidad = ?, provincia = ?,direccion = ?,"
+				. "cod_postal = ? , email = ?,id_tipo_comida = ?,telefono = ? "
+						. " WHERE id_local = ?";
+		$this->db->query($sql, array(
+				$datos['localidad'], $datos['provincia'],
+				$datos['direccion'], $datos['codigoPostal'],  $datos['email'],
+				$datos['idTipoComida'], $datos['telefono'], $idLocal));
+	}
+
 	function comprobarLocal($nombre) {
 
 		// Consulta en la tabla locales con el nombre
@@ -252,18 +263,18 @@ class Locales_model extends CI_Model {
 
 		return $result;
 	}
-	
+
 	function obtenerTiposComidaObject() {
 		$sql = "SELECT * FROM tipos_comida";
-	
+
 		$result = $this->db->query($sql)->result();
-		
+
 		$tiposComida= array();
-		
+
 		foreach ($result as $row){
 			$tiposComida[] = TipoComida::withID($row->id_tipo_comida);
 		}
-	
+
 		return $tiposComida;
 	}
 

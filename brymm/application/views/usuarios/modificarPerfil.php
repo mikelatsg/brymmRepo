@@ -5,14 +5,15 @@
 				<i class="fa fa-user"></i> Datos usuario
 			</h4>
 		</div>
-		<div class="panel-body panel-verde">
+		<div  class="panel-body panel-verde">
 			<?php if (isset($msg)):?>
-			<div class="alert alert-info" role="alert">
-				<i class="fa fa-info-circle fa-lg"></i> <?php echo $msg;?>
+			<div class="alert alert-warning" role="alert">				
+				<?php echo $msg;?>
 			</div>
 			<?php endif;?>
 			<div class="well col-md-6 colCentered">
-				<form method="post" id="formLoginUsuario" class="form-horizontal"
+				<form method="post" id="formModificarUsuario"
+				 class="form-horizontal" onsubmit="return validarModificarUsuario()"
 					action="<?php echo site_url() ?>/usuarios/modificarUsuario">
 					<div class="form-group">
 						<label for="nick" class="col-md-4 control-label">Nick</label>
@@ -81,7 +82,7 @@
 					</div>
 					<button class="btn btn-success" type="submit" data-toggle="tooltip"
 						data-original-title="Remove this user">
-						<span class="glyphicon glyphicon-edit"></span>Modificar datos
+						<span class="glyphicon glyphicon-edit"></span> Modificar datos
 					</button>
 				</form>
 			</div>
