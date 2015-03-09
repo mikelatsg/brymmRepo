@@ -57,6 +57,26 @@ class Alertas_model extends CI_Model {
 		return false;
 	}
 
+	function hayTipoAlertaNuevaLocal($idLocal, $fecha, $idMotivoAlerta) {
+
+		// Consulta en la tabla de alertas
+		$sql = "SELECT * FROM alertas_local al , motivo_alerta ma
+				WHERE al.id_motivo_alerta = ma.id_motivo_alerta
+				AND id_local = ?
+				AND fecha >= ?
+				AND al.id_motivo_alerta = ?
+				AND ma.aplicable = ?";
+
+		$result = $this->db->query($sql, array($idLocal, $fecha,$idMotivoAlerta
+				,Alerta::FIELD_LOCAL));
+			
+		if ($result->num_rows() > 0){
+			return true;
+		}
+			
+		return false;
+	}
+
 	function hayAlertasNuevasUsuario($idUsuario, $fecha) {
 
 		// Consulta en la tabla de alertas
@@ -307,15 +327,15 @@ class Alertas_model extends CI_Model {
 
 	function obtenerAlertasUsuario($idUsuario, $fecha){
 			
-		
-		
+
+
 		// Consulta en la tabla de alertas
 		$sql = "SELECT * FROM alertas_usuario au, motivo_alerta ma
 				WHERE  au.id_motivo_alerta = ma.id_motivo_alerta
 				AND id_usuario = ?
 				AND fecha >= ?
 				AND ma.aplicable = ?
-				ORDER BY au.id_alerta_usuario";			
+				ORDER BY au.id_alerta_usuario";
 			
 		$result = $this->db->query($sql, array($idLocal, $fecha, Alerta::FIELD_LOCAL))->result();
 			

@@ -68,9 +68,10 @@
 	</form>
 </div>
 <div>
-<?php if (!$servicioPedidoActivo):?>
-<div class="alert alert-danger" role="alert">El servicio de pedidos está desactivado</div>
-<?php endif;?>
+	<?php if (!$servicioPedidoActivo):?>
+	<div class="alert alert-danger" role="alert">El servicio de pedidos
+		está desactivado</div>
+	<?php endif;?>
 	<div id="pedidosLocal" class="panel panel-default">
 		<div class="panel-heading panel-verde">
 			<h4 class="panel-title">
@@ -102,28 +103,32 @@
 										echo "Pedido " . $pedido->id_pedido;
 										?> <span id="modificarEstado"> <span class="rechazarPedido">
 													<button
-														class="btn btn-danger pull-right enlaceRechazarPedido"
+														class="btn btn-danger btn-sm pull-right enlaceRechazarPedido"
 														type="button" data-toggle="tooltip"
 														data-original-title="Remove this user"
-														data-id="<?php echo $pedido->id_pedido;?>">
+														data-id="<?php echo $pedido->id_pedido;?>"
+														title="Rechazar pedido">
 														<span class="glyphicon glyphicon-remove"></span>
 													</button>
 											</span> <span class="aceptarPedido">
 													<button
-														class="btn btn-success pull-right enlaceAceptarPedido"
+														class="btn btn-success btn-sm pull-right enlaceAceptarPedido"
 														type="button" data-toggle="tooltip"
 														data-original-title="Remove this user"
-														data-id="<?php echo $pedido->id_pedido;?>">
+														data-id="<?php echo $pedido->id_pedido;?>"
+														title="Aceptar pedido">
 														<span class="glyphicon glyphicon-ok"></span>
 													</button>
 											</span>
 										</span>
-											<button class="btn btn-default pull-right" type="button"
-												data-toggle="tooltip" data-original-title="Remove this user"
+											<button class="btn btn-default btn-sm pull-right"
+												type="button" data-toggle="tooltip"
+												data-original-title="Remove this user"
 												onclick="<?php
                     echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
 							"&estado=A','verPedido','post',1)";
-                ?>">
+                ?>"
+												title="Ver pedido">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>
@@ -157,8 +162,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#pedidosAceptados"
-								class="accordion-toggle collapsed"><i
-								class="fa fa-thumbs-up"></i> Pedidos aceptados </a>
+								class="accordion-toggle collapsed"><i class="fa fa-thumbs-up"></i>
+								Pedidos aceptados </a>
 						</h4>
 					</div>
 					<div id="pedidosAceptados"
@@ -176,10 +181,11 @@
 										echo "Pedido " . $pedido->id_pedido;
 										?> <span id="modificarEstado"> <span class="rechazarPedido">
 													<button
-														class="btn btn-danger pull-right enlaceRechazarPedido"
+														class="btn btn-danger btn-sm pull-right enlaceRechazarPedido"
 														type="button" data-toggle="tooltip"
 														data-original-title="Remove this user"
-														data-id="<?php echo $pedido->id_pedido;?>">
+														data-id="<?php echo $pedido->id_pedido;?>"
+														title="Rechazar pedido">
 														<span class="glyphicon glyphicon-remove"></span>
 													</button>
 											</span> <span class="aceptarPedido">
@@ -189,7 +195,8 @@
 														onclick="<?php 
 														echo "doAjax('" . site_url() . "/pedidos/actualizarEstadoPedido','idPedido=" . $pedido->id_pedido .
 							"&estado=T','moverPedidoEstado','post',1)";
-														?>">
+														?>"
+														title="Terminar pedido">
 														<span class="glyphicon glyphicon-ok"></span>
 													</button>
 											</span>
@@ -199,7 +206,8 @@
 												onclick="<?php
                     echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
 							"&estado=A','verPedido','post',1)";
-                ?>">
+                ?>"
+												title="Ver pedido">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>
@@ -213,10 +221,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
-										<td><?php 
-										echo  $pedido->nombre;
-										?> <i class="fa fa-user"></i>
-										</td>
+										<td><a
+											href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $pedido->id_usuario?>"><?php 
+											echo  $pedido->nombre;
+											?> <i class="fa fa-user"></i> </a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -232,7 +240,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#pedidosTerminados"
-								class="accordion-toggle collapsed"><i class="fa fa-lock"></i> Pedidos terminados </a>
+								class="accordion-toggle collapsed"><i class="fa fa-lock"></i>
+								Pedidos terminados </a>
 						</h4>
 					</div>
 					<div id="pedidosTerminados"
@@ -254,7 +263,8 @@
 												onclick="<?php
                     echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
 							"&estado=A','verPedido','post',1)";
-                ?>">
+                ?>"
+												title="Ver pedido">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>
@@ -268,9 +278,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
-										<td><?php 
-										echo  $pedido->nombre;
-										?> <i class="fa fa-user"></i>
+										<td><a
+											href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $pedido->id_usuario?>"><?php 
+											echo  $pedido->nombre;
+											?> <i class="fa fa-user"></i> </a>
 										</td>
 									</tr>
 								</tbody>
@@ -287,7 +298,8 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#pedidosRechazados"
-								class="accordion-toggle collapsed"><i class="fa fa-thumbs-down"></i> Pedidos rechazados </a>
+								class="accordion-toggle collapsed"><i class="fa fa-thumbs-down"></i>
+								Pedidos rechazados </a>
 						</h4>
 					</div>
 					<div id="pedidosRechazados"
@@ -309,7 +321,8 @@
 												onclick="<?php
                     echo "doAjax('" . site_url() . "/pedidos/verPedido','idPedido=" . $pedido->id_pedido .
 							"&estado=A','verPedido','post',1)";
-                ?>">
+                ?>"
+												title="Ver pedido">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>
@@ -323,10 +336,10 @@
 										echo  $pedido->fecha;
 										?> <i class="fa fa-calendar"></i>
 										</td>
-										<td><?php 
-										echo  $pedido->nombre;
-										?> <i class="fa fa-user"></i>
-										</td>
+										<td><a
+											href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $pedido->id_usuario?>"><?php 
+											echo  $pedido->nombre;
+											?> <i class="fa fa-user"></i> </a></td>
 									</tr>
 								</tbody>
 							</table>

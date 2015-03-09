@@ -49,7 +49,7 @@ function listaServiciosLocal(item) {
 								+ "/servicios/borrarServicio','idServicioLocal="
 								+ idServicioLocal
 								+ "','listaServiciosLocal','post',1)\""
-								+ " title=\"Eliminar horario\">";
+								+ " title=\"Eliminar servicio\">";
 						enlaceBorrar += "<span class=\"glyphicon glyphicon-remove\"></span>";
 						enlaceBorrar += "</button> ";
 
@@ -92,7 +92,7 @@ function listaServiciosLocal(item) {
 									+ "/servicios/desactivarServicio','idServicioLocal="
 									+ idServicioLocal
 									+ "','listaServiciosLocal','post',1)\""
-									+ " title=\"Eliminar horario\">";
+									+ " title=\"Desactivar servicio\">";
 							enlaceActivarDesactivar += "<span class=\"glyphicon glyphicon-off\"></span>";
 							enlaceActivarDesactivar += "</button> ";
 						} else {
@@ -112,7 +112,7 @@ function listaServiciosLocal(item) {
 									+ "/servicios/activarServicio','idServicioLocal="
 									+ idServicioLocal
 									+ "','listaServiciosLocal','post',1)\""
-									+ " title=\"Eliminar horario\">";
+									+ " title=\"Activar servicio\">";
 							enlaceActivarDesactivar += "<span class=\"glyphicon glyphicon-off\"></span>";
 							enlaceActivarDesactivar += "</button> ";
 						}

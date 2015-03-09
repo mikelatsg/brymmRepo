@@ -181,7 +181,7 @@
 
 			<!-- Cabecera -->
 			<div id="cabecera">
-				<div id="dialogMensaje" title="Mensaje" style="display: none"></div>
+				<div id="dialogMensaje" title="Mensaje" style="display: none"></div>				
 			</div>
 			<!-- Fin Cabecera -->
 

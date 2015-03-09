@@ -5,8 +5,8 @@
  * @author Mikel
  */
 
-function mostrarMensaje(mensaje) {
-
+function mostrarMensaje(mensaje) {	
+	
 	$("#dialogMensaje").dialog({			
 		width : 600,
 		height : 140,
@@ -17,11 +17,14 @@ function mostrarMensaje(mensaje) {
 			at : "right top",
 			of : window
 		}
-	});
+	});		
 
-	var contenido = "<div class=\"alert alert-success text-center\" role=\"alert\">";	
+	var contenido = "<div id=\"alertMensaje\" class=\"alert alert-success text-center\" role=\"alert\">";	
+	//contenido += "<strong>";
 	contenido += mensaje;
+	//contenido += "</strong>";
 	contenido += "</div>";
+	contenido += "<div id=\"iconoMensaje\"><span id=\"imgInfoMensaje\" class=\"glyphicon glyphicon-info-sign\"></span></div>";
 
 	$("#dialogMensaje").empty();
 	$("#dialogMensaje").html(contenido);

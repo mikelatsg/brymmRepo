@@ -185,9 +185,9 @@ class Servicios_model extends CI_Model {
 	function borrarServicioLocalTipo($idTipoServicioLocal, $idLocal) {
 		$servicio = $this->existeServicioLocal
 		($idLocal, $idTipoServicioLocal);
-
+		
 		if ($servicio->num_rows()> 0){
-			$idServicioLocal = $servicio->row()->id_servicio_Local;
+			$idServicioLocal = $servicio->row()->id_servicio_local;
 
 			$sql = "DELETE FROM servicios_local
 					WHERE id_tipo_servicio_local = ?

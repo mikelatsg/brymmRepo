@@ -3,6 +3,8 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
+require_once APPPATH . '/libraries/alertas/alerta.php';
+
 class Pedidos extends CI_Controller {
 
 	public function __construct() {
@@ -312,7 +314,7 @@ class Pedidos extends CI_Controller {
 			$this->session->set_flashdata('servicio', 'pedidos/comandas');
 			redirect('/locales/servicioNoActivo', 'location');
 		}
-		
+
 		if ($comandasActivas){
 
 			//Se carga el modelo de comandas
@@ -454,6 +456,33 @@ class Pedidos extends CI_Controller {
 
 		//Se carga la vista que genera el xml
 		$this->load->view('xml/generarXML', $var);
+	}
+
+	public function comprobarAlertaPedido() {
+
+		$this->load->model('alertas/Alertas_model');
+
+		$fecha = $_POST['fecha'];
+
+		$fechaAlertas = DateTime::createFromFormat('Y-m-d H:i:s', $fecha);
+
+		$fechaAlertas->modify("-3 minutes");
+
+		$hayPedido = $this->Alertas_model->hayTipoAlertaNuevaLocal($_SESSION['idLocal'], $fechaAlertas->format('Y-m-d H:i:s'), 1);
+
+		$datos = array("hayAlertaPedido" =>$hayPedido);
+
+		//Se genera el json
+		echo json_encode($datos);
+	}
+
+	public function obtenerPedidosPendientes(){
+		$pedidos =  $this->Pedidos_model->obtenerPedidosLocalObject($_SESSION['idLocal'], 'P');
+
+		$datos = array("pedidosPendientes" =>$pedidos);
+
+		//Se genera el json
+		echo json_encode($datos);
 	}
 
 }

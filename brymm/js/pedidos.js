@@ -465,36 +465,6 @@ function verPedido(item) {
 
 	contenido += "</div>";
 
-	/*
-	 * contenido = "Pedido : " + idPedido + " - Precio : " + precio + " - Fecha
-	 * pedido : " + fechaPedido + " - Fecha entrega : " + fechaEntrega + " -
-	 * Estado : " + estado; //Se obtiene la direccion
-	 * $(item).find('direccion').first().each(function() { direccion =
-	 * $.trim($(this).find('direccion').text()); });
-	 * 
-	 * if (envioPedido != "0") { contenido += "<br>Direccion envio : " +
-	 * direccion; } contenido += "<br>Observaciones : " + observaciones; /* Si
-	 * el pedido esta rechazado se muestra el motivo
-	 */
-	/*
-	 * if (idEstado == "R") { contenido += "<br>Motivo rechazo : " +
-	 * motivoRechazo; } contenido += "<ul>";
-	 * $(item).find('detallePedido').each(function() {
-	 * 
-	 * articulo = $.trim($(this).find('articulo').text()); precioArticulo =
-	 * $.trim($(this).find('precioArticulo').text()); cantidad =
-	 * $.trim($(this).find('cantidad').text()); tipoArticulo =
-	 * $.trim($(this).find('tipoArticulo').text()); idTipoArticulo =
-	 * $.trim($(this).find('idTipoArticulo').text()); ingredientes = "";
-	 * contadorIngredientes = 0; $(this).find('detalleArticulo').each(function() {
-	 * ingrediente = $.trim($(this).find('ingrediente').text()); if
-	 * (contadorIngredientes == 0) { ingredientes += ingrediente; } else {
-	 * ingredientes += " - " + ingrediente; } contadorIngredientes++; }); if
-	 * (idTipoArticulo != idTipoArticuloAnterior) { contenido += tipoArticulo; }
-	 * contenido += "<li>"; contenido += articulo + " - " + precioArticulo + " - " +
-	 * cantidad; contenido += "<br>" + ingredientes; contenido += "</li>";
-	 * idTipoArticuloAnterior = idTipoArticulo; }); contenido += "</ul>";
-	 */
 	$("#mostrarPedido").html(contenido);
 }
 
@@ -512,6 +482,117 @@ function gestionEnvioPedido() {
 	} else {
 		$('#contenidoDireccionEnvio').hide();
 	}
+}
+
+function comprobarAlertasPedido() {
+	// Obtengo la fecha actual
+	var d = new Date();
+	var month = d.getMonth() + 1;
+	var day = d.getDate();
+	var hours = d.getHours();
+	var minutes = d.getMinutes();
+	var seconds = d.getSeconds();
+	if (seconds < 10) {
+		seconds = "0" + seconds;
+	}
+	if (minutes < 10) {
+		minutes = "0" + minutes;
+	}
+	if (hours < 10) {
+		hours = "0" + hours;
+	}
+	var output = d.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-'
+			+ (day < 10 ? '0' : '') + day + ' ' + hours + ':' + minutes + ':'
+			+ seconds;
+
+	doAjax(site_url + "/pedidos/comprobarAlertaPedido", "fecha=" + output,
+			'obtenerListaPedidosPendientes', 'post', 0);
+}
+
+function obtenerListaPedidosPendientes(data) {
+	var json = $.parseJSON(data);
+	var hayAlertaPedido = json.hayAlertaPedido;
+
+	if (hayAlertaPedido) {
+		// Si hay pedidos nuevos cargo la lista de pedidos pendientes.
+		doAjax(site_url + "/pedidos/obtenerPedidosPendientes", '',
+				'listaPedidosPendiente', 'post', 0);
+	}
+}
+
+function listaPedidosPendiente(data) {
+	var json = $.parseJSON(data);
+	var jsonPedidos = json.pedidosPendientes;
+	var contenido = "";
+	$
+			.each(
+					jsonPedidos,/* $.parseJSON(data), */
+					function(key, value) {
+						var idPedido = value.idPedido;
+						var precio = value.precio;
+						var fecha = value.fecha;
+						var nombreUsuario = value.usuario.nombre;
+						var idUsuario = value.usuario.idUsuario;
+
+						contenido += "<div class=\"col-md-12 list-div\">";
+						contenido += "<table class=\"table\">";
+						contenido += "<tbody>";
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\" colspan=\"3\">";
+						contenido += "Pedido " + idPedido;
+						contenido += "<span id=\"modificarEstado\"> <span class=\"rechazarPedido\">";
+						contenido += "<button class=\"btn btn-danger btn-sm pull-right enlaceRechazarPedido\" ";
+						contenido += "type=\"button\" data-toggle=\"tooltip\" ";
+						contenido += "data-original-title=\"Remove this user\" ";
+						contenido += "data-id=\"" + idPedido + "\" ";
+						contenido += "title=\"Rechazar pedido\">";
+						contenido += "<span class=\"glyphicon glyphicon-remove\"></span>";
+						contenido += "</button>";
+						contenido += "</span> <span class=\"aceptarPedido\">";
+						contenido += "<button class=\"btn btn-success btn-sm pull-right enlaceAceptarPedido\" ";
+						contenido += "type=\"button\" data-toggle=\"tooltip\" ";
+						contenido += "data-original-title=\"Remove this user\" ";
+						contenido += "data-id=\"" + idPedido + "\ ";
+						contenido += "title=\"Aceptar pedido\">";
+						contenido += "<span class=\"glyphicon glyphicon-ok\"></span>";
+						contenido += "</button>";
+						contenido += "</span>";
+						contenido += "</span>";
+						contenido += "<button class=\"btn btn-default btn-sm pull-right\" type=\"button\" ";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+						contenido += "onclick=\" ";
+						contenido += "doAjax('" + site_url
+								+ "/pedidos/verPedido','idPedido=" + idPedido;
+						contenido += "&estado=A','verPedido','post',1)\" ";
+						contenido += "title=\"Ver pedido\">";
+						contenido += "<span class=\"glyphicon glyphicon-eye-open\"></span>";
+						contenido += "</button>";
+						contenido += "</td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>";
+						contenido += precio;
+						contenido += "<i class=\"fa fa-euro\"></i>";
+						contenido += "</td>";
+						contenido += "<td>";
+						contenido += fecha;
+						contenido += "<i class=\"fa fa-calendar\"></i>";
+						contenido += "</td>";
+						contenido += "<td><a href=" + site_url
+								+ "/usuarios/datosPerfil/" + idUsuario + ">";
+						contenido += nombreUsuario;
+						contenido += "<i class=\"fa fa-user\"></i> </a>";
+						contenido += "</td>";
+						contenido += "</tr>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+
+					});
+
+	// muestro el contenido
+	$('#pedidosPendientes').empty();
+	$('#pedidosPendientes').html(contenido);
 }
 
 $(document)
@@ -668,5 +749,13 @@ $(document)
 					// Se gestiona si mostrar las direcciones para el envio del
 					// pedido
 					gestionEnvioPedido();
+
+					// Compruebo si se mestran los pedidos para comprobar si hay
+					// nuevos
+					if ($('#pedidosLocal').length > 0) {
+						// Compruebo si hay pedidos nuevos cada 3 minutos
+						setInterval(comprobarAlertasPedido, 180000);
+
+					}
 
 				});

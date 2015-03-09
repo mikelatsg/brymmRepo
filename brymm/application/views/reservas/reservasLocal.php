@@ -69,9 +69,10 @@
 										</td>
 									</tr>
 									<tr>
-										<td><?php 
-										echo  $reserva->nombreUsuario . " ";
-										?><i class="fa fa-user"></i>
+										<td><a
+											href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $reserva->id_usuario?>"><?php 
+											echo  $reserva->nombreUsuario;
+											?> <i class="fa fa-user"></i> </a>
 										</td>
 										<td><?php 
 										echo  $reserva->fecha;
@@ -119,12 +120,12 @@
 									</tr>
 									<tr>
 										<td><?php 
-										if ($reserva->id_usuario == 0) {
-                    echo $reserva->nombre_emisor." ";
-                } else {
-                    echo $reserva->nombreUsuario." ";
-                }
-                ?><i class="fa fa-user"></i>
+										if ($reserva->id_usuario == 0) :
+										echo $reserva->nombre_emisor." ";?> <i class="fa fa-user"></i>
+											<?php else: ?> <a
+											href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $reserva->id_usuario?>"><?php 
+											echo  $reserva->nombreUsuario;
+											?> <i class="fa fa-user"></i> </a> <?php endif;?>
 										</td>
 										<td><?php 
 										echo  $reserva->fecha;
@@ -172,12 +173,12 @@
 									</tr>
 									<tr>
 										<td><?php 
-										if ($reserva->id_usuario == 0) {
-                    echo $reserva->nombre_emisor." ";
-                } else {
-                    echo $reserva->nombreUsuario." ";
-                }
-                ?><i class="fa fa-user"></i>
+										if ($reserva->id_usuario == 0) :
+										echo $reserva->nombre_emisor." ";
+                 						else :?> <a
+											href="<?php echo site_url()?>/usuarios/datosPerfil/<?php echo $reserva->id_usuario?>"><?php 
+											echo  $reserva->nombreUsuario;
+											?> <i class="fa fa-user"></i> </a> <?php endif;?>
 										</td>
 										<td><?php 
 										echo  $reserva->fecha;
@@ -371,9 +372,9 @@
 							<?php
 							echo "<a onclick=";
 							echo "doAjax('" . site_url() . "/reservas/actualizarCalendarioReservas',''" .
-								",'actualizarCalendarioReservas','post',1)";
-						echo "> Actualizar calendario </a>";
-						?>
+									",'actualizarCalendarioReservas','post',1)";
+							echo "> Actualizar calendario </a>";
+							?>
 						</div>
 					</div>
 				</div>

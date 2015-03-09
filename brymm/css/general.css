@@ -163,13 +163,13 @@
 	font-weight: bold;
 }
 
-.menuUsuario div{
-	height:30px;
+.menuUsuario div {
+	height: 30px;
 }
 
-.menuUsuario{
+.menuUsuario {
 	border: 1px solid grey;
-    border-radius: 10px;
+	border-radius: 10px;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
@@ -252,34 +252,54 @@ body a {
 	overflow: auto;
 }
 
-.progress{
+.progress {
 	margin-bottom: 0px;
 }
 
-.colCentered{
-    float: none;
-    margin: 0 auto;
+.colCentered {
+	float: none;
+	margin: 0 auto;
 }
 
 /*Panel de control*/
 #panelControl .dropdown-menu {
 	border-radius: 10px;
 	border: 1px solid;
-	border-color: grey;	
+	border-color: grey;
 }
 
-#panelControl .dropdown-menu div{
-	height:30px;
+#panelControl .dropdown-menu div {
+	height: 30px;
 }
 
-#menuLocalGestion  a{
+#menuLocalGestion  a {
 	color: black;
 	font-weight: bold;
 }
 
-.ui-dialog{
+.ui-dialog {
 	border: 1px solid #66afe9;
-	box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px
+		rgba(102, 175, 233, 0.6);
 	margin: 15px;
-	padding-top: 15px;
+	padding-bottom: 25px;
+}
+
+#alertMensaje {
+	z-index: 1;
+	position: absolute;
+	margin-left: 15px;
+	margin-top: 15px;
+	width: 90%;
+	/*left: 25px;*/
+	/*top: 25px;*/
+}
+
+#iconoMensaje {
+	z-index: 2;
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	font-size: 40px;
+	color: #F5A9A9;
 }
