@@ -3,6 +3,19 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+require_once APPPATH . '/libraries/alertas/alerta.php';
+require_once APPPATH . '/libraries/comandas/comanda.php';
+require_once APPPATH . '/libraries/comandas/detalleComanda.php';
+require_once APPPATH . '/libraries/comandas/tipoComanda.php';
+require_once APPPATH . '/libraries/comandas/menuComanda.php';
+require_once APPPATH . '/libraries/menus/menu.php';
+require_once APPPATH . '/libraries/menus/plato.php';
+require_once APPPATH . '/libraries/reservas/mesa.php';
+require_once APPPATH . '/libraries/menus/tipoPlato.php';
+require_once APPPATH . '/libraries/comandas/comanda.php';
+require_once APPPATH . '/libraries/comandas/camarero.php';
+require_once APPPATH . '/libraries/ingredientes/ingrediente.php';
+
 class Comandas extends CI_Controller {
 
     public function __construct() {
@@ -383,6 +396,33 @@ class Comandas extends CI_Controller {
         $msg = 'Plato terminado correctamente';
 
         $this->verComandaCamarero($msg);
+    }
+    
+    public function comprobarAlertaComanda() {
+    
+    	$this->load->model('alertas/Alertas_model');
+    
+    	$fecha = $_POST['fecha'];
+    
+    	$fechaAlertas = DateTime::createFromFormat('Y-m-d H:i:s', $fecha);
+    
+    	$fechaAlertas->modify("-2 minutes");
+    
+    	$hayComanda = $this->Alertas_model->hayTipoAlertaNuevaLocal($_SESSION['idLocal'], $fechaAlertas->format('Y-m-d H:i:s'), 4);
+    
+    	$datos = array("hayAlertaComanda" =>$hayComanda);
+    
+    	//Se genera el json
+    	echo json_encode($datos);
+    }
+    
+    public function obtenerComandasActivas(){
+    	$comandas =  $this->Comandas_model->obtenerComandasActivasObject($_SESSION['idLocal']);
+    
+    	$datos = array("comandasActivas" =>$comandas);
+    
+    	//Se genera el json
+    	echo json_encode($datos);
     }
 
 }

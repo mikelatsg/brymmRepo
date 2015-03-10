@@ -24,20 +24,22 @@
 									<tr>
 										<td class="titulo" colspan="3">Comanda <?php echo $comanda->id_comanda;										
 										if ($comanda->estado == "EC"):?>
-											<button class="btn btn-success pull-right" type="button"
+											<button class="btn btn-success btn-sm pull-right" type="button"
 												data-toggle="tooltip" data-original-title="Remove this user"
 												onclick="<?php
                     echo "doAjax('" . site_url() . "/comandas/terminarComandaCocina','idComanda="
                     . $comanda->id_comanda . "','listaComandasCocina','post',1)";
-                ?>">
+                ?>"
+                title="Terminar comanda">
 												<span class="glyphicon glyphicon-ok"></span>
 											</button> <?php endif;?>
-											<button class="btn btn-default pull-right" type="button"
+											<button class="btn btn-default btn-sm pull-right" type="button"
 												data-toggle="tooltip" data-original-title="Remove this user"
 												onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
                 . $comanda->id_comanda . "','mostrarComandaRealizadaCocina','post',1)";
-                ?>">
+                ?>"
+                title="Ver comanda">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>
@@ -75,12 +77,13 @@
 								<tbody>
 									<tr>
 										<td class="titulo" colspan="3">Comanda <?php echo $comanda->id_comanda;?>
-											<button class="btn btn-default pull-right" type="button"
+											<button class="btn btn-default btn-sm pull-right" type="button"
 												data-toggle="tooltip" data-original-title="Remove this user"
 												onclick="<?php
                 echo "doAjax('" . site_url() . "/comandas/verComandaCamarero','idComanda="
                 . $comanda->id_comanda . "','mostrarComandaRealizada','post',1)";
-                ?>">
+                ?>"
+                title="Ver comanda">
 												<span class="glyphicon glyphicon-eye-open"></span>
 											</button>
 										</td>

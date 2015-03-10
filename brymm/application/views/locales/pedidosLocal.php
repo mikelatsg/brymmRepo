@@ -361,7 +361,7 @@
 					</div>
 					<!-- <div id="tituloMostrarPedido">						
 					</div> -->
-					<div id="mostrarPedido" class="panel-body sub-panel"></div>
+					<div id="mostrarPedido" class="panel-body sub-panel altoMaximo"></div>
 				</div>
 			</div>
 		</div>

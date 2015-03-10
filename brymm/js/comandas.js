@@ -65,7 +65,7 @@ function mostrarComanda(item) {
 							funcionBorrar = "doAjax('"
 									+ site_url
 									+ "/comandas/borrarArticuloComanda','rowid="
-									+ rowid;							
+									+ rowid;
 
 							botonBorrar = "<button class=\"btn btn-danger btn-sm pull-right\""
 									+ "type=\"button\" data-toggle=\"tooltip\""
@@ -81,7 +81,7 @@ function mostrarComanda(item) {
 							if (idTipoComanda == 1) {
 								// Articulo
 								if (!existeArticulo) {
-									
+
 									contenidoArticulo = "<span class=\"col-md-12\">";
 									contenidoArticulo += "<span class=\"badge progress-bar-danger\">"
 											+ tipoComanda + "</span>";
@@ -127,7 +127,7 @@ function mostrarComanda(item) {
 								// Si es el primer articulo personalizado se
 								// muestra el
 								// titulo
-								if (!existeArticuloPer) {									
+								if (!existeArticuloPer) {
 									contenidoArticuloPer = "<span class=\"col-md-12\">";
 									contenidoArticuloPer += "<span class=\"badge progress-bar-danger\">"
 											+ tipoComanda + "</span>";
@@ -172,12 +172,12 @@ function mostrarComanda(item) {
 								contenidoArticuloPer += "</tr>";
 
 								contenidoArticuloPer += detalleArticuloPer;
-								
+
 							} else if (idTipoComanda == 3) {
 								// Menu
 								// Si es el primer menu se muestra el titulo
 								if (!existeMenu) {
-									
+
 									contenidoMenu = "<span class=\"col-md-12\">";
 									contenidoMenu += "<span class=\"badge progress-bar-danger\">"
 											+ tipoComanda + "</span>";
@@ -231,7 +231,7 @@ function mostrarComanda(item) {
 							} else {
 								// Carta
 								if (!existeCarta) {
-									
+
 									contenidoCarta = "<span class=\"col-md-12\">";
 									contenidoCarta += "<span class=\"badge progress-bar-danger\">"
 											+ tipoComanda + "</span>";
@@ -272,7 +272,7 @@ function mostrarComanda(item) {
 								contenidoCarta += "<i class=\"fa fa-euro\"></i>";
 								contenidoCarta += "</td>";
 								contenidoCarta += "</tr>";
-								
+
 							}
 						} else {
 							precioTotal = "<div class=\"well col-md-12\">";
@@ -299,7 +299,7 @@ function mostrarComanda(item) {
 							precioTotal += "</tbody>";
 							precioTotal += "</table>";
 							precioTotal += "</div>";
-							
+
 						}
 					});
 
@@ -920,7 +920,7 @@ function mostrarComandaRealizadaCocina(item) {
 						// opcion de terminar
 						if (estadoDetalle !== "TC") {
 							// Se generan los enlaces
-							funcionTerminarDetalleComanda += "<button class=\"btn btn-success pull-right\" type=\"button\"";
+							funcionTerminarDetalleComanda += "<button class=\"btn btn-success btn-sm pull-right\" type=\"button\"";
 							funcionTerminarDetalleComanda
 									+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
 							funcionTerminarDetalleComanda += "onclick=";
@@ -930,7 +930,8 @@ function mostrarComandaRealizadaCocina(item) {
 									+ idDetalleComanda
 									+ "&idComanda="
 									+ idComanda
-									+ "','mostrarComandaRealizadaCocina','post',1)>";
+									+ "','mostrarComandaRealizadaCocina','post',1)" +
+											" title=\"Terminar\">";
 							funcionTerminarDetalleComanda += "<span class=\"glyphicon glyphicon-ok\"></span>";
 							funcionTerminarDetalleComanda += "</button>";
 						}
@@ -1234,7 +1235,7 @@ function obtenerDetalleMenuComandaRealizadaCocina(item, idComanda) {
 						// opcion de terminar
 						if (estadoPlatoMenu !== "TC") {
 							// Se generan los enlaces
-							funcionTerminarPlatoMenu += "<button class=\"btn btn-success pull-right\" type=\"button\"";
+							funcionTerminarPlatoMenu += "<button class=\"btn btn-success btn-sm pull-right\" type=\"button\"";
 							funcionTerminarPlatoMenu
 									+ "data-toggle=\"tooltip\" data-original-title=\"Remove this user\"";
 							funcionTerminarPlatoMenu += "onclick=";
@@ -1244,7 +1245,8 @@ function obtenerDetalleMenuComandaRealizadaCocina(item, idComanda) {
 									+ idComandaMenu
 									+ "&idComanda="
 									+ idComanda
-									+ "','mostrarComandaRealizadaCocina','post',1)>";
+									+ "','mostrarComandaRealizadaCocina','post',1)" +
+											" title=\"Terminar\">";
 							funcionTerminarPlatoMenu += "<span class=\"glyphicon glyphicon-ok\"></span>";
 							funcionTerminarPlatoMenu += "</button>";
 
@@ -1724,12 +1726,119 @@ function mostrarComandasCerradas(item) {
 	$("#listaComandasCerradas").html(contenidoComandasCerradas);
 }
 
-function gestionFormularioComanda(){	
-	if ($('#mostrarComanda').text().trim() == ""){		
+function gestionFormularioComanda() {
+	if ($('#mostrarComanda').text().trim() == "") {
 		$('#formularioAceptarComanda').hide();
-	}else{		
+	} else {
 		$('#formularioAceptarComanda').show();
 	}
+}
+
+function comprobarAlertasComandas() {
+	// Obtengo la fecha actual
+	var d = new Date();
+	var month = d.getMonth() + 1;
+	var day = d.getDate();
+	var hours = d.getHours();
+	var minutes = d.getMinutes();
+	var seconds = d.getSeconds();
+	if (seconds < 10) {
+		seconds = "0" + seconds;
+	}
+	if (minutes < 10) {
+		minutes = "0" + minutes;
+	}
+	if (hours < 10) {
+		hours = "0" + hours;
+	}
+	var output = d.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-'
+			+ (day < 10 ? '0' : '') + day + ' ' + hours + ':' + minutes + ':'
+			+ seconds;
+
+	doAjax(site_url + "/comandas/comprobarAlertaComanda", "fecha=" + output,
+			'obtenerListaComandasActivas', 'post', 0);
+}
+
+function obtenerListaComandasActivas(data) {
+	var json = $.parseJSON(data);
+	var hayAlertaComanda = json.hayAlertaComanda;
+
+	if (hayAlertaComanda) {
+		// Si hay pedidos nuevos cargo la lista de pedidos pendientes.
+		doAjax(site_url + "/comandas/obtenerComandasActivas", '',
+				'listaComandasActivas', 'post', 0);
+	}
+}
+
+function listaComandasActivas(data) {
+	var json = $.parseJSON(data);
+	var jsonComandas = json.comandasActivas;
+	var contenido = "";
+	$
+			.each(
+					jsonComandas,
+					function(key, value) {						
+						var idComanda = value.idComanda;
+						var estado = value.estado;
+						var precio = value.precio;
+						var nombreCamarero = value.camarero.nombre;
+						var idMesa = value.mesa.idMesa;
+						var destino = value.destino;
+						contenido += "<div class=\"col-md-12 list-div\">";
+						contenido += "<table class=\"table\">";
+						contenido += "<tbody>";
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\" colspan=\"3\">Comanda ";
+						contenido += idComanda;
+						if (estado == "EC") {
+							contenido += "<button class=\"btn btn-success btn-sm pull-right\" type=\"button\" ";
+							contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+							contenido += "onclick=";
+							contenido += "doAjax('"
+									+ site_url
+									+ "/comandas/terminarComandaCocina','idComanda=";
+							contenido += idComanda
+									+ "','listaComandasCocina','post',1)\" ";
+							contenido += "title=\"Terminar comanda\">";
+							contenido += "<span class=\"glyphicon glyphicon-ok\"></span>";
+							contenido += "</button>";
+						}
+						contenido += "<button class=\"btn btn-default btn-sm pull-right\" type=\"button\" ";
+						contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+						contenido += "onclick=\"";
+						contenido += "doAjax('" + site_url
+								+ "/comandas/verComandaCamarero','idComanda=";
+						contenido += idComanda
+								+ "','mostrarComandaRealizadaCocina','post',1)\"";
+						contenido += "title=\"Ver comanda\">";
+						contenido += "<span class=\"glyphicon glyphicon-eye-open\"></span>";
+						contenido += "</button>";
+						contenido += "</td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td>" + nombreCamarero;
+						contenido += "<i class=\"fa fa-user\"></i></td>";
+						contenido += "<td>"
+								+ precio
+								+ "<span class=\"glyphicon glyphicon-euro\"></span></td>";
+						contenido += "<td>";
+						if (idMesa == 0) {
+							contenido += destino;
+						} else {
+							var nombreMesa = value.mesa.nombre;
+							contenido += nombreMesa;
+						}
+						contenido += "<i class=\"fa fa-flag\"></i>";
+						contenido += "</td>";
+						contenido += "</tr>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						contenido += "</div>";
+					});
+	
+	// muestro el contenido
+	$('#listaComandasActivas').empty();
+	$('#listaComandasActivas').html(contenido);
 }
 
 $(document).ready(function() {

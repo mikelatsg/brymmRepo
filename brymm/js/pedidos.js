@@ -392,6 +392,10 @@ function verPedido(item) {
 								.text());
 						idTipoArticulo = $.trim($(this).find('idTipoArticulo')
 								.text());
+						idArticulo = $.trim($(this).find('idArticuloLocal')
+								.text());
+						tipoArticulo = $.trim($(this).find('tipoArticulo')
+								.text());
 						ingredientes = "";
 
 						/* Recorro los ingredientes */
@@ -434,7 +438,14 @@ function verPedido(item) {
 						contenido += "<tr>";
 						contenido += "<td class=\"titulo\">Articulo</td>";
 						contenido += "<td>" + articulo + "</td>";
-						contenido += "</tr>";
+						contenido += "</tr>";												
+						
+						if (idArticulo == ''){
+							contenido += "<tr>";
+							contenido += "<td class=\"titulo\">Tipo articulo</td>";
+							contenido += "<td>" + tipoArticulo + "</td>";
+							contenido += "</tr>";
+						}
 
 						contenido += "<tr>";
 						contenido += "<td class=\"titulo\">Precio</td>";
@@ -445,10 +456,11 @@ function verPedido(item) {
 						contenido += "<tr>";
 						if (contadorIngredientes > 0) {
 							contenido += "<td class=\"titulo\">Cantidad</td>";
+							contenido += "<td>" + cantidad + "</td>";
 						} else {
 							contenido += "<td class=\"titulo separadorArticulo\">Cantidad</td>";
-						}
-						contenido += "<td>" + cantidad + "</td>";
+							contenido += "<td class=\"separadorArticulo\">" + cantidad + "</td>";
+						}						
 						contenido += "</tr>";
 
 						if (contadorIngredientes > 0) {
@@ -755,6 +767,14 @@ $(document)
 					if ($('#pedidosLocal').length > 0) {
 						// Compruebo si hay pedidos nuevos cada 3 minutos
 						setInterval(comprobarAlertasPedido, 180000);
+
+					}
+										
+					// Compruebo si se mestran las comandas para comprobar si hay
+					// nuevos					
+					if ($('#comandasLocal').length > 0) {						
+						// Compruebo si hay pedidos nuevos cada 2 minutos
+						setInterval(comprobarAlertasComandas, 120000);
 
 					}
 
