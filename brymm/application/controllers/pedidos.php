@@ -330,8 +330,8 @@ class Pedidos extends CI_Controller {
 		}
 
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery',
-				'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min',
-				'pedidos', 'comandas', 'mensajes','js/bootstrap.min');
+				'jquery/jquery-ui-1.10.3.custom.min',
+				'pedidos', 'comandas', 'mensajes','js/bootstrap.min', 'general');
 
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','buscador.css'
 				, 'general.css','pedidosLocal.css'

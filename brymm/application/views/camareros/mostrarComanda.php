@@ -13,7 +13,7 @@
 						</h4>
 					</div>
 					<div id="listaComandasActivas"
-						class="panel-body collapse sub-panel">
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php $hayComandasActivas = false;
 						foreach ($comandasActivas as $comandaActiva):
 					 $hayComandasActivas = true;?>
@@ -21,7 +21,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="3">Comanda <?php echo $comandaActiva->id_comanda;?>
+										<td colspan="3" class="titulo">Comanda <?php echo $comandaActiva->id_comanda;?>
 											<button class="btn btn-danger btn-sm pull-right"
 												type="button" data-toggle="tooltip"
 												data-original-title="Remove this user"
@@ -86,13 +86,13 @@
 						</h4>
 					</div>
 					<div id="listaComandasCerradas"
-						class="panel-body collapse sub-panel">
+						class="panel-body collapse sub-panel altoMaximo">
 						<?php foreach ($comandasCerradas as $comandaCerrada): ?>
 						<div class="col-md-12 list-div">
 							<table class="table">
 								<tbody>
 									<tr>
-										<td colspan="3">Comanda <?php echo $comandaCerrada->id_comanda;?>
+										<td colspan="3" class="titulo">Comanda <?php echo $comandaCerrada->id_comanda;?>
 											<button class="btn btn-default btn-sm pull-right"
 												type="button" data-toggle="tooltip"
 												data-original-title="Remove this user"
@@ -135,7 +135,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title"><i class="fa fa-list"></i> Detalle comanda</h4>
 					</div>
-					<div class="panel-body sub-panel" class="panel-body sub-panel">
+					<div class="panel-body sub-panel" class="panel-body sub-panel altoMaximo">
 						<div id="mostrarComanda">
 							<?php
 							$existeComanda = false;

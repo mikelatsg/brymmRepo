@@ -335,17 +335,9 @@ function mostrarComanda(item) {
 				+ contenidoMenu + contenidoCarta;
 		contenido = contenido + precioTotal
 
-		/*
-		 * contenido = contenido + "<a onclick=\"doAjax('" + site_url +
-		 * "/comandas/cancelarComanda','','mostrarComanda','post',1)\">";
-		 * contenido = contenido + "Cancelar"; contenido = contenido + "</a>";
-		 * contenido += "</div>";
-		 */
 	}
 
 	// Se habilita el boton de aceptar comanda
-	// $("#butAceptarComanda").removeAttr("disabled");
-	// $("#butAnadirComanda").removeAttr("disabled");
 	$("#mostrarComanda").html(contenido);
 
 	// Muestro u oculto el formulario de la comanda
@@ -503,7 +495,7 @@ function mostrarComandaRealizada(item) {
 
 	contenido = contenido + "<tr>";
 	contenido = contenido + "<td class=\"titulo\">Estado</td>";
-	contenido = contenido + "<td>" + estadoComanda + "</td>";
+	contenido = contenido + "<td>" + estadosComanda(estadoComanda) + "</td>";
 	contenido = contenido + "</tr>";
 
 	contenido = contenido + "<tr>";
@@ -589,7 +581,7 @@ function mostrarComandaRealizada(item) {
 							contenidoArt += "<tr>";
 							contenidoArt += "<td class=\"titulo separadorArticulo\">Estado</td>";
 							contenidoArt += "<td class=\"separadorArticulo\">"
-									+ estadoDetalle + "</td>";
+									+ estadosComanda(estadoDetalle) + "</td>";
 							contenidoArt += "</tr>";
 							// En el primer detalle del tipo de comanda se
 							// añade cual es
@@ -631,7 +623,7 @@ function mostrarComandaRealizada(item) {
 							contenidoArtPer += "<tr>";
 							contenidoArtPer += "<td class=\"titulo separadorArticulo\">Estado</td>";
 							contenidoArtPer += "<td class=\"separadorArticulo\">"
-									+ estadoDetalle + "</td>";
+									+ estadosComanda(estadoDetalle) + "</td>";
 							contenidoArtPer += "</tr>";
 							// En el primer detalle del tipo de comanda se
 							// añade cual es
@@ -673,7 +665,8 @@ function mostrarComandaRealizada(item) {
 
 							contenidoMenu += "<tr>";
 							contenidoMenu += "<td class=\"titulo\">Estado</td>";
-							contenidoMenu += "<td>" + estadoDetalle + "</td>";
+							contenidoMenu += "<td>"
+									+ estadosComanda(estadoDetalle) + "</td>";
 							contenidoMenu += "</tr>";
 
 							contenidoMenu += datosEspecificos;
@@ -720,7 +713,7 @@ function mostrarComandaRealizada(item) {
 							contenidoCarta += "<tr>";
 							contenidoCarta += "<td class=\"titulo separadorPlato\">Estado</td>";
 							contenidoCarta += "<td class=\"separadorPlato\">"
-									+ estadoDetalle + "</td>";
+									+ estadosComanda(estadoDetalle) + "</td>";
 							contenidoCarta += "</tr>";
 
 							// En el primer detalle del tipo de comanda se
@@ -862,7 +855,7 @@ function mostrarComandaRealizadaCocina(item) {
 
 	contenido = contenido + "<tr>";
 	contenido = contenido + "<td class=\"titulo\">Estado</td>";
-	contenido = contenido + "<td>" + estadoComanda + "</td>";
+	contenido = contenido + "<td>" + estadosComanda(estadoComanda) + "</td>";
 	contenido = contenido + "</tr>";
 
 	contenido = contenido + "<tr>";
@@ -930,8 +923,8 @@ function mostrarComandaRealizadaCocina(item) {
 									+ idDetalleComanda
 									+ "&idComanda="
 									+ idComanda
-									+ "','mostrarComandaRealizadaCocina','post',1)" +
-											" title=\"Terminar\">";
+									+ "','mostrarComandaRealizadaCocina','post',1)"
+									+ " title=\"Terminar articulo\">";
 							funcionTerminarDetalleComanda += "<span class=\"glyphicon glyphicon-ok\"></span>";
 							funcionTerminarDetalleComanda += "</button>";
 						}
@@ -1245,8 +1238,8 @@ function obtenerDetalleMenuComandaRealizadaCocina(item, idComanda) {
 									+ idComandaMenu
 									+ "&idComanda="
 									+ idComanda
-									+ "','mostrarComandaRealizadaCocina','post',1)" +
-											" title=\"Terminar\">";
+									+ "','mostrarComandaRealizadaCocina','post',1)"
+									+ " title=\"Terminar articulo\">";
 							funcionTerminarPlatoMenu += "<span class=\"glyphicon glyphicon-ok\"></span>";
 							funcionTerminarPlatoMenu += "</button>";
 
@@ -1443,8 +1436,7 @@ function mostrarComandasActivas(item) {
 				var funcionCancelar = "";
 
 				// Si hay comandas activas se genera la lista
-				if ($(this).find('id_comanda').size() > 0 && !comandasActivas) {
-					contenidoComandasActivas = "<ul>";
+				if ($(this).find('id_comanda').size() > 0 && !comandasActivas) {					
 					comandasActivas = true;
 				}
 
@@ -1483,25 +1475,28 @@ function mostrarComandasActivas(item) {
 					// Se genera el contenido del combo de comandas activas
 					contenidoCmbComandasActivas += idComanda + " - " + destino;
 
-					contenidoComandasActivas += "<li>" + idComanda + " - "
+					/*contenidoComandasActivas += "<li>" + idComanda + " - "
 							+ destino + " - " + nombreCamarero + " - "
 							+ precioTotal + " - " + estadoComanda + " - "
 							+ fechaComanda + funcionCerrar + funcionCancelar
-							+ funcionVer + "</li>";
+							+ funcionVer + "</li>";*/
 				} else {
 					// Se genera el contenido del combo de comandas activas
 					contenidoCmbComandasActivas += idComanda + " - "
 							+ nombreMesa;
 
-					contenidoComandasActivas += "<li>" + idComanda + " - "
+					/*contenidoComandasActivas += "<li>" + idComanda + " - "
 							+ nombreMesa + " - " + nombreCamarero + " - "
 							+ precioTotal + " - " + estadoComanda + " - "
 							+ fechaComanda + funcionCerrar + funcionCancelar
-							+ funcionVer + "</li>";
+							+ funcionVer + "</li>";*/
 				}
 
 				// Se genera el contenido del combo de comandas activas
 				contenidoCmbComandasActivas += "</option>";
+				
+				contenidoComandasActivas += generarContenidoComandaActivaCamarero(idComanda, nombreCamarero,
+						idMesa, destino, nombreMesa, estadoComanda, precioTotal);
 
 			});
 
@@ -1510,8 +1505,7 @@ function mostrarComandasActivas(item) {
 	$("#cmbComandasActivas").empty();
 
 	// Se cierra la lista si hay contenido y se añade al div
-	if (comandasActivas) {
-		contenidoComandasActivas += "</ul>";
+	if (comandasActivas) {		
 		// Se muestra el contenido
 		$("#listaComandasActivas").html(contenidoComandasActivas);
 
@@ -1556,7 +1550,7 @@ function mostrarComandasActivasCocina(item) {
 	var comandasActivas = false;
 	// Si hay comandas activas se genera la lista
 	if ($(item).find('comandaActiva').size() > 0) {
-		contenidoComandasActivas = "<ul>";
+		contenidoComandasActivas = "";
 		comandasActivas = true;
 	}
 
@@ -1579,62 +1573,22 @@ function mostrarComandasActivasCocina(item) {
 								.trim($(this).find('fecha_alta').text());
 						estadoComanda = $.trim($(this).find('estado').text());
 
-						// Se genera el contenido del combo de comandas activas
-						contenidoCmbComandasActivas += "<option value=\""
-								+ idComanda + "\">";
-
-						// Se generan los enlaces
-						if (estadoComanda == "EC") {
-							funcionTerminar = "<a onclick=\"doAjax('"
-									+ site_url
-									+ "/comandas/terminarComandaCocina','idComanda="
-									+ idComanda
-									+ "','listaComandasCocina','post',1)\"> Terminar </a>";
-						}
-
-						funcionVer = "<a onclick=\"doAjax('"
-								+ site_url
-								+ "/comandas/verComandaCamarero','idComanda="
-								+ idComanda
-								+ "','mostrarComandaRealizadaCocina','post',1)\"> Ver </a>";
-
 						// Si la comanda es para enviar se muestra el destino,
 						// si no la mesa.
-						if (idMesa == "0") {
-							// Se genera el contenido del combo de comandas
-							// activas
-							contenidoCmbComandasActivas += idComanda + " - "
-									+ destino;
-
-							contenidoComandasActivas += "<li>" + idComanda
-									+ " - " + destino + " - " + nombreCamarero
-									+ " - " + precioTotal + " - "
-									+ estadoComanda + " - " + fechaComanda
-									+ funcionTerminar + funcionVer + "</li>";
-						} else {
-							// Se genera el contenido del combo de comandas
-							// activas
-							contenidoCmbComandasActivas += idComanda + " - "
-									+ nombreMesa;
-
-							contenidoComandasActivas += "<li>" + idComanda
-									+ " - " + nombreMesa + " - "
-									+ nombreCamarero + " - " + precioTotal
-									+ " - " + estadoComanda + " - "
-									+ fechaComanda + funcionTerminar
-									+ funcionVer + "</li>";
-						}
-
-						// Se genera el contenido del combo de comandas activas
-						contenidoCmbComandasActivas += "</option>";
+						// if (idMesa == "0") {
+						// Se genera la lista
+						contenidoComandasActivas += generarContenidoComandaActivaCocina(
+								idComanda, nombreCamarero, idMesa, destino,
+								nombreMesa, estadoComanda, precioTotal);
+						/*
+						 * } else {
+						 *  // Se genera la lista contenidoComandasActivas +=
+						 * generarContenidoComandaActivaCocina( idComanda,
+						 * nombreCamarero, idMesa, destino, nombreMesa,
+						 * estadoComanda, precioTotal); }
+						 */
 
 					});
-
-	// Se cierra la lista si hay contenido
-	if (comandasActivas) {
-		contenidoComandasActivas += "</ul>";
-
-	}
 
 	// Se comprueba el valor recibido en el xml para saber si hay que vaicar el
 	// div
@@ -1649,9 +1603,6 @@ function mostrarComandasActivasCocina(item) {
 	// Se muestra el contenido
 	$("#listaComandasActivas").html(contenidoComandasActivas);
 
-	// Se regenera el combo que contiene las comandas abiertas.
-	$("#cmbComandasActivas").empty();
-	$("#cmbComandasActivas").html(contenidoCmbComandasActivas);
 }
 
 function mostrarComandasCerradas(item) {
@@ -1669,7 +1620,7 @@ function mostrarComandasCerradas(item) {
 
 	// Si hay comandas activas se genera la lista
 	if ($(item).find('comandaCerrada').children().size() > 0) {
-		contenidoComandasCerradas = "<ul>";
+		contenidoComandasCerradas = "";
 		comandasCerradas = true;
 	}
 
@@ -1699,25 +1650,11 @@ function mostrarComandasCerradas(item) {
 									+ idComanda
 									+ "','mostrarComandaRealizada','post',1)\"> Ver </a>"
 
-							// Si la comanda es para enviar se muestra el
-							// destino, si no la mesa.
-							if (idMesa == 0) {
-								contenidoComandasCerradas += "<li>" + idComanda
-										+ " - " + destino + " - "
-										+ nombreCamarero + " - " + precioTotal
-										+ " - " + estadoComanda + " - "
-										+ fechaComanda + funcionVer + "</li>";
-							} else {
-								contenidoComandasCerradas += "<li>" + idComanda
-										+ " - " + nombreMesa + " - "
-										+ nombreCamarero + " - " + precioTotal
-										+ " - " + estadoComanda + " - "
-										+ fechaComanda + funcionVer + "</li>";
-							}
-
+							contenidoComandasCerradas += generarContenidoComandaCerradaCocina(
+									idComanda, nombreCamarero, idMesa, destino,
+									nombreMesa, estadoComanda, precioTotal)
 						});
 
-		contenidoComandasCerradas += "</ul>";
 	}
 
 	// Vacio el div donde se muestra las comandas activas
@@ -1774,71 +1711,184 @@ function listaComandasActivas(data) {
 	var json = $.parseJSON(data);
 	var jsonComandas = json.comandasActivas;
 	var contenido = "";
-	$
-			.each(
-					jsonComandas,
-					function(key, value) {						
-						var idComanda = value.idComanda;
-						var estado = value.estado;
-						var precio = value.precio;
-						var nombreCamarero = value.camarero.nombre;
-						var idMesa = value.mesa.idMesa;
-						var destino = value.destino;
-						contenido += "<div class=\"col-md-12 list-div\">";
-						contenido += "<table class=\"table\">";
-						contenido += "<tbody>";
-						contenido += "<tr>";
-						contenido += "<td class=\"titulo\" colspan=\"3\">Comanda ";
-						contenido += idComanda;
-						if (estado == "EC") {
-							contenido += "<button class=\"btn btn-success btn-sm pull-right\" type=\"button\" ";
-							contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
-							contenido += "onclick=";
-							contenido += "doAjax('"
-									+ site_url
-									+ "/comandas/terminarComandaCocina','idComanda=";
-							contenido += idComanda
-									+ "','listaComandasCocina','post',1)\" ";
-							contenido += "title=\"Terminar comanda\">";
-							contenido += "<span class=\"glyphicon glyphicon-ok\"></span>";
-							contenido += "</button>";
-						}
-						contenido += "<button class=\"btn btn-default btn-sm pull-right\" type=\"button\" ";
-						contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
-						contenido += "onclick=\"";
-						contenido += "doAjax('" + site_url
-								+ "/comandas/verComandaCamarero','idComanda=";
-						contenido += idComanda
-								+ "','mostrarComandaRealizadaCocina','post',1)\"";
-						contenido += "title=\"Ver comanda\">";
-						contenido += "<span class=\"glyphicon glyphicon-eye-open\"></span>";
-						contenido += "</button>";
-						contenido += "</td>";
-						contenido += "</tr>";
-						contenido += "<tr>";
-						contenido += "<td>" + nombreCamarero;
-						contenido += "<i class=\"fa fa-user\"></i></td>";
-						contenido += "<td>"
-								+ precio
-								+ "<span class=\"glyphicon glyphicon-euro\"></span></td>";
-						contenido += "<td>";
-						if (idMesa == 0) {
-							contenido += destino;
-						} else {
-							var nombreMesa = value.mesa.nombre;
-							contenido += nombreMesa;
-						}
-						contenido += "<i class=\"fa fa-flag\"></i>";
-						contenido += "</td>";
-						contenido += "</tr>";
-						contenido += "</tbody>";
-						contenido += "</table>";
-						contenido += "</div>";
-					});
-	
+	$.each(jsonComandas, function(key, value) {
+		var idComanda = value.idComanda;
+		var estado = value.estado;
+		var precio = value.precio;
+		var nombreCamarero = value.camarero.nombre;
+		var idMesa = value.mesa.idMesa;
+		var destino = value.destino;
+		var nombreMesa = "";
+		if (idMesa != 0) {
+			nombreMesa = value.mesa.nombre;
+		}
+
+		contenido += generarContenidoComandaActivaCocina(idComanda,
+				nombreCamarero, idMesa, destino, nombreMesa, estado, precio);
+
+	});
+
 	// muestro el contenido
 	$('#listaComandasActivas').empty();
 	$('#listaComandasActivas').html(contenido);
+}
+
+function generarContenidoComandaActivaCocina(idComanda, nombreCamarero, idMesa,
+		destino, nombreMesa, estado, precio) {
+	var contenido = "";
+	contenido += "<div class=\"col-md-12 list-div\">";
+	contenido += "<table class=\"table\">";
+	contenido += "<tbody>";
+	contenido += "<tr>";
+	contenido += "<td class=\"titulo\" colspan=\"3\">Comanda ";
+	contenido += idComanda;
+	if (estado == "EC") {
+		contenido += "<button class=\"btn btn-success btn-sm pull-right\" type=\"button\" ";
+		contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+		contenido += "onclick=\"";
+		contenido += "doAjax('" + site_url
+				+ "/comandas/terminarComandaCocina','idComanda=";
+		contenido += idComanda + "','listaComandasCocina','post',1)\" ";
+		contenido += "title=\"Terminar comanda\">";
+		contenido += "<span class=\"glyphicon glyphicon-ok\"></span>";
+		contenido += "</button>";
+	}
+	contenido += "<button class=\"btn btn-default btn-sm pull-right\" type=\"button\" ";
+	contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+	contenido += "onclick=\"";
+	contenido += "doAjax('" + site_url
+			+ "/comandas/verComandaCamarero','idComanda=";
+	contenido += idComanda + "','mostrarComandaRealizadaCocina','post',1)\"";
+	contenido += "title=\"Ver comanda\">";
+	contenido += "<span class=\"glyphicon glyphicon-eye-open\"></span>";
+	contenido += "</button>";
+	contenido += "</td>";
+	contenido += "</tr>";
+	contenido += "<tr>";
+	contenido += "<td>" + nombreCamarero;
+	contenido += "<i class=\"fa fa-user\"></i></td>";
+	contenido += "<td>" + precio
+			+ "<span class=\"glyphicon glyphicon-euro\"></span></td>";
+	contenido += "<td>";
+	if (idMesa == 0) {
+		contenido += destino;
+		contenido += "<i class=\"fa fa-flag\" title=\"Destinatario\"></i>";
+	} else {
+		contenido += nombreMesa;
+		contenido += "<i class=\"fa fa-flag\" title=\"Mesa\"></i>";
+	}
+	contenido += "</td>";
+	contenido += "</tr>";
+	contenido += "</tbody>";
+	contenido += "</table>";
+	contenido += "</div>";
+
+	return contenido;
+}
+
+function generarContenidoComandaCerradaCocina(idComanda, nombreCamarero,
+		idMesa, destino, nombreMesa, estado, precio) {
+	var contenido = "";
+	contenido += "<div class=\"col-md-12 list-div\">";
+	contenido += "<table class=\"table\">";
+	contenido += "<tbody>";
+	contenido += "<tr>";
+	contenido += "<td class=\"titulo\" colspan=\"3\">Comanda ";
+	contenido += idComanda;
+	contenido += "<button class=\"btn btn-default btn-sm pull-right\" type=\"button\" ";
+	contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+	contenido += "onclick=\"";
+	contenido += "doAjax('" + site_url
+			+ "/comandas/verComandaCamarero','idComanda=";
+	contenido += idComanda + "','mostrarComandaRealizadaCocina','post',1)\"";
+	contenido += "title=\"Ver comanda\">";
+	contenido += "<span class=\"glyphicon glyphicon-eye-open\"></span>";
+	contenido += "</button>";
+	contenido += "</td>";
+	contenido += "</tr>";
+	contenido += "<tr>";
+	contenido += "<td>" + nombreCamarero;
+	contenido += "<i class=\"fa fa-user\"></i></td>";
+	contenido += "<td>" + precio
+			+ "<span class=\"glyphicon glyphicon-euro\"></span></td>";
+	contenido += "<td>";
+	if (idMesa == 0) {
+		contenido += destino;
+		contenido += "<i class=\"fa fa-flag\" title=\"Destinatario\"></i>";
+	} else {
+		contenido += nombreMesa;
+		contenido += "<i class=\"fa fa-flag\" title=\"Mesa\"></i>";
+	}
+	contenido += "</td>";
+	contenido += "</tr>";
+	contenido += "</tbody>";
+	contenido += "</table>";
+	contenido += "</div>";
+
+	return contenido;
+}
+
+function generarContenidoComandaActivaCamarero(idComanda, nombreCamarero,
+		idMesa, destino, nombreMesa, estado, precio) {
+	var contenido = "";
+	contenido += "<div class=\"col-md-12 list-div\">";
+	contenido += "<table class=\"table\">";
+	contenido += "<tbody>";
+	contenido += "<tr>";
+	contenido += "<td class=\"titulo\" colspan=\"3\">Comanda ";
+	contenido += idComanda;
+
+	contenido += "<button class=\"btn btn-danger btn-sm pull-right\" type=\"button\" ";
+	contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+	contenido += "onclick=\"";
+	contenido += "doAjax('" + site_url
+			+ "/comandas/cancelarComandaCamarero','idComanda=";
+	contenido += idComanda + "','listaComandas','post',1)\" ";
+	contenido += "title=\"Cancelar comanda\">";
+	contenido += "<span class=\"glyphicon glyphicon-remove\"></span>";
+	contenido += "</button>";
+	
+	contenido += "<button class=\"btn btn-warning btn-sm pull-right\" type=\"button\" ";
+	contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+	contenido += "onclick=\"";
+	contenido += "doAjax('" + site_url
+			+ "/comandas/cerrarComandaCamarero','idComanda=";
+	contenido += idComanda + "','listaComandas','post',1)\" ";
+	contenido += "title=\"Cancelar comanda\">";
+	contenido += "<span class=\"glyphicon glyphicon-edit\"></span>";
+	contenido += "</button>";		
+
+	contenido += "<button class=\"btn btn-default btn-sm pull-right\" type=\"button\" ";
+	contenido += "data-toggle=\"tooltip\" data-original-title=\"Remove this user\" ";
+	contenido += "onclick=\"";
+	contenido += "doAjax('" + site_url
+			+ "/comandas/verComandaCamarero','idComanda=";
+	contenido += idComanda + "','mostrarComandaRealizada','post',1)\"";
+	contenido += "title=\"Ver comanda\">";
+	contenido += "<span class=\"glyphicon glyphicon-eye-open\"></span>";
+	contenido += "</button>";
+	contenido += "</td>";
+	contenido += "</tr>";
+	contenido += "<tr>";
+	contenido += "<td>" + nombreCamarero;
+	contenido += "<i class=\"fa fa-user\"></i></td>";
+	contenido += "<td>" + precio
+			+ "<span class=\"glyphicon glyphicon-euro\"></span></td>";
+	contenido += "<td>";
+	if (idMesa == 0) {
+		contenido += destino;
+		contenido += "<i class=\"fa fa-flag\" title=\"Destinatario\"></i>";
+	} else {
+		contenido += nombreMesa;
+		contenido += "<i class=\"fa fa-flag\" title=\"Mesa\"></i>";
+	}
+	contenido += "</td>";
+	contenido += "</tr>";
+	contenido += "</tbody>";
+	contenido += "</table>";
+	contenido += "</div>";
+
+	return contenido;
 }
 
 $(document).ready(function() {

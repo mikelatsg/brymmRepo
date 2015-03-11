@@ -65,6 +65,27 @@ function estadosReserva(idEstado) {
 		textoEstado ="Anulada usuario";
 	}else if (idEstado =="RL"){
 		textoEstado ="Rechazada";
+	}else{
+		textoEstado =idEstado;
+	}	
+	
+	return textoEstado;
+}
+
+function estadosComanda(idEstado) {
+	
+	var textoEstado = "";
+
+	if (idEstado =="EC"){
+		textoEstado ="Enviado a cocina";
+	}else if (idEstado =="TC"){
+		textoEstado ="Terminado cocina";
+	}else if (idEstado =="CC"){
+		textoEstado ="Comanda cerrada";
+	}else if (idEstado =="CW"){
+		textoEstado ="Cancelada camarero";
+	}else{
+		textoEstado =idEstado;
 	}	
 	
 	return textoEstado;
