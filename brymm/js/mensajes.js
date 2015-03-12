@@ -5,11 +5,11 @@
  * @author Mikel
  */
 
-function mostrarMensaje(mensaje) {	
-	
-	$("#dialogMensaje").dialog({			
+function mostrarMensaje(mensaje) {
+
+	$("#dialogMensaje").dialog({
 		width : 600,
-		height : 140,
+		height : 150,
 		show : "fade",
 		hide : "fade",
 		resizable : "false",
@@ -17,12 +17,14 @@ function mostrarMensaje(mensaje) {
 			at : "right top",
 			of : window
 		}
-	});		
+	});
 
-	var contenido = "<div id=\"alertMensaje\" class=\"alert alert-success text-center\" role=\"alert\">";	
-	//contenido += "<strong>";
+	// var contenido = "<div id=\"alertMensaje\" class=\"alert alert-success
+	// text-center\" role=\"alert\">";
+	var contenido = "<div id=\"alertMensaje\" class=\"well\" role=\"alert\">";
+	// contenido += "<strong>";
 	contenido += mensaje;
-	//contenido += "</strong>";
+	// contenido += "</strong>";
 	contenido += "</div>";
 	contenido += "<div id=\"iconoMensaje\"><span id=\"imgInfoMensaje\" class=\"glyphicon glyphicon-info-sign\"></span></div>";
 

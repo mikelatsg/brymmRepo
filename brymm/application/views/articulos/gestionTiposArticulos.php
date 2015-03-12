@@ -1,4 +1,4 @@
-<div id="dialogModificarTipoArticulo" style="display: none">
+<div id="dialogModificarTipoArticulo" title="Modificar tipo articulo" style="display: none">
 	<form id="formModificarTipoArticulo">
 		<input type="hidden" name="idTipoArticuloLocal">
 		<div class="form-group">

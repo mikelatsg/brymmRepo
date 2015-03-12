@@ -1,5 +1,5 @@
 <!-- Formulario modal modificar articulo -->
-<div id="dialogModificarArticulo" style="display: none">
+<div id="dialogModificarArticulo" title="Modificar articulo" style="display: none">
 	<form id="formModificarArticulo">
 		<input type="hidden" name="idArticuloLocal" value="0">
 		<div class="form-group">
@@ -81,7 +81,7 @@
 </div>
 
 <!-- Formulario modal modificar ingrediente -->
-<div id="dialogModificarIngrediente" style="display: none">
+<div id="dialogModificarIngrediente" title="Modificar ingrediente" style="display: none">
 	<form id="formModificarIngrediente">
 		<div class="form-group">
 			<label for="nombreIngredienteMod" class="col-sm-4 control-label">Nombre</label>

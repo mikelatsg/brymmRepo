@@ -1,0 +1,35 @@
+.red {
+	color: #F78181;
+}
+
+.green {
+	color: #01DF01;
+}
+
+#itemUltimoLocal>.row {
+	margin-bottom: 5px;
+}
+
+#itemLocalServicios {
+	margin-top: 20px;
+}
+
+.itemLocal {
+	border: 2px solid grey;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+#itemUltimoLocal td {
+	border-top: 0px;
+	text-align: center;
+}
+
+#itemUltimoLocal h4 {
+	color: #424242;
+}
+
+#ultimosLocales{
+	color: grey;
+}
+

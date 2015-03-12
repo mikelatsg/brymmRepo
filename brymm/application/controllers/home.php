@@ -3,6 +3,11 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
+require_once APPPATH . '/libraries/local/localServicios.php';
+require_once APPPATH . '/libraries/local/tipoComida.php';
+require_once APPPATH . '/libraries/servicios/servicioLocal.php';
+require_once APPPATH . '/libraries/servicios/tipoServicio.php';
+
 class Home extends CI_Controller {
 
 	public function __construct() {
@@ -24,6 +29,9 @@ class Home extends CI_Controller {
 		//Se carga el modelo de servicios
 		$this->load->model('servicios/Servicios_model');
 
+		//Obtengo los ultimos locales que se han dado de alta
+		$var2['ultimosLocales'] = $this->Locales_model->obtenerUltimosLocalesObject();
+
 		//Se obtienen los servicios del local
 		$var['servicios'] = $this->Servicios_model->obtenerServicios()->result();
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery','js/bootstrap.min'
@@ -34,7 +42,7 @@ class Home extends CI_Controller {
 		$this->load->view('base/cabecera', $header);
 		$this->load->view('base/page_top');
 		$this->load->view('locales/buscadorLocales',$var);
-		$this->load->view('home');
+		$this->load->view('home',$var2);
 		$this->load->view('base/page_bottom');
 	}
 

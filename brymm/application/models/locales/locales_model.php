@@ -571,4 +571,20 @@ class Locales_model extends CI_Model {
 		(26, $idLocal,  $idDiaCierreLocal);
 	}
 
+	
+	function obtenerUltimosLocalesObject() {
+		// Consulta en la tabla usuarios con el nick
+		$sql = "SELECT l.* FROM locales l
+				ORDER BY l.id_local
+				LIMIT 0,?";
+		$result = $this->db->query($sql, array(10))->result();
+	
+		$locales = array();
+		
+		foreach ($result as $row){
+			$locales[] = LocalServicios::withID($row->id_local);
+		}
+		
+		return $locales;
+	}
 }

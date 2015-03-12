@@ -1,5 +1,5 @@
 <!-- Formulario modal modificar servicios -->
-<div id="dialogModificarServicios" style="display: none">
+<div id="dialogModificarServicios" title="Modificar servicio" style="display: none">
 	<form id="formModificarServicioLocal" class="form-horizontal">
 		<input type="hidden" name="idServicioLocal" value="0">
 		<div class="form-group">

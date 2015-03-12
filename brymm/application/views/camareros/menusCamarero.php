@@ -6,7 +6,7 @@
 	}?>">
 	<div id="menusCamareroPanel" class="panel panel-default">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title">Menus</h4>
+			<h4 class="panel-title"><i class="fa fa-cutlery"></i> Menus</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-12">
@@ -14,7 +14,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#menusCamarero"
-								class="accordion-toggle collapsed">Menu</a>
+								class="accordion-toggle collapsed"><i class="fa fa-cutlery"></i> Menu</a>
 						</h4>
 					</div>
 					<div id="menusCamarero" class="panel-body collapse sub-panel">
@@ -177,7 +177,7 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#cartaCamarero"
-								class="accordion-toggle collapsed">Carta</a>
+								class="accordion-toggle collapsed"><i class="fa fa-file-text"></i> Carta</a>
 						</h4>
 					</div>
 					<div id="cartaCamarero" class="panel-body collapse sub-panel">

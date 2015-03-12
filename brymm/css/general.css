@@ -278,11 +278,12 @@ body a {
 }
 
 .ui-dialog {
-	border: 1px solid #66afe9;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px
-		rgba(102, 175, 233, 0.6);
-	margin: 15px;
+	border: 1px solid grey;
+	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px
+		rgba(102, 175, 233, 0.6);*/
+	box-shadow: 0 1px 1px #E6E6E6 inset, 0 0 8px #848484; margin : 15px;
 	padding-bottom: 25px;
+	margin: 15px;
 }
 
 #alertMensaje {
@@ -291,6 +292,7 @@ body a {
 	margin-left: 15px;
 	margin-top: 15px;
 	width: 90%;
+	color: grey;
 	/*left: 25px;*/
 	/*top: 25px;*/
 }
@@ -301,5 +303,10 @@ body a {
 	left: 1px;
 	top: 1px;
 	font-size: 40px;
-	color: #F5A9A9;
+	color: #FA5858;
+	/*color: #F5A9A9;*/
+}
+
+.small-title {
+	font-size: 12px;
 }
