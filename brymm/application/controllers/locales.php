@@ -97,27 +97,16 @@ class Locales extends CI_Controller {
 
 			$msg = "Login Ok!";
 			$this->Sesiones_model->iniciarSesionLocal($lineaLocal->id_local);
-			$vistaCargar = 'locales/panelControl';
+			//$vistaCargar = 'locales/panelControl';
+			
+			redirect('locales/panelControl', 'location');
+			
 		}
 
-		/*$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
-		 $header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css','general.css');*/
-
-		//Se añaden los archivos js utilizados
-		$header['javascript'] = array('miajaxlib', 'jquery/jquery'
-				, 'jquery/jquery-ui-1.10.3.custom', 'jquery/jquery-ui-1.10.3.custom.min'
-				,  'mensajes',
-				'js/bootstrap.min','general'
-		);
-
-		$header['estilos'] = array('buscador.css','general.css', 'locales.css'
-				,'menus.css'
-		);
-
-		$this->load->view('base/cabecera', $header);
-		$this->load->view('base/page_top', $msg);
-		$this->load->view($vistaCargar);
-		$this->load->view('base/page_bottom');
+		$this->load->library('session');
+		$this->session->set_flashdata('msg', $msg);
+		
+		redirect('home', 'location');
 	}
 
 	public function datosLocal() {

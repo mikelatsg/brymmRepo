@@ -15,12 +15,11 @@
 						<div>
 							<ul class="nav nav-tabs">
 								<li><a href="<?php echo site_url();?>/usuarios/home"><i
-										class="fa fa-home"> </i> Home</a>
-								</li>
+										class="fa fa-home"> </i> Home</a></li>
 								<li class="navbar-tab navbar-right"><a class="dropdown-toggle"
 									href="#" data-toggle="dropdown" id="navUsuario"><i
 										class="fa fa-user"></i> <?php echo $_SESSION['nick'];?> </a>
-									<div class="dropdown-menu menuUsuario">										
+									<div class="dropdown-menu menuUsuario">
 										<div class="col-md-12">
 											<a href="<?php echo site_url();?>/usuarios/perfil"><i
 												class="fa fa-user"> </i> Perfil</a>
@@ -29,8 +28,7 @@
 											<a href="<?php echo site_url();?>/usuarios/logout"><i
 												class="fa fa-sign-out"> </i> Salir</a>
 										</div>
-									</div>
-								</li>
+									</div></li>
 							</ul>
 						</div>
 				
@@ -87,8 +85,7 @@
 											<a href="<?php echo site_url();?>/usuarios/alta">Nuevo
 												usuario</a>
 										</div>
-									</div>
-								</li>
+									</div></li>
 								<li class="dropdown" id="menuLoginLocal"><a
 									class="dropdown-toggle" href="#" data-toggle="dropdown"
 									id="navLoginLocal"><i class="fa fa-home"></i> Local</a>
@@ -120,7 +117,8 @@
 										<div class="col-md-12">
 											<a href="<?php echo site_url();?>/locales/alta">Nuevo local</a>
 										</div>
-									</div></li>
+									</div>
+								</li>
 								<li class="dropdown" id="menuLoginLocal"><a
 									class="dropdown-toggle" href="#" data-toggle="dropdown"
 									id="navLoginLocal"><i class="fa fa-user"></i> Camarero</a>
@@ -157,7 +155,8 @@
 												</button>
 											</form>
 										</div>
-									</div></li>
+									</div>
+								</li>
 
 							</ul>
 						</div>
@@ -181,7 +180,7 @@
 
 			<!-- Cabecera -->
 			<div id="cabecera">
-				<div id="dialogMensaje" title="Mensaje" style="display: none"></div>				
+				<div id="dialogMensaje" title="Mensaje" style="display: none"></div>
 			</div>
 			<!-- Fin Cabecera -->
 

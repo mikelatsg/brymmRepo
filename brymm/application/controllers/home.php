@@ -20,6 +20,9 @@ class Home extends CI_Controller {
 
 	public function index() {
 
+		$this->load->library('session');
+		$varTop['msg'] = $this->session->flashdata('msg');
+		
 		//Se carga el modelo de locales
 		$this->load->model('locales/Locales_model');
 
@@ -35,12 +38,14 @@ class Home extends CI_Controller {
 		//Se obtienen los servicios del local
 		$var['servicios'] = $this->Servicios_model->obtenerServicios()->result();
 		$header['javascript'] = array('miajaxlib', 'jquery/jquery','js/bootstrap.min'
-				, 'home','jquery/jquery-ui-1.10.3.custom.min','jquerySlider/jquery.bxslider.min');
+				, 'home','jquery/jquery-ui-1.10.3.custom.min','jquerySlider/jquery.bxslider.min',
+				'mensajes'
+		);
 		$header['estilos'] = array('bootstrap-3.2.0-dist/css/bootstrap.min.css',
 				'buscador.css','general.css', 'home.css', 'jquerySlider/jquery.bxslider.css');
 
 		$this->load->view('base/cabecera', $header);
-		$this->load->view('base/page_top');
+		$this->load->view('base/page_top',$varTop);
 		$this->load->view('locales/buscadorLocales',$var);
 		$this->load->view('home',$var2);
 		$this->load->view('base/page_bottom');

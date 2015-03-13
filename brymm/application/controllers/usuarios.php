@@ -110,7 +110,9 @@ class Usuarios extends CI_Controller {
 
 			redirect('usuarios/home', 'location');
 		}
-
+		
+		$this->session->set_flashdata('msg', $msg);
+		
 		redirect('home', 'location');
 	}
 

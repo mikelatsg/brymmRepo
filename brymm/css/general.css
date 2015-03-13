@@ -205,16 +205,16 @@
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white),
 		to(black));
 	/* Safari 5.1+, Chrome 10+ */
-	background: -webkit-radial-gradient(ellipse, #BFE1BE, #90A48F);
+	background: -webkit-radial-gradient(ellipse, #A4A4A4, #F5A9A9);
 	/* Firefox 3.6+ */
-	background: -moz-radial-gradient(ellipse, #C5DCC5, #C5DCC5);
+	background: -moz-radial-gradient(ellipse, #A4A4A4, #F5A9A9);
 	/* Opera 11.10+ */
-	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
+	background: -o-radial-background(ellipse, #A4A4A4, #F5A9A9);
 	/* IE 10 */
-	background: -ms-radial-background(ellipse, #BFE1BE, #90A48F);
+	background: -ms-radial-background(ellipse, #A4A4A4, #F5A9A9);
 	/* estándar */
-	background: radial-background(ellipse, #BFE1BE, #90A48F);
-	background: -o-radial-background(ellipse, #BFE1BE, #90A48F);
+	background: radial-background(ellipse, #A4A4A4, #F5A9A9);
+	background: -o-radial-background(ellipse, #A4A4A4, #F5A9A9);
 }
 
 .color {
@@ -281,9 +281,11 @@ body a {
 	border: 1px solid grey;
 	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px
 		rgba(102, 175, 233, 0.6);*/
-	box-shadow: 0 1px 1px #E6E6E6 inset, 0 0 8px #848484; margin : 15px;
-	padding-bottom: 25px;
+	box-shadow: 0 1px 1px #E6E6E6 inset, 0 0 8px #848484;
 	margin: 15px;
+	padding-bottom: 25px;
+	margin: 15px;	
+	padding:15px;
 }
 
 #alertMensaje {
@@ -291,7 +293,7 @@ body a {
 	position: absolute;
 	margin-left: 15px;
 	margin-top: 15px;
-	width: 90%;
+	width: 85%;
 	color: grey;
 	/*left: 25px;*/
 	/*top: 25px;*/

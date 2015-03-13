@@ -11,9 +11,9 @@ $(document)
 										slideMargin : 10,
 										nextText : '<img src="'
 												+ base_url
-												+ 'img/circle_next_arrow_disclosure_-32.png"></img>',
+												+ 'img/arrow-right-01-32.png"></img>',
 										prevText : '<img src="'
 												+ base_url
-												+ 'img/circle_back_arrow_-32.png"></img>'
+												+ 'img/arrow-left-01-32.png"></img>'
 									});
 				});

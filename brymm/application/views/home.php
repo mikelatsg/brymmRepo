@@ -1,3 +1,8 @@
+<?php if ($msg!=''):?>
+<script type="text/javascript">
+mostrarMensaje('<?php echo $msg?>');
+</script>
+<?php endif;?>
 <div>
 	<div id="ultimosLocales" class="panel panel-default">
 		<div class="panel-heading panel-verde">

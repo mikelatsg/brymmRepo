@@ -1,6 +1,11 @@
 <!-- Formulario modal modificar camareros -->
+<script type="text/javascript">
+sesionControlTotal = '<?php echo $_SESSION['controlTotal'];?>';
+</script>
+
 <div>
-	<div id="dialogModificarCamareros" title="Modificar camarero" style="display: none">
+	<div id="dialogModificarCamareros" title="Modificar camarero"
+		style="display: none">
 		<div id="modificarCamarero">
 			<form id="formModificarCamarero" class="form-horizontal">
 				<input type="hidden" name="idCamarero">
@@ -42,16 +47,20 @@
 	</div>
 	<div id="camarerosLocal" class="panel panel-default col-md-12">
 		<div class="panel-heading panel-verde">
-			<h4 class="panel-title"><i class="fa fa-user"></i> Camareros</h4>
+			<h4 class="panel-title">
+				<i class="fa fa-user"></i> Camareros
+			</h4>
 		</div>
 		<div class="panel-body panel-verde">
 			<div class="col-md-4">
 				<div id="sesionCamareroPanel" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-verde">
-						<h4 class="panel-title"><i class="fa fa-sign-in"></i> Sesion camarero</h4>
+						<h4 class="panel-title">
+							<i class="fa fa-sign-in"></i> Sesion camarero
+						</h4>
 					</div>
 					<div id="sesionCamarero" class="panel-body sub-panel">
-						<?php
+						<strong> <?php
 						if (isset($_SESSION['idCamarero'])) {
         echo $camareroSesion->nombre;
         /* echo "<a onclick=\"";
@@ -61,13 +70,15 @@
         echo "No hay ningún camarero activo";
     }
     ?>
+						</strong>
 					</div>
 				</div>
 				<div id="altaCamarerosPanel" class="panel panel-default sub-panel">
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#altaCamarero"
-								class="accordion-toggle collapsed"><i class="fa fa-plus"></i> Nuevo camarero </a>
+								class="accordion-toggle collapsed"><i class="fa fa-plus"></i>
+								Nuevo camarero </a>
 						</h4>
 					</div>
 					<div id="altaCamarero" class="panel-body collapse sub-panel">
@@ -118,7 +129,8 @@
 								?>
 								disabled="true" <?php
 								endif;
-								?>>
+								?>
+								title="Nuevo camarero">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</span>
@@ -130,75 +142,78 @@
 					<div class="panel-heading panel-verde">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="#listaCamarerors"
-								class="accordion-toggle collapsed"><i class="fa fa-group"></i> Lista de camareros </a>
+								class="accordion-toggle collapsed"><i class="fa fa-group"></i>
+								Lista de camareros </a>
 						</h4>
 					</div>
 					<div id="listaCamarerors" class="panel-body collapse sub-panel">
-						<ul>
-							<?php foreach ($camarerosLocal as $camarero): ?>
-							<div class="well col-md-6">
-								<div class="span6">
-									<table
-										class="table table-condensed table-responsive table-user-information">
-										<tbody>
-											<tr>
-												<td class="titulo">Nombre camarero</td>
-												<td><?php echo $camarero->nombre;?>
-												</td>
-											</tr>
-											<tr>
-												<td class="titulo">Control total</td>
-												<td><?php 
-												if ($camarero->control_total == 1){
+						<?php foreach ($camarerosLocal as $camarero): ?>
+						<div class="well col-md-6">
+							<div class="span6">
+								<table
+									class="table table-condensed table-responsive table-user-information">
+									<tbody>
+										<tr>
+											<td class="titulo">Nombre camarero</td>
+											<td><?php echo $camarero->nombre;?>
+											</td>
+										</tr>
+										<tr>
+											<td class="titulo">Control total</td>
+											<td><?php 
+											if ($camarero->control_total == 1){
 												echo "Si";
 											}else{
 												echo "No";
 											}
 											?>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									<!-- 
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<!-- 
                 Si no tiene control total no se permite borrar ni iniciar sesiones
                 -->
-									<?php
-									if ($_SESSION['controlTotal']):
-									?>
-									<span class="pull-right">
-										<button class="btn btn-success" type="button"
-											data-toggle="tooltip" data-original-title="Edit this user"
-											onclick="<?php
+								<?php
+								if ($_SESSION['controlTotal']):
+								?>
+								<span class="pull-right">
+									<button class="btn btn-success btn-sm" type="button"
+										data-toggle="tooltip" data-original-title="Edit this user"
+										onclick="<?php
                     echo "doAjax('" . site_url() . "/camareros/iniciarSesionCamarero','idCamarero="
                     . $camarero->id_camarero . "','sesionCamarero','post',1)";
-                    ?>">
-											<span class="glyphicon glyphicon-log-in"></span>
-										</button>
-										<button class="btn btn-warning" type="button"
-											data-toggle="tooltip" data-original-title="Edit this user"
-											onclick="mostrarVentanaModificarCamarero(
+                    ?>"
+                    title="Iniciar sesion camarero">
+										<span class="glyphicon glyphicon-log-in"></span>
+									</button>
+									<button class="btn btn-warning btn-sm" type="button"
+										data-toggle="tooltip" data-original-title="Edit this user"
+										onclick="mostrarVentanaModificarCamarero(
                        '<?php echo trim($camarero->id_camarero); ?>',
                        '<?php echo trim($camarero->nombre); ?>',
-                       '<?php echo trim($camarero->control_total); ?>')">
-											<span class="glyphicon glyphicon-edit"></span>
-										</button>
-										<button class="btn btn-danger" type="button"
-											data-toggle="tooltip" data-original-title="Edit this user"
-											onclick="<?php
+                       '<?php echo trim($camarero->control_total); ?>')"
+                       title="Modificar camarero">
+										<span class="glyphicon glyphicon-edit"></span>
+									</button>
+									<button class="btn btn-danger btn-sm" type="button"
+										data-toggle="tooltip" data-original-title="Edit this user"
+										onclick="<?php
                     echo "doAjax('" . site_url() . "/camareros/borrarCamarero','idCamarero="
                     . $camarero->id_camarero . "','listaCamareros','post',1)";
-                    ?>">
-											<span class="glyphicon glyphicon-remove"></span>
-										</button>
-									</span>
-									<?php endif;?>
-								</div>
+                    ?>"
+                    title="Eliminar camarero">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</span>
+								<?php endif;?>
 							</div>
+						</div>
 
-							<?php
-							endforeach;
-							?>
-					
+						<?php
+						endforeach;
+						?>
+
 					</div>
 				</div>
 			</div>

@@ -24,8 +24,9 @@
 	href="css/jqueryui/jquery-ui-1.10.3.custom.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="css/bootstrap-3.2.0-dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-	
+<link rel="stylesheet"
+	href="assets/font-awesome/css/font-awesome.min.css">
+
 <?php
 if (isset($estilos)) {
                                                           foreach ($estilos as $estilo) {

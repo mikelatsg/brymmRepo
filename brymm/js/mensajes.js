@@ -8,8 +8,8 @@
 function mostrarMensaje(mensaje) {
 
 	$("#dialogMensaje").dialog({
-		width : 600,
-		height : 150,
+		width : 400,
+		height : 250,
 		show : "fade",
 		hide : "fade",
 		resizable : "false",
@@ -35,6 +35,7 @@ function mostrarMensaje(mensaje) {
 	setTimeout(function() {
 		$("#dialogMensaje").dialog("close")
 	}, 5000);
+
 }
 
 function mostrarMensajeXml(item) {

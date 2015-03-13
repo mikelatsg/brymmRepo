@@ -12,21 +12,78 @@ function listaCamareros(item) {
 	var enlaceModificar = "";
 	var enlaceIniciarSesion = "";
 	var contenido = "";
-	var contador = 0;
+	var contador = 0;	
 	$(item)
 			.find('xml')
 			.children('camareroLocal')
 			.each(
 					function() {
-						if (contador == 0) {
-							contenido = contenido + "<ul>";
-						}
 
 						// Se obtienen los valores del xml
 						nombre = $.trim($(this).find('nombre').text());
 						idCamarero = $.trim($(this).find('id_camarero').text());
 						controlTotal = $.trim($(this).find('control_total')
 								.text());
+
+						contenido += "<div class=\"well col-md-6\">";
+						contenido += "<div class=\"span6\">";
+						contenido += "<table class=\"table table-condensed table-responsive table-user-information\">";
+						contenido += "<tbody>";
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\">Nombre camarero</td>";
+						contenido += "<td>" + nombre;
+						contenido += "</td>";
+						contenido += "</tr>";
+						contenido += "<tr>";
+						contenido += "<td class=\"titulo\">Control total</td>";
+						contenido += "<td>";
+						if (controlTotal == 1) {
+							contenido += "Si";
+						} else {
+							contenido += "No";
+						}
+
+						contenido += "</td>";
+						contenido += "</tr>";
+						contenido += "</tbody>";
+						contenido += "</table>";
+						if (sesionControlTotal == 1) {
+							contenido += "<span class=\"pull-right\">";
+							contenido += "<button class=\"btn btn-success btn-sm\" type=\"button\" ";
+							contenido += "data-toggle=\"tooltip\" data-original-title=\"Edit this user\" ";
+							contenido += "onclick=\" ";
+							contenido += "doAjax('"
+									+ site_url
+									+ "/camareros/iniciarSesionCamarero','idCamarero=";
+							contenido += idCamarero
+									+ "','sesionCamarero','post',1)\" " +
+											"title=\"Iniciar sesion camarero\">";
+							contenido += "<span class=\"glyphicon glyphicon-log-in\"></span>";
+							contenido += "</button> ";
+							contenido += "<button class=\"btn btn-warning btn-sm\" type=\"button\" ";
+							contenido += "data-toggle=\"tooltip\" data-original-title=\"Edit this user\" ";
+							contenido += "onclick=\"mostrarVentanaModificarCamarero(";
+							contenido += "'" + idCamarero + "',";
+							contenido += "'" + nombre + "',";
+							contenido += "'" + controlTotal + "')\"" +
+									"title=\"Modificar camarero\">";
+							contenido += "<span class=\"glyphicon glyphicon-edit\"></span>";
+							contenido += "</button> ";
+							contenido += "<button class=\"btn btn-danger btn-sm\" type=\"button\" ";
+							contenido += "data-toggle=\"tooltip\" data-original-title=\"Edit this user\" ";
+							contenido += "onclick=\"";
+							contenido += "doAjax('" + site_url
+									+ "/camareros/borrarCamarero','idCamarero=";
+							contenido += idCamarero
+									+ "','listaCamareros','post',1)\" " +
+											"title=\"Eliminar camarero\">";
+							contenido += "<span class=\"glyphicon glyphicon-remove\"></span>";
+							contenido += "</button> ";
+							contenido += "</span>";
+						}
+						contenido += "</div>";
+						contenido += "</div>";
+
 						// Se crea el enlace para poder borrar los platos del
 						// local
 						enlaceBorrar = "<a onclick=\"doAjax('" + site_url
@@ -50,16 +107,13 @@ function listaCamareros(item) {
 								+ "','sesionCamarero','post',1)\"> Iniciar sesion</a>";
 
 						// Se genera el contenido de cada articulo
-						contenido = contenido + "<li>";
-						contenido = contenido + nombre + " - " + controlTotal
-								+ " - " + enlaceBorrar + enlaceIniciarSesion
-								+ enlaceModificar;
-						contenido = contenido + "</li>";
-						contador++;
+						/*
+						 * contenido = contenido + "<li>"; contenido =
+						 * contenido + nombre + " - " + controlTotal + " - " +
+						 * enlaceBorrar + enlaceIniciarSesion + enlaceModificar;
+						 * contenido = contenido + "</li>"; contador++;
+						 */
 					});
-	if (contador > 0) {
-		contenido = contenido + "</ul>";
-	}
 
 	// Se vacia la lista para rellenar con el contenido
 	$("#listaCamarerors").empty();
@@ -83,7 +137,7 @@ function sesionCamarero(item) {
 	// Se obtienen los valores del xml
 	idCamarero = $.trim($(item).find('id_camarero').text());
 	if (idCamarero == "") {
-		contenido = "No hay ningún camarero activo";
+		contenido = "<strong>No hay ningún camarero activo</strong>";
 	} else {
 		/*
 		 * var enlaceCerrarSession = "<a onclick=\"doAjax('" + site_url +
@@ -91,7 +145,7 @@ function sesionCamarero(item) {
 		 * Cerrar sesion </a>";
 		 */
 		nombre = $.trim($(item).find('nombre').text());
-		contenido = nombre;
+		contenido = "<strong>" + nombre + "</strong>";
 	}
 
 	// Se vacia la lista para rellenar con el contenido
@@ -161,7 +215,7 @@ function mostrarVentanaModificarCamarero(idCamarero, nombre, controlTotal) {
 function ocultarPlatosMenu() {
 	$('div[id^="platosMenu_"]').hide();
 	$('h3[id^="tituloMenu_"]').hide();
-	//Pongo las cantidades de todos los platos a 0
+	// Pongo las cantidades de todos los platos a 0
 	$('select[name^="platoCantidad_"]').val(0);
 }
 
@@ -172,22 +226,22 @@ function mostrarMenuSeleccionado() {
 }
 
 /*
- * Activa o desactiva los inputs dependiendo si la comanda es para llevar
- * o para el local
+ * Activa o desactiva los inputs dependiendo si la comanda es para llevar o para
+ * el local
  */
-function gestionDestinoComanda(){
-	if ($('#comandaParaLlevar').is(':checked')){
-		$('#idMesaLocal').prop("disabled",true);
-		$('#aNombre').prop("disabled",false);
+function gestionDestinoComanda() {
+	if ($('#comandaParaLlevar').is(':checked')) {
+		$('#idMesaLocal').prop("disabled", true);
+		$('#aNombre').prop("disabled", false);
 	}
-	
-	if ($('#comandaLocal').is(':checked')){
-		$('#idMesaLocal').prop("disabled",false);
-		$('#aNombre').prop("disabled",true);
+
+	if ($('#comandaLocal').is(':checked')) {
+		$('#idMesaLocal').prop("disabled", false);
+		$('#aNombre').prop("disabled", true);
 	}
 }
 
-function gestionMenuSeleccionado(){
+function gestionMenuSeleccionado() {
 	ocultarPlatosMenu();
 	mostrarMenuSeleccionado();
 }

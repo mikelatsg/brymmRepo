@@ -1,9 +1,9 @@
 .red {
-	color: #F78181;
+	color: #9E0707;
 }
 
 .green {
-	color: #01DF01;
+	color: #058137;
 }
 
 #itemUltimoLocal>.row {
@@ -18,6 +18,7 @@
 	border: 2px solid grey;
 	border-radius: 5px;
 	margin-bottom: 10px;
+	background-color: #F2F2F2;
 }
 
 #itemUltimoLocal td {
@@ -26,10 +27,10 @@
 }
 
 #itemUltimoLocal h4 {
-	color: #424242;
+	color: #424242;	
 }
 
-#ultimosLocales{
+#ultimosLocales {
 	color: grey;
+	
 }
-

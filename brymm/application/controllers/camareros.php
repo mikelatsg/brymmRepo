@@ -41,7 +41,7 @@ class Camareros extends CI_Controller {
 
 		$servicios = $this->Servicios_model->obtenerServiciosLocalObject($_SESSION['idLocal']);
 
-		$comandasActivas = false;		
+		$comandasActivas = false;
 		$menusActivos = false;
 		foreach ($servicios as $servicio){
 			/*Comandas*/
@@ -49,7 +49,7 @@ class Camareros extends CI_Controller {
 				if ($servicio->activo){
 					$comandasActivas = true;
 				}
-			}		
+			}
 			/*Menus*/
 			if ($servicio->tipoServicio->idTipoServicio == 4){
 				if ($servicio->activo){
@@ -58,8 +58,8 @@ class Camareros extends CI_Controller {
 			}
 		}
 
-		//Se comprueban los pedidos		
-		if ($comandasActivas) {			
+		//Se comprueban los pedidos
+		if ($comandasActivas) {
 			//Se carga el modelo de articulos
 			$this->load->model('articulos/Articulos_model');
 			//Se obtienen los articulos del local
@@ -98,8 +98,8 @@ class Camareros extends CI_Controller {
 		$var4['mesasLocal'] =
 		$this->Reservas_model->obtenerMesasLocal($_SESSION['idLocal'])->result();
 
-		//Se comprueban los menus		
-		if ($menusActivos) {			
+		//Se comprueban los menus
+		if ($menusActivos) {
 			//Se carga el modelo de menus
 			$this->load->model('menus/Menus_model');
 
@@ -141,7 +141,7 @@ class Camareros extends CI_Controller {
 		if ($comandasActivas) {
 			$this->load->view('camareros/mostrarComanda', $var4);
 			$this->load->view('camareros/articulosCamarero', $var2);
-			$var3['hayPedido'] = true;				
+			$var3['hayPedido'] = true;
 			if ($menusActivos) {
 				$this->load->view('camareros/menusCamarero', $var3);
 			}
@@ -264,9 +264,11 @@ class Camareros extends CI_Controller {
 	private function listaCamareros($mensaje = '') {
 		//Se obtienen los camareros activos del local
 		$camarerosLocal = $this->Camareros_model->obtenerCamarerosLocal
-		($_SESSION['idLocal'], 1)->result();
+		($_SESSION['idLocal'], 1)->result();							
 
-		$params = array('etiqueta' => 'camareroLocal', 'mensaje' => $mensaje);
+		$params = array('etiqueta' => 'camareroLocal', 'mensaje' => $mensaje,
+				'controlTotal' => 1
+		);
 		$this->load->library('objectandxml', $params);
 		$var['xml'] = $this->objectandxml->objToXML($camarerosLocal);
 
@@ -293,14 +295,14 @@ class Camareros extends CI_Controller {
 			($result->row()->id_camarero
 					, $result->row()->id_local
 					, $result->row()->control_total);
-			$vistaCargar = 'locales/panelControl';
+			
+			redirect('camareros/camarerosLocal', 'location');
 		}
 
-		$header['javascript'] = array('miajaxlib', 'jquery/jquery', 'horarios');
-		$this->load->view('base/cabecera', $header);
-		$this->load->view('base/page_top', $msg);
-		$this->load->view($vistaCargar);
-		$this->load->view('base/page_bottom');
+		$this->load->library('session');
+		$this->session->set_flashdata('msg', $msg);
+		
+		redirect('home', 'location');
 	}
 
 	public function iniciarSesionCamarero() {
